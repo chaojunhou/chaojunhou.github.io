@@ -106,19 +106,7 @@
         </div>
       </div>
     </div>
-    <script>
-  (function() {
-    var cx = '010908470921702710383:oiblcmt-fda';
-    var gcse = document.createElement('script');
-    gcse.type = 'text/javascript';
-    gcse.async = true;
-    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
-        '//cse.google.com/cse.js?cx=' + cx;
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(gcse, s);
-  })();
-</script>
-<gcse:search></gcse:search>
+   
 
     <div class="container">
       <div class="row">
@@ -327,27 +315,22 @@
  <img src="/images/fsm.png" width = "550" height = "=283" alt="FSM" align=center /></p>
 <ul>
 <li>Connection establishment Timer(​连接建立定时器)<ul>
-<li>为了防止client端一直等待服务器端的情况发生。在Client发送SYN报文段建立新的链接时，该定时器启动，如果在75s内没有收到响应，连接建立将会终止。</li>
+<li>为了防止client端一直等待服务器端的情况发生。 在Client发送SYN报文段建立新的链接时，该定时器启动，如果在75s内没有收到响应，连接建立将会终止。确定连接的有效建立。</li>
 </ul>
 </li>
 <li>Retransmission Timer(重传定时器)<ul>
-<li>定时器在TCP发送数据时设定。如果该定时器超时，而没有收到另外一端的ACK的时候，将重传数据。重传定时器的值是动态计算的，取决于该连接RTT的值和被重传的次数。</li>
+<li>重传定时器在TCP发送数据时设定。在该定时器超时，而没有收到另外一端的ACK的时候，将重传数据。重传定时器的值是动态计算的，取决于该连接RTT的值和被重传的次数。</li>
 </ul>
 </li>
-<li>Delayed ACK Timer(延迟ACK定时器)<ul>
-<li>定时器在200ms</li>
+<li>Delayed ACK Timer(延迟ACK定时器)定时器在200ms<ul>
+<li>延迟ACK定时器负责在该终端（end）收到一个数据包时，无需马上发出ACK进行确认，而是等待200ms内，有数据要在该连接上发送，延迟的ACK响应就可随着数据一起发送回另一个终端。这种方式也被成为捎带确认。</li>
 </ul>
 </li>
-<li>Persist Timer（60s）<ul>
-<li>ZERO Window Probe(Sender)</li>
+<li>Persist Timer（持续定时器）<ul>
+<li>持续定时器在收到连接另一端的发送通告窗口为零时，阻止该端继续发送数据时设定。因此当该端有数据要发送时， 但连接的另一端的通告窗口为零时，持续定时器就会启动，超时后向连接另一端发送1字节的数据，来判断另一方的接收窗口是否打开。被称为零窗口探测。持续定时器的值是动态计算的，取决于往返时间，时间在5s到60s之间取值。</li>
 </ul>
 </li>
-<li>Keep alive Timer（2 hour）<ul>
-<li>Server reset the timer once receive the packet</li>
-</ul>
-</li>
-<li>FIN_WAIT_2 Timer(10m, 75s)</li>
-<li>TIME_WAIT ...</li></ul>
+<li>Keep alive ...</li></ul>
                 <a class="btn btn-small" href="../blog/2014/01/02/timer/">more ...</a>
             </div>
         </div>
@@ -415,9 +398,9 @@
 </li>
 
 <li class="nav-header"><a href="../tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
-    <li class="tag-2">
-        <a href="../tag/shu-ju-jie-gou.html">
-            <i class="icon-tag icon-large"></i>数据结构
+    <li class="tag-4">
+        <a href="../tag/sql.html">
+            <i class="icon-tag icon-large"></i>SQL
         </a>
     </li>
     <li class="tag-4">
@@ -426,28 +409,13 @@
         </a>
     </li>
     <li class="tag-4">
-        <a href="../tag/zheng-ze-biao-da-shi.html">
-            <i class="icon-tag icon-large"></i>正则表达式
-        </a>
-    </li>
-    <li class="tag-3">
-        <a href="../tag/tcp.html">
-            <i class="icon-tag icon-large"></i>TCP
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../tag/duo-xian-cheng.html">
-            <i class="icon-tag icon-large"></i>多线程
-        </a>
-    </li>
-    <li class="tag-4">
         <a href="../tag/shell.html">
             <i class="icon-tag icon-large"></i>SHELL
         </a>
     </li>
-    <li class="tag-1">
-        <a href="../tag/suan-fa.html">
-            <i class="icon-tag icon-large"></i>算法
+    <li class="tag-4">
+        <a href="../tag/yong-sai-kong-zhi.html">
+            <i class="icon-tag icon-large"></i>拥塞控制
         </a>
     </li>
     <li class="tag-4">
@@ -461,23 +429,38 @@
         </a>
     </li>
     <li class="tag-4">
-        <a href="../tag/yong-sai-kong-zhi.html">
-            <i class="icon-tag icon-large"></i>拥塞控制
+        <a href="../tag/duo-xian-cheng.html">
+            <i class="icon-tag icon-large"></i>多线程
+        </a>
+    </li>
+    <li class="tag-2">
+        <a href="../tag/shu-ju-jie-gou.html">
+            <i class="icon-tag icon-large"></i>数据结构
         </a>
     </li>
     <li class="tag-4">
-        <a href="../tag/gong-ju.html">
-            <i class="icon-tag icon-large"></i>工具
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../tag/sql.html">
-            <i class="icon-tag icon-large"></i>SQL
+        <a href="../tag/zheng-ze-biao-da-shi.html">
+            <i class="icon-tag icon-large"></i>正则表达式
         </a>
     </li>
     <li class="tag-4">
         <a href="../tag/pa-chong.html">
             <i class="icon-tag icon-large"></i>爬虫
+        </a>
+    </li>
+    <li class="tag-1">
+        <a href="../tag/suan-fa.html">
+            <i class="icon-tag icon-large"></i>算法
+        </a>
+    </li>
+    <li class="tag-3">
+        <a href="../tag/tcp.html">
+            <i class="icon-tag icon-large"></i>TCP
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../tag/gong-ju.html">
+            <i class="icon-tag icon-large"></i>工具
         </a>
     </li>
 
@@ -512,7 +495,7 @@
   <!-- hitwebcounter Code START -->
 
 <a href="http://www.hitwebcounter.com/how-to/how-to-what-is-free-blog-counter.php" target="_blank">
-<img src="http://hitwebcounter.com/counter/counter.php?page=6046616&style=0005&nbdigits=5&type=ip&initCount=0" title="" Alt=""   border="0" style="float:right">  
+<img src="http://hitwebcounter.com/counter/counter.php?page=6046616&style=0005&nbdigits=5&type=ip&initCount=0" title="" Alt=""   border="0" style="float:left">  
 
 
   <!-- Baidu Button BEGIN -->
