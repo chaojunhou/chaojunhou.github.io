@@ -2,7 +2,7 @@
 <html lang="zh">
   <head>
     <meta charset="utf-8" />
-    <title>Mysql | Write the Code</title>
+    <title>The basic Knowledge in C | Write the Code</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="keywords" content="" />
     <meta name="author" content="ChaoJun Hou" />
@@ -115,14 +115,14 @@
     <div class="span2">
         <div class="well">
 <footer class="post-info">
-<abbr class="published" title="2014-04-25T00:00:00+08:00">
-    <i class="icon-calendar"></i>&nbsp;周五 25 四月 2014
+<abbr class="published" title="2015-03-03T23:07:00+08:00">
+    <i class="icon-calendar"></i>&nbsp;周二 03 三月 2015
 </abbr>
 <br/><a href="../../../../../author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
 
 
 <br/>
-	&nbsp;&nbsp;<a href="../../../../../tag/sql.html" class="label"><i class="icon-tag"></i>&nbsp;SQL</a>
+	&nbsp;&nbsp;<a href="../../../../../tag/c.html" class="label"><i class="icon-tag"></i>&nbsp;C</a>
 </footer><!-- /.post-info -->        </div>
     </div>
     <div class="span6">
@@ -132,20 +132,131 @@
             <h1>
                 <a href=""
                         rel="bookmark"
-                        title="Permalink to Mysql">
-                        Mysql
+                        title="Permalink to The basic Knowledge in C">
+                        The basic Knowledge in C
                 </a>
             </h1>
         </header>
         <div class="entry-content">
 
-        <p>to be continue...</p>
+        <h2>C 语言中的运算规则</h2>
+<ul>
+<li>C语言中每个token应该尽可能多的包含更多的字符。如果编译器的输入流截止到某个字符之前已经被分解成一个个的token，那么从该字符之后应尽可能的组成一个最长的字符串的token。除了字符串与字符串常量，符号的中间不能嵌有空白（空格符、制表符，换行符）。</li>
+<li>
+<p>C语言中符号之间的空白将被忽略，这些符号包括空格符，制表符，换行符号：</p>
+<div class="highlight"><pre><span class="code-line">if (a &gt; b)</span>
+<span class="code-line">b = a;</span>
+<span class="code-line">if (a &gt;</span>
+<span class="code-line">b</span>
+<span class="code-line">)</span>
+<span class="code-line">b = </span>
+<span class="code-line">a;</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>C语言变量的声明包括两部分：类型，以及声明符。</p>
+</li>
+<li>
+<p>C语言运算符优先级</p>
+<ul>
+<li>最高优先级包括：数组下标，函数调用操作符，各结构成员选择操作符。都是自左向右结合。</li>
+<li>单目运算符的优先级仅次于最高级的运算符。单目运算符是自右向左结合。</li>
+<li>
+<p>双目运算符中，优先级为:<strong>算术运算符 &gt; 移位运算符 &gt; 关系元算符 &gt;逻辑运算符&gt;赋值运算符&gt;条件元算符</strong></p>
+</li>
+<li>
+<p>在所有的运算符中，<strong>逗号</strong>运算符的优先级最低。</p>
+</li>
+<li>C语言中，只有四种运算符存在规定的求值顺序（&amp;&amp;、||、?:、,）。运算符&amp;&amp;和||首先对左侧操作数求值，只在需要的时候才对右侧操作数求值。运算符？：有三个操作数：在a？b:c中，操作数a首先别求值，根据a的值再求b后者c的值。而逗号操作符，首先对左侧操作数求值，然后该值被丢弃，再对右侧操作数求值。</li>
+</ul>
+<h2>C语言中常见的问题</h2>
+<ul>
+<li>如果一个整形常量的第一个字符是数字0，那么该常量将被视作八位数。譬如010会被当成十进制中的8。</li>
+<li>在C语言中用单引号引起的字符所代表的是该字符ASCII码的整数值。而双引号引起的字符串，代表的是一个指向无名数组起始字符的指针。</li>
+<li>
+<p>C语言中，每个case只有在遇到break时才会跳出switch语句。否则讲继续。</p>
+<p>switch(exp)
+{
+case one:
+    do something1;
+    break;
+case two:
+    do something2;
+    break;
+default:
+    do something3:
+    break;
+｝</p>
+</li>
+</ul>
+</li>
+<li>
+<p>如果strlen(s)的值是n，那么该字符串实际需要n+1个字符的空间，'\0'作为结束标志。</p>
+<div class="highlight"><pre><span class="code-line">char *p,*q;</span>
+<span class="code-line">p = &quot;xyz&quot;</span>
+<span class="code-line">q = p;</span>
+<span class="code-line">p[0] = &#39;X&#39;</span>
+<span class="code-line">q[1] = &#39;Y&#39;</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>复制指针并不同时复制指针所指向的数据，而是把指针所指向的地址复制给另一个指针。</p>
+<div class="highlight"><pre><span class="code-line">int n = 4;</span>
+<span class="code-line">int buffer[n] = { 1, 2, 3, 4 };</span>
+<span class="code-line">int *bufptr = buffer;</span>
+<span class="code-line">int *p = buffer;</span>
+<span class="code-line">while (n &gt; -1) {</span>
+<span class="code-line">if (bufptr == &amp;buffer[4])</span>
+<span class="code-line">{</span>
+<span class="code-line">printf(&quot;Work well !\n&quot;);</span>
+<span class="code-line">break;</span>
+<span class="code-line">}</span>
+<span class="code-line">*bufptr++ = *p++;</span>
+<span class="code-line">n -= 1;</span>
+<span class="code-line">}</span>
+</pre></div>
+
+
+<p>所以上面的代码执行后，p，q共同指向字符串“XYz” 
+- 当常量被转换为指针使用时，这个指针绝对不能解引用，即不能使用该指针所指向内存中的存储内容。ANSI规定：数组中实际不存在的溢界元素的地址位于数组所占用内存之后，这个地址可以用于进行赋值比较。但是不能引用该地址的元素。</p>
+</li>
+<li>
+<p>类型提升：在表达式中，每个char类型都被转换为int，float都会转换为double。由于函数参数也是一个表达式，所以当参数传递给函数时也会发生类型转换。</p>
+<ul>
+<li>整型提升：char、short int和位段类型（signed，unsigned）以及枚举类型将被提升为int，前提是int类型能够完整地容纳原先的数据，否则讲会被转换为 unsigned int。 </li>
+</ul>
+</li>
+<li>
+<p>X = Y</p>
+<ul>
+<li>Left Value（左值）: 表示存储结果的地方. X 代表存储的地址。</li>
+<li>Right Value（右值）:  Y中的内容</li>
+<li><strong>数组名是不可修改的左值</strong>，只有可修改的左值才能被赋值。</li>
+</ul>
+</li>
+<li>
+<p>'NUL'和'NULL'的区别 </p>
+<ul>
+<li>一个'L'的'NUL'用于结束一个ASCII字符串。</li>
+<li>两个'L'的'NULL'用于表示什么也不指向（空指针）</li>
+</ul>
+</li>
+<li>C中的关键字：<ul>
+<li>extern：用于变量，表示在其他地方（文件）定义</li>
+<li>const：相当于read only</li>
+</ul>
+</li>
+</ul>
         </div><!-- /.entry-content -->
         <div class="comments">
         <h2>Comments !</h2>
             <div id="disqus_thread"></div>
             <script type="text/javascript">
-               var disqus_identifier = "blog/2014/04/25/mysql/";
+               var disqus_identifier = "blog/2015/03/03/the-basic-knowledge-in-c/";
                (function() {
                     var dsq = document.createElement('script');
                     dsq.type = 'text/javascript'; dsq.async = true;

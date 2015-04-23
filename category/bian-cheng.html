@@ -114,6 +114,59 @@
 <div class="row">
     <div class="span2">
         <div class="well small"><footer class="post-info">
+<abbr class="published" title="2015-03-03T23:07:00+08:00">
+    <i class="icon-calendar"></i>&nbsp;周二 03 三月 2015
+</abbr>
+<br/><a href="../author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
+
+
+<br/>
+	&nbsp;&nbsp;<a href="../tag/c.html" class="label"><i class="icon-tag"></i>&nbsp;C</a>
+</footer><!-- /.post-info --></div>
+    </div>
+    <div class="span6">
+        <div class="article well">
+            <h1><a href="../blog/2015/03/03/the-basic-knowledge-in-c/">The basic Knowledge in C</a></h1>
+            <div class="summary"><h2>C 语言中的运算规则</h2>
+<ul>
+<li>C语言中每个token应该尽可能多的包含更多的字符。如果编译器的输入流截止到某个字符之前已经被分解成一个个的token，那么从该字符之后应尽可能的组成一个最长的字符串的token。除了字符串与字符串常量，符号的中间不能嵌有空白（空格符、制表符，换行符）。</li>
+<li>
+<p>C语言中符号之间的空白将被忽略，这些符号包括空格符，制表符，换行符号：</p>
+<div class="highlight"><pre><span class="code-line">if (a &gt; b)</span>
+<span class="code-line">b = a;</span>
+<span class="code-line">if (a &gt;</span>
+<span class="code-line">b</span>
+<span class="code-line">)</span>
+<span class="code-line">b = </span>
+<span class="code-line">a;</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>C语言变量的声明包括两部分：类型，以及声明符。</p>
+</li>
+<li>
+<p>C语言运算符优先级</p>
+<ul>
+<li>最高优先级包括：数组下标，函数调用操作符，各结构成员选择操作符。都是自左向右结合。</li>
+<li>单目运算符的优先级仅次于最高级的运算符。单目运算符是自右向左结合。</li>
+<li>
+<p>双目运算符中，优先级为:<strong>算术运算符 &gt; 移位运算符 &gt; 关系元算符 &gt;逻辑运算符&gt;赋值运算符&gt;条件元算符</strong></p>
+</li>
+<li>
+<p>在所有的运算符中，<strong>逗号</strong>运算符的优先级最低。</p>
+</li>
+<li>C语言中，只有四种运算符存在规定的求值顺序（&amp;&amp;、||、?:、,）。运算符&amp;&amp;和 ...</li></ul></li></ul>
+                <a class="btn btn-small" href="../blog/2015/03/03/the-basic-knowledge-in-c/">more ...</a>
+            </div>
+        </div>
+    </div>
+    <div class="span8">
+        <hr />
+    </div>
+    <div class="span2">
+        <div class="well small"><footer class="post-info">
 <abbr class="published" title="2015-02-27T00:00:00+08:00">
     <i class="icon-calendar"></i>&nbsp;周五 27 二月 2015
 </abbr>
@@ -306,7 +359,7 @@
 
 
 <br/>
-	&nbsp;&nbsp;<a href="../tag/expert-c-programming.html" class="label"><i class="icon-tag"></i>&nbsp;eXpert C Programming</a>
+	&nbsp;&nbsp;<a href="../tag/c.html" class="label"><i class="icon-tag"></i>&nbsp;C</a>
 </footer><!-- /.post-info --></div>
     </div>
     <div class="span6">
@@ -367,13 +420,8 @@
 
 <li class="nav-header"><a href="../tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
     <li class="tag-4">
-        <a href="../tag/sql.html">
-            <i class="icon-tag icon-large"></i>SQL
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../tag/zhi-li.html">
-            <i class="icon-tag icon-large"></i>智力
+        <a href="../tag/zheng-ze-biao-da-shi.html">
+            <i class="icon-tag icon-large"></i>正则表达式
         </a>
     </li>
     <li class="tag-4">
@@ -382,23 +430,13 @@
         </a>
     </li>
     <li class="tag-4">
-        <a href="../tag/yong-sai-kong-zhi.html">
-            <i class="icon-tag icon-large"></i>拥塞控制
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../tag/expert-c-programming.html">
-            <i class="icon-tag icon-large"></i>eXpert C Programming
-        </a>
-    </li>
-    <li class="tag-4">
         <a href="../tag/tu-xiang.html">
             <i class="icon-tag icon-large"></i>图像
         </a>
     </li>
     <li class="tag-4">
-        <a href="../tag/duo-xian-cheng.html">
-            <i class="icon-tag icon-large"></i>多线程
+        <a href="../tag/gong-ju.html">
+            <i class="icon-tag icon-large"></i>工具
         </a>
     </li>
     <li class="tag-2">
@@ -406,9 +444,34 @@
             <i class="icon-tag icon-large"></i>数据结构
         </a>
     </li>
+    <li class="tag-3">
+        <a href="../tag/tcp.html">
+            <i class="icon-tag icon-large"></i>TCP
+        </a>
+    </li>
     <li class="tag-4">
-        <a href="../tag/zheng-ze-biao-da-shi.html">
-            <i class="icon-tag icon-large"></i>正则表达式
+        <a href="../tag/duo-xian-cheng.html">
+            <i class="icon-tag icon-large"></i>多线程
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../tag/yong-sai-kong-zhi.html">
+            <i class="icon-tag icon-large"></i>拥塞控制
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../tag/sql.html">
+            <i class="icon-tag icon-large"></i>SQL
+        </a>
+    </li>
+    <li class="tag-3">
+        <a href="../tag/c.html">
+            <i class="icon-tag icon-large"></i>C
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../tag/zhi-li.html">
+            <i class="icon-tag icon-large"></i>智力
         </a>
     </li>
     <li class="tag-4">
@@ -419,16 +482,6 @@
     <li class="tag-1">
         <a href="../tag/suan-fa.html">
             <i class="icon-tag icon-large"></i>算法
-        </a>
-    </li>
-    <li class="tag-3">
-        <a href="../tag/tcp.html">
-            <i class="icon-tag icon-large"></i>TCP
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../tag/gong-ju.html">
-            <i class="icon-tag icon-large"></i>工具
         </a>
     </li>
 

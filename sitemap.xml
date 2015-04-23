@@ -5,37 +5,44 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>www.houcj.net/</loc>
-<lastmod>2015-04-22T20:53:54-00:00</lastmod>
+<lastmod>2015-04-23T23:37:58-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>www.houcj.net/archives.html</loc>
-<lastmod>2015-04-22T20:53:54-00:00</lastmod>
+<lastmod>2015-04-23T23:37:58-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>www.houcj.net/tags.html</loc>
-<lastmod>2015-04-22T20:53:54-00:00</lastmod>
+<lastmod>2015-04-23T23:37:58-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>www.houcj.net/categories.html</loc>
-<lastmod>2015-04-22T20:53:54-00:00</lastmod>
+<lastmod>2015-04-23T23:37:58-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>www.houcj.net/pages/guan-yu.html</loc>
-<lastmod>2015-04-22T20:53:54-00:00</lastmod>
+<lastmod>2015-04-23T23:37:58-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.3</priority>
+</url>
+
+<url>
+<loc>www.houcj.net/blog/2015/03/03/the-basic-knowledge-in-c/</loc>
+<lastmod>2015-03-03T23:07:00+08:00</lastmod>
+<changefreq>monthly</changefreq>
+<priority>0.7</priority>
 </url>
 
 <url>
@@ -201,7 +208,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>www.houcj.net/category/bian-cheng.html</loc>
-<lastmod>2015-02-27T00:00:00+08:06</lastmod>
+<lastmod>2015-03-03T23:07:00+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -228,13 +235,6 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-<loc>www.houcj.net/tag/expert-c-programming.html</loc>
-<lastmod>2013-12-03T10:20:00+08:06</lastmod>
-<changefreq>daily</changefreq>
-<priority>0.5</priority>
-</url>
-
-<url>
 <loc>www.houcj.net/tag/shu-ju-jie-gou.html</loc>
 <lastmod>2014-09-06T00:00:00+08:06</lastmod>
 <changefreq>daily</changefreq>
@@ -251,6 +251,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>www.houcj.net/tag/zhi-li.html</loc>
 <lastmod>2014-02-20T00:00:00+08:06</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>www.houcj.net/tag/c.html</loc>
+<lastmod>2015-03-03T23:07:00+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -306,7 +313,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>www.houcj.net/author/chaojun-hou.html</loc>
-<lastmod>2015-02-27T00:00:00+08:06</lastmod>
+<lastmod>2015-03-03T23:07:00+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>

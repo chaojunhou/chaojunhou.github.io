@@ -2,7 +2,7 @@
 <html lang="zh">
   <head>
     <meta charset="utf-8" />
-    <title>Write the Code - 数据结构 | Write the Code</title>
+    <title>Write the Code - C | Write the Code</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="keywords" content="" />
     <meta name="author" content="ChaoJun Hou" />
@@ -114,21 +114,51 @@
 <div class="row">
     <div class="span2">
         <div class="well small"><footer class="post-info">
-<abbr class="published" title="2014-09-06T00:00:00+08:00">
-    <i class="icon-calendar"></i>&nbsp;周六 06 九月 2014
+<abbr class="published" title="2015-03-03T23:07:00+08:00">
+    <i class="icon-calendar"></i>&nbsp;周二 03 三月 2015
 </abbr>
 <br/><a href="../author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
 
 
 <br/>
-	&nbsp;&nbsp;<a href="../tag/shu-ju-jie-gou.html" class="label"><i class="icon-tag"></i>&nbsp;数据结构</a>
+	&nbsp;&nbsp;<a href="../tag/c.html" class="label"><i class="icon-tag"></i>&nbsp;C</a>
 </footer><!-- /.post-info --></div>
     </div>
     <div class="span6">
         <div class="article well">
-            <h1><a href="../blog/2014/09/06/skip-list/">Skip List</a></h1>
-            <div class="summary"><p>to be continue...</p>
-                <a class="btn btn-small" href="../blog/2014/09/06/skip-list/">more ...</a>
+            <h1><a href="../blog/2015/03/03/the-basic-knowledge-in-c/">The basic Knowledge in C</a></h1>
+            <div class="summary"><h2>C 语言中的运算规则</h2>
+<ul>
+<li>C语言中每个token应该尽可能多的包含更多的字符。如果编译器的输入流截止到某个字符之前已经被分解成一个个的token，那么从该字符之后应尽可能的组成一个最长的字符串的token。除了字符串与字符串常量，符号的中间不能嵌有空白（空格符、制表符，换行符）。</li>
+<li>
+<p>C语言中符号之间的空白将被忽略，这些符号包括空格符，制表符，换行符号：</p>
+<div class="highlight"><pre><span class="code-line">if (a &gt; b)</span>
+<span class="code-line">b = a;</span>
+<span class="code-line">if (a &gt;</span>
+<span class="code-line">b</span>
+<span class="code-line">)</span>
+<span class="code-line">b = </span>
+<span class="code-line">a;</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>C语言变量的声明包括两部分：类型，以及声明符。</p>
+</li>
+<li>
+<p>C语言运算符优先级</p>
+<ul>
+<li>最高优先级包括：数组下标，函数调用操作符，各结构成员选择操作符。都是自左向右结合。</li>
+<li>单目运算符的优先级仅次于最高级的运算符。单目运算符是自右向左结合。</li>
+<li>
+<p>双目运算符中，优先级为:<strong>算术运算符 &gt; 移位运算符 &gt; 关系元算符 &gt;逻辑运算符&gt;赋值运算符&gt;条件元算符</strong></p>
+</li>
+<li>
+<p>在所有的运算符中，<strong>逗号</strong>运算符的优先级最低。</p>
+</li>
+<li>C语言中，只有四种运算符存在规定的求值顺序（&amp;&amp;、||、?:、,）。运算符&amp;&amp;和 ...</li></ul></li></ul>
+                <a class="btn btn-small" href="../blog/2015/03/03/the-basic-knowledge-in-c/">more ...</a>
             </div>
         </div>
     </div>
@@ -137,44 +167,38 @@
     </div>
     <div class="span2">
         <div class="well small"><footer class="post-info">
-<abbr class="published" title="2014-02-13T00:00:00+08:00">
-    <i class="icon-calendar"></i>&nbsp;周四 13 二月 2014
+<abbr class="published" title="2013-12-03T10:20:00+08:00">
+    <i class="icon-calendar"></i>&nbsp;周二 03 十二月 2013
 </abbr>
 <br/><a href="../author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
 
 
 <br/>
-	&nbsp;&nbsp;<a href="../tag/shu-ju-jie-gou.html" class="label"><i class="icon-tag"></i>&nbsp;数据结构</a>
+	&nbsp;&nbsp;<a href="../tag/c.html" class="label"><i class="icon-tag"></i>&nbsp;C</a>
 </footer><!-- /.post-info --></div>
     </div>
     <div class="span6">
         <div class="article well">
-            <h1><a href="../blog/2014/02/13/trie-tree/">Trie Tree</a></h1>
-            <div class="summary"><p>to be continue...</p>
-                <a class="btn btn-small" href="../blog/2014/02/13/trie-tree/">more ...</a>
-            </div>
-        </div>
-    </div>
-    <div class="span8">
-        <hr />
-    </div>
-    <div class="span2">
-        <div class="well small"><footer class="post-info">
-<abbr class="published" title="2013-12-22T00:00:00+08:00">
-    <i class="icon-calendar"></i>&nbsp;周日 22 十二月 2013
-</abbr>
-<br/><a href="../author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
+            <h1><a href="../blog/2013/12/03/thanks-for-the-memory/">Thanks for the memory</a></h1>
+            <div class="summary"><ul>
+<li>虚拟内存通过<em>Page</em>的形式组织。Pages就是操作系统用于内存和磁盘之间移动或者进行保护的单位。Page in，Page out。磁盘上有个特殊的交换区来与内存进行交换。</li>
+<li>进程只能操作位于屋里内存中的页面。</li>
+</ul>
+<div class="highlight"><pre><span class="code-line"><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line"><span class="k">while</span><span class="p">(</span><span class="n">malloc</span><span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">20</span><span class="p">))</span> <span class="o">++</span><span class="n">i</span><span class="p">;</span> <span class="c1">// to see the memory available in this process.</span></span>
+<span class="code-line"><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Allocated %d MB total </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">i</span><span class="p">);</span></span>
+</pre></div>
 
 
-<br/>
-	&nbsp;&nbsp;<a href="../tag/shu-ju-jie-gou.html" class="label"><i class="icon-tag"></i>&nbsp;数据结构</a>
-</footer><!-- /.post-info --></div>
-    </div>
-    <div class="span6">
-        <div class="article well">
-            <h1><a href="../blog/2013/12/22/black-red-tree/">Black Red Tree</a></h1>
-            <div class="summary"><p>to be continue...</p>
-                <a class="btn btn-small" href="../blog/2013/12/22/black-red-tree/">more ...</a>
+<ul>
+<li>cache<ul>
+<li>cache 的类型<ul>
+<li>write-through cache : 每次写入cache时同时写入到内存，保持内存与cache的一致性。</li>
+<li>write-back cache ： 当第一次写入时，只写入cache。如果已经写入过的cache行再次需要写入时，此时第一次写入的结果尚未保存，所以要先把它写入到内存中。当内存切换进程时，cache中所有的数据都要先写入到内存中。</li>
+</ul>
+</li>
+<li>line： 内存读取以行 ...</li></ul></li></ul>
+                <a class="btn btn-small" href="../blog/2013/12/03/thanks-for-the-memory/">more ...</a>
             </div>
         </div>
     </div>
