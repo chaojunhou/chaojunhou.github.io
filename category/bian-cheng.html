@@ -114,6 +114,62 @@
 <div class="row">
     <div class="span2">
         <div class="well small"><footer class="post-info">
+<abbr class="published" title="2015-03-27T23:07:00+08:00">
+    <i class="icon-calendar"></i>&nbsp;周五 27 三月 2015
+</abbr>
+<br/><a href="../author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
+
+
+<br/>
+	&nbsp;&nbsp;<a href="../tag/c.html" class="label"><i class="icon-tag"></i>&nbsp;C</a>
+</footer><!-- /.post-info --></div>
+    </div>
+    <div class="span6">
+        <div class="article well">
+            <h1><a href="../blog/2015/03/27/link and preprocess/">链接和预编译</a></h1>
+            <div class="summary"><p>-编译：生成目标平台的指令
+-解释：在运行过程中才生成目标平台的指令。需要虚拟机来将编译后生成的中间代码翻译成目标平台的指令。
+-Interposition指用户定义的函数取代函数库中声明<strong><em>完全相同的函数</em></strong>，不是重载.</p>
+<div class="highlight"><pre><span class="code-line">void mktemp() {..}</span>
+<span class="code-line">void getwd() { mktemp();}</span>
+<span class="code-line">int main()</span>
+<span class="code-line">{</span>
+<span class="code-line">    mktemp();</span>
+<span class="code-line">    getwd(); // 即使库函数有 void mktemp(){}，操作系统也会调用用户自己定义的函数</span>
+<span class="code-line">    return 0</span>
+<span class="code-line">}</span>
+</pre></div>
+
+
+<ul>
+<li>链接库的五个特殊秘密<ul>
+<li>动态链接库的扩展名为 ".so"，静态的为".a"</li>
+<li>通过-lthread选项，告诉编译器链接到libthread.so</li>
+<li>编译器期望在确定的目录下找到这些库函数</li>
+<li>观察头文件，确定所使用的函数库</li>
+<li>与提取动态库中的符号相比，静态库中的符号提取的方法限制更严格</li>
+</ul>
+</li>
+<li>动态库的优点：<ul>
+<li>动态链接可执行文件比功能相同的静态链接可执行文件的体积小。</li>
+<li>所有动态链接到某个特定函数库的可执行文件在运行时共享该函数库的一个单独拷贝。</li>
+</ul>
+</li>
+</ul>
+<h2>链接器</h2>
+<ul>
+<li>分别编译：即若干个源程序可以在不同的时候单独进行编译，然后在恰当的时候将它们整合到一起。但是，链接器一般是与C编译器分离的。</li>
+<li>链接器通常把由编译器或汇编器生成的若干个目标模块整合成一个被称为载入模块或可执行文件的实体，该实体能够被操作系统直接执行。</li>
+<li>链接器通常把目标模块看成是由一组外部对象组成。每个外部对象代表机器内存中的某个部分，并通过一个外部名称来识别 ...</li></ul>
+                <a class="btn btn-small" href="../blog/2015/03/27/link and preprocess/">more ...</a>
+            </div>
+        </div>
+    </div>
+    <div class="span8">
+        <hr />
+    </div>
+    <div class="span2">
+        <div class="well small"><footer class="post-info">
 <abbr class="published" title="2015-03-03T23:07:00+08:00">
     <i class="icon-calendar"></i>&nbsp;周二 03 三月 2015
 </abbr>
@@ -350,48 +406,16 @@
     <div class="span8">
         <hr />
     </div>
-    <div class="span2">
-        <div class="well small"><footer class="post-info">
-<abbr class="published" title="2013-12-03T10:20:00+08:00">
-    <i class="icon-calendar"></i>&nbsp;周二 03 十二月 2013
-</abbr>
-<br/><a href="../author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
-
-
-<br/>
-	&nbsp;&nbsp;<a href="../tag/c.html" class="label"><i class="icon-tag"></i>&nbsp;C</a>
-</footer><!-- /.post-info --></div>
-    </div>
-    <div class="span6">
-        <div class="article well">
-            <h1><a href="../blog/2013/12/03/thanks-for-the-memory/">Thanks for the memory</a></h1>
-            <div class="summary"><ul>
-<li>虚拟内存通过<em>Page</em>的形式组织。Pages就是操作系统用于内存和磁盘之间移动或者进行保护的单位。Page in，Page out。磁盘上有个特殊的交换区来与内存进行交换。</li>
-<li>进程只能操作位于屋里内存中的页面。</li>
-</ul>
-<div class="highlight"><pre><span class="code-line"><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span></span>
-<span class="code-line"><span class="k">while</span><span class="p">(</span><span class="n">malloc</span><span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">20</span><span class="p">))</span> <span class="o">++</span><span class="n">i</span><span class="p">;</span> <span class="c1">// to see the memory available in this process.</span></span>
-<span class="code-line"><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Allocated %d MB total </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">i</span><span class="p">);</span></span>
-</pre></div>
-
-
-<ul>
-<li>cache<ul>
-<li>cache 的类型<ul>
-<li>write-through cache : 每次写入cache时同时写入到内存，保持内存与cache的一致性。</li>
-<li>write-back cache ： 当第一次写入时，只写入cache。如果已经写入过的cache行再次需要写入时，此时第一次写入的结果尚未保存，所以要先把它写入到内存中。当内存切换进程时，cache中所有的数据都要先写入到内存中。</li>
-</ul>
-</li>
-<li>line： 内存读取以行 ...</li></ul></li></ul>
-                <a class="btn btn-small" href="../blog/2013/12/03/thanks-for-the-memory/">more ...</a>
-            </div>
-        </div>
-    </div>
-    <div class="span8">
-        <hr />
-    </div>
 
 <div class="span6">
+<div class="pagination">
+<ul>
+        <li class="prev disabled"><a href="#">&larr; Previous</a></li>
+        <li class="active"><a href="../category/bian-cheng.html">1</a></li>
+        <li class=""><a href="../category/bian-cheng2.html">2</a></li>
+        <li class="next"><a href="../category/bian-cheng2.html">Next &rarr;</a></li>
+</ul>
+</div>
 </div>
 </div>
         </div><!--/span-->
@@ -420,23 +444,8 @@
 
 <li class="nav-header"><a href="../tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
     <li class="tag-4">
-        <a href="../tag/zheng-ze-biao-da-shi.html">
-            <i class="icon-tag icon-large"></i>正则表达式
-        </a>
-    </li>
-    <li class="tag-4">
         <a href="../tag/shell.html">
             <i class="icon-tag icon-large"></i>SHELL
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../tag/tu-xiang.html">
-            <i class="icon-tag icon-large"></i>图像
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../tag/gong-ju.html">
-            <i class="icon-tag icon-large"></i>工具
         </a>
     </li>
     <li class="tag-2">
@@ -444,9 +453,9 @@
             <i class="icon-tag icon-large"></i>数据结构
         </a>
     </li>
-    <li class="tag-3">
-        <a href="../tag/tcp.html">
-            <i class="icon-tag icon-large"></i>TCP
+    <li class="tag-4">
+        <a href="../tag/tu-xiang.html">
+            <i class="icon-tag icon-large"></i>图像
         </a>
     </li>
     <li class="tag-4">
@@ -459,19 +468,34 @@
             <i class="icon-tag icon-large"></i>拥塞控制
         </a>
     </li>
-    <li class="tag-4">
-        <a href="../tag/sql.html">
-            <i class="icon-tag icon-large"></i>SQL
+    <li class="tag-1">
+        <a href="../tag/suan-fa.html">
+            <i class="icon-tag icon-large"></i>算法
         </a>
     </li>
-    <li class="tag-3">
+    <li class="tag-2">
         <a href="../tag/c.html">
             <i class="icon-tag icon-large"></i>C
         </a>
     </li>
     <li class="tag-4">
-        <a href="../tag/zhi-li.html">
-            <i class="icon-tag icon-large"></i>智力
+        <a href="../tag/sql.html">
+            <i class="icon-tag icon-large"></i>SQL
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../tag/gong-ju.html">
+            <i class="icon-tag icon-large"></i>工具
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../tag/zheng-ze-biao-da-shi.html">
+            <i class="icon-tag icon-large"></i>正则表达式
+        </a>
+    </li>
+    <li class="tag-3">
+        <a href="../tag/tcp.html">
+            <i class="icon-tag icon-large"></i>TCP
         </a>
     </li>
     <li class="tag-4">
@@ -479,9 +503,9 @@
             <i class="icon-tag icon-large"></i>爬虫
         </a>
     </li>
-    <li class="tag-1">
-        <a href="../tag/suan-fa.html">
-            <i class="icon-tag icon-large"></i>算法
+    <li class="tag-4">
+        <a href="../tag/zhi-li.html">
+            <i class="icon-tag icon-large"></i>智力
         </a>
     </li>
 

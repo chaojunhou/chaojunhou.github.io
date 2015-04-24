@@ -114,6 +114,62 @@
 <div class="row">
     <div class="span2">
         <div class="well small"><footer class="post-info">
+<abbr class="published" title="2015-03-27T23:07:00+08:00">
+    <i class="icon-calendar"></i>&nbsp;周五 27 三月 2015
+</abbr>
+<br/><a href="../author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
+
+
+<br/>
+	&nbsp;&nbsp;<a href="../tag/c.html" class="label"><i class="icon-tag"></i>&nbsp;C</a>
+</footer><!-- /.post-info --></div>
+    </div>
+    <div class="span6">
+        <div class="article well">
+            <h1><a href="../blog/2015/03/27/link and preprocess/">链接和预编译</a></h1>
+            <div class="summary"><p>-编译：生成目标平台的指令
+-解释：在运行过程中才生成目标平台的指令。需要虚拟机来将编译后生成的中间代码翻译成目标平台的指令。
+-Interposition指用户定义的函数取代函数库中声明<strong><em>完全相同的函数</em></strong>，不是重载.</p>
+<div class="highlight"><pre><span class="code-line">void mktemp() {..}</span>
+<span class="code-line">void getwd() { mktemp();}</span>
+<span class="code-line">int main()</span>
+<span class="code-line">{</span>
+<span class="code-line">    mktemp();</span>
+<span class="code-line">    getwd(); // 即使库函数有 void mktemp(){}，操作系统也会调用用户自己定义的函数</span>
+<span class="code-line">    return 0</span>
+<span class="code-line">}</span>
+</pre></div>
+
+
+<ul>
+<li>链接库的五个特殊秘密<ul>
+<li>动态链接库的扩展名为 ".so"，静态的为".a"</li>
+<li>通过-lthread选项，告诉编译器链接到libthread.so</li>
+<li>编译器期望在确定的目录下找到这些库函数</li>
+<li>观察头文件，确定所使用的函数库</li>
+<li>与提取动态库中的符号相比，静态库中的符号提取的方法限制更严格</li>
+</ul>
+</li>
+<li>动态库的优点：<ul>
+<li>动态链接可执行文件比功能相同的静态链接可执行文件的体积小。</li>
+<li>所有动态链接到某个特定函数库的可执行文件在运行时共享该函数库的一个单独拷贝。</li>
+</ul>
+</li>
+</ul>
+<h2>链接器</h2>
+<ul>
+<li>分别编译：即若干个源程序可以在不同的时候单独进行编译，然后在恰当的时候将它们整合到一起。但是，链接器一般是与C编译器分离的。</li>
+<li>链接器通常把由编译器或汇编器生成的若干个目标模块整合成一个被称为载入模块或可执行文件的实体，该实体能够被操作系统直接执行。</li>
+<li>链接器通常把目标模块看成是由一组外部对象组成。每个外部对象代表机器内存中的某个部分，并通过一个外部名称来识别 ...</li></ul>
+                <a class="btn btn-small" href="../blog/2015/03/27/link and preprocess/">more ...</a>
+            </div>
+        </div>
+    </div>
+    <div class="span8">
+        <hr />
+    </div>
+    <div class="span2">
+        <div class="well small"><footer class="post-info">
 <abbr class="published" title="2015-03-03T23:07:00+08:00">
     <i class="icon-calendar"></i>&nbsp;周二 03 三月 2015
 </abbr>
@@ -350,29 +406,6 @@
     <div class="span8">
         <hr />
     </div>
-    <div class="span2">
-        <div class="well small"><footer class="post-info">
-<abbr class="published" title="2014-04-25T00:00:00+08:00">
-    <i class="icon-calendar"></i>&nbsp;周五 25 四月 2014
-</abbr>
-<br/><a href="../author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
-
-
-<br/>
-	&nbsp;&nbsp;<a href="../tag/sql.html" class="label"><i class="icon-tag"></i>&nbsp;SQL</a>
-</footer><!-- /.post-info --></div>
-    </div>
-    <div class="span6">
-        <div class="article well">
-            <h1><a href="../blog/2014/04/25/mysql/">Mysql</a></h1>
-            <div class="summary"><p>to be continue...</p>
-                <a class="btn btn-small" href="../blog/2014/04/25/mysql/">more ...</a>
-            </div>
-        </div>
-    </div>
-    <div class="span8">
-        <hr />
-    </div>
 
 <div class="span6">
 <div class="pagination">
@@ -412,23 +445,8 @@
 
 <li class="nav-header"><a href="../tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
     <li class="tag-4">
-        <a href="../tag/zheng-ze-biao-da-shi.html">
-            <i class="icon-tag icon-large"></i>正则表达式
-        </a>
-    </li>
-    <li class="tag-4">
         <a href="../tag/shell.html">
             <i class="icon-tag icon-large"></i>SHELL
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../tag/tu-xiang.html">
-            <i class="icon-tag icon-large"></i>图像
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../tag/gong-ju.html">
-            <i class="icon-tag icon-large"></i>工具
         </a>
     </li>
     <li class="tag-2">
@@ -436,9 +454,9 @@
             <i class="icon-tag icon-large"></i>数据结构
         </a>
     </li>
-    <li class="tag-3">
-        <a href="../tag/tcp.html">
-            <i class="icon-tag icon-large"></i>TCP
+    <li class="tag-4">
+        <a href="../tag/tu-xiang.html">
+            <i class="icon-tag icon-large"></i>图像
         </a>
     </li>
     <li class="tag-4">
@@ -451,19 +469,34 @@
             <i class="icon-tag icon-large"></i>拥塞控制
         </a>
     </li>
-    <li class="tag-4">
-        <a href="../tag/sql.html">
-            <i class="icon-tag icon-large"></i>SQL
+    <li class="tag-1">
+        <a href="../tag/suan-fa.html">
+            <i class="icon-tag icon-large"></i>算法
         </a>
     </li>
-    <li class="tag-3">
+    <li class="tag-2">
         <a href="../tag/c.html">
             <i class="icon-tag icon-large"></i>C
         </a>
     </li>
     <li class="tag-4">
-        <a href="../tag/zhi-li.html">
-            <i class="icon-tag icon-large"></i>智力
+        <a href="../tag/sql.html">
+            <i class="icon-tag icon-large"></i>SQL
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../tag/gong-ju.html">
+            <i class="icon-tag icon-large"></i>工具
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../tag/zheng-ze-biao-da-shi.html">
+            <i class="icon-tag icon-large"></i>正则表达式
+        </a>
+    </li>
+    <li class="tag-3">
+        <a href="../tag/tcp.html">
+            <i class="icon-tag icon-large"></i>TCP
         </a>
     </li>
     <li class="tag-4">
@@ -471,9 +504,9 @@
             <i class="icon-tag icon-large"></i>爬虫
         </a>
     </li>
-    <li class="tag-1">
-        <a href="../tag/suan-fa.html">
-            <i class="icon-tag icon-large"></i>算法
+    <li class="tag-4">
+        <a href="../tag/zhi-li.html">
+            <i class="icon-tag icon-large"></i>智力
         </a>
     </li>
 
