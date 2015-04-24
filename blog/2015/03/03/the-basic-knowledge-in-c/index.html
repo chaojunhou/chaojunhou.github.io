@@ -235,7 +235,25 @@ default:
 <ul>
 <li>Left Value（左值）: 表示存储结果的地方. X 代表存储的地址。</li>
 <li>Right Value（右值）:  Y中的内容</li>
-<li><strong>数组名是不可修改的左值</strong>，只有可修改的左值才能被赋值。</li>
+<li><strong>数组名是不可修改的左值</strong>，只有可修改的左值才能被赋值。<div class="highlight"><pre><span class="code-line">a+++++b;</span>
+</pre></div>
+
+
+<p>由于编译器的中最长匹配的原则，上式会被翻译为</p>
+<div class="highlight"><pre><span class="code-line">a++++ + b;//即</span>
+<span class="code-line">((a++)++) + b;</span>
+</pre></div>
+
+
+<p>而<strong>a++</strong>不能作为左值， 因为a++返回的是自身的值副本。因此上面的表达式是错误的。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>大端和小端 （数据在内存中的字节排列顺序）</p>
+<ul>
+<li>大端：最低位置存放高位字节，高位优先。</li>
+<li>小端：最低位置存放低位字节，地位优先。</li>
 </ul>
 </li>
 <li>
@@ -297,6 +315,31 @@ default:
 
 <li class="nav-header"><a href="../../../../../tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
     <li class="tag-4">
+        <a href="../../../../../tag/pa-chong.html">
+            <i class="icon-tag icon-large"></i>爬虫
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../../../../../tag/yong-sai-kong-zhi.html">
+            <i class="icon-tag icon-large"></i>拥塞控制
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../../../../../tag/zheng-ze-biao-da-shi.html">
+            <i class="icon-tag icon-large"></i>正则表达式
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../../../../../tag/duo-xian-cheng.html">
+            <i class="icon-tag icon-large"></i>多线程
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../../../../../tag/tu-xiang.html">
+            <i class="icon-tag icon-large"></i>图像
+        </a>
+    </li>
+    <li class="tag-4">
         <a href="../../../../../tag/shell.html">
             <i class="icon-tag icon-large"></i>SHELL
         </a>
@@ -307,33 +350,13 @@ default:
         </a>
     </li>
     <li class="tag-4">
-        <a href="../../../../../tag/tu-xiang.html">
-            <i class="icon-tag icon-large"></i>图像
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/duo-xian-cheng.html">
-            <i class="icon-tag icon-large"></i>多线程
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/yong-sai-kong-zhi.html">
-            <i class="icon-tag icon-large"></i>拥塞控制
+        <a href="../../../../../tag/sql.html">
+            <i class="icon-tag icon-large"></i>SQL
         </a>
     </li>
     <li class="tag-1">
         <a href="../../../../../tag/suan-fa.html">
             <i class="icon-tag icon-large"></i>算法
-        </a>
-    </li>
-    <li class="tag-2">
-        <a href="../../../../../tag/c.html">
-            <i class="icon-tag icon-large"></i>C
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/sql.html">
-            <i class="icon-tag icon-large"></i>SQL
         </a>
     </li>
     <li class="tag-4">
@@ -342,8 +365,8 @@ default:
         </a>
     </li>
     <li class="tag-4">
-        <a href="../../../../../tag/zheng-ze-biao-da-shi.html">
-            <i class="icon-tag icon-large"></i>正则表达式
+        <a href="../../../../../tag/zhi-li.html">
+            <i class="icon-tag icon-large"></i>智力
         </a>
     </li>
     <li class="tag-3">
@@ -351,14 +374,9 @@ default:
             <i class="icon-tag icon-large"></i>TCP
         </a>
     </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/pa-chong.html">
-            <i class="icon-tag icon-large"></i>爬虫
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/zhi-li.html">
-            <i class="icon-tag icon-large"></i>智力
+    <li class="tag-2">
+        <a href="../../../../../tag/c.html">
+            <i class="icon-tag icon-large"></i>C
         </a>
     </li>
 

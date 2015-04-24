@@ -139,22 +139,23 @@
         </header>
         <div class="entry-content">
 
-        <p>-编译：生成目标平台的指令
--解释：在运行过程中才生成目标平台的指令。需要虚拟机来将编译后生成的中间代码翻译成目标平台的指令。
--Interposition指用户定义的函数取代函数库中声明<strong><em>完全相同的函数</em></strong>，不是重载.</p>
-<div class="highlight"><pre><span class="code-line">void mktemp() {..}</span>
-<span class="code-line">void getwd() { mktemp();}</span>
-<span class="code-line">int main()</span>
-<span class="code-line">{</span>
-<span class="code-line">    mktemp();</span>
-<span class="code-line">    getwd(); // 即使库函数有 void mktemp(){}，操作系统也会调用用户自己定义的函数</span>
-<span class="code-line">    return 0</span>
-<span class="code-line">}</span>
-</pre></div>
-
-
+        <ul>
+<li>编译：生成目标平台的指令
+-解释：在运行过程中才生成目标平台的指令。需要虚拟机来将编译后生成的中间代码翻译成目标平台的指令。</li>
+<li>
+<p>Interposition指用户定义的函数取代函数库中声明<strong><em>完全相同的函数</em></strong>，不是重载.</p>
+<p>void mktemp() {..}
+void getwd() { mktemp();}
+int main()
+{
+    mktemp();
+    getwd(); // 即使库函数有 void mktemp(){}，操作系统也会调用用户自己定义的函数
+    return 0
+}</p>
+</li>
+<li>
+<p>链接库的五个特殊秘密</p>
 <ul>
-<li>链接库的五个特殊秘密<ul>
 <li>动态链接库的扩展名为 ".so"，静态的为".a"</li>
 <li>通过-lthread选项，告诉编译器链接到libthread.so</li>
 <li>编译器期望在确定的目录下找到这些库函数</li>
@@ -178,10 +179,8 @@
 <li>return是语言级别的，它表示了调用堆栈的返回；exit是系统调用级别的，表示整个进程的结束。</li>
 </ul>
 </li>
-<li>
-<p>理解复杂声明可用的“右左法则”：从变量名看起，先往右，再往左，碰到一个圆括号就调转阅读的方向；括号内分析完就跳出括号，还是按先右后左的顺序，如此循环，直到整个声明分析完。
-分析下面的例子，答案见最后。</p>
-<div class="highlight"><pre><span class="code-line">char * const *(*next)();</span>
+<li>理解复杂声明可用的“右左法则”：从变量名看起，先往右，再往左，碰到一个圆括号就调转阅读的方向；括号内分析完就跳出括号，还是按先右后左的顺序，如此循环，直到整个声明分析完。
+分析下面的例子，答案见最后。<div class="highlight"><pre><span class="code-line">char * const *(*next)();</span>
 <span class="code-line">char * (* c[10])int (**p);</span>
 </pre></div>
 
@@ -194,28 +193,38 @@
 <li>关于库函数的使用，最好的用法就是尽量使用系统头文件。</li>
 </ul>
 <h2>预处理</h2>
-<p>宏定义使用预处理器实现，做一些简单的字符替换因此不能进行参数有效性的检测。
-- 宏定义中的空格不能忽视</p>
-<h1>define f (x) ((x)-1)</h1>
-<p>的意思是f代表(x) ((x)-1而不是f(x)代表((x)-1
-- 宏定义中出现的括号的作用是预防引起与优先级有关的问题。例如</p>
-<h1>define abs(x) (((x)&gt;=0)?:(x):-(x))// 正确</h1>
-<h1>define abs(x) x&gt;0?x:-x // 错误</h1>
-<p>abs(a-b)在错误的表达式中会展开为 a-b&gt;0?a-b:-a-b
-即使是用括号括起来也可能出错。</p>
-<h1>define max(a,b) ((a)&gt;(b)?(a):(b))</h1>
-</li>
-</ul>
-<p>在上面的表达式中，如果a大于b，那么a将会被求两次值，此时max(a++,b)就会产生错误的结果。
-正确的做法如下：</p>
-<div class="highlight"><pre><span class="code-line">#define max(x, y) ({                            </span>
-<span class="code-line">     typeof(x) _max1 = (x);                  </span>
-<span class="code-line">     typeof(y) _max2 = (y);                  </span>
-<span class="code-line">     (void) (&amp;_max1 == &amp;_max2);  // 当两个比较两个类型不同的变量的地址时,编译器会给出一个警告.提示我们在进行类型不同的比较.</span>
-<span class="code-line">     _max1 &gt; _max2 ? _max1 : _max2; })</span>
+<ul>
+<li>宏定义使用预处理器实现，做一些简单的字符替换因此不能进行参数有效性的检测。</li>
+<li>
+<p>宏定义中的空格不能忽视</p>
+<div class="highlight"><pre><span class="code-line">#define f (x) ((x)-1）</span>
 </pre></div>
 
 
+<p>的意思是f代表(x) ((x)-1而不是f(x)代表((x)-1
+- 宏定义中出现的括号的作用是预防引起与优先级有关的问题。例如</p>
+<div class="highlight"><pre><span class="code-line"><span class="c1"># define abs(x) (((x)&gt;=0)?:(x):-(x))// 正确</span></span>
+<span class="code-line"><span class="c1"># define abs(x) x&gt;0?x:-x // 错误</span></span>
+</pre></div>
+
+
+<p>abs(a-b)在错误的表达式中会展开为 a-b&gt;0?a-b:-a-b
+即使是用括号括起来也可能出错。</p>
+<div class="highlight"><pre><span class="code-line">#define max(a,b) ((a)&gt;(b)?(a):(b))</span>
+</pre></div>
+
+
+<p>在上面的表达式中，如果a大于b，那么a将会被求两次值，此时max(a++,b)就会产生错误的结果。
+正确的做法如下：</p>
+<p>#define max(x, y) ({
+ typeof(x) _max1 = (x);<br />
+ typeof(y) _max2 = (y);<br />
+ (void) (&amp;_max1 == &amp;_max2);  // 当两个比较两个类型不同的变量的地址时,编译器会给出一个警告.提示我们在进行类型不同的比较.
+ _max1 &gt; _max2 ? _max1 : _max2; })</p>
+</li>
+</ul>
+</li>
+</ul>
 <p>前面的(void)又是干什么用的呢?因为我们在比较两个地址之后并没有保存比较结果,编译器会认为这是一条无效语句,同样会给出一个警告.我们将它转换为(void)类型,编译器会认为我们对结果使用了,就不会提示这个错误。
 再看一个经典的例子 </p>
 <div class="highlight"><pre><span class="code-line">#define toupper(c)</span>
@@ -244,7 +253,7 @@
 <p>弱类型定义语言：数据类型可以被忽略的语言。它与强类型定义语言相反, 一个变量可以赋不同数据类型的值。</p>
 </li>
 </ul>
-<p>Python是动态的强类型语言，C是静态的弱类型语言。</p>
+<p>Python是动态的强类型语言，C是静态的弱类型语言</p>
         </div><!-- /.entry-content -->
         <div class="comments">
         <h2>Comments !</h2>
@@ -290,13 +299,13 @@
 
 <li class="nav-header"><a href="../../../../../tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
     <li class="tag-4">
-        <a href="../../../../../tag/shell.html">
-            <i class="icon-tag icon-large"></i>SHELL
+        <a href="../../../../../tag/sql.html">
+            <i class="icon-tag icon-large"></i>SQL
         </a>
     </li>
-    <li class="tag-2">
-        <a href="../../../../../tag/shu-ju-jie-gou.html">
-            <i class="icon-tag icon-large"></i>数据结构
+    <li class="tag-4">
+        <a href="../../../../../tag/pa-chong.html">
+            <i class="icon-tag icon-large"></i>爬虫
         </a>
     </li>
     <li class="tag-4">
@@ -309,34 +318,14 @@
             <i class="icon-tag icon-large"></i>多线程
         </a>
     </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/yong-sai-kong-zhi.html">
-            <i class="icon-tag icon-large"></i>拥塞控制
-        </a>
-    </li>
-    <li class="tag-1">
-        <a href="../../../../../tag/suan-fa.html">
-            <i class="icon-tag icon-large"></i>算法
-        </a>
-    </li>
     <li class="tag-2">
         <a href="../../../../../tag/c.html">
             <i class="icon-tag icon-large"></i>C
         </a>
     </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/sql.html">
-            <i class="icon-tag icon-large"></i>SQL
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/gong-ju.html">
-            <i class="icon-tag icon-large"></i>工具
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/zheng-ze-biao-da-shi.html">
-            <i class="icon-tag icon-large"></i>正则表达式
+    <li class="tag-2">
+        <a href="../../../../../tag/shu-ju-jie-gou.html">
+            <i class="icon-tag icon-large"></i>数据结构
         </a>
     </li>
     <li class="tag-3">
@@ -345,13 +334,33 @@
         </a>
     </li>
     <li class="tag-4">
-        <a href="../../../../../tag/pa-chong.html">
-            <i class="icon-tag icon-large"></i>爬虫
+        <a href="../../../../../tag/zhi-li.html">
+            <i class="icon-tag icon-large"></i>智力
         </a>
     </li>
     <li class="tag-4">
-        <a href="../../../../../tag/zhi-li.html">
-            <i class="icon-tag icon-large"></i>智力
+        <a href="../../../../../tag/zheng-ze-biao-da-shi.html">
+            <i class="icon-tag icon-large"></i>正则表达式
+        </a>
+    </li>
+    <li class="tag-1">
+        <a href="../../../../../tag/suan-fa.html">
+            <i class="icon-tag icon-large"></i>算法
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../../../../../tag/gong-ju.html">
+            <i class="icon-tag icon-large"></i>工具
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../../../../../tag/shell.html">
+            <i class="icon-tag icon-large"></i>SHELL
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../../../../../tag/yong-sai-kong-zhi.html">
+            <i class="icon-tag icon-large"></i>拥塞控制
         </a>
     </li>
 
