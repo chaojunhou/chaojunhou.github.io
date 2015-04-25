@@ -2,7 +2,7 @@
 <html lang="zh">
   <head>
     <meta charset="utf-8" />
-    <title>Write the Code - 编程 | Write the Code</title>
+    <title>Write the Code - misc | Write the Code</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="keywords" content="" />
     <meta name="author" content="ChaoJun Hou" />
@@ -63,7 +63,7 @@
             <ul class="nav">
                 <li ><a href="../pages/guan-yu.html">关于</a></li>
                 <li class="divider-vertical"></li>
-                <li class="active">
+                <li >
                   <a href="../category/bian-cheng.html">
 						        <i class="icon-folder-open icon-large"></i>编程
 					         </a>
@@ -72,6 +72,12 @@
                 <li >
                   <a href="../category/ji-suan-ji-ke-xue.html">
 						        <i class="icon-folder-open icon-large"></i>计算机科学
+					         </a>
+                </li>
+                 <li class="divider-vertical"></li>
+                <li class="active">
+                  <a href="../category/misc.html">
+						        <i class="icon-folder-open icon-large"></i>misc
 					         </a>
                 </li>
                  <li class="divider-vertical"></li>
@@ -114,21 +120,43 @@
 <div class="row">
     <div class="span2">
         <div class="well small"><footer class="post-info">
-<abbr class="published" title="2014-02-20T00:00:00+08:00">
-    <i class="icon-calendar"></i>&nbsp;周四 20 二月 2014
+<abbr class="published" title="2015-04-01T16:09:00+08:00">
+    <i class="icon-calendar"></i>&nbsp;周三 01 四月 2015
 </abbr>
 <br/><a href="../author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
 
 
-<br/>
-	&nbsp;&nbsp;<a href="../tag/zhi-li.html" class="label"><i class="icon-tag"></i>&nbsp;智力</a>
 </footer><!-- /.post-info --></div>
     </div>
     <div class="span6">
         <div class="article well">
-            <h1><a href="../blog/2014/02/20/mind-trick/">Mind trick</a></h1>
-            <div class="summary"><p>天平问题。（最少几次可以找到不平衡的那个。）最少几只小白鼠可以找到有药的瓶子。</p>
-                <a class="btn btn-small" href="../blog/2014/02/20/mind-trick/">more ...</a>
+            <h1><a href="../blog/2015/04/01/ren-sheng-ku-duan-wo-yong-python/">人生苦短我用Python</a></h1>
+            <div class="summary"><p>Category : 编程 
+Tags : Python
+Slug : life-is-short-use-python 
+Author : ChaoJun Hou</p>
+<p>Programs must be written for people to read, and only incidentally for machines to execute. 
+     —Abelson &amp; Sussman, Structure and Interpretation of Computer Programs </p>
+<h2>1. 交换变量</h2>
+<p>一般交换变量有以下三种方法：</p>
+<ol>
+<li>
+<p>最常用的，就是设置一个临时变量</p>
+<div class="highlight"><pre><span class="code-line">temp = x;</span>
+<span class="code-line">x = y;</span>
+<span class="code-line">y = x;</span>
+</pre></div>
+
+
+<p>这种方法在python中可以更优雅的表示，而且效率更高。</p>
+<div class="highlight"><pre><span class="code-line">x, y = y, x</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>不增加临时变量使用加法 ...</p></li></ol>
+                <a class="btn btn-small" href="../blog/2015/04/01/ren-sheng-ku-duan-wo-yong-python/">more ...</a>
             </div>
         </div>
     </div>
@@ -137,38 +165,34 @@
     </div>
     <div class="span2">
         <div class="well small"><footer class="post-info">
-<abbr class="published" title="2013-12-03T10:20:00+08:00">
-    <i class="icon-calendar"></i>&nbsp;周二 03 十二月 2013
+<abbr class="published" title="2015-03-27T23:07:00+08:00">
+    <i class="icon-calendar"></i>&nbsp;周五 27 三月 2015
 </abbr>
 <br/><a href="../author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
 
 
-<br/>
-	&nbsp;&nbsp;<a href="../tag/c.html" class="label"><i class="icon-tag"></i>&nbsp;C</a>
 </footer><!-- /.post-info --></div>
     </div>
     <div class="span6">
         <div class="article well">
-            <h1><a href="../blog/2013/12/03/thanks-for-the-memory/">Thanks for the memory</a></h1>
-            <div class="summary"><ul>
-<li>虚拟内存通过<em>Page</em>的形式组织。Pages就是操作系统用于内存和磁盘之间移动或者进行保护的单位。Page in，Page out。磁盘上有个特殊的交换区来与内存进行交换。</li>
-<li>进程只能操作位于屋里内存中的页面。</li>
-</ul>
-<div class="highlight"><pre><span class="code-line"><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span></span>
-<span class="code-line"><span class="k">while</span><span class="p">(</span><span class="n">malloc</span><span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">20</span><span class="p">))</span> <span class="o">++</span><span class="n">i</span><span class="p">;</span> <span class="c1">// to see the memory available in this process.</span></span>
-<span class="code-line"><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Allocated %d MB total </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">i</span><span class="p">);</span></span>
-</pre></div>
-
-
+            <h1><a href="../blog/2015/03/27/lian-jie-he-yu-bian-yi/">链接和预编译</a></h1>
+            <div class="summary"><p>Category : 编程 
+Tags : C 
+Slug : link-and-preprocess
+Author : ChaoJun Hou </p>
+<h2>链接器</h2>
 <ul>
-<li>cache<ul>
-<li>cache 的类型<ul>
-<li>write-through cache : 每次写入cache时同时写入到内存，保持内存与cache的一致性。</li>
-<li>write-back cache ： 当第一次写入时，只写入cache。如果已经写入过的cache行再次需要写入时，此时第一次写入的结果尚未保存，所以要先把它写入到内存中。当内存切换进程时，cache中所有的数据都要先写入到内存中。</li>
+<li>分别编译：即若干个源程序可以在不同的时候单独进行编译，然后在恰当的时候将它们整合到一起。但是，链接器一般是与C编译器分离的。</li>
+<li>链接器通常把由编译器或汇编器生成的若干个目标模块整合成一个被称为载入模块或可执行文件的实体，该实体能够被操作系统直接执行。</li>
+<li>链接器通常把目标模块看成是由一组外部对象组成。每个外部对象代表机器内存中的某个部分，并通过一个外部名称来识别。</li>
+<li>exit函数和return函数的主要区别是：<ul>
+<li>exit用于在程序运行的过程中随时结束程序，exit的参数返回给操作系统。exit函数运行时会先执行由atexit（）函数等级的函数，然后会做一些自身的清理工作，同时刷新所有输出流、关闭所有打开的流并且关闭通过标准I/O函数tmpfile（）创建的临时文件。exit是结束一个进程，它将删除进程的内存空间，同时讲错误信息返回给父进程。exit是系统调用级别的，表示整个进程的结束。</li>
+<li>return表示终止当前函数的运行，并将操作权返回给调用者。如果在main函数中，表示将操作权返回给操作系统，隐式调用exit。​如果return没有值就返回空，表示中断函数的执行，返回调用函数处。return是语言级别的，它表示了调用堆栈的返回；</li>
 </ul>
 </li>
-<li>line： 内存读取以行 ...</li></ul></li></ul>
-                <a class="btn btn-small" href="../blog/2013/12/03/thanks-for-the-memory/">more ...</a>
+<li>
+<p>理解复杂声明可用的“右左法则”：从变量名看起，先往右，再往左 ...</p></li></ul>
+                <a class="btn btn-small" href="../blog/2015/03/27/lian-jie-he-yu-bian-yi/">more ...</a>
             </div>
         </div>
     </div>
@@ -177,14 +201,6 @@
     </div>
 
 <div class="span6">
-<div class="pagination">
-<ul>
-        <li class="prev"><a href="../category/bian-cheng.html">&larr; Previous</a></li>
-        <li class=""><a href="../category/bian-cheng.html">1</a></li>
-        <li class="active"><a href="../category/bian-cheng2.html">2</a></li>
-        <li class="next disabled"><a href="#">&rarr; Next</a></li>
-</ul>
-</div>
 </div>
 </div>
         </div><!--/span-->
@@ -210,21 +226,51 @@
     <i class="icon-folder-open icon-large"></i>计算机科学
 </a>
 </li>
+<li>
+<a href="../category/misc.html">
+    <i class="icon-folder-open icon-large"></i>misc
+</a>
+</li>
 
 <li class="nav-header"><a href="../tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
+    <li class="tag-4">
+        <a href="../tag/tu-xiang.html">
+            <i class="icon-tag icon-large"></i>图像
+        </a>
+    </li>
+    <li class="tag-1">
+        <a href="../tag/suan-fa.html">
+            <i class="icon-tag icon-large"></i>算法
+        </a>
+    </li>
+    <li class="tag-3">
+        <a href="../tag/tcp.html">
+            <i class="icon-tag icon-large"></i>TCP
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../tag/pa-chong.html">
+            <i class="icon-tag icon-large"></i>爬虫
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../tag/shell.html">
+            <i class="icon-tag icon-large"></i>SHELL
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../tag/zheng-ze-biao-da-shi.html">
+            <i class="icon-tag icon-large"></i>正则表达式
+        </a>
+    </li>
     <li class="tag-4">
         <a href="../tag/duo-xian-cheng.html">
             <i class="icon-tag icon-large"></i>多线程
         </a>
     </li>
     <li class="tag-4">
-        <a href="../tag/zhi-li.html">
-            <i class="icon-tag icon-large"></i>智力
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../tag/tu-xiang.html">
-            <i class="icon-tag icon-large"></i>图像
+        <a href="../tag/yong-sai-kong-zhi.html">
+            <i class="icon-tag icon-large"></i>拥塞控制
         </a>
     </li>
     <li class="tag-4">
@@ -238,48 +284,18 @@
         </a>
     </li>
     <li class="tag-4">
-        <a href="../tag/zheng-ze-biao-da-shi.html">
-            <i class="icon-tag icon-large"></i>正则表达式
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../tag/pa-chong.html">
-            <i class="icon-tag icon-large"></i>爬虫
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../tag/yong-sai-kong-zhi.html">
-            <i class="icon-tag icon-large"></i>拥塞控制
+        <a href="../tag/gong-ju.html">
+            <i class="icon-tag icon-large"></i>工具
         </a>
     </li>
     <li class="tag-3">
-        <a href="../tag/tcp.html">
-            <i class="icon-tag icon-large"></i>TCP
-        </a>
-    </li>
-    <li class="tag-2">
         <a href="../tag/c.html">
             <i class="icon-tag icon-large"></i>C
         </a>
     </li>
     <li class="tag-4">
-        <a href="../tag/shell.html">
-            <i class="icon-tag icon-large"></i>SHELL
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../tag/gong-ju.html">
-            <i class="icon-tag icon-large"></i>工具
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../tag/python.html">
-            <i class="icon-tag icon-large"></i>Python
-        </a>
-    </li>
-    <li class="tag-1">
-        <a href="../tag/suan-fa.html">
-            <i class="icon-tag icon-large"></i>算法
+        <a href="../tag/zhi-li.html">
+            <i class="icon-tag icon-large"></i>智力
         </a>
     </li>
 
@@ -317,11 +333,11 @@
 <img src="http://hitwebcounter.com/counter/counter.php?page=6046616&style=0005&nbdigits=5&type=ip&initCount=0" title="" Alt=""   border="0" style="float:left">  
 
 
-  <!-- Baidu Button BEGIN 
+  <!-- Baidu Button BEGIN -->
 <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone"></a><a href="#" class="bds_tsina" data-cmd="tsina"></a><a href="#" class="bds_tqq" data-cmd="tqq"></a><a href="#" class="bds_renren" data-cmd="renren"></a><a href="#" class="bds_weixin" data-cmd="weixin"></a></div>
 <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
 <!-- Baidu Button END -->
-<!-- UJian Button BEGIN 
+<!-- UJian Button BEGIN -->
 <script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js?type=slide&fade=1"></script>
 <!-- UJian Button END -->
 

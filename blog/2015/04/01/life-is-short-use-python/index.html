@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <title>人生苦短我用Python | Write the Code</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="keywords" content="" />
+    <meta name="author" content="ChaoJun Hou" />
+    <meta name="kittycheck_rumble" content="true" />
+    <meta name="kittycheck_position" content="top=60,right=60" />
+
+    <!-- Le styles -->
+    <link rel="stylesheet" href="../../../../../theme/css/bootstrap.min.css" type="text/css" />
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+      .tag-1 {
+        font-size: 13pt;
+      }
+      .tag-2 {
+        font-size: 10pt;
+      }
+      .tag-2 {
+        font-size: 8pt;
+      }
+      .tag-4 {
+        font-size: 6pt;
+     }
+    </style>
+    <link href="../../../../../theme/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="../../../../../theme/css/font-awesome.css" rel="stylesheet">
+    <link href="../../../../../theme/css/pygments.css" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="../../../../../theme/img/favicon.ico">
+    <link rel="apple-touch-icon" href="../../../../../theme/img/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="../../../../../theme/img/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="../../../../../theme/img/apple-touch-icon-114x114.png">
+
+    <link href="../../../../../" type="application/atom+xml" rel="alternate" title="Write the Code ATOM Feed" />
+  </head>
+  <body>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="../../../../../index.html">Write the Code </a>
+          <div class="nav-collapse">
+            <ul class="nav">
+                <li ><a href="../../../../../pages/guan-yu.html">关于</a></li>
+                <li class="divider-vertical"></li>
+                <li class="active">
+                  <a href="../../../../../category/bian-cheng.html">
+						        <i class="icon-folder-open icon-large"></i>编程
+					         </a>
+                </li>
+                 <li class="divider-vertical"></li>
+                <li >
+                  <a href="../../../../../category/ji-suan-ji-ke-xue.html">
+						        <i class="icon-folder-open icon-large"></i>计算机科学
+					         </a>
+                </li>
+                 <li class="divider-vertical"></li>
+         
+              <ul class="nav ">
+                    <li><a href="/random.html"><i class="icon-folder-open icon-large"></i>随机文章</a></li>
+                    <li class="divider-vertical"></li>
+              </ul>
+              <ul class="nav">
+                    <li><a href="../../../../../archives.html"><i class="icon-th-list"></i>归档</a></li>
+                    <li class="divider-vertical"></li>
+              </ul>
+
+              <ul class="nav pull-right" style="height: 40px; margin-top: 5px; ">
+                    <li >
+		              	<form method="get" action="http://www.google.com/search">
+		              			<input type="hidden" name="cref" value="" />
+  								<input type="hidden" name="ie" value="utf-8" />
+  								<input type="hidden" name="hl" value="zh-CN" />
+						        <input type="text" name="q" size="40" maxlength="255" placeholder="Search…" />
+						        <input type="submit" name="btnG" value="Google Search" />
+						        <input type="hidden" name="domains" value="http://www.houcj.net/" />
+						        <input type="hidden" name="sitesearch" value="houcj.net" />
+						</form>
+	              </li>
+              </ul>
+                      
+              
+            </ul>
+            <!--<p class="navbar-text pull-right">Logged in as <a href="#">username</a></p>-->
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+   
+
+    <div class="container">
+      <div class="row">
+        <div class="span8" id="content">
+<div class="row">
+    <div class="span2">
+        <div class="well">
+<footer class="post-info">
+<abbr class="published" title="2015-04-01T16:09:00+08:00">
+    <i class="icon-calendar"></i>&nbsp;周三 01 四月 2015
+</abbr>
+<br/><a href="../../../../../author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
+
+
+<br/>
+	&nbsp;&nbsp;<a href="../../../../../tag/python.html" class="label"><i class="icon-tag"></i>&nbsp;Python</a>
+</footer><!-- /.post-info -->        </div>
+    </div>
+    <div class="span6">
+<section id="content" class="well">
+    <article>
+        <header>
+            <h1>
+                <a href=""
+                        rel="bookmark"
+                        title="Permalink to 人生苦短我用Python">
+                        人生苦短我用Python
+                </a>
+            </h1>
+        </header>
+        <div class="entry-content">
+
+        <blockquote>
+<p>Programs must be written for people to read, and only incidentally for machines to execute.                                         <br />
+  —   Abelson &amp; Sussman, Structure and Interpretation of Computer Programs </p>
+</blockquote>
+<h2>1. 交换变量</h2>
+<p>一般交换变量有以下三种方法：</p>
+<ol>
+<li>
+<p>最常用的，就是设置一个临时变量</p>
+<div class="highlight"><pre><span class="code-line">temp = x;</span>
+<span class="code-line">x = y;</span>
+<span class="code-line">y = x;</span>
+</pre></div>
+
+
+<p>这种方法在python中可以更优雅的表示，而且效率更高。</p>
+<div class="highlight"><pre><span class="code-line">x, y = y, x</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>不增加临时变量使用加法</p>
+<div class="highlight"><pre><span class="code-line">b = a + b</span>
+<span class="code-line">a = b - a # a = a + b - a = b 即 a = b </span>
+<span class="code-line">b = b - a # b = a + b - b = a</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>使用位操作</p>
+<div class="highlight"><pre><span class="code-line">b = a^b</span>
+<span class="code-line">a = a^b</span>
+<span class="code-line">b = a^b</span>
+</pre></div>
+
+
+</li>
+</ol>
+<h2>2. Python字典中判断键值是否存在</h2>
+<p>一般情况会是用一个判断语句   </p>
+<div class="highlight"><pre><span class="code-line">dic = {&#39;key&#39; : &#39;value&#39;}</span>
+<span class="code-line">if &#39;key&#39; in dic:</span>
+<span class="code-line">    print dic[&#39;key&#39;]</span>
+<span class="code-line">else:</span>
+<span class="code-line">    print &#39;not found&#39;</span>
+</pre></div>
+
+
+<p>在python中可以内置的get函数即可</p>
+<div class="highlight"><pre><span class="code-line">print dic.get(&#39;key&#39;,&#39;not found&#39;)</span>
+</pre></div>
+
+
+<h2>3. 读取文件</h2>
+<p>python中有三个方法来处理文件内容的输入：</p>
+<ol>
+<li>
+<p>read（） 一次读取全部的文件内容。</p>
+<div class="highlight"><pre><span class="code-line">f = open(&#39;path/to/file.txt&#39;, &#39;r&#39;)</span>
+<span class="code-line">ff = f.read() </span>
+<span class="code-line">f.close()</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>readline() 每次读取文件的一行。</p>
+<div class="highlight"><pre><span class="code-line">f = open(&#39;path/to/file.txt&#39;, &#39;r&#39;)</span>
+<span class="code-line">line = f.readline()</span>
+<span class="code-line">while 1:</span>
+<span class="code-line">    if line:</span>
+<span class="code-line">            print line</span>
+<span class="code-line">    else:</span>
+<span class="code-line">        break</span>
+<span class="code-line">f.close()</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>readlines() 读取文件的所有行，返回一个字符串列表</p>
+<div class="highlight"><pre><span class="code-line">f = open(&#39;path/to/file.txt&#39;, &#39;r&#39;)</span>
+<span class="code-line">ff = f.readlines() </span>
+<span class="code-line">f.close()</span>
+</pre></div>
+
+
+</li>
+</ol>
+<p>由于文件操作需要注意文件的打开和关闭操作，因此更优雅的做法是</p>
+<div class="highlight"><pre><span class="code-line">    with open(&#39;path/to/file.txt&#39;, &#39;r&#39;):</span>
+<span class="code-line">        for line in f:</span>
+<span class="code-line">                do_somenthing(line)</span>
+</pre></div>
+
+
+<h2>4. while 1 还是 while True？r</h2>
+<p>在python 2中，由于<strong>True</strong>不是关键字，因此可以对True进行赋值。下面的语句是可以的</p>
+<div class="highlight"><pre><span class="code-line">True = &#39;Hello&#39;</span>
+</pre></div>
+
+
+<p>因此在无限循环中，我们应该使用while 1，因为while True在每次
+while循环时都会有对True的判断操作。
+下面使用dis，Disassembler for Python bytecode,即把python代码反汇编为字节码指令， 模块观察生成的字节码。</p>
+<div class="highlight"><pre><span class="code-line"><span class="n">In</span> <span class="p">[</span><span class="mi">10</span><span class="p">]:</span> <span class="kn">import</span> <span class="nn">dis</span></span>
+<span class="code-line"><span class="n">In</span> <span class="p">[</span><span class="mi">11</span><span class="p">]:</span> <span class="k">def</span> <span class="nf">while_one</span><span class="p">():</span></span>
+<span class="code-line">   <span class="o">....</span><span class="p">:</span> <span class="k">while</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="code-line">   <span class="o">....</span><span class="p">:</span> <span class="k">pass</span></span>
+<span class="code-line">   <span class="o">....</span><span class="p">:</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="n">In</span> <span class="p">[</span><span class="mi">12</span><span class="p">]:</span> <span class="k">def</span> <span class="nf">while_true</span><span class="p">():</span></span>
+<span class="code-line">   <span class="o">....</span><span class="p">:</span> <span class="k">while</span> <span class="bp">True</span><span class="p">:</span></span>
+<span class="code-line">   <span class="o">....</span><span class="p">:</span> <span class="k">pass</span></span>
+<span class="code-line">   <span class="o">....</span><span class="p">:</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="n">In</span> <span class="p">[</span><span class="mi">13</span><span class="p">]:</span> <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span></span>
+<span class="code-line">   <span class="o">....</span><span class="p">:</span> <span class="n">Print</span> <span class="s">&#39;while 1&#39;</span>    </span>
+<span class="code-line">   <span class="o">....</span><span class="p">:</span> <span class="n">dis</span><span class="o">.</span><span class="n">dis</span><span class="p">(</span><span class="n">while_one</span><span class="p">)</span></span>
+<span class="code-line">   <span class="o">....</span><span class="p">:</span> <span class="n">Print</span> <span class="s">&#39;while True&#39;</span></span>
+<span class="code-line">   <span class="o">....</span><span class="p">:</span> <span class="n">dis</span><span class="o">.</span><span class="n">dis</span><span class="p">(</span><span class="n">while_true</span><span class="p">)</span></span>
+<span class="code-line"><span class="c">##########output</span></span>
+<span class="code-line"><span class="k">while</span> <span class="mi">1</span>       </span>
+<span class="code-line">  <span class="mi">2</span>           <span class="mi">0</span> <span class="n">SETUP_LOOP</span>               <span class="mi">3</span> <span class="p">(</span><span class="n">to</span> <span class="mi">6</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">  <span class="mi">3</span>     <span class="o">&gt;&gt;</span>    <span class="mi">3</span> <span class="n">JUMP_ABSOLUTE</span>            <span class="mi">3</span></span>
+<span class="code-line">        <span class="o">&gt;&gt;</span>    <span class="mi">6</span> <span class="n">LOAD_CONST</span>               <span class="mi">0</span> <span class="p">(</span><span class="bp">None</span><span class="p">)</span></span>
+<span class="code-line">              <span class="mi">9</span> <span class="n">RETURN_VALUE</span>        </span>
+<span class="code-line"><span class="k">while</span> <span class="bp">True</span></span>
+<span class="code-line">  <span class="mi">2</span>           <span class="mi">0</span> <span class="n">SETUP_LOOP</span>              <span class="mi">10</span> <span class="p">(</span><span class="n">to</span> <span class="mi">13</span><span class="p">)</span></span>
+<span class="code-line">        <span class="o">&gt;&gt;</span>    <span class="mi">3</span> <span class="n">LOAD_GLOBAL</span>              <span class="mi">0</span> <span class="p">(</span><span class="bp">True</span><span class="p">)</span></span>
+<span class="code-line">              <span class="mi">6</span> <span class="n">POP_JUMP_IF_FALSE</span>       <span class="mi">12</span></span>
+<span class="code-line"></span>
+<span class="code-line">  <span class="mi">3</span>           <span class="mi">9</span> <span class="n">JUMP_ABSOLUTE</span>            <span class="mi">3</span></span>
+<span class="code-line">        <span class="o">&gt;&gt;</span>   <span class="mi">12</span> <span class="n">POP_BLOCK</span>           </span>
+<span class="code-line">        <span class="o">&gt;&gt;</span>   <span class="mi">13</span> <span class="n">LOAD_CONST</span>               <span class="mi">0</span> <span class="p">(</span><span class="bp">None</span><span class="p">)</span></span>
+<span class="code-line">             <span class="mi">16</span> <span class="n">RETURN_VALUE</span></span>
+</pre></div>
+
+
+<h2>5. string的连接</h2>
+<p>在python中操作字符串数据的时候经常要对字符串进行连接操作，连接的时候一般有下面两种方法 <strong>'+'</strong>和<strong>'join'</strong>。</p>
+<ul>
+<li>使用'+'进行操作时，每次都需要创建新的对象，然后再对新的对象进行操作。</li>
+<li>计数出要join的所有字符串的长度，然后进行一一拷贝，这样只有一次对象生成
+因此处于内存的考虑，应尽量使用join操作。</li>
+</ul>
+<h2>6. 字典中的setdefault函数</h2>
+<p>我们经常需要使用字典来初始化数据，每个字典的值是一个列表。通常使用以下的方法</p>
+<div class="highlight"><pre><span class="code-line">    dics = {}</span>
+<span class="code-line">    for (val,dic) in data:</span>
+<span class="code-line">        if val in dics:</span>
+<span class="code-line">                dics[val].append(dic)</span>
+<span class="code-line">        else:</span>
+<span class="code-line">                dics[val] = [dic]</span>
+</pre></div>
+
+
+<p>通过setdefault可以优化为</p>
+<div class="highlight"><pre><span class="code-line">    dics = {}</span>
+<span class="code-line">    for (val,dic) in data:</span>
+<span class="code-line">        dics.setdefault(val, []).append(dic)</span>
+</pre></div>
+
+
+<h2>7.  列举</h2>
+<p>在python中遍历list获得index和item。可以通过下面的代码：</p>
+<div class="highlight"><pre><span class="code-line">    index = 0</span>
+<span class="code-line">    for item in lst:</span>
+<span class="code-line">        print index,item</span>
+<span class="code-line">        index += 1</span>
+<span class="code-line">    or</span>
+<span class="code-line">    for index in range(len(lst)):</span>
+<span class="code-line">        print index, lst[index]</span>
+</pre></div>
+
+
+<p>而使用enumerate可以使代码更清晰， 更易读。</p>
+<div class="highlight"><pre><span class="code-line">    for (index, item) in lst:</span>
+<span class="code-line">        print index, item</span>
+</pre></div>
+
+
+<h2>8. 列表展开（list comprehension）</h2>
+<p>列表展开比一般的循环操作的效率更高，而且更简单。</p>
+<div class="highlight"><pre><span class="code-line">    a = [1, 1, 2, 3, 5, 8]</span>
+<span class="code-line">    for i in range(len(a)):</span>
+<span class="code-line">        a[i] = i**2 // **比pow（）的效率更高，因此它在python中是一个运算符</span>
+</pre></div>
+
+
+<p>或者更高的实现</p>
+<div class="highlight"><pre><span class="code-line">    a = [1, 1, 2, 3, 5, 8]</span>
+<span class="code-line">    a = [val**2 for val in a]</span>
+<span class="code-line">    # or :</span>
+<span class="code-line">    a = map(lambda i: i**2, a)</span>
+</pre></div>
+
+
+<h2>9. itertools模块</h2>
+<p>迭代的内部机制： 迭代(iteration）就是对可迭代对象（iterables，实现了_<em>iter_</em>()方法）和迭代器（iterators，实现了_<em>next_</em>()方法）的一个操作过程。可迭代对象是任何可返回一个迭代器的对象，迭代器是应用在迭代对象中迭代的对象，换一种方式说的话就是：iterable对象的_<em>iter_</em>()方法可以返回iterator对象，iterator通过调用next()方法获取其中的每一个值，读者可以结合Java API中的 Iterable接口和Iterator接口进行类比。</p>
+<h2>10. 生成器</h2>
+<ul>
+<li>
+<p>任何你可用 "for... in..." 处理的都是可迭代对象：列表，字符串，文件.... 这些迭代对象非常便捷，因为你可以尽可能多地获取你想要的东西。但是当有大量数据要使用内存的时候，必须要使用生成器了。</p>
+</li>
+<li>
+<p>生成器是迭代器，但你只能遍历它一次(iterate over them once) 因为生成器并没有将所有值放入内存中，而是实时地生成这些值</p>
+</li>
+</ul>
+        </div><!-- /.entry-content -->
+        <div class="comments">
+        <h2>Comments !</h2>
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+               var disqus_identifier = "blog/2015/04/01/life-is-short-use-python/";
+               (function() {
+                    var dsq = document.createElement('script');
+                    dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'http://houcj.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] ||
+                     document.getElementsByTagName('body')[0]).appendChild(dsq);
+              })();
+            </script>
+        </div>
+    </article>
+</section>
+</div>
+</div>
+        </div><!--/span-->
+        <div class="span3 well sidebar-nav" id="sidebar">
+<ul class="nav nav-list">
+<li class="nav-header"><h4><i class="icon-external-link"></i>blogroll</h4></li>
+    <li><div><i class="icon-external-link"></i><a href="http://www.rudy-yuan.net/">Rudy-yuan</a></div></li>
+    <li><div><i class="icon-external-link"></i><a href="http://www.wengweitao.com">WWT</a></div></li>
+<li class="nav-header"><h4><i class="icon-home icon-large"></i> social</h4></li>
+<li><a href="../../../../../" rel="alternate"><i class="icon-bookmark icon-large"></i>atom feed</a></li>
+    <li><a href="https://twitter.com/chaojunhou"><i class="icon-Twitter-sign icon-large"></i>Twitter</a></li>
+    <li><a href="https://www.tumblr.com/blog/houcj"><i class="icon-Tumblr-sign icon-large"></i>Tumblr</a></li>
+    <li><a href="https://github.com/chaojunhou"><i class="icon-Github-sign icon-large"></i>Github</a></li>
+
+<li class="nav-header"><h4><i class="icon-folder-close icon-large"></i>Categories</h4></li>
+<li>
+<a href="../../../../../category/bian-cheng.html">
+    <i class="icon-folder-open icon-large"></i>编程
+</a>
+</li>
+<li>
+<a href="../../../../../category/ji-suan-ji-ke-xue.html">
+    <i class="icon-folder-open icon-large"></i>计算机科学
+</a>
+</li>
+
+<li class="nav-header"><a href="../../../../../tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
+    <li class="tag-4">
+        <a href="../../../../../tag/duo-xian-cheng.html">
+            <i class="icon-tag icon-large"></i>多线程
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../../../../../tag/zhi-li.html">
+            <i class="icon-tag icon-large"></i>智力
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../../../../../tag/tu-xiang.html">
+            <i class="icon-tag icon-large"></i>图像
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../../../../../tag/sql.html">
+            <i class="icon-tag icon-large"></i>SQL
+        </a>
+    </li>
+    <li class="tag-2">
+        <a href="../../../../../tag/shu-ju-jie-gou.html">
+            <i class="icon-tag icon-large"></i>数据结构
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../../../../../tag/zheng-ze-biao-da-shi.html">
+            <i class="icon-tag icon-large"></i>正则表达式
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../../../../../tag/pa-chong.html">
+            <i class="icon-tag icon-large"></i>爬虫
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../../../../../tag/yong-sai-kong-zhi.html">
+            <i class="icon-tag icon-large"></i>拥塞控制
+        </a>
+    </li>
+    <li class="tag-3">
+        <a href="../../../../../tag/tcp.html">
+            <i class="icon-tag icon-large"></i>TCP
+        </a>
+    </li>
+    <li class="tag-2">
+        <a href="../../../../../tag/c.html">
+            <i class="icon-tag icon-large"></i>C
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../../../../../tag/shell.html">
+            <i class="icon-tag icon-large"></i>SHELL
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../../../../../tag/gong-ju.html">
+            <i class="icon-tag icon-large"></i>工具
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../../../../../tag/python.html">
+            <i class="icon-tag icon-large"></i>Python
+        </a>
+    </li>
+    <li class="tag-1">
+        <a href="../../../../../tag/suan-fa.html">
+            <i class="icon-tag icon-large"></i>算法
+        </a>
+    </li>
+
+
+</ul>        </div><!--/.well -->
+
+      </div><!--/row-->
+
+      <hr>
+
+    </div><!--/.fluid-container-->
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', '61957498']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+     
+ 
+
+    <!-- Le javascript -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../../../../../theme/js/jquery-1.7.2.min.js"></script>
+    <script src="../../../../../theme/js/bootstrap.min.js"></script>
+  </body>
+
+  <!-- hitwebcounter Code START -->
+
+<a href="http://www.hitwebcounter.com/how-to/how-to-what-is-free-blog-counter.php" target="_blank">
+<img src="http://hitwebcounter.com/counter/counter.php?page=6046616&style=0005&nbdigits=5&type=ip&initCount=0" title="" Alt=""   border="0" style="float:left">  
+
+
+  <!-- Baidu Button BEGIN 
+<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone"></a><a href="#" class="bds_tsina" data-cmd="tsina"></a><a href="#" class="bds_tqq" data-cmd="tqq"></a><a href="#" class="bds_renren" data-cmd="renren"></a><a href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+<!-- Baidu Button END -->
+<!-- UJian Button BEGIN 
+<script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js?type=slide&fade=1"></script>
+<!-- UJian Button END -->
+
+
+
+</html>
