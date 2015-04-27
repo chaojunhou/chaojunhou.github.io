@@ -62,7 +62,7 @@
           <a class="brand" href="../../../../../index.html">Write the Code </a>
           <div class="nav-collapse">
             <ul class="nav">
-                <li ><a href="../../../../../pages/guan-yu.html">关于</a></li>
+                <li ><a href="../../../../../pages/About.html">关于</a></li>
                 <li class="divider-vertical"></li>
                 <li class="active">
                   <a href="../../../../../category/bian-cheng.html">
@@ -233,9 +233,9 @@
 </li>
 </ol>
 <p>由于文件操作需要注意文件的打开和关闭操作，因此更优雅的做法是</p>
-<div class="highlight"><pre><span class="code-line">    with open(&#39;path/to/file.txt&#39;, &#39;r&#39;):</span>
-<span class="code-line">        for line in f:</span>
-<span class="code-line">                do_somenthing(line)</span>
+<div class="highlight"><pre><span class="code-line">with open(&#39;path/to/file.txt&#39;, &#39;r&#39;):</span>
+<span class="code-line">    for line in f:</span>
+<span class="code-line">            do_somenthing(line)</span>
 </pre></div>
 
 
@@ -381,6 +381,49 @@ while循环时都会有对True的判断操作。
 
 
 <p>当生成器要一个数时，生成器会执行，直至出现yield语句，生成器返回yield参数，之后生成器停止继续执行。 当需要下一个数时，生成器从上次的状态开始执行，直至出现yield语句，返回参数，停止。如此反复。 </p>
+<h2>11. Python中有用的数据结构</h2>
+<ul>
+<li>Counter()<ul>
+<li>
+<p>Counter 用于统计可hash对象出现的次数。并以降序排序输出。</p>
+<div class="highlight"><pre><span class="code-line"><span class="kn">import</span> <span class="nn">collection</span></span>
+<span class="code-line"><span class="n">string</span> <span class="o">=</span> <span class="s">&quot;the zen of python&quot;</span></span>
+<span class="code-line"><span class="k">print</span> <span class="n">collections</span><span class="o">.</span><span class="n">Counter</span><span class="p">(</span><span class="n">string</span><span class="p">)</span></span>
+<span class="code-line"><span class="c">#output </span></span>
+<span class="code-line"><span class="n">Counter</span><span class="p">({</span><span class="s">&#39; &#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s">&#39;e&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&#39;h&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&#39;o&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&#39;n&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&#39;t&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&#39;f&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39;p&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39;y&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39;z&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span></span>
+</pre></div>
+
+
+<ul>
+<li>Deque<ul>
+<li>Deque支持线程安全，内存优化的append和pop操作，在队列两端的插入和删除操作都近乎O(1)的时间复杂度。而list在处理即改变列表长度又改变元素位置的操作，如insert(0,v),pop(0)的时间复杂度就基本为O(n)。</li>
+</ul>
+</li>
+<li>
+<p>Heapq</p>
+<ul>
+<li>heapq使用一个堆实现的优先队列。堆是一个二叉树，它的孩子节点的值都小于或者等于父亲节点（最小堆)。常见的有以下几种操作。</li>
+</ul>
+</li>
+<li>
+<p>heapq.heappush(heap, item) </p>
+<ul>
+<li>把item的值push到heap中，同时保持heap的性质。</li>
+</ul>
+</li>
+<li>heapq.heappop(heap)<ul>
+<li>弹出堆顶的元素</li>
+</ul>
+</li>
+<li>heapq.heapify(x)<ul>
+<li>在线性时间内把list x 转化为一个堆。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
         </div><!-- /.entry-content -->
         <div class="comments">
         <h2>Comments !</h2>
@@ -426,13 +469,18 @@ while循环时都会有对True的判断操作。
 
 <li class="nav-header"><a href="../../../../../tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
     <li class="tag-4">
-        <a href="../../../../../tag/sql.html">
-            <i class="icon-tag icon-large"></i>SQL
+        <a href="../../../../../tag/zhi-li.html">
+            <i class="icon-tag icon-large"></i>智力
         </a>
     </li>
     <li class="tag-4">
-        <a href="../../../../../tag/pa-chong.html">
-            <i class="icon-tag icon-large"></i>爬虫
+        <a href="../../../../../tag/tu-xiang.html">
+            <i class="icon-tag icon-large"></i>图像
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../../../../../tag/python.html">
+            <i class="icon-tag icon-large"></i>Python
         </a>
     </li>
     <li class="tag-2">
@@ -441,8 +489,13 @@ while循环时都会有对True的判断操作。
         </a>
     </li>
     <li class="tag-4">
-        <a href="../../../../../tag/shell.html">
-            <i class="icon-tag icon-large"></i>SHELL
+        <a href="../../../../../tag/sql.html">
+            <i class="icon-tag icon-large"></i>SQL
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../../../../../tag/zheng-ze-biao-da-shi.html">
+            <i class="icon-tag icon-large"></i>正则表达式
         </a>
     </li>
     <li class="tag-4">
@@ -451,8 +504,18 @@ while循环时都会有对True的判断操作。
         </a>
     </li>
     <li class="tag-4">
-        <a href="../../../../../tag/python.html">
-            <i class="icon-tag icon-large"></i>Python
+        <a href="../../../../../tag/gong-ju.html">
+            <i class="icon-tag icon-large"></i>工具
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../../../../../tag/shell.html">
+            <i class="icon-tag icon-large"></i>SHELL
+        </a>
+    </li>
+    <li class="tag-1">
+        <a href="../../../../../tag/suan-fa.html">
+            <i class="icon-tag icon-large"></i>算法
         </a>
     </li>
     <li class="tag-4">
@@ -461,13 +524,8 @@ while循环时都会有对True的判断操作。
         </a>
     </li>
     <li class="tag-4">
-        <a href="../../../../../tag/zheng-ze-biao-da-shi.html">
-            <i class="icon-tag icon-large"></i>正则表达式
-        </a>
-    </li>
-    <li class="tag-1">
-        <a href="../../../../../tag/suan-fa.html">
-            <i class="icon-tag icon-large"></i>算法
+        <a href="../../../../../tag/pa-chong.html">
+            <i class="icon-tag icon-large"></i>爬虫
         </a>
     </li>
     <li class="tag-2">
@@ -478,21 +536,6 @@ while循环时都会有对True的判断操作。
     <li class="tag-3">
         <a href="../../../../../tag/tcp.html">
             <i class="icon-tag icon-large"></i>TCP
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/gong-ju.html">
-            <i class="icon-tag icon-large"></i>工具
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/zhi-li.html">
-            <i class="icon-tag icon-large"></i>智力
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/tu-xiang.html">
-            <i class="icon-tag icon-large"></i>图像
         </a>
     </li>
 
