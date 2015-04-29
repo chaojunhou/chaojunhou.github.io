@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="google-site-verification" content="fdZTDVFyX3hKovPIzn1tgPixk_wysBXaPN8YQw1P8Jw" />
-    <title>Longest Palindromic Substring | Write the Code</title>
+    <title>24点编程游戏 | Write the Code</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="keywords" content="" />
     <meta name="author" content="ChaoJun Hou" />
@@ -64,13 +64,13 @@
             <ul class="nav">
                 <li ><a href="../../../../../pages/About.html">关于</a></li>
                 <li class="divider-vertical"></li>
-                <li >
+                <li class="active">
                   <a href="../../../../../category/bian-cheng.html">
 						        <i class="icon-folder-open icon-large"></i>编程
 					         </a>
                 </li>
                  <li class="divider-vertical"></li>
-                <li class="active">
+                <li >
                   <a href="../../../../../category/ji-suan-ji-ke-xue.html">
 						        <i class="icon-folder-open icon-large"></i>计算机科学
 					         </a>
@@ -117,8 +117,8 @@
     <div class="span2">
         <div class="well">
 <footer class="post-info">
-<abbr class="published" title="2013-12-22T00:00:00+08:00">
-    <i class="icon-calendar"></i>&nbsp;周日 22 十二月 2013
+<abbr class="published" title="2015-04-25T19:21:00+08:00">
+    <i class="icon-calendar"></i>&nbsp;周六 25 四月 2015
 </abbr>
 <br/><a href="../../../../../author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
 
@@ -134,45 +134,116 @@
             <h1>
                 <a href=""
                         rel="bookmark"
-                        title="Permalink to Longest Palindromic Substring">
-                        Longest Palindromic Substring
+                        title="Permalink to 24点编程游戏">
+                        24点编程游戏
                 </a>
             </h1>
         </header>
         <div class="entry-content">
 
-        <p><strong>题目：Given a string S, find the longest palindromic substring in S. You may assume that the maximum length of S is 1000, and there exists one unique longest palindromic substring.</strong></p>
-<p><strong>思路：从头开始遍历整个字符串。然后以每个字符串为中点向两边扩展，直到最长的Palindromic，记录中间出现的Palindromic的最大长度。需要注意的是Palindromic的长度可能为奇数也可能为偶数。</strong></p>
-<p><strong>时间复杂度：O(n^2)</strong>
-<strong>空间复杂度：O(1)</strong></p>
-<p><strong>Show the code:</strong>
-Run Time: 1247 ms</p>
-<div class="highlight"><pre><span class="code-line"><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span></span>
-<span class="code-line">    <span class="c"># @return a string</span></span>
-<span class="code-line">    <span class="k">def</span> <span class="nf">longestPalindrome</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span></span>
-<span class="code-line">        <span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span></span>
-<span class="code-line">        <span class="k">def</span> <span class="nf">expand</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">):</span></span>
-<span class="code-line">            <span class="k">while</span> <span class="n">left</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">right</span> <span class="o">&lt;</span> <span class="n">length</span> <span class="ow">and</span> <span class="n">s</span><span class="p">[</span><span class="n">left</span><span class="p">]</span> <span class="o">==</span> <span class="n">s</span><span class="p">[</span><span class="n">right</span><span class="p">]:</span></span>
-<span class="code-line">                <span class="n">left</span> <span class="o">-=</span><span class="mi">1</span></span>
-<span class="code-line">                <span class="n">right</span> <span class="o">+=</span><span class="mi">1</span></span>
-<span class="code-line">            <span class="k">return</span> <span class="n">right</span> <span class="o">-</span> <span class="n">left</span> <span class="o">-</span><span class="mi">1</span></span>
+        <p><a href="http://zh.wikipedia.org/wiki/24%E7%82%B9">24点游戏</a>是一种使用扑克牌来进行的益智类游戏，游戏内容是：从一副扑克牌中抽去大小王剩下52张，任意抽取4张牌，把牌面上的数（A代表1）运用加、减、乘、除和括号进行运算得出24。每张牌都必须使用一次，但不能重复使用。在不同版本中，对J、Q、和K的处理有些差异。一个常见的版本是把J、Q、和K去除，或当成10；还有一个版本是把J表示11，Q表示12，K代表13。</p>
+<p>虽然大多数24点存在很多解法，有相当一部分数字组合只存在唯一的解法。这种组合往往较有难度，也较为有趣。这里总结一些常见的组合。</p>
+<ul>
+<li>
+<p>分数运算</p>
+<p>虽然给出4个数字都是整数，中间步骤中有时会出现分数。这种4个数字的组合往往较有难度。一个经典的例子是1，5，5，5，其解答为5 × (5 − 1 ÷ 5) = 24；另外 一个例子是3，3，8，8，其解答为8 ÷ (3 - 8 ÷ 3) = 24。</p>
+</li>
+<li>
+<p>大数／奇数运算</p>
+<p>有些组合中会涉及到一些较大数字，这些组合通常较有难度。比如4、4、10、10的解法为(10 × 10 − 4) ÷ 4 = 24，5、6、6、9的解法为6 × 9 − 5 × 6 = 24。</p>
+</li>
+</ul>
+<p>下面的代码可以解决上面出现的情况。</p>
+<p><strong>Show the code</strong></p>
+<div class="highlight"><pre><span class="code-line">def PointGame(n):</span>
+<span class="code-line">i=0</span>
+<span class="code-line">if(n==1):</span>
+<span class="code-line">    if matrix[0][0]==matrix[0][1]*24:</span>
+<span class="code-line">        return True</span>
+<span class="code-line">    else:</span>
+<span class="code-line">        return False</span>
+<span class="code-line">for i in range(0,n):</span>
+<span class="code-line">    for j in range(i+1,n):</span>
+<span class="code-line">        # use two dimention array</span>
+<span class="code-line">        a=matrix[i][0]</span>
+<span class="code-line">        b=matrix[i][1]</span>
+<span class="code-line">        c=matrix[j][0]</span>
+<span class="code-line">        d=matrix[j][1]</span>
+<span class="code-line">        # python needs the deepcopy to copy the value to the destination</span>
+<span class="code-line">        matrix[j]=copy.deepcopy(matrix[n-1])</span>
 <span class="code-line"></span>
-<span class="code-line">        <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span></span>
-<span class="code-line">        <span class="k">for</span>  <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">length</span><span class="p">):</span></span>
-<span class="code-line">            <span class="n">len1</span> <span class="o">=</span> <span class="n">expand</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">i</span><span class="p">)</span></span>
-<span class="code-line">            <span class="n">len2</span> <span class="o">=</span> <span class="n">expand</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span></span>
-<span class="code-line">            <span class="n">Len</span> <span class="o">=</span> <span class="nb">max</span> <span class="p">(</span><span class="n">len1</span><span class="p">,</span> <span class="n">len2</span><span class="p">)</span></span>
-<span class="code-line">            <span class="k">if</span> <span class="n">end</span> <span class="o">-</span> <span class="n">start</span> <span class="o">&lt;</span> <span class="n">Len</span><span class="p">:</span></span>
-<span class="code-line">                <span class="n">start</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="p">(</span><span class="n">Len</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span></span>
-<span class="code-line">                <span class="n">end</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">Len</span><span class="o">/</span><span class="mi">2</span></span>
-<span class="code-line">        <span class="k">return</span> <span class="n">s</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>  </span>
+<span class="code-line">        expa=result[i]</span>
+<span class="code-line">        expb=result[j]</span>
+<span class="code-line">        result[j]=result[n-1]</span>
+<span class="code-line"></span>
+<span class="code-line">        result[i]=&#39;(&#39;+expa+&#39;+&#39;+expb+&#39;)&#39;</span>
+<span class="code-line">        matrix[i][0]=a*d+b*c</span>
+<span class="code-line">        matrix[i][1]=b*d</span>
+<span class="code-line"></span>
+<span class="code-line">        if(PointGame(n-1)):</span>
+<span class="code-line">            return True</span>
+<span class="code-line"></span>
+<span class="code-line">        result[i]=&#39;(&#39;+expa+&#39;-&#39;+expb+&#39;)&#39;</span>
+<span class="code-line">        matrix[i][0]=a*d-b*c</span>
+<span class="code-line">        matrix[i][1]=b*d</span>
+<span class="code-line">        if(PointGame(n-1)):</span>
+<span class="code-line">            return True</span>
+<span class="code-line"></span>
+<span class="code-line">        result[i]=&#39;(&#39;+expb+&#39;-&#39;+expa+&#39;)&#39;</span>
+<span class="code-line">        matrix[i][0]=b*c-a*d</span>
+<span class="code-line">        matrix[i][1]=b*d</span>
+<span class="code-line">        if(PointGame(n-1)):</span>
+<span class="code-line">            return True</span>
+<span class="code-line"></span>
+<span class="code-line">        result[i]=&#39;(&#39;+expa+&#39;*&#39;+expb+&#39;)&#39;</span>
+<span class="code-line">        matrix[i][0]=a*c</span>
+<span class="code-line">        matrix[i][1]=b*d</span>
+<span class="code-line">        if(PointGame(n-1)):</span>
+<span class="code-line">            return True</span>
+<span class="code-line"></span>
+<span class="code-line">        if c!=0:</span>
+<span class="code-line">            result[i]=&#39;(&#39;+expa+&#39;/&#39;+expb+&#39;)&#39;</span>
+<span class="code-line">            matrix[i][0]=a*d</span>
+<span class="code-line">            matrix[i][1]=b*c</span>
+<span class="code-line"></span>
+<span class="code-line">            if(PointGame(n-1)):</span>
+<span class="code-line">                return True</span>
+<span class="code-line"></span>
+<span class="code-line">        if a!=0:</span>
+<span class="code-line">            result[i]=&#39;(&#39;+expb+&#39;/&#39;+expa+&#39;)&#39;</span>
+<span class="code-line">            matrix[i][0]=b*c</span>
+<span class="code-line">            matrix[i][1]=a*d</span>
+<span class="code-line"></span>
+<span class="code-line">            if(PointGame(n-1)):</span>
+<span class="code-line">                return True</span>
+<span class="code-line">        # restore the value</span>
+<span class="code-line">        matrix[i][0]=a</span>
+<span class="code-line">        matrix[i][1]=b</span>
+<span class="code-line">        matrix[j][0]=c</span>
+<span class="code-line">        matrix[j][1]=d</span>
+<span class="code-line"></span>
+<span class="code-line">        result[i]=expa</span>
+<span class="code-line">        result[j]=expb</span>
+<span class="code-line">        i+=1</span>
+<span class="code-line">return False</span>
 </pre></div>
+
+
+<p>完整的代码见<a href="https://github.com/chaojunhou/Cal24">Github</a></p>
+<p>代码持续更新，目前已知不能通过的测试集：</p>
+<p><strong>｛
+[2,7,7,10],
+[2,3,5,12],
+[1,6,11,13],
+[9,11,12,2],
+[1,3,9,10],
+｝</strong></p>
         </div><!-- /.entry-content -->
         <div class="comments">
         <h2>Comments !</h2>
             <div id="disqus_thread"></div>
             <script type="text/javascript">
-               var disqus_identifier = "blog/2013/12/22/longest-palindromic-substring/";
+               var disqus_identifier = "blog/2015/04/25/cal24/";
                (function() {
                     var dsq = document.createElement('script');
                     dsq.type = 'text/javascript'; dsq.async = true;

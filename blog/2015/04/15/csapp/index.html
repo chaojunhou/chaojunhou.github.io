@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="google-site-verification" content="fdZTDVFyX3hKovPIzn1tgPixk_wysBXaPN8YQw1P8Jw" />
-    <title>Longest Palindromic Substring | Write the Code</title>
+    <title>Cache | Write the Code</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="keywords" content="" />
     <meta name="author" content="ChaoJun Hou" />
@@ -117,14 +117,14 @@
     <div class="span2">
         <div class="well">
 <footer class="post-info">
-<abbr class="published" title="2013-12-22T00:00:00+08:00">
-    <i class="icon-calendar"></i>&nbsp;周日 22 十二月 2013
+<abbr class="published" title="2015-04-15T10:55:00+08:00">
+    <i class="icon-calendar"></i>&nbsp;周三 15 四月 2015
 </abbr>
 <br/><a href="../../../../../author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
 
 
 <br/>
-	&nbsp;&nbsp;<a href="../../../../../tag/suan-fa.html" class="label"><i class="icon-tag"></i>&nbsp;算法</a>
+	&nbsp;&nbsp;<a href="../../../../../tag/cao-zuo-xi-tong.html" class="label"><i class="icon-tag"></i>&nbsp;操作系统</a>
 </footer><!-- /.post-info -->        </div>
     </div>
     <div class="span6">
@@ -134,45 +134,52 @@
             <h1>
                 <a href=""
                         rel="bookmark"
-                        title="Permalink to Longest Palindromic Substring">
-                        Longest Palindromic Substring
+                        title="Permalink to Cache">
+                        Cache
                 </a>
             </h1>
         </header>
         <div class="entry-content">
 
-        <p><strong>题目：Given a string S, find the longest palindromic substring in S. You may assume that the maximum length of S is 1000, and there exists one unique longest palindromic substring.</strong></p>
-<p><strong>思路：从头开始遍历整个字符串。然后以每个字符串为中点向两边扩展，直到最长的Palindromic，记录中间出现的Palindromic的最大长度。需要注意的是Palindromic的长度可能为奇数也可能为偶数。</strong></p>
-<p><strong>时间复杂度：O(n^2)</strong>
-<strong>空间复杂度：O(1)</strong></p>
-<p><strong>Show the code:</strong>
-Run Time: 1247 ms</p>
-<div class="highlight"><pre><span class="code-line"><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span></span>
-<span class="code-line">    <span class="c"># @return a string</span></span>
-<span class="code-line">    <span class="k">def</span> <span class="nf">longestPalindrome</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span></span>
-<span class="code-line">        <span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span></span>
-<span class="code-line">        <span class="k">def</span> <span class="nf">expand</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">):</span></span>
-<span class="code-line">            <span class="k">while</span> <span class="n">left</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">right</span> <span class="o">&lt;</span> <span class="n">length</span> <span class="ow">and</span> <span class="n">s</span><span class="p">[</span><span class="n">left</span><span class="p">]</span> <span class="o">==</span> <span class="n">s</span><span class="p">[</span><span class="n">right</span><span class="p">]:</span></span>
-<span class="code-line">                <span class="n">left</span> <span class="o">-=</span><span class="mi">1</span></span>
-<span class="code-line">                <span class="n">right</span> <span class="o">+=</span><span class="mi">1</span></span>
-<span class="code-line">            <span class="k">return</span> <span class="n">right</span> <span class="o">-</span> <span class="n">left</span> <span class="o">-</span><span class="mi">1</span></span>
-<span class="code-line"></span>
-<span class="code-line">        <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span></span>
-<span class="code-line">        <span class="k">for</span>  <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">length</span><span class="p">):</span></span>
-<span class="code-line">            <span class="n">len1</span> <span class="o">=</span> <span class="n">expand</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">i</span><span class="p">)</span></span>
-<span class="code-line">            <span class="n">len2</span> <span class="o">=</span> <span class="n">expand</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span></span>
-<span class="code-line">            <span class="n">Len</span> <span class="o">=</span> <span class="nb">max</span> <span class="p">(</span><span class="n">len1</span><span class="p">,</span> <span class="n">len2</span><span class="p">)</span></span>
-<span class="code-line">            <span class="k">if</span> <span class="n">end</span> <span class="o">-</span> <span class="n">start</span> <span class="o">&lt;</span> <span class="n">Len</span><span class="p">:</span></span>
-<span class="code-line">                <span class="n">start</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="p">(</span><span class="n">Len</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span></span>
-<span class="code-line">                <span class="n">end</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">Len</span><span class="o">/</span><span class="mi">2</span></span>
-<span class="code-line">        <span class="k">return</span> <span class="n">s</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>  </span>
-</pre></div>
+        <p>计算机系统中的一个基本而持久的思想：如果你理解了系统是如何将数据在存储器层次结构中上上下下移动的，那么你可以编写你的应用程序，使得它们的数据项存储在层次结构中较高的地方，在那里CPU能更快地访问到它们。这个思想围绕着计算机程序的一个成为局部性（locality）的基本属性。</p>
+<p>局部性通常有两种形式：时间局部性（temporal locality）和空间局部性（spatial locality）。在一个具有良好时间局部性的程序中，被引用过一次的存储器位置很可能在不远的将来再被多次引用。在一个具有良好空间局部性的程序中，如果一个存储器位置被引用了一次，那么程序很可能在不远的将来引用附近的一个存储器位置。 </p>
+<p>理解存储器层次结构的本质的程序员能够利用这些知识，编写出更有效的程序，无论具体的存储系统结构是怎样的，应使用以下技术： </p>
+<ul>
+<li>将你的注意力一种在内部循环上，大部分计算机和存储器访问都发生在这里 
+　　　　</li>
+<li>通过按照数据对象存储在存储器中的顺序、以步长为1来读数据，从而使得你程序中的空间局部性最大 
+　　　　</li>
+<li>一旦从存储器中读入了一个数据对象，就尽可能多地使用它，从而使得你程序中的时间局部性最大 </li>
+</ul>
+<h2>高速缓存行、组和块的区别：</h2>
+<ul>
+<li>块是一个固定大小的信息包，是高速缓存和主存来回传送信息的基本单位</li>
+<li>行是高速缓存中存储块以及其他信息（有效位和标记位）的容器</li>
+<li>组是一个或多个行的集合</li>
+</ul>
+<p>直接映射高速缓存中，组和行是等价的。因为一行总是存储一个块，所以行和块通常可以互换使用。</p>
+<h2>cache friendly code</h2>
+<ul>
+<li>最常见的情况运行得最快</li>
+<li>每个缓存内部缓存不明中数量最小。</li>
+</ul>
+<h1>链接</h1>
+<p>C++中允许重载方法，这些方法在源代码中有相同的名字，却有不同的函数列表。编译器讲每个唯一的方法和参数列表组合编码成一个对链接器来说唯一的名字。这个编码过程叫做mangling。</p>
+<h2>链接器如何解析多重定义的全局符号</h2>
+<p>函数和已初始化的全局变量是强符号，未初始化的全局变量是弱符号。
+Unix链接器使用下面的规则来处理多重定义的符号：</p>
+<ul>
+<li>不允许有多个强符号。</li>
+<li>如果有一个强符号和一个弱符号，那么选择强符号</li>
+<li>如果有多个弱符号，那么从这些弱符号中任意选择一个</li>
+</ul>
+<p><strong>在命令行中，如果定义一个符号的库出现在引用这个符号的目标文件之前，那么引用就不能被解析，连接会失败</strong></p>
         </div><!-- /.entry-content -->
         <div class="comments">
         <h2>Comments !</h2>
             <div id="disqus_thread"></div>
             <script type="text/javascript">
-               var disqus_identifier = "blog/2013/12/22/longest-palindromic-substring/";
+               var disqus_identifier = "blog/2015/04/15/csapp/";
                (function() {
                     var dsq = document.createElement('script');
                     dsq.type = 'text/javascript'; dsq.async = true;
@@ -212,43 +219,13 @@ Run Time: 1247 ms</p>
 
 <li class="nav-header"><a href="../../../../../tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
     <li class="tag-4">
-        <a href="../../../../../tag/zheng-ze-biao-da-shi.html">
-            <i class="icon-tag icon-large"></i>正则表达式
-        </a>
-    </li>
-    <li class="tag-2">
-        <a href="../../../../../tag/c.html">
-            <i class="icon-tag icon-large"></i>C
-        </a>
-    </li>
-    <li class="tag-4">
         <a href="../../../../../tag/sql.html">
             <i class="icon-tag icon-large"></i>SQL
         </a>
     </li>
     <li class="tag-4">
-        <a href="../../../../../tag/pa-chong.html">
-            <i class="icon-tag icon-large"></i>爬虫
-        </a>
-    </li>
-    <li class="tag-2">
-        <a href="../../../../../tag/shu-ju-jie-gou.html">
-            <i class="icon-tag icon-large"></i>数据结构
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/yong-sai-kong-zhi.html">
-            <i class="icon-tag icon-large"></i>拥塞控制
-        </a>
-    </li>
-    <li class="tag-3">
-        <a href="../../../../../tag/tcp.html">
-            <i class="icon-tag icon-large"></i>TCP
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/shell.html">
-            <i class="icon-tag icon-large"></i>SHELL
+        <a href="../../../../../tag/zheng-ze-biao-da-shi.html">
+            <i class="icon-tag icon-large"></i>正则表达式
         </a>
     </li>
     <li class="tag-4">
@@ -257,18 +234,8 @@ Run Time: 1247 ms</p>
         </a>
     </li>
     <li class="tag-4">
-        <a href="../../../../../tag/gong-ju.html">
-            <i class="icon-tag icon-large"></i>工具
-        </a>
-    </li>
-    <li class="tag-1">
-        <a href="../../../../../tag/suan-fa.html">
-            <i class="icon-tag icon-large"></i>算法
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/tu-xiang.html">
-            <i class="icon-tag icon-large"></i>图像
+        <a href="../../../../../tag/pa-chong.html">
+            <i class="icon-tag icon-large"></i>爬虫
         </a>
     </li>
     <li class="tag-4">
@@ -279,6 +246,51 @@ Run Time: 1247 ms</p>
     <li class="tag-4">
         <a href="../../../../../tag/python.html">
             <i class="icon-tag icon-large"></i>Python
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../../../../../tag/cao-zuo-xi-tong.html">
+            <i class="icon-tag icon-large"></i>操作系统
+        </a>
+    </li>
+    <li class="tag-1">
+        <a href="../../../../../tag/suan-fa.html">
+            <i class="icon-tag icon-large"></i>算法
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../../../../../tag/shell.html">
+            <i class="icon-tag icon-large"></i>SHELL
+        </a>
+    </li>
+    <li class="tag-2">
+        <a href="../../../../../tag/shu-ju-jie-gou.html">
+            <i class="icon-tag icon-large"></i>数据结构
+        </a>
+    </li>
+    <li class="tag-3">
+        <a href="../../../../../tag/tcp.html">
+            <i class="icon-tag icon-large"></i>TCP
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../../../../../tag/tu-xiang.html">
+            <i class="icon-tag icon-large"></i>图像
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../../../../../tag/yong-sai-kong-zhi.html">
+            <i class="icon-tag icon-large"></i>拥塞控制
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../../../../../tag/gong-ju.html">
+            <i class="icon-tag icon-large"></i>工具
+        </a>
+    </li>
+    <li class="tag-2">
+        <a href="../../../../../tag/c.html">
+            <i class="icon-tag icon-large"></i>C
         </a>
     </li>
 

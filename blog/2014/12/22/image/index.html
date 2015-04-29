@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="google-site-verification" content="fdZTDVFyX3hKovPIzn1tgPixk_wysBXaPN8YQw1P8Jw" />
-    <title>Longest Palindromic Substring | Write the Code</title>
+    <title>图像识别 | Write the Code</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="keywords" content="" />
     <meta name="author" content="ChaoJun Hou" />
@@ -64,13 +64,13 @@
             <ul class="nav">
                 <li ><a href="../../../../../pages/About.html">关于</a></li>
                 <li class="divider-vertical"></li>
-                <li >
+                <li class="active">
                   <a href="../../../../../category/bian-cheng.html">
 						        <i class="icon-folder-open icon-large"></i>编程
 					         </a>
                 </li>
                  <li class="divider-vertical"></li>
-                <li class="active">
+                <li >
                   <a href="../../../../../category/ji-suan-ji-ke-xue.html">
 						        <i class="icon-folder-open icon-large"></i>计算机科学
 					         </a>
@@ -117,14 +117,14 @@
     <div class="span2">
         <div class="well">
 <footer class="post-info">
-<abbr class="published" title="2013-12-22T00:00:00+08:00">
-    <i class="icon-calendar"></i>&nbsp;周日 22 十二月 2013
+<abbr class="published" title="2014-12-22T08:55:00+08:00">
+    <i class="icon-calendar"></i>&nbsp;周一 22 十二月 2014
 </abbr>
 <br/><a href="../../../../../author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
 
 
 <br/>
-	&nbsp;&nbsp;<a href="../../../../../tag/suan-fa.html" class="label"><i class="icon-tag"></i>&nbsp;算法</a>
+	&nbsp;&nbsp;<a href="../../../../../tag/tu-xiang.html" class="label"><i class="icon-tag"></i>&nbsp;图像</a>
 </footer><!-- /.post-info -->        </div>
     </div>
     <div class="span6">
@@ -134,45 +134,20 @@
             <h1>
                 <a href=""
                         rel="bookmark"
-                        title="Permalink to Longest Palindromic Substring">
-                        Longest Palindromic Substring
+                        title="Permalink to 图像识别">
+                        图像识别
                 </a>
             </h1>
         </header>
         <div class="entry-content">
 
-        <p><strong>题目：Given a string S, find the longest palindromic substring in S. You may assume that the maximum length of S is 1000, and there exists one unique longest palindromic substring.</strong></p>
-<p><strong>思路：从头开始遍历整个字符串。然后以每个字符串为中点向两边扩展，直到最长的Palindromic，记录中间出现的Palindromic的最大长度。需要注意的是Palindromic的长度可能为奇数也可能为偶数。</strong></p>
-<p><strong>时间复杂度：O(n^2)</strong>
-<strong>空间复杂度：O(1)</strong></p>
-<p><strong>Show the code:</strong>
-Run Time: 1247 ms</p>
-<div class="highlight"><pre><span class="code-line"><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span></span>
-<span class="code-line">    <span class="c"># @return a string</span></span>
-<span class="code-line">    <span class="k">def</span> <span class="nf">longestPalindrome</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span></span>
-<span class="code-line">        <span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span></span>
-<span class="code-line">        <span class="k">def</span> <span class="nf">expand</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">):</span></span>
-<span class="code-line">            <span class="k">while</span> <span class="n">left</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">right</span> <span class="o">&lt;</span> <span class="n">length</span> <span class="ow">and</span> <span class="n">s</span><span class="p">[</span><span class="n">left</span><span class="p">]</span> <span class="o">==</span> <span class="n">s</span><span class="p">[</span><span class="n">right</span><span class="p">]:</span></span>
-<span class="code-line">                <span class="n">left</span> <span class="o">-=</span><span class="mi">1</span></span>
-<span class="code-line">                <span class="n">right</span> <span class="o">+=</span><span class="mi">1</span></span>
-<span class="code-line">            <span class="k">return</span> <span class="n">right</span> <span class="o">-</span> <span class="n">left</span> <span class="o">-</span><span class="mi">1</span></span>
-<span class="code-line"></span>
-<span class="code-line">        <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span></span>
-<span class="code-line">        <span class="k">for</span>  <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">length</span><span class="p">):</span></span>
-<span class="code-line">            <span class="n">len1</span> <span class="o">=</span> <span class="n">expand</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">i</span><span class="p">)</span></span>
-<span class="code-line">            <span class="n">len2</span> <span class="o">=</span> <span class="n">expand</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span></span>
-<span class="code-line">            <span class="n">Len</span> <span class="o">=</span> <span class="nb">max</span> <span class="p">(</span><span class="n">len1</span><span class="p">,</span> <span class="n">len2</span><span class="p">)</span></span>
-<span class="code-line">            <span class="k">if</span> <span class="n">end</span> <span class="o">-</span> <span class="n">start</span> <span class="o">&lt;</span> <span class="n">Len</span><span class="p">:</span></span>
-<span class="code-line">                <span class="n">start</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="p">(</span><span class="n">Len</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span></span>
-<span class="code-line">                <span class="n">end</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">Len</span><span class="o">/</span><span class="mi">2</span></span>
-<span class="code-line">        <span class="k">return</span> <span class="n">s</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>  </span>
-</pre></div>
+        <p>to be continue...</p>
         </div><!-- /.entry-content -->
         <div class="comments">
         <h2>Comments !</h2>
             <div id="disqus_thread"></div>
             <script type="text/javascript">
-               var disqus_identifier = "blog/2013/12/22/longest-palindromic-substring/";
+               var disqus_identifier = "blog/2014/12/22/image/";
                (function() {
                     var dsq = document.createElement('script');
                     dsq.type = 'text/javascript'; dsq.async = true;
