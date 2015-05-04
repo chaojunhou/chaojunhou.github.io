@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="google-site-verification" content="fdZTDVFyX3hKovPIzn1tgPixk_wysBXaPN8YQw1P8Jw" />
+    <title>程序性能优化 | Write the Code</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="keywords" content="" />
+    <meta name="author" content="ChaoJun Hou" />
+    <meta name="kittycheck_rumble" content="true" />
+    <meta name="kittycheck_position" content="top=60,right=60" />
+
+    <!-- Le styles -->
+    <link rel="stylesheet" href="../../../../../theme/css/bootstrap.min.css" type="text/css" />
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+      .tag-1 {
+        font-size: 13pt;
+      }
+      .tag-2 {
+        font-size: 10pt;
+      }
+      .tag-2 {
+        font-size: 8pt;
+      }
+      .tag-4 {
+        font-size: 6pt;
+     }
+    </style>
+    <link href="../../../../../theme/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="../../../../../theme/css/font-awesome.css" rel="stylesheet">
+    <link href="../../../../../theme/css/pygments.css" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="../../../../../theme/img/favicon.ico">
+    <link rel="apple-touch-icon" href="../../../../../theme/img/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="../../../../../theme/img/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="../../../../../theme/img/apple-touch-icon-114x114.png">
+
+    <link href="../../../../../" type="application/atom+xml" rel="alternate" title="Write the Code ATOM Feed" />
+  </head>
+  <body>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="../../../../../index.html">Write the Code </a>
+          <div class="nav-collapse">
+            <ul class="nav">
+                <li ><a href="../../../../../pages/About.html">关于</a></li>
+                <li class="divider-vertical"></li>
+                <li >
+                  <a href="../../../../../category/bian-cheng.html">
+						        <i class="icon-folder-open icon-large"></i>编程
+					         </a>
+                </li>
+                 <li class="divider-vertical"></li>
+                <li class="active">
+                  <a href="../../../../../category/ji-suan-ji-ke-xue.html">
+						        <i class="icon-folder-open icon-large"></i>计算机科学
+					         </a>
+                </li>
+                 <li class="divider-vertical"></li>
+             
+              <ul class="nav ">
+                    <li><a href="/random.html"><i class="icon-folder-open icon-large"></i>随机文章</a></li>
+                    <li class="divider-vertical"></li>
+              </ul>
+              <ul class="nav">
+                    <li><a href="../../../../../archives.html"><i class="icon-th-list"></i>归档</a></li>
+                    <li class="divider-vertical"></li>
+              </ul>
+
+              <ul class="nav pull-right" style="height: 40px; margin-top: 5px; ">
+                    <li >
+		              	<form method="get" action="http://www.google.com/search">
+		              			<input type="hidden" name="cref" value="" />
+  								<input type="hidden" name="ie" value="utf-8" />
+  								<input type="hidden" name="hl" value="zh-CN" />
+						        <input type="text" name="q" size="38" maxlength="255" placeholder="Search…" />
+						        <input type="submit" name="btnG" value="Google Search" />
+						        <input type="hidden" name="domains" value="http://www.houcj.net/" />
+						        <input type="hidden" name="sitesearch" value="houcj.net" />
+						</form>
+	              </li>
+              </ul>
+                      
+         
+
+            </ul>
+            <!--<p class="navbar-text pull-right">Logged in as <a href="#">username</a></p>-->
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+   
+
+    <div class="container">
+      <div class="row">
+        <div class="span8" id="content">
+<div class="row">
+    <div class="span2">
+        <div class="well">
+<footer class="post-info">
+<abbr class="published" title="2015-05-01T19:15:00+08:00">
+    <i class="icon-calendar"></i>&nbsp;周五 01 五月 2015
+</abbr>
+<br/><a href="../../../../../author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
+
+
+<br/>
+	&nbsp;&nbsp;<a href="../../../../../tag/cao-zuo-xi-tong.html" class="label"><i class="icon-tag"></i>&nbsp;操作系统</a>
+</footer><!-- /.post-info -->        </div>
+    </div>
+    <div class="span6">
+<section id="content" class="well">
+    <article>
+        <header>
+            <h1>
+                <a href=""
+                        rel="bookmark"
+                        title="Permalink to 程序性能优化">
+                        程序性能优化
+                </a>
+            </h1>
+        </header>
+        <div class="entry-content">
+
+        <blockquote>
+<p>We should forget about small efficiencies, say about 97% of the time: premature optimization is the root of all evil. ~Donald Knuth</p>
+</blockquote>
+<p>程序员必须再实现和维护程序的简单性与它的运行速度之间做出权衡。</p>
+<p>优化编译器的能力和局限性
+编译器必须很小心地对程序只使用安全的优化。程序中有两个妨碍优化的因素。
+- 存储器别名使用</p>
+<div class="highlight"><pre><span class="code-line"><span class="kt">void</span> <span class="nf">add1</span> <span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">xp</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">yp</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="o">*</span><span class="n">xp</span> <span class="o">+=</span> <span class="o">*</span><span class="n">yp</span><span class="p">;</span></span>
+<span class="code-line">    <span class="o">*</span><span class="n">xp</span> <span class="o">+=</span> <span class="o">*</span><span class="n">yp</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span>       </span>
+<span class="code-line"><span class="kt">void</span> <span class="nf">add2</span> <span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">xp</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">yp</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="o">*</span><span class="n">xp</span> <span class="o">+=</span> <span class="mi">2</span> <span class="o">*</span> <span class="o">*</span><span class="n">yp</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<p>编译器并不会把第一个函数优化成第二个函数，因为如果考虑到 xp 等于 yp 的情况。twiddle1 中的 xp 会增加 4 倍，而 twiddle2 中的 xp 仅会增加 2 倍。
+函数调用
+作为一个示例，考虑下面这两个过程：</p>
+<div class="highlight"><pre><span class="code-line"><span class="kt">int</span> <span class="nf">f</span><span class="p">();</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kt">int</span> <span class="nf">func1</span><span class="p">()</span> </span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="n">f</span><span class="p">()</span> <span class="o">+</span> <span class="n">f</span><span class="p">()</span> <span class="o">+</span> <span class="n">f</span><span class="p">()</span> <span class="o">+</span> <span class="n">f</span><span class="p">();</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kt">int</span> <span class="nf">func2</span><span class="p">()</span> </span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">f</span><span class="p">();</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<p>编译器也不会吧第一个函数优化为第二个，考虑下面 f 的代码：</p>
+<div class="highlight"><pre><span class="code-line"><span class="kt">int</span> <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line"><span class="kt">int</span> <span class="nf">f</span><span class="p">()</span> </span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="n">counter</span><span class="o">++</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<p>这个函数有个副作用：它修改了全局程序状态的一部分。改变调用它的次数会改变程序的行为。</p>
+<p>考虑下面所示的简单向量数据结构：</p>
+<div class="highlight"><pre><span class="code-line"><span class="k">typedef</span> <span class="kt">int</span> <span class="kt">data_t</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">typedef</span> <span class="k">struct</span> </span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="kt">long</span> <span class="kt">int</span> <span class="n">len</span><span class="p">;</span></span>
+<span class="code-line">    <span class="kt">data_t</span> <span class="o">*</span><span class="n">data</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span> <span class="n">vec_rec</span><span class="p">,</span> <span class="o">*</span><span class="n">vec_ptr</span><span class="p">;</span></span>
+</pre></div>
+
+
+<p>一段合并运算的代码：</p>
+<div class="highlight"><pre><span class="code-line"><span class="kt">void</span> <span class="nf">combine1</span><span class="p">(</span><span class="n">vec_ptr</span> <span class="n">v</span><span class="p">,</span> <span class="kt">data_t</span> <span class="o">*</span><span class="n">dest</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="kt">long</span> <span class="kt">int</span> <span class="n">i</span><span class="p">;</span></span>
+<span class="code-line">    <span class="o">*</span><span class="n">dest</span> <span class="o">=</span> <span class="n">IDENT</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">for</span> <span class="p">(</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">vec_length</span><span class="p">(</span><span class="n">v</span><span class="p">);</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span></span>
+<span class="code-line">    <span class="p">{</span></span>
+<span class="code-line">        <span class="kt">data_t</span> <span class="n">val</span><span class="p">;</span></span>
+<span class="code-line">        <span class="n">get_vec_element</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">val</span><span class="p">);</span></span>
+<span class="code-line">        <span class="o">*</span><span class="n">dest</span> <span class="o">=</span> <span class="o">*</span><span class="n">dest</span> <span class="n">OP</span> <span class="n">val</span><span class="p">;</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<p>其中 vec_length 获取 v 的长度，get_vec_elemnet 获取内容。
+特别的，使用声明：</p>
+<div class="highlight"><pre><span class="code-line"><span class="cp">#define IDENT 0</span></span>
+<span class="code-line"><span class="cp">#define OP +</span></span>
+</pre></div>
+
+
+<p>它对向量的元素求和。</p>
+<div class="highlight"><pre><span class="code-line"><span class="cp">#define IDENT 1</span></span>
+<span class="code-line"><span class="cp">#define OP *</span></span>
+</pre></div>
+
+
+<p>它计算的是向量元素的乘积。
+- 消除循环的低效率</p>
+<div class="highlight"><pre><span class="code-line"><span class="kt">void</span> <span class="nf">combine2</span><span class="p">(</span><span class="n">vec_ptr</span> <span class="n">v</span><span class="p">,</span> <span class="kt">data_t</span> <span class="o">*</span><span class="n">dest</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="kt">long</span> <span class="kt">int</span> <span class="n">i</span><span class="p">;</span></span>
+<span class="code-line">    <span class="kt">long</span> <span class="kt">int</span> <span class="n">length</span> <span class="o">=</span> <span class="n">vec_length</span><span class="p">(</span><span class="n">v</span><span class="p">);</span></span>
+<span class="code-line">    <span class="o">*</span><span class="n">dest</span> <span class="o">=</span> <span class="n">IDENT</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span></span>
+<span class="code-line">    <span class="p">{</span></span>
+<span class="code-line">        <span class="kt">data_t</span> <span class="n">val</span><span class="p">;</span></span>
+<span class="code-line">        <span class="n">get_vec_element</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">val</span><span class="p">);</span></span>
+<span class="code-line">        <span class="o">*</span><span class="n">dest</span> <span class="o">=</span> <span class="o">*</span><span class="n">dest</span> <span class="n">OP</span> <span class="n">val</span><span class="p">;</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<p>这种优化我们称之为代码移动。</p>
+<ul>
+<li>减少过程调用
+  在 combine2 中，每次循环都要调用 get_vec_element ，为了减少过程调用，代码如下:</li>
+</ul>
+<div class="highlight"><pre><span class="code-line"><span class="kt">data_t</span> <span class="o">*</span> <span class="nf">get_vec_start</span><span class="p">(</span><span class="n">vec_ptr</span> <span class="n">v</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="n">v</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kt">void</span> <span class="nf">combine3</span><span class="p">(</span><span class="n">vec_ptr</span> <span class="n">v</span><span class="p">,</span> <span class="kt">data_t</span> <span class="o">*</span><span class="n">dest</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="kt">long</span> <span class="kt">int</span> <span class="n">i</span><span class="p">;</span></span>
+<span class="code-line">    <span class="kt">long</span> <span class="kt">int</span> <span class="n">length</span> <span class="o">=</span> <span class="n">vec_length</span><span class="p">(</span><span class="n">v</span><span class="p">);</span></span>
+<span class="code-line">    <span class="kt">data_t</span> <span class="o">*</span><span class="n">data</span> <span class="o">=</span> <span class="n">get_vec_start</span><span class="p">(</span><span class="n">v</span><span class="p">);</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="o">*</span><span class="n">dest</span> <span class="o">=</span> <span class="n">IDENT</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span></span>
+<span class="code-line">    <span class="p">{</span></span>
+<span class="code-line">        <span class="o">*</span><span class="n">dest</span> <span class="o">=</span> <span class="o">*</span><span class="n">dest</span> <span class="n">OP</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">];</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<p>但是这段代码得到的性能提高出乎意料的普通，只提高了整数求和的性能。
+- 消除不必要的存储器引用
+  在我们将 combine3 生成汇编代码后，可以看出，在每次迭代中，程序都要读取出指针 dest 处的值，乘以 data[i]，再将结果存回到 dest。这样的读写显得很是浪费。
+  考虑如下代码：</p>
+<div class="highlight"><pre><span class="code-line"><span class="kt">void</span> <span class="nf">combine4</span><span class="p">(</span><span class="n">vec_ptr</span> <span class="n">v</span><span class="p">,</span> <span class="kt">data_t</span> <span class="o">*</span><span class="n">dest</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="kt">long</span> <span class="kt">int</span> <span class="n">i</span><span class="p">;</span></span>
+<span class="code-line">    <span class="kt">long</span> <span class="kt">int</span> <span class="n">length</span> <span class="o">=</span> <span class="n">vec_length</span><span class="p">(</span><span class="n">v</span><span class="p">);</span></span>
+<span class="code-line">    <span class="kt">data_t</span> <span class="o">*</span><span class="n">data</span> <span class="o">=</span> <span class="n">get_vec_start</span><span class="p">(</span><span class="n">v</span><span class="p">);</span></span>
+<span class="code-line">    <span class="kt">data_t</span> <span class="n">acc</span> <span class="o">=</span> <span class="n">IDENT</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span></span>
+<span class="code-line">    <span class="p">{</span></span>
+<span class="code-line">        <span class="n">acc</span> <span class="o">=</span> <span class="n">acc</span> <span class="n">OP</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">];</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line">    <span class="o">*</span><span class="n">dest</span> <span class="o">=</span> <span class="n">acc</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<p>我们引入一个临时变量 acc， 它在循环中用来累计计算来的值。只有再循环完成之后结果才存放到 dest 中。在汇编代码中可以看到，编译器会使用一个寄存器来保存累积值。与 combine3 中的循环相比，我们将每次迭代的存储器操作从两次读和一次写减少到只需要一次读。</p>
+<ul>
+<li>循环展开
+  循环展开是一种程序变换，通过增加每次迭代计算的元素的数量，减少循环的迭代次数。（如果展开后不能很好的提高程序的并行性还是不要展开）</li>
+</ul>
+<div class="highlight"><pre><span class="code-line"><span class="kt">void</span> <span class="nf">combine5</span><span class="p">(</span><span class="n">vec_ptr</span> <span class="n">v</span><span class="p">,</span> <span class="kt">data_t</span> <span class="o">*</span><span class="n">dest</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="kt">long</span> <span class="kt">int</span> <span class="n">i</span><span class="p">;</span></span>
+<span class="code-line">    <span class="kt">long</span> <span class="kt">int</span> <span class="n">length</span> <span class="o">=</span> <span class="n">vec_lenght</span><span class="p">(</span><span class="n">v</span><span class="p">);</span></span>
+<span class="code-line">    <span class="kt">long</span> <span class="kt">int</span> <span class="n">limit</span> <span class="o">=</span> <span class="n">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span></span>
+<span class="code-line">    <span class="kt">data_t</span> <span class="o">*</span><span class="n">data</span> <span class="o">=</span> <span class="n">get_vec_start</span><span class="p">(</span><span class="n">v</span><span class="p">);</span></span>
+<span class="code-line">    <span class="kt">data_t</span> <span class="n">acc</span> <span class="o">=</span> <span class="n">IDENT</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">limit</span><span class="p">;</span> <span class="n">i</span> <span class="o">+=</span> <span class="mi">2</span><span class="p">)</span> </span>
+<span class="code-line">    <span class="p">{</span></span>
+<span class="code-line">        <span class="n">acc</span> <span class="o">=</span> <span class="p">(</span><span class="n">acc</span> <span class="n">OP</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="n">OP</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">for</span> <span class="p">(;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> </span>
+<span class="code-line">    <span class="p">{</span></span>
+<span class="code-line">        <span class="n">acc</span> <span class="o">=</span> <span class="n">acc</span> <span class="n">OP</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">];</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="o">*</span><span class="n">dest</span> <span class="o">=</span> <span class="n">acc</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<h2>提高性能的技术</h2>
+<ul>
+<li>
+<p>高级设计: 为遇到的问题选择适当的算法和数据结构。</p>
+</li>
+<li>
+<p>基本编码原则:</p>
+<ul>
+<li>消除连续的函数调用</li>
+<li>消除不必要的存储器引用：引入临时变量来保持中间结果。只有在最后的值计算出来时，才将结果存放到数组或全局变量中。</li>
+</ul>
+</li>
+<li>低级优化<ul>
+<li>展开循环，降低开销，并且使得进一步优化成为可能。</li>
+<li>通过使用例如多个累积变量和重新结合技术，找到方法提高指令级并行。</li>
+<li>用功能得风格重写条件操作，使得编译采用条件数据传送。</li>
+</ul>
+</li>
+</ul>
+<p>关于程序的优化，最常见的是优化是选择合适的算法和数据结构，这个是起决定性作用的，基本编码原则还是要遵守的，至于低级优化还要考虑程序的局部性等问题。Amdahl定律为我们描述了一个改进任何过程的通用原则，当我们加快系统一个部分的速度时，对系统整体性能的影响依赖于这个部分有多重要和速度提高了多少。</p>
+<div class="math">$$\frac{1}{(1-\alpha)+\alpha/k}$$</div>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+    
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); ";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+        </div><!-- /.entry-content -->
+        <div class="comments">
+        <h2>Comments !</h2>
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+               var disqus_identifier = "blog/2015/05/01/optimizing-program-performance/";
+               (function() {
+                    var dsq = document.createElement('script');
+                    dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'http://houcj.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] ||
+                     document.getElementsByTagName('body')[0]).appendChild(dsq);
+              })();
+            </script>
+        </div>
+    </article>
+</section>
+</div>
+</div>
+        </div><!--/span-->
+        <div class="span3 well sidebar-nav" id="sidebar">
+<ul class="nav nav-list">
+<li class="nav-header"><h4><i class="icon-external-link"></i>blogroll</h4></li>
+    <li><div><i class="icon-external-link"></i><a href="http://www.rudy-yuan.net/">Rudy-yuan</a></div></li>
+    <li><div><i class="icon-external-link"></i><a href="http://www.wengweitao.com">WWT</a></div></li>
+<li class="nav-header"><h4><i class="icon-home icon-large"></i> social</h4></li>
+<li><a href="../../../../../" rel="alternate"><i class="icon-bookmark icon-large"></i>atom feed</a></li>
+    <li><a href="https://twitter.com/chaojunhou"><i class="icon-Twitter-sign icon-large"></i>Twitter</a></li>
+    <li><a href="https://www.tumblr.com/blog/houcj"><i class="icon-Tumblr-sign icon-large"></i>Tumblr</a></li>
+    <li><a href="https://github.com/chaojunhou"><i class="icon-Github-sign icon-large"></i>Github</a></li>
+
+<li class="nav-header"><h4><i class="icon-folder-close icon-large"></i>Categories</h4></li>
+<li>
+<a href="../../../../../category/bian-cheng.html">
+    <i class="icon-folder-open icon-large"></i>编程
+</a>
+</li>
+<li>
+<a href="../../../../../category/ji-suan-ji-ke-xue.html">
+    <i class="icon-folder-open icon-large"></i>计算机科学
+</a>
+</li>
+
+<li class="nav-header"><a href="../../../../../tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
+    <li class="tag-4">
+        <a href="../../../../../tag/duo-xian-cheng.html">
+            <i class="icon-tag icon-large"></i>多线程
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../../../../../tag/yong-sai-kong-zhi.html">
+            <i class="icon-tag icon-large"></i>拥塞控制
+        </a>
+    </li>
+    <li class="tag-1">
+        <a href="../../../../../tag/c.html">
+            <i class="icon-tag icon-large"></i>C
+        </a>
+    </li>
+    <li class="tag-2">
+        <a href="../../../../../tag/tcp.html">
+            <i class="icon-tag icon-large"></i>TCP
+        </a>
+    </li>
+    <li class="tag-2">
+        <a href="../../../../../tag/suan-fa.html">
+            <i class="icon-tag icon-large"></i>算法
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../../../../../tag/python.html">
+            <i class="icon-tag icon-large"></i>Python
+        </a>
+    </li>
+    <li class="tag-2">
+        <a href="../../../../../tag/cao-zuo-xi-tong.html">
+            <i class="icon-tag icon-large"></i>操作系统
+        </a>
+    </li>
+
+
+</ul>        </div><!--/.well -->
+
+      </div><!--/row-->
+
+      <hr>
+
+    </div><!--/.fluid-container-->
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', '61957498']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+     
+ 
+
+    <!-- Le javascript -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../../../../../theme/js/jquery-1.7.2.min.js"></script>
+    <script src="../../../../../theme/js/bootstrap.min.js"></script>
+  </body>
+
+  <!-- hitwebcounter Code START -->
+
+<img src="http://hitwebcounter.com/counter/counter.php?page=6046616&style=0005&nbdigits=5&type=ip&initCount=0" title="" Alt=""   border="0" style="float:left">  
+  <!-- Baidu Button BEGIN -->
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"6","bdPos":"right","bdTop":"250"},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+ <!-- Baidu Button END -->
+<!-- UJian Button BEGIN -->
+<script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js?type=slide&fade=1"></script>
+<!-- UJian Button END -->
+</html>

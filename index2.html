@@ -116,21 +116,34 @@
 <div class="row">
     <div class="span2">
         <div class="well small"><footer class="post-info">
-<abbr class="published" title="2014-06-02T00:00:00+08:00">
-    <i class="icon-calendar"></i>&nbsp;周一 02 六月 2014
+<abbr class="published" title="2013-12-15T00:00:00+08:00">
+    <i class="icon-calendar"></i>&nbsp;周日 15 十二月 2013
 </abbr>
 <br/><a href="./author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
 
 
 <br/>
-	&nbsp;&nbsp;<a href="./tag/suan-fa.html" class="label"><i class="icon-tag"></i>&nbsp;算法</a>
+	&nbsp;&nbsp;<a href="./tag/tcp.html" class="label"><i class="icon-tag"></i>&nbsp;TCP</a>
+	&nbsp;&nbsp;<a href="./tag/yong-sai-kong-zhi.html" class="label"><i class="icon-tag"></i>&nbsp;拥塞控制</a>
 </footer><!-- /.post-info --></div>
     </div>
     <div class="span6">
         <div class="article well">
-            <h1><a href="./blog/2014/06/02/the-basic-operation/">The basic operation</a></h1>
-            <div class="summary"><p>to be continue...</p>
-                <a class="btn btn-small" href="./blog/2014/06/02/the-basic-operation/">more ...</a>
+            <h1><a href="./blog/2013/12/15/the-parameters-in-tcp-congestion-control/">TCP Congestion Control 中的相关参数</a></h1>
+            <div class="summary"><ul>
+<li>流量控制（Flow control） End-to-End,防止发送方速率过大，接收方来不及处理发送方的数据。- -</li>
+<li>拥塞控制（Congestion control） 到达子网中某一部分的分组数量过多，中间路由缓存分组，queueing，造成RTT增加。反应网络整体状况</li>
+<li>滑动窗口（Sliding Window） 位于发送方，由接收方的通告窗口（Advertised-Window）决定。接收方通过通告窗口告诉发送方自己还有多少buffer可以接收数据。</li>
+<li>通告窗口（Advertised-Window） 接收方使用流量控制的方式</li>
+<li>
+<p>拥塞窗口（Congestion Window） 拥塞窗口的大小指能够发出，但还没有收ACK的最大数据报文段。Linux 3.0 把CWND初始化10个MSS。发送方使用流量控制的方式。发送方取拥塞窗口与通告窗口中的最小值作为发送上限</p>
+</li>
+<li>
+<p>慢启动（Slow Start） 每个ACK，CWND增加一个报文段（CWND以字节为单位，一报文段为单位进行线性增加）
+报文段（Segment） 传输层分组称为报文段，是TCP</p>
+</li>
+<li>MSS（Maximum Segment ...</li></ul>
+                <a class="btn btn-small" href="./blog/2013/12/15/the-parameters-in-tcp-congestion-control/">more ...</a>
             </div>
         </div>
     </div>
@@ -139,205 +152,38 @@
     </div>
     <div class="span2">
         <div class="well small"><footer class="post-info">
-<abbr class="published" title="2014-05-27T00:00:00+08:00">
-    <i class="icon-calendar"></i>&nbsp;周二 27 五月 2014
+<abbr class="published" title="2013-12-03T10:20:00+08:00">
+    <i class="icon-calendar"></i>&nbsp;周二 03 十二月 2013
 </abbr>
 <br/><a href="./author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
 
 
 <br/>
-	&nbsp;&nbsp;<a href="./tag/suan-fa.html" class="label"><i class="icon-tag"></i>&nbsp;算法</a>
+	&nbsp;&nbsp;<a href="./tag/c.html" class="label"><i class="icon-tag"></i>&nbsp;C</a>
 </footer><!-- /.post-info --></div>
     </div>
     <div class="span6">
         <div class="article well">
-            <h1><a href="./blog/2014/05/27/permutation-and-combination/">Permutation and combination</a></h1>
-            <div class="summary"><p>to be continue...</p>
-                <a class="btn btn-small" href="./blog/2014/05/27/permutation-and-combination/">more ...</a>
-            </div>
-        </div>
-    </div>
-    <div class="span8">
-        <hr />
-    </div>
-    <div class="span2">
-        <div class="well small"><footer class="post-info">
-<abbr class="published" title="2014-04-25T00:00:00+08:00">
-    <i class="icon-calendar"></i>&nbsp;周五 25 四月 2014
-</abbr>
-<br/><a href="./author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
+            <h1><a href="./blog/2013/12/03/thanks-for-the-memory/">Thanks for the memory</a></h1>
+            <div class="summary"><ul>
+<li>虚拟内存通过<em>Page</em>的形式组织。Pages就是操作系统用于内存和磁盘之间移动或者进行保护的单位。Page in，Page out。磁盘上有个特殊的交换区来与内存进行交换。</li>
+<li>进程只能操作位于屋里内存中的页面。</li>
+</ul>
+<div class="highlight"><pre><span class="code-line"><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line"><span class="k">while</span><span class="p">(</span><span class="n">malloc</span><span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">20</span><span class="p">))</span> <span class="o">++</span><span class="n">i</span><span class="p">;</span> <span class="c1">// to see the memory available in this process.</span></span>
+<span class="code-line"><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Allocated %d MB total </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">i</span><span class="p">);</span></span>
+</pre></div>
 
 
-<br/>
-	&nbsp;&nbsp;<a href="./tag/sql.html" class="label"><i class="icon-tag"></i>&nbsp;SQL</a>
-</footer><!-- /.post-info --></div>
-    </div>
-    <div class="span6">
-        <div class="article well">
-            <h1><a href="./blog/2014/04/25/mysql/">Mysql</a></h1>
-            <div class="summary"><p>to be continue...</p>
-                <a class="btn btn-small" href="./blog/2014/04/25/mysql/">more ...</a>
-            </div>
-        </div>
-    </div>
-    <div class="span8">
-        <hr />
-    </div>
-    <div class="span2">
-        <div class="well small"><footer class="post-info">
-<abbr class="published" title="2014-04-01T00:00:00+08:00">
-    <i class="icon-calendar"></i>&nbsp;周二 01 四月 2014
-</abbr>
-<br/><a href="./author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
-
-
-<br/>
-	&nbsp;&nbsp;<a href="./tag/suan-fa.html" class="label"><i class="icon-tag"></i>&nbsp;算法</a>
-</footer><!-- /.post-info --></div>
-    </div>
-    <div class="span6">
-        <div class="article well">
-            <h1><a href="./blog/2014/04/01/catalan/">catalan</a></h1>
-            <div class="summary"><p>to be continue...</p>
-                <a class="btn btn-small" href="./blog/2014/04/01/catalan/">more ...</a>
-            </div>
-        </div>
-    </div>
-    <div class="span8">
-        <hr />
-    </div>
-    <div class="span2">
-        <div class="well small"><footer class="post-info">
-<abbr class="published" title="2014-03-21T00:00:00+08:00">
-    <i class="icon-calendar"></i>&nbsp;周五 21 三月 2014
-</abbr>
-<br/><a href="./author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
-
-
-<br/>
-	&nbsp;&nbsp;<a href="./tag/suan-fa.html" class="label"><i class="icon-tag"></i>&nbsp;算法</a>
-</footer><!-- /.post-info --></div>
-    </div>
-    <div class="span6">
-        <div class="article well">
-            <h1><a href="./blog/2014/03/21/kmp/">KMP</a></h1>
-            <div class="summary"><p>to be continue...</p>
-                <a class="btn btn-small" href="./blog/2014/03/21/kmp/">more ...</a>
-            </div>
-        </div>
-    </div>
-    <div class="span8">
-        <hr />
-    </div>
-    <div class="span2">
-        <div class="well small"><footer class="post-info">
-<abbr class="published" title="2014-03-08T00:00:00+08:00">
-    <i class="icon-calendar"></i>&nbsp;周六 08 三月 2014
-</abbr>
-<br/><a href="./author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
-
-
-<br/>
-	&nbsp;&nbsp;<a href="./tag/pa-chong.html" class="label"><i class="icon-tag"></i>&nbsp;爬虫</a>
-</footer><!-- /.post-info --></div>
-    </div>
-    <div class="span6">
-        <div class="article well">
-            <h1><a href="./blog/2014/03/08/the-crawl/">The crawl</a></h1>
-            <div class="summary"><p>to be continue...</p>
-                <a class="btn btn-small" href="./blog/2014/03/08/the-crawl/">more ...</a>
-            </div>
-        </div>
-    </div>
-    <div class="span8">
-        <hr />
-    </div>
-    <div class="span2">
-        <div class="well small"><footer class="post-info">
-<abbr class="published" title="2014-03-02T00:00:00+08:00">
-    <i class="icon-calendar"></i>&nbsp;周日 02 三月 2014
-</abbr>
-<br/><a href="./author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
-
-
-<br/>
-	&nbsp;&nbsp;<a href="./tag/suan-fa.html" class="label"><i class="icon-tag"></i>&nbsp;算法</a>
-</footer><!-- /.post-info --></div>
-    </div>
-    <div class="span6">
-        <div class="article well">
-            <h1><a href="./blog/2014/03/02/dynamic-programming/">dynamic programming</a></h1>
-            <div class="summary"><p>to be continue...</p>
-                <a class="btn btn-small" href="./blog/2014/03/02/dynamic-programming/">more ...</a>
-            </div>
-        </div>
-    </div>
-    <div class="span8">
-        <hr />
-    </div>
-    <div class="span2">
-        <div class="well small"><footer class="post-info">
-<abbr class="published" title="2014-02-20T00:00:00+08:00">
-    <i class="icon-calendar"></i>&nbsp;周四 20 二月 2014
-</abbr>
-<br/><a href="./author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
-
-
-<br/>
-	&nbsp;&nbsp;<a href="./tag/zhi-li.html" class="label"><i class="icon-tag"></i>&nbsp;智力</a>
-</footer><!-- /.post-info --></div>
-    </div>
-    <div class="span6">
-        <div class="article well">
-            <h1><a href="./blog/2014/02/20/mind-trick/">Mind trick</a></h1>
-            <div class="summary"><p>天平问题。（最少几次可以找到不平衡的那个。）最少几只小白鼠可以找到有药的瓶子。</p>
-                <a class="btn btn-small" href="./blog/2014/02/20/mind-trick/">more ...</a>
-            </div>
-        </div>
-    </div>
-    <div class="span8">
-        <hr />
-    </div>
-    <div class="span2">
-        <div class="well small"><footer class="post-info">
-<abbr class="published" title="2014-02-18T00:00:00+08:00">
-    <i class="icon-calendar"></i>&nbsp;周二 18 二月 2014
-</abbr>
-<br/><a href="./author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
-
-
-<br/>
-	&nbsp;&nbsp;<a href="./tag/suan-fa.html" class="label"><i class="icon-tag"></i>&nbsp;算法</a>
-</footer><!-- /.post-info --></div>
-    </div>
-    <div class="span6">
-        <div class="article well">
-            <h1><a href="./blog/2014/02/18/equal-probability/">equal probability</a></h1>
-            <div class="summary"><p>to be continue...</p>
-                <a class="btn btn-small" href="./blog/2014/02/18/equal-probability/">more ...</a>
-            </div>
-        </div>
-    </div>
-    <div class="span8">
-        <hr />
-    </div>
-    <div class="span2">
-        <div class="well small"><footer class="post-info">
-<abbr class="published" title="2014-02-13T00:00:00+08:00">
-    <i class="icon-calendar"></i>&nbsp;周四 13 二月 2014
-</abbr>
-<br/><a href="./author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
-
-
-<br/>
-	&nbsp;&nbsp;<a href="./tag/shu-ju-jie-gou.html" class="label"><i class="icon-tag"></i>&nbsp;数据结构</a>
-</footer><!-- /.post-info --></div>
-    </div>
-    <div class="span6">
-        <div class="article well">
-            <h1><a href="./blog/2014/02/13/trie-tree/">Trie Tree</a></h1>
-            <div class="summary"><p>to be continue...</p>
-                <a class="btn btn-small" href="./blog/2014/02/13/trie-tree/">more ...</a>
+<ul>
+<li>cache<ul>
+<li>cache 的类型<ul>
+<li>write-through cache : 每次写入cache时同时写入到内存，保持内存与cache的一致性。</li>
+<li>write-back cache ： 当第一次写入时，只写入cache。如果已经写入过的cache行再次需要写入时，此时第一次写入的结果尚未保存，所以要先把它写入到内存中。当内存切换进程时，cache中所有的数据都要先写入到内存中。</li>
+</ul>
+</li>
+<li>line： 内存读取以行 ...</li></ul></li></ul>
+                <a class="btn btn-small" href="./blog/2013/12/03/thanks-for-the-memory/">more ...</a>
             </div>
         </div>
     </div>
@@ -351,8 +197,7 @@
         <li class="prev"><a href="./index.html">&larr; Previous</a></li>
         <li class=""><a href="./index.html">1</a></li>
         <li class="active"><a href="./index2.html">2</a></li>
-        <li class=""><a href="./index3.html">3</a></li>
-        <li class="next"><a href="./index3.html">Next &rarr;</a></li>
+        <li class="next disabled"><a href="#">&rarr; Next</a></li>
 </ul>
 </div>
 </div>
@@ -382,54 +227,9 @@
 </li>
 
 <li class="nav-header"><a href="./tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
-    <li class="tag-1">
-        <a href="./tag/suan-fa.html">
-            <i class="icon-tag icon-large"></i>算法
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="./tag/zhi-li.html">
-            <i class="icon-tag icon-large"></i>智力
-        </a>
-    </li>
-    <li class="tag-2">
-        <a href="./tag/c.html">
-            <i class="icon-tag icon-large"></i>C
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="./tag/shell.html">
-            <i class="icon-tag icon-large"></i>SHELL
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="./tag/pa-chong.html">
-            <i class="icon-tag icon-large"></i>爬虫
-        </a>
-    </li>
-    <li class="tag-3">
-        <a href="./tag/tcp.html">
-            <i class="icon-tag icon-large"></i>TCP
-        </a>
-    </li>
     <li class="tag-4">
         <a href="./tag/duo-xian-cheng.html">
             <i class="icon-tag icon-large"></i>多线程
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="./tag/gong-ju.html">
-            <i class="icon-tag icon-large"></i>工具
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="./tag/sql.html">
-            <i class="icon-tag icon-large"></i>SQL
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="./tag/tu-xiang.html">
-            <i class="icon-tag icon-large"></i>图像
         </a>
     </li>
     <li class="tag-4">
@@ -437,9 +237,19 @@
             <i class="icon-tag icon-large"></i>拥塞控制
         </a>
     </li>
-    <li class="tag-4">
-        <a href="./tag/zheng-ze-biao-da-shi.html">
-            <i class="icon-tag icon-large"></i>正则表达式
+    <li class="tag-1">
+        <a href="./tag/c.html">
+            <i class="icon-tag icon-large"></i>C
+        </a>
+    </li>
+    <li class="tag-2">
+        <a href="./tag/tcp.html">
+            <i class="icon-tag icon-large"></i>TCP
+        </a>
+    </li>
+    <li class="tag-2">
+        <a href="./tag/suan-fa.html">
+            <i class="icon-tag icon-large"></i>算法
         </a>
     </li>
     <li class="tag-4">
@@ -448,8 +258,8 @@
         </a>
     </li>
     <li class="tag-2">
-        <a href="./tag/shu-ju-jie-gou.html">
-            <i class="icon-tag icon-large"></i>数据结构
+        <a href="./tag/cao-zuo-xi-tong.html">
+            <i class="icon-tag icon-large"></i>操作系统
         </a>
     </li>
 

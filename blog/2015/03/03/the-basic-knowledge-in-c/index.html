@@ -144,22 +144,20 @@
         <h2>C 语言中的运算规则</h2>
 <ul>
 <li>C语言中每个token应该尽可能多的包含更多的字符。如果编译器的输入流截止到某个字符之前已经被分解成一个个的token，那么从该字符之后应尽可能的组成一个最长的字符串的token。除了字符串与字符串常量，符号的中间不能嵌有空白（空格符、制表符，换行符）。</li>
-<li>
-<p>C语言中符号之间的空白将被忽略，这些符号包括空格符，制表符，换行符号：</p>
-<div class="highlight"><pre><span class="code-line">if (a &gt; b)</span>
-<span class="code-line">b = a;</span>
-<span class="code-line">if (a &gt;</span>
-<span class="code-line">b</span>
-<span class="code-line">)</span>
-<span class="code-line">b = </span>
-<span class="code-line">a;</span>
+<li>C语言中符号之间的空白将被忽略，这些符号包括空格符，制表符，换行符号：</li>
+</ul>
+<div class="highlight"><pre><span class="code-line"><span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span><span class="p">)</span></span>
+<span class="code-line"><span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span></span>
+<span class="code-line"><span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">&gt;</span></span>
+<span class="code-line"><span class="n">b</span></span>
+<span class="code-line"><span class="p">)</span></span>
+<span class="code-line"><span class="n">b</span> <span class="o">=</span> </span>
+<span class="code-line"><span class="n">a</span><span class="p">;</span></span>
 </pre></div>
 
 
-</li>
-<li>
-<p>C语言变量的声明包括两部分：类型，以及声明符。</p>
-</li>
+<ul>
+<li>C语言变量的声明包括两部分：类型，以及声明符。</li>
 <li>
 <p>C语言运算符优先级</p>
 <ul>
@@ -173,59 +171,62 @@
 </li>
 <li>C语言中，只有四种运算符存在规定的求值顺序（&amp;&amp;、||、?:、,）。运算符&amp;&amp;和||首先对左侧操作数求值，只在需要的时候才对右侧操作数求值。运算符？：有三个操作数：在a？b:c中，操作数a首先别求值，根据a的值再求b后者c的值。而逗号操作符，首先对左侧操作数求值，然后该值被丢弃，再对右侧操作数求值。</li>
 </ul>
+</li>
+</ul>
 <h2>C语言中常见的问题</h2>
 <ul>
 <li>如果一个整形常量的第一个字符是数字0，那么该常量将被视作八位数。譬如010会被当成十进制中的8。</li>
 <li>在C语言中用单引号引起的字符所代表的是该字符ASCII码的整数值。而双引号引起的字符串，代表的是一个指向无名数组起始字符的指针。</li>
-<li>
-<p>C语言中，每个case只有在遇到break时才会跳出switch语句。否则讲继续。</p>
-<p>switch(exp)
-{
-case one:
-    do something1;
-    break;
-case two:
-    do something2;
-    break;
-default:
-    do something3:
-    break;
-｝</p>
-</li>
+<li>C语言中，每个case只有在遇到break时才会跳出switch语句。否则讲继续。</li>
 </ul>
-</li>
-<li>
-<p>如果strlen(s)的值是n，那么该字符串实际需要n+1个字符的空间，'\0'作为结束标志。</p>
-<div class="highlight"><pre><span class="code-line">char *p,*q;</span>
-<span class="code-line">p = &quot;xyz&quot;</span>
-<span class="code-line">q = p;</span>
-<span class="code-line">p[0] = &#39;X&#39;</span>
-<span class="code-line">q[1] = &#39;Y&#39;</span>
+<div class="highlight"><pre><span class="code-line"><span class="k">switch</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line"><span class="k">case</span> <span class="nl">one</span><span class="p">:</span></span>
+<span class="code-line">    <span class="k">do</span> <span class="n">something1</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">break</span><span class="p">;</span></span>
+<span class="code-line"><span class="k">case</span> <span class="nl">two</span><span class="p">:</span></span>
+<span class="code-line">    <span class="k">do</span> <span class="n">something2</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">break</span><span class="p">;</span></span>
+<span class="code-line"><span class="k">default</span><span class="o">:</span></span>
+<span class="code-line">    <span class="k">do</span> <span class="nl">something3</span><span class="p">:</span></span>
+<span class="code-line">    <span class="k">break</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
 </pre></div>
 
 
-</li>
-<li>
-<p>复制指针并不同时复制指针所指向的数据，而是把指针所指向的地址复制给另一个指针。</p>
-<div class="highlight"><pre><span class="code-line">int n = 4;</span>
-<span class="code-line">int buffer[n] = { 1, 2, 3, 4 };</span>
-<span class="code-line">int *bufptr = buffer;</span>
-<span class="code-line">int *p = buffer;</span>
-<span class="code-line">while (n &gt; -1) {</span>
-<span class="code-line">if (bufptr == &amp;buffer[4])</span>
-<span class="code-line">{</span>
-<span class="code-line">printf(&quot;Work well !\n&quot;);</span>
-<span class="code-line">break;</span>
-<span class="code-line">}</span>
-<span class="code-line">*bufptr++ = *p++;</span>
-<span class="code-line">n -= 1;</span>
-<span class="code-line">}</span>
+<ul>
+<li>如果strlen(s)的值是n，那么该字符串实际需要n+1个字符的空间，'\0'作为结束标志。</li>
+</ul>
+<div class="highlight"><pre><span class="code-line"><span class="kt">char</span> <span class="o">*</span><span class="n">p</span><span class="p">,</span><span class="o">*</span><span class="n">q</span><span class="p">;</span></span>
+<span class="code-line"><span class="n">p</span> <span class="o">=</span> <span class="s">&quot;xyz&quot;</span></span>
+<span class="code-line"><span class="n">q</span> <span class="o">=</span> <span class="n">p</span><span class="p">;</span></span>
+<span class="code-line"><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;X&#39;</span></span>
+<span class="code-line"><span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;Y&#39;</span></span>
+</pre></div>
+
+
+<ul>
+<li>复制指针并不同时复制指针所指向的数据，而是把指针所指向的地址复制给另一个指针。</li>
+</ul>
+<div class="highlight"><pre><span class="code-line"><span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span></span>
+<span class="code-line"><span class="kt">int</span> <span class="n">buffer</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span> <span class="p">};</span></span>
+<span class="code-line"><span class="kt">int</span> <span class="o">*</span><span class="n">bufptr</span> <span class="o">=</span> <span class="n">buffer</span><span class="p">;</span></span>
+<span class="code-line"><span class="kt">int</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="n">buffer</span><span class="p">;</span></span>
+<span class="code-line"><span class="k">while</span> <span class="p">(</span><span class="n">n</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="n">bufptr</span> <span class="o">==</span> <span class="o">&amp;</span><span class="n">buffer</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span></span>
+<span class="code-line">    <span class="p">{</span></span>
+<span class="code-line">        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Work well !</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span></span>
+<span class="code-line">        <span class="k">break</span><span class="p">;</span></span>
+<span class="code-line">        <span class="p">}</span></span>
+<span class="code-line">        <span class="o">*</span><span class="n">bufptr</span><span class="o">++</span> <span class="o">=</span> <span class="o">*</span><span class="n">p</span><span class="o">++</span><span class="p">;</span></span>
+<span class="code-line">        <span class="n">n</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">;</span></span>
+<span class="code-line">    <span class="p">}</span></span>
 </pre></div>
 
 
 <p>所以上面的代码执行后，p，q共同指向字符串“XYz” 
 - 当常量被转换为指针使用时，这个指针绝对不能解引用，即不能使用该指针所指向内存中的存储内容。ANSI规定：数组中实际不存在的溢界元素的地址位于数组所占用内存之后，这个地址可以用于进行赋值比较。但是不能引用该地址的元素。</p>
-</li>
+<ul>
 <li>
 <p>类型提升：在表达式中，每个char类型都被转换为int，float都会转换为double。由于函数参数也是一个表达式，所以当参数传递给函数时也会发生类型转换。</p>
 <ul>
@@ -237,20 +238,22 @@ default:
 <ul>
 <li>Left Value（左值）: 表示存储结果的地方. X 代表存储的地址。</li>
 <li>Right Value（右值）:  Y中的内容</li>
-<li><strong>数组名是不可修改的左值</strong>，只有可修改的左值才能被赋值。<div class="highlight"><pre><span class="code-line">a+++++b;</span>
+<li><strong>数组名是不可修改的左值</strong>，只有可修改的左值才能被赋值。</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre><span class="code-line"><span class="n">a</span><span class="o">+++++</span><span class="n">b</span><span class="p">;</span></span>
 </pre></div>
 
 
 <p>由于编译器的中最长匹配的原则，上式会被翻译为</p>
-<div class="highlight"><pre><span class="code-line">a++++ + b;//即</span>
-<span class="code-line">((a++)++) + b;</span>
+<div class="highlight"><pre><span class="code-line"><span class="n">a</span><span class="o">++++</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span><span class="c1">//即</span></span>
+<span class="code-line"><span class="p">((</span><span class="n">a</span><span class="o">++</span><span class="p">)</span><span class="o">++</span><span class="p">)</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span></span>
 </pre></div>
 
 
 <p>而<strong>a++</strong>不能作为左值， 因为a++返回的是自身的值副本。因此上面的表达式是错误的。</p>
-</li>
-</ul>
-</li>
+<ul>
 <li>
 <p>大端和小端 （数据在内存中的字节排列顺序）</p>
 <ul>
@@ -265,10 +268,19 @@ default:
 <li>两个'L'的'NULL'用于表示什么也不指向（空指针）</li>
 </ul>
 </li>
-<li>C中的关键字：<ul>
+<li>
+<p>C中的关键字：</p>
+<ul>
 <li>extern：用于变量，表示在其他地方（文件）定义。用于函数定义，表示全局可见，即可被任意文件内的函数访问。</li>
 <li>const：相当于read only</li>
 <li>static：在函数内部，表示该变量的值在各个调用一直保持持续性。</li>
+</ul>
+</li>
+<li>
+<p>联合（Union）和结构体（Struct）</p>
+<ul>
+<li>一个联合的总的大小等于它的最大字段的大小</li>
+<li>如果我们事先知道对一个数据结构中的两个不同字段的使用是互斥的，那么将这两个字段声明为联合的一部分，而不是结构的一部分，以减少分配空间的总量。</li>
 </ul>
 </li>
 </ul>
@@ -316,54 +328,9 @@ default:
 </li>
 
 <li class="nav-header"><a href="../../../../../tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
-    <li class="tag-1">
-        <a href="../../../../../tag/suan-fa.html">
-            <i class="icon-tag icon-large"></i>算法
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/zhi-li.html">
-            <i class="icon-tag icon-large"></i>智力
-        </a>
-    </li>
-    <li class="tag-2">
-        <a href="../../../../../tag/c.html">
-            <i class="icon-tag icon-large"></i>C
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/shell.html">
-            <i class="icon-tag icon-large"></i>SHELL
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/pa-chong.html">
-            <i class="icon-tag icon-large"></i>爬虫
-        </a>
-    </li>
-    <li class="tag-3">
-        <a href="../../../../../tag/tcp.html">
-            <i class="icon-tag icon-large"></i>TCP
-        </a>
-    </li>
     <li class="tag-4">
         <a href="../../../../../tag/duo-xian-cheng.html">
             <i class="icon-tag icon-large"></i>多线程
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/gong-ju.html">
-            <i class="icon-tag icon-large"></i>工具
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/sql.html">
-            <i class="icon-tag icon-large"></i>SQL
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/tu-xiang.html">
-            <i class="icon-tag icon-large"></i>图像
         </a>
     </li>
     <li class="tag-4">
@@ -371,9 +338,19 @@ default:
             <i class="icon-tag icon-large"></i>拥塞控制
         </a>
     </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/zheng-ze-biao-da-shi.html">
-            <i class="icon-tag icon-large"></i>正则表达式
+    <li class="tag-1">
+        <a href="../../../../../tag/c.html">
+            <i class="icon-tag icon-large"></i>C
+        </a>
+    </li>
+    <li class="tag-2">
+        <a href="../../../../../tag/tcp.html">
+            <i class="icon-tag icon-large"></i>TCP
+        </a>
+    </li>
+    <li class="tag-2">
+        <a href="../../../../../tag/suan-fa.html">
+            <i class="icon-tag icon-large"></i>算法
         </a>
     </li>
     <li class="tag-4">
@@ -382,8 +359,8 @@ default:
         </a>
     </li>
     <li class="tag-2">
-        <a href="../../../../../tag/shu-ju-jie-gou.html">
-            <i class="icon-tag icon-large"></i>数据结构
+        <a href="../../../../../tag/cao-zuo-xi-tong.html">
+            <i class="icon-tag icon-large"></i>操作系统
         </a>
     </li>
 

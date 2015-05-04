@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="google-site-verification" content="fdZTDVFyX3hKovPIzn1tgPixk_wysBXaPN8YQw1P8Jw" />
-    <title>24点编程游戏 | Write the Code</title>
+    <title>24点游戏编程 | Write the Code</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="keywords" content="" />
     <meta name="author" content="ChaoJun Hou" />
@@ -134,8 +134,8 @@
             <h1>
                 <a href=""
                         rel="bookmark"
-                        title="Permalink to 24点编程游戏">
-                        24点编程游戏
+                        title="Permalink to 24点游戏编程">
+                        24点游戏编程
                 </a>
             </h1>
         </header>
@@ -155,77 +155,77 @@
 </ul>
 <p>下面的代码可以解决上面出现的情况。</p>
 <p><strong>Show the code</strong></p>
-<div class="highlight"><pre><span class="code-line">def PointGame(n):</span>
-<span class="code-line">i=0</span>
-<span class="code-line">if(n==1):</span>
-<span class="code-line">    if matrix[0][0]==matrix[0][1]*24:</span>
-<span class="code-line">        return True</span>
-<span class="code-line">    else:</span>
-<span class="code-line">        return False</span>
-<span class="code-line">for i in range(0,n):</span>
-<span class="code-line">    for j in range(i+1,n):</span>
-<span class="code-line">        # use two dimention array</span>
-<span class="code-line">        a=matrix[i][0]</span>
-<span class="code-line">        b=matrix[i][1]</span>
-<span class="code-line">        c=matrix[j][0]</span>
-<span class="code-line">        d=matrix[j][1]</span>
-<span class="code-line">        # python needs the deepcopy to copy the value to the destination</span>
-<span class="code-line">        matrix[j]=copy.deepcopy(matrix[n-1])</span>
+<div class="highlight"><pre><span class="code-line"><span class="k">def</span> <span class="nf">PointGame</span><span class="p">(</span><span class="n">n</span><span class="p">):</span></span>
+<span class="code-line">    <span class="n">i</span><span class="o">=</span><span class="mi">0</span></span>
+<span class="code-line">    <span class="k">if</span><span class="p">(</span><span class="n">n</span><span class="o">==</span><span class="mi">1</span><span class="p">):</span></span>
+<span class="code-line">        <span class="k">if</span> <span class="n">matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="n">matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="mi">24</span><span class="p">:</span></span>
+<span class="code-line">            <span class="k">return</span> <span class="bp">True</span></span>
+<span class="code-line">        <span class="k">else</span><span class="p">:</span></span>
+<span class="code-line">            <span class="k">return</span> <span class="bp">False</span></span>
+<span class="code-line">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="p">):</span></span>
+<span class="code-line">        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">):</span></span>
+<span class="code-line">            <span class="c"># use two dimention array</span></span>
+<span class="code-line">            <span class="n">a</span><span class="o">=</span><span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span></span>
+<span class="code-line">            <span class="n">b</span><span class="o">=</span><span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span></span>
+<span class="code-line">            <span class="n">c</span><span class="o">=</span><span class="n">matrix</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span></span>
+<span class="code-line">            <span class="n">d</span><span class="o">=</span><span class="n">matrix</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span></span>
+<span class="code-line">            <span class="c"># python needs the deepcopy to copy the value to the destination</span></span>
+<span class="code-line">            <span class="n">matrix</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">=</span><span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">matrix</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span></span>
 <span class="code-line"></span>
-<span class="code-line">        expa=result[i]</span>
-<span class="code-line">        expb=result[j]</span>
-<span class="code-line">        result[j]=result[n-1]</span>
+<span class="code-line">            <span class="n">expa</span><span class="o">=</span><span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span></span>
+<span class="code-line">            <span class="n">expb</span><span class="o">=</span><span class="n">result</span><span class="p">[</span><span class="n">j</span><span class="p">]</span></span>
+<span class="code-line">            <span class="n">result</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">=</span><span class="n">result</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></span>
 <span class="code-line"></span>
-<span class="code-line">        result[i]=&#39;(&#39;+expa+&#39;+&#39;+expb+&#39;)&#39;</span>
-<span class="code-line">        matrix[i][0]=a*d+b*c</span>
-<span class="code-line">        matrix[i][1]=b*d</span>
+<span class="code-line">            <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="s">&#39;(&#39;</span><span class="o">+</span><span class="n">expa</span><span class="o">+</span><span class="s">&#39;+&#39;</span><span class="o">+</span><span class="n">expb</span><span class="o">+</span><span class="s">&#39;)&#39;</span></span>
+<span class="code-line">            <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="n">a</span><span class="o">*</span><span class="n">d</span><span class="o">+</span><span class="n">b</span><span class="o">*</span><span class="n">c</span></span>
+<span class="code-line">            <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">b</span><span class="o">*</span><span class="n">d</span></span>
 <span class="code-line"></span>
-<span class="code-line">        if(PointGame(n-1)):</span>
-<span class="code-line">            return True</span>
+<span class="code-line">            <span class="k">if</span><span class="p">(</span><span class="n">PointGame</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)):</span></span>
+<span class="code-line">                <span class="k">return</span> <span class="bp">True</span></span>
 <span class="code-line"></span>
-<span class="code-line">        result[i]=&#39;(&#39;+expa+&#39;-&#39;+expb+&#39;)&#39;</span>
-<span class="code-line">        matrix[i][0]=a*d-b*c</span>
-<span class="code-line">        matrix[i][1]=b*d</span>
-<span class="code-line">        if(PointGame(n-1)):</span>
-<span class="code-line">            return True</span>
+<span class="code-line">            <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="s">&#39;(&#39;</span><span class="o">+</span><span class="n">expa</span><span class="o">+</span><span class="s">&#39;-&#39;</span><span class="o">+</span><span class="n">expb</span><span class="o">+</span><span class="s">&#39;)&#39;</span></span>
+<span class="code-line">            <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="n">a</span><span class="o">*</span><span class="n">d</span><span class="o">-</span><span class="n">b</span><span class="o">*</span><span class="n">c</span></span>
+<span class="code-line">            <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">b</span><span class="o">*</span><span class="n">d</span></span>
+<span class="code-line">            <span class="k">if</span><span class="p">(</span><span class="n">PointGame</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)):</span></span>
+<span class="code-line">                <span class="k">return</span> <span class="bp">True</span></span>
 <span class="code-line"></span>
-<span class="code-line">        result[i]=&#39;(&#39;+expb+&#39;-&#39;+expa+&#39;)&#39;</span>
-<span class="code-line">        matrix[i][0]=b*c-a*d</span>
-<span class="code-line">        matrix[i][1]=b*d</span>
-<span class="code-line">        if(PointGame(n-1)):</span>
-<span class="code-line">            return True</span>
+<span class="code-line">            <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="s">&#39;(&#39;</span><span class="o">+</span><span class="n">expb</span><span class="o">+</span><span class="s">&#39;-&#39;</span><span class="o">+</span><span class="n">expa</span><span class="o">+</span><span class="s">&#39;)&#39;</span></span>
+<span class="code-line">            <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="n">b</span><span class="o">*</span><span class="n">c</span><span class="o">-</span><span class="n">a</span><span class="o">*</span><span class="n">d</span></span>
+<span class="code-line">            <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">b</span><span class="o">*</span><span class="n">d</span></span>
+<span class="code-line">            <span class="k">if</span><span class="p">(</span><span class="n">PointGame</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)):</span></span>
+<span class="code-line">                <span class="k">return</span> <span class="bp">True</span></span>
 <span class="code-line"></span>
-<span class="code-line">        result[i]=&#39;(&#39;+expa+&#39;*&#39;+expb+&#39;)&#39;</span>
-<span class="code-line">        matrix[i][0]=a*c</span>
-<span class="code-line">        matrix[i][1]=b*d</span>
-<span class="code-line">        if(PointGame(n-1)):</span>
-<span class="code-line">            return True</span>
+<span class="code-line">            <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="s">&#39;(&#39;</span><span class="o">+</span><span class="n">expa</span><span class="o">+</span><span class="s">&#39;*&#39;</span><span class="o">+</span><span class="n">expb</span><span class="o">+</span><span class="s">&#39;)&#39;</span></span>
+<span class="code-line">            <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="n">a</span><span class="o">*</span><span class="n">c</span></span>
+<span class="code-line">            <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">b</span><span class="o">*</span><span class="n">d</span></span>
+<span class="code-line">            <span class="k">if</span><span class="p">(</span><span class="n">PointGame</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)):</span></span>
+<span class="code-line">                <span class="k">return</span> <span class="bp">True</span></span>
 <span class="code-line"></span>
-<span class="code-line">        if c!=0:</span>
-<span class="code-line">            result[i]=&#39;(&#39;+expa+&#39;/&#39;+expb+&#39;)&#39;</span>
-<span class="code-line">            matrix[i][0]=a*d</span>
-<span class="code-line">            matrix[i][1]=b*c</span>
+<span class="code-line">            <span class="k">if</span> <span class="n">c</span><span class="o">!=</span><span class="mi">0</span><span class="p">:</span></span>
+<span class="code-line">                <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="s">&#39;(&#39;</span><span class="o">+</span><span class="n">expa</span><span class="o">+</span><span class="s">&#39;/&#39;</span><span class="o">+</span><span class="n">expb</span><span class="o">+</span><span class="s">&#39;)&#39;</span></span>
+<span class="code-line">                <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="n">a</span><span class="o">*</span><span class="n">d</span></span>
+<span class="code-line">                <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">b</span><span class="o">*</span><span class="n">c</span></span>
 <span class="code-line"></span>
-<span class="code-line">            if(PointGame(n-1)):</span>
-<span class="code-line">                return True</span>
+<span class="code-line">                <span class="k">if</span><span class="p">(</span><span class="n">PointGame</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)):</span></span>
+<span class="code-line">                    <span class="k">return</span> <span class="bp">True</span></span>
 <span class="code-line"></span>
-<span class="code-line">        if a!=0:</span>
-<span class="code-line">            result[i]=&#39;(&#39;+expb+&#39;/&#39;+expa+&#39;)&#39;</span>
-<span class="code-line">            matrix[i][0]=b*c</span>
-<span class="code-line">            matrix[i][1]=a*d</span>
+<span class="code-line">            <span class="k">if</span> <span class="n">a</span><span class="o">!=</span><span class="mi">0</span><span class="p">:</span></span>
+<span class="code-line">                <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="s">&#39;(&#39;</span><span class="o">+</span><span class="n">expb</span><span class="o">+</span><span class="s">&#39;/&#39;</span><span class="o">+</span><span class="n">expa</span><span class="o">+</span><span class="s">&#39;)&#39;</span></span>
+<span class="code-line">                <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="n">b</span><span class="o">*</span><span class="n">c</span></span>
+<span class="code-line">                <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">a</span><span class="o">*</span><span class="n">d</span></span>
 <span class="code-line"></span>
-<span class="code-line">            if(PointGame(n-1)):</span>
-<span class="code-line">                return True</span>
-<span class="code-line">        # restore the value</span>
-<span class="code-line">        matrix[i][0]=a</span>
-<span class="code-line">        matrix[i][1]=b</span>
-<span class="code-line">        matrix[j][0]=c</span>
-<span class="code-line">        matrix[j][1]=d</span>
+<span class="code-line">                <span class="k">if</span><span class="p">(</span><span class="n">PointGame</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)):</span></span>
+<span class="code-line">                    <span class="k">return</span> <span class="bp">True</span></span>
+<span class="code-line">            <span class="c"># restore the value</span></span>
+<span class="code-line">            <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="n">a</span></span>
+<span class="code-line">            <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">b</span></span>
+<span class="code-line">            <span class="n">matrix</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="n">c</span></span>
+<span class="code-line">            <span class="n">matrix</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">d</span></span>
 <span class="code-line"></span>
-<span class="code-line">        result[i]=expa</span>
-<span class="code-line">        result[j]=expb</span>
-<span class="code-line">        i+=1</span>
-<span class="code-line">return False</span>
+<span class="code-line">            <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">expa</span></span>
+<span class="code-line">            <span class="n">result</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">=</span><span class="n">expb</span></span>
+<span class="code-line">            <span class="n">i</span><span class="o">+=</span><span class="mi">1</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="bp">False</span></span>
 </pre></div>
 
 
@@ -275,54 +275,9 @@
 </li>
 
 <li class="nav-header"><a href="../../../../../tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
-    <li class="tag-1">
-        <a href="../../../../../tag/suan-fa.html">
-            <i class="icon-tag icon-large"></i>算法
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/zhi-li.html">
-            <i class="icon-tag icon-large"></i>智力
-        </a>
-    </li>
-    <li class="tag-2">
-        <a href="../../../../../tag/c.html">
-            <i class="icon-tag icon-large"></i>C
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/shell.html">
-            <i class="icon-tag icon-large"></i>SHELL
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/pa-chong.html">
-            <i class="icon-tag icon-large"></i>爬虫
-        </a>
-    </li>
-    <li class="tag-3">
-        <a href="../../../../../tag/tcp.html">
-            <i class="icon-tag icon-large"></i>TCP
-        </a>
-    </li>
     <li class="tag-4">
         <a href="../../../../../tag/duo-xian-cheng.html">
             <i class="icon-tag icon-large"></i>多线程
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/gong-ju.html">
-            <i class="icon-tag icon-large"></i>工具
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/sql.html">
-            <i class="icon-tag icon-large"></i>SQL
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/tu-xiang.html">
-            <i class="icon-tag icon-large"></i>图像
         </a>
     </li>
     <li class="tag-4">
@@ -330,9 +285,19 @@
             <i class="icon-tag icon-large"></i>拥塞控制
         </a>
     </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/zheng-ze-biao-da-shi.html">
-            <i class="icon-tag icon-large"></i>正则表达式
+    <li class="tag-1">
+        <a href="../../../../../tag/c.html">
+            <i class="icon-tag icon-large"></i>C
+        </a>
+    </li>
+    <li class="tag-2">
+        <a href="../../../../../tag/tcp.html">
+            <i class="icon-tag icon-large"></i>TCP
+        </a>
+    </li>
+    <li class="tag-2">
+        <a href="../../../../../tag/suan-fa.html">
+            <i class="icon-tag icon-large"></i>算法
         </a>
     </li>
     <li class="tag-4">
@@ -341,8 +306,8 @@
         </a>
     </li>
     <li class="tag-2">
-        <a href="../../../../../tag/shu-ju-jie-gou.html">
-            <i class="icon-tag icon-large"></i>数据结构
+        <a href="../../../../../tag/cao-zuo-xi-tong.html">
+            <i class="icon-tag icon-large"></i>操作系统
         </a>
     </li>
 

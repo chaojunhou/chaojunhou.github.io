@@ -116,6 +116,105 @@
 <div class="row">
     <div class="span2">
         <div class="well small"><footer class="post-info">
+<abbr class="published" title="2015-05-04T20:11:00+08:00">
+    <i class="icon-calendar"></i>&nbsp;周一 04 五月 2015
+</abbr>
+<br/><a href="./author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
+
+
+<br/>
+	&nbsp;&nbsp;<a href="./tag/c.html" class="label"><i class="icon-tag"></i>&nbsp;C</a>
+</footer><!-- /.post-info --></div>
+    </div>
+    <div class="span6">
+        <div class="article well">
+            <h1><a href="./blog/2015/05/04/ccheng-xu-zhong-chang-jian-de-yu-cun-chu-qi-you-guan-de-cuo-wu/">C程序中常见的与存储器有关的错误</a></h1>
+            <div class="summary"><p>Slug：usual-error-in-c
+Author: ChaoJun Hou</p>
+<ul>
+<li>间接引用坏指针</li>
+</ul>
+<div class="highlight"><pre><span class="code-line"><span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">val</span><span class="p">);</span> <span class="c1">//right</span></span>
+<span class="code-line"><span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span> <span class="n">val</span><span class="p">);</span>  <span class="c1">//wrong，会把val的内容当成地址读进去</span></span>
+</pre></div>
+
+
+<ul>
+<li>
+<p>读未初始化的存储器</p>
+<p>虽然bss存储器位置总是被加载器初始化为零，但对于堆存储器不是这样的。在堆中初始化的元素的值是不确定的</p>
+</li>
+<li>
+<p>允许栈缓冲区溢出</p>
+<p>如果一个程序不检查输入串的大小就写如栈中的目标缓冲区，那么这个程序就会有缓冲区溢出错误。</p>
+</li>
+</ul>
+<div class="highlight"><pre><span class="code-line"><span class="kt">void</span> <span class="nf">bufoverflow</span><span class="p">()</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">64</span><span class="p">];</span>   </span>
+<span class="code-line">    <span class="n">gets</span><span class="p">(</span><span class="n">buf</span><span class="p">);</span> <span class="c1">//stack buffer flow</span></span>
+<span class="code-line">    <span class="k">return</span><span class="p">;</span> <span class="c1">// should use fgest to limit the input        size </span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<ul>
+<li>假设指针和他们指向的对象是相同大小</li>
+</ul>
+<div class="highlight"><pre><span class="code-line"><span class="kt">int</span> <span class="o">**</span><span class="nf">makeArray</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span> <span class="n">m</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="kt">int</span> <span class="n">i ...</span></span></pre></div>
+                <a class="btn btn-small" href="./blog/2015/05/04/ccheng-xu-zhong-chang-jian-de-yu-cun-chu-qi-you-guan-de-cuo-wu/">more ...</a>
+            </div>
+        </div>
+    </div>
+    <div class="span8">
+        <hr />
+    </div>
+    <div class="span2">
+        <div class="well small"><footer class="post-info">
+<abbr class="published" title="2015-05-01T19:15:00+08:00">
+    <i class="icon-calendar"></i>&nbsp;周五 01 五月 2015
+</abbr>
+<br/><a href="./author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
+
+
+<br/>
+	&nbsp;&nbsp;<a href="./tag/cao-zuo-xi-tong.html" class="label"><i class="icon-tag"></i>&nbsp;操作系统</a>
+</footer><!-- /.post-info --></div>
+    </div>
+    <div class="span6">
+        <div class="article well">
+            <h1><a href="./blog/2015/05/01/optimizing-program-performance/">程序性能优化</a></h1>
+            <div class="summary"><blockquote>
+<p>We should forget about small efficiencies, say about 97% of the time: premature optimization is the root of all evil. ~Donald Knuth</p>
+</blockquote>
+<p>程序员必须再实现和维护程序的简单性与它的运行速度之间做出权衡。</p>
+<p>优化编译器的能力和局限性
+编译器必须很小心地对程序只使用安全的优化。程序中有两个妨碍优化的因素。
+- 存储器别名使用</p>
+<div class="highlight"><pre><span class="code-line"><span class="kt">void</span> <span class="nf">add1</span> <span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">xp</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">yp</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="o">*</span><span class="n">xp</span> <span class="o">+=</span> <span class="o">*</span><span class="n">yp</span><span class="p">;</span></span>
+<span class="code-line">    <span class="o">*</span><span class="n">xp</span> <span class="o">+=</span> <span class="o">*</span><span class="n">yp</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span>       </span>
+<span class="code-line"><span class="kt">void</span> <span class="nf">add2</span> <span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">xp</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">yp</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="o">*</span><span class="n">xp</span> <span class="o">+=</span> <span class="mi">2</span> <span class="o">*</span> <span class="o">*</span><span class="n">yp</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<p>编译器并不会把第一个函数优化成第二个函数，因为如果考虑到 xp 等于 ...</p>
+                <a class="btn btn-small" href="./blog/2015/05/01/optimizing-program-performance/">more ...</a>
+            </div>
+        </div>
+    </div>
+    <div class="span8">
+        <hr />
+    </div>
+    <div class="span2">
+        <div class="well small"><footer class="post-info">
 <abbr class="published" title="2015-04-25T19:21:00+08:00">
     <i class="icon-calendar"></i>&nbsp;周六 25 四月 2015
 </abbr>
@@ -128,7 +227,7 @@
     </div>
     <div class="span6">
         <div class="article well">
-            <h1><a href="./blog/2015/04/25/cal24/">24点编程游戏</a></h1>
+            <h1><a href="./blog/2015/04/25/cal24/">24点游戏编程</a></h1>
             <div class="summary"><p><a href="http://zh.wikipedia.org/wiki/24%E7%82%B9">24点游戏</a>是一种使用扑克牌来进行的益智类游戏，游戏内容是：从一副扑克牌中抽去大小王剩下52张，任意抽取4张牌，把牌面上的数（A代表1）运用加、减、乘、除和括号进行运算得出24。每张牌都必须使用一次，但不能重复使用。在不同版本中，对J、Q、和K的处理有些差异。一个常见的版本是把J、Q、和K去除，或当成10；还有一个版本是把J表示11，Q表示12，K代表13。</p>
 <p>虽然大多数24点存在很多解法，有相当一部分数字组合只存在唯一的解法。这种组合往往较有难度，也较为有趣。这里总结一些常见的组合。</p>
 <ul>
@@ -136,6 +235,43 @@
 <p>分数运算</p>
 <p>虽然给出4个数字都是整数，中间步骤中有时会出现分数。这种4个数字的组合往往较有难度。一个经典的例子是1，5，5，5，其解答为5 × (5 − 1 ÷ 5) = 24；另外 一个例子是3，3，8，8，其解答为8 ÷ (3 - 8 ...</p></li></ul>
                 <a class="btn btn-small" href="./blog/2015/04/25/cal24/">more ...</a>
+            </div>
+        </div>
+    </div>
+    <div class="span8">
+        <hr />
+    </div>
+    <div class="span2">
+        <div class="well small"><footer class="post-info">
+<abbr class="published" title="2015-04-15T10:55:00+08:00">
+    <i class="icon-calendar"></i>&nbsp;周三 15 四月 2015
+</abbr>
+<br/><a href="./author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
+
+
+<br/>
+	&nbsp;&nbsp;<a href="./tag/cao-zuo-xi-tong.html" class="label"><i class="icon-tag"></i>&nbsp;操作系统</a>
+</footer><!-- /.post-info --></div>
+    </div>
+    <div class="span6">
+        <div class="article well">
+            <h1><a href="./blog/2015/04/15/csapp/">深入理解计算机系统</a></h1>
+            <div class="summary"><p>操作系统内核是应用程序和硬件之间的媒介。它提供三个基本抽象：</p>
+<ul>
+<li>文件是对I/O设备的抽象</li>
+<li>虚拟存储器是对主存和磁盘的抽象</li>
+<li>进程是对处理器、主存和I/O设备的抽象</li>
+</ul>
+<p>系统中所有的信息，都是一串位表示的。区分不同数据对象的唯一方法就是我们读到这些数据对象时的上下文。</p>
+<p>预处理-&gt;编译-&gt;汇编-&gt;链接</p>
+<h1>程序的机器级表达</h1>
+<p>数据传递、局部变量的分配和释放通过操作程序栈来实现。机器用栈来传递过程参数、存储返回信息、保存寄存器用于恢复，以及本地存储。为单个过程分配的那部分栈称为栈桢。最顶端的栈桢以两个指针界定，寄存器%ebp为帧指针，寄存器%esp为栈指针。</p>
+<p><img src="/images/stack.png" width = "550" height = "5" alt="stack" align=center /></p>
+<h1>存储器层级结构</h1>
+<p>计算机系统中的一个基本而持久的思想：如果你理解了系统是如何将数据在存储器层次结构中上上下下移动的，那么你可以编写你的应用程序，使得它们的数据项存储在层次结构中较高的地方，在那里CPU能更快地访问到它们。这个思想围绕着计算机程序的一个成为局部性（locality）的基本属性。</p>
+<p>局部性通常有两种形式：时间局部性（temporal locality）和空间局部性（spatial locality）。在一个具有良好时间局部性的程序中，被引用过一次的存储器位置很可能在不远的将来再被多次引用。在一个具有良好空间局部性的程序中，如果一个存储器位置被引用了一次，那么程序很可能在不远的将来引用附近的一个存储器位置。 </p>
+<p>理解存储器层次结构的本质的程序员能够利用这些知识 ...</p>
+                <a class="btn btn-small" href="./blog/2015/04/15/csapp/">more ...</a>
             </div>
         </div>
     </div>
@@ -204,20 +340,32 @@
     <div class="span6">
         <div class="article well">
             <h1><a href="./blog/2015/03/27/link-and-preprocess/">链接和预编译</a></h1>
-            <div class="summary"><h2>链接器</h2>
+            <div class="summary"><h1>链接</h1>
+<p>C++中允许重载方法，这些方法在源代码中有相同的名字，却有不同的函数列表。编译器讲每个唯一的方法和参数列表组合编码成一个对链接器来说唯一的名字。这个编码过程叫做mangling。
+<img src="/images/elf.png" width = "550" height = "283" alt="ELF" align=center /></p>
+<h2>链接器如何解析多重定义的全局符号</h2>
+<p>函数和已初始化的全局变量是强符号，未初始化的全局变量是弱符号。
+Unix链接器使用下面的规则来处理多重定义的符号：</p>
+<ul>
+<li>不允许有多个强符号。</li>
+<li>如果有一个强符号和一个弱符号，那么选择强符号</li>
+<li>如果有多个弱符号，那么从这些弱符号中任意选择一个</li>
+</ul>
+<p><strong>在命令行中，如果定义一个符号的库出现在引用这个符号的目标文件之前，那么引用就不能被解析，连接会失败</strong></p>
+<p>加载器（loader）将可执行目标文件的代码和数据从磁盘拷到内存中，然后跳转到程序的第一条指令或入口点来运行程序。这个将程序拷贝到内存并运行的过程叫做加载。</p>
+<p><strong>无论我们在存储器中的何处加载一个目标模块，数据段总是分配成紧随代码段后面。因此，代码段中任何指令和数据段中任何一个变量之间的距离都是一个运行时常量，和代码段和数据段的绝对的存储位置无关</strong></p>
+<p>链接器的两个主要任务是符号解析和重定位</p>
+<ul>
+<li><strong>符号解析</strong>讲姆讲目标文件中的每个全局符号都绑定到一个唯一的定义</li>
+<li><strong>重定位</strong>确定每个符号的最终在内存中的位置，并修改对那些目标的引用。       </li>
+</ul>
+<h2>链接器</h2>
 <ul>
 <li>分别编译：即若干个源程序可以在不同的时候单独进行编译，然后在恰当的时候将它们整合到一起。但是，链接器一般是与C编译器分离的。</li>
 <li>链接器通常把由编译器或汇编器生成的若干个目标模块整合成一个被称为载入模块或可执行文件的实体，该实体能够被操作系统直接执行。</li>
 <li>链接器通常把目标模块看成是由一组外部对象组成。每个外部对象代表机器内存中的某个部分，并通过一个外部名称来识别。</li>
 <li>exit函数和return函数的主要区别是：<ul>
-<li>exit用于在程序运行的过程中随时结束程序，exit的参数返回给操作系统。exit函数运行时会先执行由atexit（）函数等级的函数，然后会做一些自身的清理工作，同时刷新所有输出流、关闭所有打开的流并且关闭通过标准I/O函数tmpfile（）创建的临时文件。exit是结束一个进程，它将删除进程的内存空间，同时讲错误信息返回给父进程。exit是系统调用级别的，表示整个进程的结束。</li>
-<li>return表示终止当前函数的运行，并将操作权返回给调用者。如果在main函数中，表示将操作权返回给操作系统，隐式调用exit。​如果return没有值就返回空，表示中断函数的执行，返回调用函数处。return是语言级别的，它表示了调用堆栈的返回；</li>
-</ul>
-</li>
-<li>
-<p>理解复杂声明可用的“右左法则”：从变量名看起，先往右，再往左，碰到一个圆括号就调转阅读的方向；括号内分析完就跳出括号，还是按先右后左的顺序，如此循环，直到整个声明分析完。
-分析下面的例子，答案见最后。</p>
-<div class="highlight"><pre><span class="code-line">char * const ...</span></pre></div></li></ul>
+<li>exit用于在程序运行的过程中随时结束程序，exit的参数返回给操作系统 ...</li></ul></li></ul>
                 <a class="btn btn-small" href="./blog/2015/03/27/link-and-preprocess/">more ...</a>
             </div>
         </div>
@@ -243,22 +391,20 @@
             <div class="summary"><h2>C 语言中的运算规则</h2>
 <ul>
 <li>C语言中每个token应该尽可能多的包含更多的字符。如果编译器的输入流截止到某个字符之前已经被分解成一个个的token，那么从该字符之后应尽可能的组成一个最长的字符串的token。除了字符串与字符串常量，符号的中间不能嵌有空白（空格符、制表符，换行符）。</li>
-<li>
-<p>C语言中符号之间的空白将被忽略，这些符号包括空格符，制表符，换行符号：</p>
-<div class="highlight"><pre><span class="code-line">if (a &gt; b)</span>
-<span class="code-line">b = a;</span>
-<span class="code-line">if (a &gt;</span>
-<span class="code-line">b</span>
-<span class="code-line">)</span>
-<span class="code-line">b = </span>
-<span class="code-line">a;</span>
+<li>C语言中符号之间的空白将被忽略，这些符号包括空格符，制表符，换行符号：</li>
+</ul>
+<div class="highlight"><pre><span class="code-line"><span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span><span class="p">)</span></span>
+<span class="code-line"><span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span></span>
+<span class="code-line"><span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">&gt;</span></span>
+<span class="code-line"><span class="n">b</span></span>
+<span class="code-line"><span class="p">)</span></span>
+<span class="code-line"><span class="n">b</span> <span class="o">=</span> </span>
+<span class="code-line"><span class="n">a</span><span class="p">;</span></span>
 </pre></div>
 
 
-</li>
-<li>
-<p>C语言变量的声明包括两部分：类型，以及声明符。</p>
-</li>
+<ul>
+<li>C语言变量的声明包括两部分：类型，以及声明符。</li>
 <li>
 <p>C语言运算符优先级</p>
 <ul>
@@ -292,8 +438,38 @@
     </div>
     <div class="span6">
         <div class="article well">
-            <h1><a href="./blog/2015/02/27/multi-thread/">Multi thread</a></h1>
-            <div class="summary"><p>to be continue...</p>
+            <h1><a href="./blog/2015/02/27/multi-thread/">多线程</a></h1>
+            <div class="summary"><h2>线程安全</h2>
+<p>一个函数被称为线程安全的，当且仅当被多个并发线程反复地调用时，它会产生一直产生正确的结果。</p>
+<h3>四个线程不安全函数类</h3>
+<ul>
+<li>不保护共享变量的函数</li>
+</ul>
+<p>对一个未受保护的全局计数器变量加1.
+  改进：利用像P和V操作这样的同步操作来保护共享的变量。  <br />
+  优点，在调用程序中不需要做任何修改
+  缺点，同步操作讲减慢程序的执行时间</p>
+<ul>
+<li>保护跨越多个调用的状态的函数</li>
+</ul>
+<div class="highlight"><pre><span class="code-line"><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">next</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span></span>
+<span class="code-line"><span class="kt">int</span> <span class="nf">rand</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="n">next</span> <span class="o">=</span> <span class="n">next</span><span class="o">*</span><span class="mi">1102515245</span> <span class="o">+</span> <span class="mi">12345</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">)(</span><span class="n">next</span><span class="o">/</span><span class="mi">65536</span><span class="p">)</span><span class="o">%</span><span class="mi">32768</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span> </span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kt">void</span> <span class="nf">srand</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">seed</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="n">next</span> <span class="o">=</span> <span class="n">seed</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<p>改进方法重写，使得它不再使用任何static数据，而是依靠调用者在参数中传递状态信息。</p>
+<div class="highlight"><pre><span class="code-line"><span class="kt">int</span> <span class="nf">rand_r</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="o">*</span><span class="n">nextp</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="o">*</span><span class="n">nextp</span> <span class="o">=</span> <span class="o">*</span><span class="n">nextp</span><span class="o">*</span><span class="mi">1102515245</span> <span class="o">+</span> <span class="mi">12345 ...</span></span></pre></div>
                 <a class="btn btn-small" href="./blog/2015/02/27/multi-thread/">more ...</a>
             </div>
         </div>
@@ -303,21 +479,40 @@
     </div>
     <div class="span2">
         <div class="well small"><footer class="post-info">
-<abbr class="published" title="2015-02-07T00:00:00+08:00">
-    <i class="icon-calendar"></i>&nbsp;周六 07 二月 2015
+<abbr class="published" title="2014-01-02T00:00:00+08:00">
+    <i class="icon-calendar"></i>&nbsp;周四 02 一月 2014
 </abbr>
 <br/><a href="./author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
 
 
 <br/>
-	&nbsp;&nbsp;<a href="./tag/zheng-ze-biao-da-shi.html" class="label"><i class="icon-tag"></i>&nbsp;正则表达式</a>
+	&nbsp;&nbsp;<a href="./tag/tcp.html" class="label"><i class="icon-tag"></i>&nbsp;TCP</a>
 </footer><!-- /.post-info --></div>
     </div>
     <div class="span6">
         <div class="article well">
-            <h1><a href="./blog/2015/02/07/regular-expression/">Regular expression</a></h1>
-            <div class="summary"><p>to be continue...</p>
-                <a class="btn btn-small" href="./blog/2015/02/07/regular-expression/">more ...</a>
+            <h1><a href="./blog/2014/01/02/timer/">TCP中的七种定时器</a></h1>
+            <div class="summary"><p>TCP为每个连接建立了七个定时器。下面讲按照这些定时器在一条连接生存期内出现的次序依次进行介绍。
+ <img src="/images/fsm.png" width = "550" height = "=283" alt="FSM" align=center /></p>
+<ul>
+<li>Connection establishment Timer(​连接建立定时器)<ul>
+<li>为了防止client端一直等待服务器端的情况发生。 在Client发送SYN报文段建立新的链接时，该定时器启动，如果在75s内没有收到响应，连接建立将会终止。确定连接的有效建立。</li>
+</ul>
+</li>
+<li>Retransmission Timer(重传定时器)<ul>
+<li>重传定时器在TCP发送数据时设定。在该定时器超时，而没有收到另外一端的ACK的时候，将重传数据。重传定时器的值是动态计算的，取决于该连接RTT的值和被重传的次数。</li>
+</ul>
+</li>
+<li>Delayed ACK Timer(延迟ACK定时器)定时器在200ms<ul>
+<li>延迟ACK定时器负责在该终端（end）收到一个数据包时，无需马上发出ACK进行确认，而是等待200ms内，有数据要在该连接上发送，延迟的ACK响应就可随着数据一起发送回另一个终端。这种方式也被成为捎带确认。</li>
+</ul>
+</li>
+<li>Persist Timer（持续定时器）<ul>
+<li>持续定时器在收到连接另一端的发送通告窗口为零时，阻止该端继续发送数据时设定。因此当该端有数据要发送时， 但连接的另一端的通告窗口为零时，持续定时器就会启动，超时后向连接另一端发送1字节的数据，来判断另一方的接收窗口是否打开。被称为零窗口探测。持续定时器的值是动态计算的，取决于往返时间，时间在5s到60s之间取值。</li>
+</ul>
+</li>
+<li>Keep alive ...</li></ul>
+                <a class="btn btn-small" href="./blog/2014/01/02/timer/">more ...</a>
             </div>
         </div>
     </div>
@@ -326,90 +521,26 @@
     </div>
     <div class="span2">
         <div class="well small"><footer class="post-info">
-<abbr class="published" title="2014-12-22T08:55:00+08:00">
-    <i class="icon-calendar"></i>&nbsp;周一 22 十二月 2014
+<abbr class="published" title="2013-12-22T00:00:00+08:00">
+    <i class="icon-calendar"></i>&nbsp;周日 22 十二月 2013
 </abbr>
 <br/><a href="./author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
 
 
 <br/>
-	&nbsp;&nbsp;<a href="./tag/tu-xiang.html" class="label"><i class="icon-tag"></i>&nbsp;图像</a>
+	&nbsp;&nbsp;<a href="./tag/suan-fa.html" class="label"><i class="icon-tag"></i>&nbsp;算法</a>
 </footer><!-- /.post-info --></div>
     </div>
     <div class="span6">
         <div class="article well">
-            <h1><a href="./blog/2014/12/22/image/">图像识别</a></h1>
-            <div class="summary"><p>to be continue...</p>
-                <a class="btn btn-small" href="./blog/2014/12/22/image/">more ...</a>
-            </div>
-        </div>
-    </div>
-    <div class="span8">
-        <hr />
-    </div>
-    <div class="span2">
-        <div class="well small"><footer class="post-info">
-<abbr class="published" title="2014-10-05T00:00:00+08:00">
-    <i class="icon-calendar"></i>&nbsp;周日 05 十月 2014
-</abbr>
-<br/><a href="./author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
-
-
-<br/>
-	&nbsp;&nbsp;<a href="./tag/gong-ju.html" class="label"><i class="icon-tag"></i>&nbsp;工具</a>
-</footer><!-- /.post-info --></div>
-    </div>
-    <div class="span6">
-        <div class="article well">
-            <h1><a href="./blog/2014/10/05/tool/">Introduction to Sublime</a></h1>
-            <div class="summary"><p>to be continue...</p>
-                <a class="btn btn-small" href="./blog/2014/10/05/tool/">more ...</a>
-            </div>
-        </div>
-    </div>
-    <div class="span8">
-        <hr />
-    </div>
-    <div class="span2">
-        <div class="well small"><footer class="post-info">
-<abbr class="published" title="2014-09-06T00:00:00+08:00">
-    <i class="icon-calendar"></i>&nbsp;周六 06 九月 2014
-</abbr>
-<br/><a href="./author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
-
-
-<br/>
-	&nbsp;&nbsp;<a href="./tag/shu-ju-jie-gou.html" class="label"><i class="icon-tag"></i>&nbsp;数据结构</a>
-</footer><!-- /.post-info --></div>
-    </div>
-    <div class="span6">
-        <div class="article well">
-            <h1><a href="./blog/2014/09/06/skip-list/">Skip List</a></h1>
-            <div class="summary"><p>to be continue...</p>
-                <a class="btn btn-small" href="./blog/2014/09/06/skip-list/">more ...</a>
-            </div>
-        </div>
-    </div>
-    <div class="span8">
-        <hr />
-    </div>
-    <div class="span2">
-        <div class="well small"><footer class="post-info">
-<abbr class="published" title="2014-07-19T00:00:00+08:00">
-    <i class="icon-calendar"></i>&nbsp;周六 19 七月 2014
-</abbr>
-<br/><a href="./author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
-
-
-<br/>
-	&nbsp;&nbsp;<a href="./tag/shell.html" class="label"><i class="icon-tag"></i>&nbsp;SHELL</a>
-</footer><!-- /.post-info --></div>
-    </div>
-    <div class="span6">
-        <div class="article well">
-            <h1><a href="./blog/2014/07/19/introduction-to-shell/">Introduction to Shell</a></h1>
-            <div class="summary"><p>to be continue...</p>
-                <a class="btn btn-small" href="./blog/2014/07/19/introduction-to-shell/">more ...</a>
+            <h1><a href="./blog/2013/12/22/longest-palindromic-substring/">Longest Palindromic Substring</a></h1>
+            <div class="summary"><p><strong>题目：Given a string S, find the longest palindromic substring in S. You may assume that the maximum length of S is 1000, and there exists one unique longest palindromic substring.</strong></p>
+<p><strong>思路：从头开始遍历整个字符串。然后以每个字符串为中点向两边扩展，直到最长的Palindromic，记录中间出现的Palindromic的最大长度。需要注意的是Palindromic的长度可能为奇数也可能为偶数。</strong></p>
+<p><strong>时间复杂度：O(n^2)</strong>
+<strong>空间复杂度：O(1)</strong></p>
+<p><strong>Show the code:</strong>
+Run Time: 1247 ...</p>
+                <a class="btn btn-small" href="./blog/2013/12/22/longest-palindromic-substring/">more ...</a>
             </div>
         </div>
     </div>
@@ -423,7 +554,6 @@
         <li class="prev disabled"><a href="#">&larr; Previous</a></li>
         <li class="active"><a href="./index.html">1</a></li>
         <li class=""><a href="./index2.html">2</a></li>
-        <li class=""><a href="./index3.html">3</a></li>
         <li class="next"><a href="./index2.html">Next &rarr;</a></li>
 </ul>
 </div>
@@ -454,54 +584,9 @@
 </li>
 
 <li class="nav-header"><a href="./tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
-    <li class="tag-1">
-        <a href="./tag/suan-fa.html">
-            <i class="icon-tag icon-large"></i>算法
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="./tag/zhi-li.html">
-            <i class="icon-tag icon-large"></i>智力
-        </a>
-    </li>
-    <li class="tag-2">
-        <a href="./tag/c.html">
-            <i class="icon-tag icon-large"></i>C
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="./tag/shell.html">
-            <i class="icon-tag icon-large"></i>SHELL
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="./tag/pa-chong.html">
-            <i class="icon-tag icon-large"></i>爬虫
-        </a>
-    </li>
-    <li class="tag-3">
-        <a href="./tag/tcp.html">
-            <i class="icon-tag icon-large"></i>TCP
-        </a>
-    </li>
     <li class="tag-4">
         <a href="./tag/duo-xian-cheng.html">
             <i class="icon-tag icon-large"></i>多线程
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="./tag/gong-ju.html">
-            <i class="icon-tag icon-large"></i>工具
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="./tag/sql.html">
-            <i class="icon-tag icon-large"></i>SQL
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="./tag/tu-xiang.html">
-            <i class="icon-tag icon-large"></i>图像
         </a>
     </li>
     <li class="tag-4">
@@ -509,9 +594,19 @@
             <i class="icon-tag icon-large"></i>拥塞控制
         </a>
     </li>
-    <li class="tag-4">
-        <a href="./tag/zheng-ze-biao-da-shi.html">
-            <i class="icon-tag icon-large"></i>正则表达式
+    <li class="tag-1">
+        <a href="./tag/c.html">
+            <i class="icon-tag icon-large"></i>C
+        </a>
+    </li>
+    <li class="tag-2">
+        <a href="./tag/tcp.html">
+            <i class="icon-tag icon-large"></i>TCP
+        </a>
+    </li>
+    <li class="tag-2">
+        <a href="./tag/suan-fa.html">
+            <i class="icon-tag icon-large"></i>算法
         </a>
     </li>
     <li class="tag-4">
@@ -520,8 +615,8 @@
         </a>
     </li>
     <li class="tag-2">
-        <a href="./tag/shu-ju-jie-gou.html">
-            <i class="icon-tag icon-large"></i>数据结构
+        <a href="./tag/cao-zuo-xi-tong.html">
+            <i class="icon-tag icon-large"></i>操作系统
         </a>
     </li>
 

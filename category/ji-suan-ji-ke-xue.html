@@ -116,21 +116,40 @@
 <div class="row">
     <div class="span2">
         <div class="well small"><footer class="post-info">
-<abbr class="published" title="2014-09-06T00:00:00+08:00">
-    <i class="icon-calendar"></i>&nbsp;周六 06 九月 2014
+<abbr class="published" title="2015-05-01T19:15:00+08:00">
+    <i class="icon-calendar"></i>&nbsp;周五 01 五月 2015
 </abbr>
 <br/><a href="../author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
 
 
 <br/>
-	&nbsp;&nbsp;<a href="../tag/shu-ju-jie-gou.html" class="label"><i class="icon-tag"></i>&nbsp;数据结构</a>
+	&nbsp;&nbsp;<a href="../tag/cao-zuo-xi-tong.html" class="label"><i class="icon-tag"></i>&nbsp;操作系统</a>
 </footer><!-- /.post-info --></div>
     </div>
     <div class="span6">
         <div class="article well">
-            <h1><a href="../blog/2014/09/06/skip-list/">Skip List</a></h1>
-            <div class="summary"><p>to be continue...</p>
-                <a class="btn btn-small" href="../blog/2014/09/06/skip-list/">more ...</a>
+            <h1><a href="../blog/2015/05/01/optimizing-program-performance/">程序性能优化</a></h1>
+            <div class="summary"><blockquote>
+<p>We should forget about small efficiencies, say about 97% of the time: premature optimization is the root of all evil. ~Donald Knuth</p>
+</blockquote>
+<p>程序员必须再实现和维护程序的简单性与它的运行速度之间做出权衡。</p>
+<p>优化编译器的能力和局限性
+编译器必须很小心地对程序只使用安全的优化。程序中有两个妨碍优化的因素。
+- 存储器别名使用</p>
+<div class="highlight"><pre><span class="code-line"><span class="kt">void</span> <span class="nf">add1</span> <span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">xp</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">yp</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="o">*</span><span class="n">xp</span> <span class="o">+=</span> <span class="o">*</span><span class="n">yp</span><span class="p">;</span></span>
+<span class="code-line">    <span class="o">*</span><span class="n">xp</span> <span class="o">+=</span> <span class="o">*</span><span class="n">yp</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span>       </span>
+<span class="code-line"><span class="kt">void</span> <span class="nf">add2</span> <span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">xp</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">yp</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="o">*</span><span class="n">xp</span> <span class="o">+=</span> <span class="mi">2</span> <span class="o">*</span> <span class="o">*</span><span class="n">yp</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<p>编译器并不会把第一个函数优化成第二个函数，因为如果考虑到 xp 等于 ...</p>
+                <a class="btn btn-small" href="../blog/2015/05/01/optimizing-program-performance/">more ...</a>
             </div>
         </div>
     </div>
@@ -139,159 +158,35 @@
     </div>
     <div class="span2">
         <div class="well small"><footer class="post-info">
-<abbr class="published" title="2014-06-02T00:00:00+08:00">
-    <i class="icon-calendar"></i>&nbsp;周一 02 六月 2014
+<abbr class="published" title="2015-04-15T10:55:00+08:00">
+    <i class="icon-calendar"></i>&nbsp;周三 15 四月 2015
 </abbr>
 <br/><a href="../author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
 
 
 <br/>
-	&nbsp;&nbsp;<a href="../tag/suan-fa.html" class="label"><i class="icon-tag"></i>&nbsp;算法</a>
+	&nbsp;&nbsp;<a href="../tag/cao-zuo-xi-tong.html" class="label"><i class="icon-tag"></i>&nbsp;操作系统</a>
 </footer><!-- /.post-info --></div>
     </div>
     <div class="span6">
         <div class="article well">
-            <h1><a href="../blog/2014/06/02/the-basic-operation/">The basic operation</a></h1>
-            <div class="summary"><p>to be continue...</p>
-                <a class="btn btn-small" href="../blog/2014/06/02/the-basic-operation/">more ...</a>
-            </div>
-        </div>
-    </div>
-    <div class="span8">
-        <hr />
-    </div>
-    <div class="span2">
-        <div class="well small"><footer class="post-info">
-<abbr class="published" title="2014-05-27T00:00:00+08:00">
-    <i class="icon-calendar"></i>&nbsp;周二 27 五月 2014
-</abbr>
-<br/><a href="../author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
-
-
-<br/>
-	&nbsp;&nbsp;<a href="../tag/suan-fa.html" class="label"><i class="icon-tag"></i>&nbsp;算法</a>
-</footer><!-- /.post-info --></div>
-    </div>
-    <div class="span6">
-        <div class="article well">
-            <h1><a href="../blog/2014/05/27/permutation-and-combination/">Permutation and combination</a></h1>
-            <div class="summary"><p>to be continue...</p>
-                <a class="btn btn-small" href="../blog/2014/05/27/permutation-and-combination/">more ...</a>
-            </div>
-        </div>
-    </div>
-    <div class="span8">
-        <hr />
-    </div>
-    <div class="span2">
-        <div class="well small"><footer class="post-info">
-<abbr class="published" title="2014-04-01T00:00:00+08:00">
-    <i class="icon-calendar"></i>&nbsp;周二 01 四月 2014
-</abbr>
-<br/><a href="../author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
-
-
-<br/>
-	&nbsp;&nbsp;<a href="../tag/suan-fa.html" class="label"><i class="icon-tag"></i>&nbsp;算法</a>
-</footer><!-- /.post-info --></div>
-    </div>
-    <div class="span6">
-        <div class="article well">
-            <h1><a href="../blog/2014/04/01/catalan/">catalan</a></h1>
-            <div class="summary"><p>to be continue...</p>
-                <a class="btn btn-small" href="../blog/2014/04/01/catalan/">more ...</a>
-            </div>
-        </div>
-    </div>
-    <div class="span8">
-        <hr />
-    </div>
-    <div class="span2">
-        <div class="well small"><footer class="post-info">
-<abbr class="published" title="2014-03-21T00:00:00+08:00">
-    <i class="icon-calendar"></i>&nbsp;周五 21 三月 2014
-</abbr>
-<br/><a href="../author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
-
-
-<br/>
-	&nbsp;&nbsp;<a href="../tag/suan-fa.html" class="label"><i class="icon-tag"></i>&nbsp;算法</a>
-</footer><!-- /.post-info --></div>
-    </div>
-    <div class="span6">
-        <div class="article well">
-            <h1><a href="../blog/2014/03/21/kmp/">KMP</a></h1>
-            <div class="summary"><p>to be continue...</p>
-                <a class="btn btn-small" href="../blog/2014/03/21/kmp/">more ...</a>
-            </div>
-        </div>
-    </div>
-    <div class="span8">
-        <hr />
-    </div>
-    <div class="span2">
-        <div class="well small"><footer class="post-info">
-<abbr class="published" title="2014-03-02T00:00:00+08:00">
-    <i class="icon-calendar"></i>&nbsp;周日 02 三月 2014
-</abbr>
-<br/><a href="../author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
-
-
-<br/>
-	&nbsp;&nbsp;<a href="../tag/suan-fa.html" class="label"><i class="icon-tag"></i>&nbsp;算法</a>
-</footer><!-- /.post-info --></div>
-    </div>
-    <div class="span6">
-        <div class="article well">
-            <h1><a href="../blog/2014/03/02/dynamic-programming/">dynamic programming</a></h1>
-            <div class="summary"><p>to be continue...</p>
-                <a class="btn btn-small" href="../blog/2014/03/02/dynamic-programming/">more ...</a>
-            </div>
-        </div>
-    </div>
-    <div class="span8">
-        <hr />
-    </div>
-    <div class="span2">
-        <div class="well small"><footer class="post-info">
-<abbr class="published" title="2014-02-18T00:00:00+08:00">
-    <i class="icon-calendar"></i>&nbsp;周二 18 二月 2014
-</abbr>
-<br/><a href="../author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
-
-
-<br/>
-	&nbsp;&nbsp;<a href="../tag/suan-fa.html" class="label"><i class="icon-tag"></i>&nbsp;算法</a>
-</footer><!-- /.post-info --></div>
-    </div>
-    <div class="span6">
-        <div class="article well">
-            <h1><a href="../blog/2014/02/18/equal-probability/">equal probability</a></h1>
-            <div class="summary"><p>to be continue...</p>
-                <a class="btn btn-small" href="../blog/2014/02/18/equal-probability/">more ...</a>
-            </div>
-        </div>
-    </div>
-    <div class="span8">
-        <hr />
-    </div>
-    <div class="span2">
-        <div class="well small"><footer class="post-info">
-<abbr class="published" title="2014-02-13T00:00:00+08:00">
-    <i class="icon-calendar"></i>&nbsp;周四 13 二月 2014
-</abbr>
-<br/><a href="../author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
-
-
-<br/>
-	&nbsp;&nbsp;<a href="../tag/shu-ju-jie-gou.html" class="label"><i class="icon-tag"></i>&nbsp;数据结构</a>
-</footer><!-- /.post-info --></div>
-    </div>
-    <div class="span6">
-        <div class="article well">
-            <h1><a href="../blog/2014/02/13/trie-tree/">Trie Tree</a></h1>
-            <div class="summary"><p>to be continue...</p>
-                <a class="btn btn-small" href="../blog/2014/02/13/trie-tree/">more ...</a>
+            <h1><a href="../blog/2015/04/15/csapp/">深入理解计算机系统</a></h1>
+            <div class="summary"><p>操作系统内核是应用程序和硬件之间的媒介。它提供三个基本抽象：</p>
+<ul>
+<li>文件是对I/O设备的抽象</li>
+<li>虚拟存储器是对主存和磁盘的抽象</li>
+<li>进程是对处理器、主存和I/O设备的抽象</li>
+</ul>
+<p>系统中所有的信息，都是一串位表示的。区分不同数据对象的唯一方法就是我们读到这些数据对象时的上下文。</p>
+<p>预处理-&gt;编译-&gt;汇编-&gt;链接</p>
+<h1>程序的机器级表达</h1>
+<p>数据传递、局部变量的分配和释放通过操作程序栈来实现。机器用栈来传递过程参数、存储返回信息、保存寄存器用于恢复，以及本地存储。为单个过程分配的那部分栈称为栈桢。最顶端的栈桢以两个指针界定，寄存器%ebp为帧指针，寄存器%esp为栈指针。</p>
+<p><img src="/images/stack.png" width = "550" height = "5" alt="stack" align=center /></p>
+<h1>存储器层级结构</h1>
+<p>计算机系统中的一个基本而持久的思想：如果你理解了系统是如何将数据在存储器层次结构中上上下下移动的，那么你可以编写你的应用程序，使得它们的数据项存储在层次结构中较高的地方，在那里CPU能更快地访问到它们。这个思想围绕着计算机程序的一个成为局部性（locality）的基本属性。</p>
+<p>局部性通常有两种形式：时间局部性（temporal locality）和空间局部性（spatial locality）。在一个具有良好时间局部性的程序中，被引用过一次的存储器位置很可能在不远的将来再被多次引用。在一个具有良好空间局部性的程序中，如果一个存储器位置被引用了一次，那么程序很可能在不远的将来引用附近的一个存储器位置。 </p>
+<p>理解存储器层次结构的本质的程序员能够利用这些知识 ...</p>
+                <a class="btn btn-small" href="../blog/2015/04/15/csapp/">more ...</a>
             </div>
         </div>
     </div>
@@ -349,14 +244,55 @@
 
 
 <br/>
-	&nbsp;&nbsp;<a href="../tag/shu-ju-jie-gou.html" class="label"><i class="icon-tag"></i>&nbsp;数据结构</a>
+	&nbsp;&nbsp;<a href="../tag/suan-fa.html" class="label"><i class="icon-tag"></i>&nbsp;算法</a>
 </footer><!-- /.post-info --></div>
     </div>
     <div class="span6">
         <div class="article well">
-            <h1><a href="../blog/2013/12/22/black-red-tree/">Black Red Tree</a></h1>
-            <div class="summary"><p>to be continue...</p>
-                <a class="btn btn-small" href="../blog/2013/12/22/black-red-tree/">more ...</a>
+            <h1><a href="../blog/2013/12/22/longest-palindromic-substring/">Longest Palindromic Substring</a></h1>
+            <div class="summary"><p><strong>题目：Given a string S, find the longest palindromic substring in S. You may assume that the maximum length of S is 1000, and there exists one unique longest palindromic substring.</strong></p>
+<p><strong>思路：从头开始遍历整个字符串。然后以每个字符串为中点向两边扩展，直到最长的Palindromic，记录中间出现的Palindromic的最大长度。需要注意的是Palindromic的长度可能为奇数也可能为偶数。</strong></p>
+<p><strong>时间复杂度：O(n^2)</strong>
+<strong>空间复杂度：O(1)</strong></p>
+<p><strong>Show the code:</strong>
+Run Time: 1247 ...</p>
+                <a class="btn btn-small" href="../blog/2013/12/22/longest-palindromic-substring/">more ...</a>
+            </div>
+        </div>
+    </div>
+    <div class="span8">
+        <hr />
+    </div>
+    <div class="span2">
+        <div class="well small"><footer class="post-info">
+<abbr class="published" title="2013-12-15T00:00:00+08:00">
+    <i class="icon-calendar"></i>&nbsp;周日 15 十二月 2013
+</abbr>
+<br/><a href="../author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
+
+
+<br/>
+	&nbsp;&nbsp;<a href="../tag/tcp.html" class="label"><i class="icon-tag"></i>&nbsp;TCP</a>
+	&nbsp;&nbsp;<a href="../tag/yong-sai-kong-zhi.html" class="label"><i class="icon-tag"></i>&nbsp;拥塞控制</a>
+</footer><!-- /.post-info --></div>
+    </div>
+    <div class="span6">
+        <div class="article well">
+            <h1><a href="../blog/2013/12/15/the-parameters-in-tcp-congestion-control/">TCP Congestion Control 中的相关参数</a></h1>
+            <div class="summary"><ul>
+<li>流量控制（Flow control） End-to-End,防止发送方速率过大，接收方来不及处理发送方的数据。- -</li>
+<li>拥塞控制（Congestion control） 到达子网中某一部分的分组数量过多，中间路由缓存分组，queueing，造成RTT增加。反应网络整体状况</li>
+<li>滑动窗口（Sliding Window） 位于发送方，由接收方的通告窗口（Advertised-Window）决定。接收方通过通告窗口告诉发送方自己还有多少buffer可以接收数据。</li>
+<li>通告窗口（Advertised-Window） 接收方使用流量控制的方式</li>
+<li>
+<p>拥塞窗口（Congestion Window） 拥塞窗口的大小指能够发出，但还没有收ACK的最大数据报文段。Linux 3.0 把CWND初始化10个MSS。发送方使用流量控制的方式。发送方取拥塞窗口与通告窗口中的最小值作为发送上限</p>
+</li>
+<li>
+<p>慢启动（Slow Start） 每个ACK，CWND增加一个报文段（CWND以字节为单位，一报文段为单位进行线性增加）
+报文段（Segment） 传输层分组称为报文段，是TCP</p>
+</li>
+<li>MSS（Maximum Segment ...</li></ul>
+                <a class="btn btn-small" href="../blog/2013/12/15/the-parameters-in-tcp-congestion-control/">more ...</a>
             </div>
         </div>
     </div>
@@ -365,14 +301,6 @@
     </div>
 
 <div class="span6">
-<div class="pagination">
-<ul>
-        <li class="prev disabled"><a href="#">&larr; Previous</a></li>
-        <li class="active"><a href="../category/ji-suan-ji-ke-xue.html">1</a></li>
-        <li class=""><a href="../category/ji-suan-ji-ke-xue2.html">2</a></li>
-        <li class="next"><a href="../category/ji-suan-ji-ke-xue2.html">Next &rarr;</a></li>
-</ul>
-</div>
 </div>
 </div>
         </div><!--/span-->
@@ -400,54 +328,9 @@
 </li>
 
 <li class="nav-header"><a href="../tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
-    <li class="tag-1">
-        <a href="../tag/suan-fa.html">
-            <i class="icon-tag icon-large"></i>算法
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../tag/zhi-li.html">
-            <i class="icon-tag icon-large"></i>智力
-        </a>
-    </li>
-    <li class="tag-2">
-        <a href="../tag/c.html">
-            <i class="icon-tag icon-large"></i>C
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../tag/shell.html">
-            <i class="icon-tag icon-large"></i>SHELL
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../tag/pa-chong.html">
-            <i class="icon-tag icon-large"></i>爬虫
-        </a>
-    </li>
-    <li class="tag-3">
-        <a href="../tag/tcp.html">
-            <i class="icon-tag icon-large"></i>TCP
-        </a>
-    </li>
     <li class="tag-4">
         <a href="../tag/duo-xian-cheng.html">
             <i class="icon-tag icon-large"></i>多线程
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../tag/gong-ju.html">
-            <i class="icon-tag icon-large"></i>工具
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../tag/sql.html">
-            <i class="icon-tag icon-large"></i>SQL
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../tag/tu-xiang.html">
-            <i class="icon-tag icon-large"></i>图像
         </a>
     </li>
     <li class="tag-4">
@@ -455,9 +338,19 @@
             <i class="icon-tag icon-large"></i>拥塞控制
         </a>
     </li>
-    <li class="tag-4">
-        <a href="../tag/zheng-ze-biao-da-shi.html">
-            <i class="icon-tag icon-large"></i>正则表达式
+    <li class="tag-1">
+        <a href="../tag/c.html">
+            <i class="icon-tag icon-large"></i>C
+        </a>
+    </li>
+    <li class="tag-2">
+        <a href="../tag/tcp.html">
+            <i class="icon-tag icon-large"></i>TCP
+        </a>
+    </li>
+    <li class="tag-2">
+        <a href="../tag/suan-fa.html">
+            <i class="icon-tag icon-large"></i>算法
         </a>
     </li>
     <li class="tag-4">
@@ -466,8 +359,8 @@
         </a>
     </li>
     <li class="tag-2">
-        <a href="../tag/shu-ju-jie-gou.html">
-            <i class="icon-tag icon-large"></i>数据结构
+        <a href="../tag/cao-zuo-xi-tong.html">
+            <i class="icon-tag icon-large"></i>操作系统
         </a>
     </li>
 

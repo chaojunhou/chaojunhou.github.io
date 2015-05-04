@@ -141,7 +141,26 @@
         </header>
         <div class="entry-content">
 
-        <h2>链接器</h2>
+        <h1>链接</h1>
+<p>C++中允许重载方法，这些方法在源代码中有相同的名字，却有不同的函数列表。编译器讲每个唯一的方法和参数列表组合编码成一个对链接器来说唯一的名字。这个编码过程叫做mangling。
+<img src="/images/elf.png" width = "550" height = "283" alt="ELF" align=center /></p>
+<h2>链接器如何解析多重定义的全局符号</h2>
+<p>函数和已初始化的全局变量是强符号，未初始化的全局变量是弱符号。
+Unix链接器使用下面的规则来处理多重定义的符号：</p>
+<ul>
+<li>不允许有多个强符号。</li>
+<li>如果有一个强符号和一个弱符号，那么选择强符号</li>
+<li>如果有多个弱符号，那么从这些弱符号中任意选择一个</li>
+</ul>
+<p><strong>在命令行中，如果定义一个符号的库出现在引用这个符号的目标文件之前，那么引用就不能被解析，连接会失败</strong></p>
+<p>加载器（loader）将可执行目标文件的代码和数据从磁盘拷到内存中，然后跳转到程序的第一条指令或入口点来运行程序。这个将程序拷贝到内存并运行的过程叫做加载。</p>
+<p><strong>无论我们在存储器中的何处加载一个目标模块，数据段总是分配成紧随代码段后面。因此，代码段中任何指令和数据段中任何一个变量之间的距离都是一个运行时常量，和代码段和数据段的绝对的存储位置无关</strong></p>
+<p>链接器的两个主要任务是符号解析和重定位</p>
+<ul>
+<li><strong>符号解析</strong>讲姆讲目标文件中的每个全局符号都绑定到一个唯一的定义</li>
+<li><strong>重定位</strong>确定每个符号的最终在内存中的位置，并修改对那些目标的引用。       </li>
+</ul>
+<h2>链接器</h2>
 <ul>
 <li>分别编译：即若干个源程序可以在不同的时候单独进行编译，然后在恰当的时候将它们整合到一起。但是，链接器一般是与C编译器分离的。</li>
 <li>链接器通常把由编译器或汇编器生成的若干个目标模块整合成一个被称为载入模块或可执行文件的实体，该实体能够被操作系统直接执行。</li>
@@ -151,17 +170,17 @@
 <li>return表示终止当前函数的运行，并将操作权返回给调用者。如果在main函数中，表示将操作权返回给操作系统，隐式调用exit。​如果return没有值就返回空，表示中断函数的执行，返回调用函数处。return是语言级别的，它表示了调用堆栈的返回；</li>
 </ul>
 </li>
-<li>
-<p>理解复杂声明可用的“右左法则”：从变量名看起，先往右，再往左，碰到一个圆括号就调转阅读的方向；括号内分析完就跳出括号，还是按先右后左的顺序，如此循环，直到整个声明分析完。
-分析下面的例子，答案见最后。</p>
-<div class="highlight"><pre><span class="code-line">char * const *(*next)();</span>
-<span class="code-line">char * (* c[10])int (**p);</span>
+<li>理解复杂声明可用的“右左法则”：从变量名看起，先往右，再往左，碰到一个圆括号就调转阅读的方向；括号内分析完就跳出括号，还是按先右后左的顺序，如此循环，直到整个声明分析完。
+分析下面的例子，答案见最后。</li>
+</ul>
+<div class="highlight"><pre><span class="code-line"><span class="kt">char</span> <span class="o">*</span> <span class="k">const</span> <span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="n">next</span><span class="p">)();</span></span>
+<span class="code-line"><span class="kt">char</span> <span class="o">*</span> <span class="p">(</span><span class="o">*</span> <span class="n">c</span><span class="p">[</span><span class="mi">10</span><span class="p">])</span><span class="kt">int</span> <span class="p">(</span><span class="o">**</span><span class="n">p</span><span class="p">);</span></span>
 </pre></div>
 
 
 <ul>
-<li>每个外部对象只在一个地方声明。这个声明的地方一般就在一个头文件中，需要用到该外部对象的所有模块都应该包括在这个头文件。特别注意：定义该外部对应的那个模块也应该包括这个头文件。 </li>
-</ul>
+<li>
+<p>每个外部对象只在一个地方声明。这个声明的地方一般就在一个头文件中，需要用到该外部对象的所有模块都应该包括在这个头文件。特别注意：定义该外部对应的那个模块也应该包括这个头文件。 </p>
 </li>
 <li>
 <p>编译：生成目标平台的指令
@@ -169,21 +188,21 @@
 </li>
 <li>
 <p>Interposition指用户定义的函数取代函数库中声明<strong><em>完全相同的函数</em></strong>，不是重载.</p>
-<div class="highlight"><pre><span class="code-line">void mktemp() {..}</span>
-<span class="code-line">void getwd() { mktemp();}</span>
-<span class="code-line">int main()</span>
-<span class="code-line">{</span>
-<span class="code-line">    mktemp();</span>
-<span class="code-line">    getwd(); // 即使库函数有 void mktemp(){}，操作系统也会调用用户自己定义的函数</span>
-<span class="code-line">    return 0</span>
-<span class="code-line">}</span>
+</li>
+</ul>
+<div class="highlight"><pre><span class="code-line"><span class="kt">void</span> <span class="nf">mktemp</span><span class="p">()</span> <span class="p">{..}</span></span>
+<span class="code-line"><span class="kt">void</span> <span class="nf">getwd</span><span class="p">()</span> <span class="p">{</span> <span class="n">mktemp</span><span class="p">();}</span></span>
+<span class="code-line"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span></span>
+<span class="code-line">   <span class="p">{</span></span>
+<span class="code-line">          <span class="n">mktemp</span><span class="p">();</span></span>
+<span class="code-line">          <span class="n">getwd</span><span class="p">();</span> <span class="c1">// 即使库函数有 void mktemp(){}，操作系统也会调用用户自己定义的函数</span></span>
+<span class="code-line">          <span class="k">return</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line">   <span class="p">}</span></span>
 </pre></div>
 
 
-</li>
-<li>
-<p>链接库的五个特殊秘密</p>
 <ul>
+<li>链接库的五个特殊秘密<ul>
 <li>动态链接库的扩展名为 ".so"，静态的为".a"</li>
 <li>通过-lthread选项，告诉编译器链接到libthread.so</li>
 <li>编译器期望在确定的目录下找到这些库函数</li>
@@ -198,40 +217,44 @@
 </li>
 <li>关于库函数的使用，最好的用法就是尽量使用系统头文件。</li>
 </ul>
-<h2>预处理</h2>
+<h1>预处理</h1>
 <ul>
 <li>宏定义使用预处理器实现，做一些简单的字符替换因此不能进行参数有效性的检测。</li>
-<li>宏定义中的空格不能忽视<div class="highlight"><pre><span class="code-line">    #define f (x) ((x)-1）</span>
+<li>宏定义中的空格不能忽视</li>
+</ul>
+<div class="highlight"><pre><span class="code-line"><span class="cp">#define f (x) ((x)-1）</span></span>
 </pre></div>
 
 
-<p>的意思是f代表(x) ((x)-1而不是f(x)代表((x)-1
-- 宏定义中出现的括号的作用是预防引起与优先级有关的问题。例如
-- 
-        #define abs(x) (((x)&gt;=0)?:(x):-(x))// 正确
-        #define abs(x) x&gt;0?x:-x // 错误
-abs(a-b)在错误的表达式中会展开为 a-b&gt;0?a-b:-a-b
-即使是用括号括起来也可能出错。</p>
-<div class="highlight"><pre><span class="code-line">    #define max(a,b) ((a)&gt;(b)?(a):(b))</span>
+<p>的意思是f代表(x) ((x)-1而不是f(x)代表((x)-1</p>
+<ul>
+<li>宏定义中出现的括号的作用是预防引起与优先级有关的问题。例如</li>
+</ul>
+<div class="highlight"><pre><span class="code-line"><span class="cp">#define abs(x) (((x)&gt;=0)?:(x):-(x))</span><span class="c1">// 正确</span></span>
+<span class="code-line"><span class="cp">#define abs(x) x&gt;0?x:-x </span><span class="c1">// 错误</span></span>
+</pre></div>
+
+
+<p>abs(a-b)在错误的表达式中会展开为 a-b&gt;0?a-b:-a-b
+   即使是用括号括起来也可能出错。</p>
+<div class="highlight"><pre><span class="code-line"><span class="cp">#define max(a,b) ((a)&gt;(b)?(a):(b))</span></span>
 </pre></div>
 
 
 <p>在上面的表达式中，如果a大于b，那么a将会被求两次值，此时max(a++,b)就会产生错误的结果。
-正确的做法如下：</p>
-<div class="highlight"><pre><span class="code-line">     #define max(x, y) ({</span>
-<span class="code-line">     typeof(x) _max1 = (x);  </span>
-<span class="code-line">     typeof(y) _max2 = (y);  </span>
-<span class="code-line">     (void) (&amp;_max1 == &amp;_max2);  // 当两个比较两个类型不同的变量的地址时,编译器会给出一个警告.提示我们在进行类型不同的比较.</span>
-<span class="code-line">     _max1 &gt; _max2 ? _max1 : _max2; })</span>
+   正确的做法如下：</p>
+<div class="highlight"><pre><span class="code-line"><span class="cp">#define max(x, y) ({</span></span>
+<span class="code-line"><span class="n">typeof</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="n">_max1</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">);</span>  </span>
+<span class="code-line"><span class="n">typeof</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="n">_max2</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span><span class="p">);</span>  </span>
+<span class="code-line"><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">_max1</span> <span class="o">==</span> <span class="o">&amp;</span><span class="n">_max2</span><span class="p">);</span>  <span class="c1">// 当两个比较两个类型不同的变量的地址时,编译器会给出一个警告.提示我们在进行类型不同的比较.</span></span>
+<span class="code-line"><span class="n">_max1</span> <span class="o">&gt;</span> <span class="n">_max2</span> <span class="o">?</span> <span class="nl">_max1</span> <span class="p">:</span> <span class="n">_max2</span><span class="p">;</span> <span class="p">})</span></span>
 </pre></div>
 
 
-</li>
-</ul>
 <p>前面的(void)又是干什么用的呢?因为我们在比较两个地址之后并没有保存比较结果,编译器会认为这是一条无效语句,同样会给出一个警告.我们将它转换为(void)类型,编译器会认为我们对结果使用了,就不会提示这个错误。
-再看一个经典的例子   </p>
-<div class="highlight"><pre><span class="code-line">#define toupper(c)</span>
-<span class="code-line">((c)&gt;=&#39;a&#39; &amp;&amp; (c)&lt;=&#39;z&#39;?(c)+(&#39;A&#39;-&#39;a&#39;):(c))</span>
+   再看一个经典的例子 </p>
+<div class="highlight"><pre><span class="code-line"><span class="cp">#define toupper(c)</span></span>
+<span class="code-line"><span class="p">((</span><span class="n">c</span><span class="p">)</span><span class="o">&gt;=</span><span class="sc">&#39;a&#39;</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="o">&lt;=</span><span class="sc">&#39;z&#39;</span><span class="o">?</span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="sc">&#39;A&#39;</span><span class="o">-</span><span class="sc">&#39;a&#39;</span><span class="p">)</span><span class="o">:</span><span class="p">(</span><span class="n">c</span><span class="p">))</span></span>
 </pre></div>
 
 
@@ -301,54 +324,9 @@ abs(a-b)在错误的表达式中会展开为 a-b&gt;0?a-b:-a-b
 </li>
 
 <li class="nav-header"><a href="../../../../../tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
-    <li class="tag-1">
-        <a href="../../../../../tag/suan-fa.html">
-            <i class="icon-tag icon-large"></i>算法
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/zhi-li.html">
-            <i class="icon-tag icon-large"></i>智力
-        </a>
-    </li>
-    <li class="tag-2">
-        <a href="../../../../../tag/c.html">
-            <i class="icon-tag icon-large"></i>C
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/shell.html">
-            <i class="icon-tag icon-large"></i>SHELL
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/pa-chong.html">
-            <i class="icon-tag icon-large"></i>爬虫
-        </a>
-    </li>
-    <li class="tag-3">
-        <a href="../../../../../tag/tcp.html">
-            <i class="icon-tag icon-large"></i>TCP
-        </a>
-    </li>
     <li class="tag-4">
         <a href="../../../../../tag/duo-xian-cheng.html">
             <i class="icon-tag icon-large"></i>多线程
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/gong-ju.html">
-            <i class="icon-tag icon-large"></i>工具
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/sql.html">
-            <i class="icon-tag icon-large"></i>SQL
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/tu-xiang.html">
-            <i class="icon-tag icon-large"></i>图像
         </a>
     </li>
     <li class="tag-4">
@@ -356,9 +334,19 @@ abs(a-b)在错误的表达式中会展开为 a-b&gt;0?a-b:-a-b
             <i class="icon-tag icon-large"></i>拥塞控制
         </a>
     </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/zheng-ze-biao-da-shi.html">
-            <i class="icon-tag icon-large"></i>正则表达式
+    <li class="tag-1">
+        <a href="../../../../../tag/c.html">
+            <i class="icon-tag icon-large"></i>C
+        </a>
+    </li>
+    <li class="tag-2">
+        <a href="../../../../../tag/tcp.html">
+            <i class="icon-tag icon-large"></i>TCP
+        </a>
+    </li>
+    <li class="tag-2">
+        <a href="../../../../../tag/suan-fa.html">
+            <i class="icon-tag icon-large"></i>算法
         </a>
     </li>
     <li class="tag-4">
@@ -367,8 +355,8 @@ abs(a-b)在错误的表达式中会展开为 a-b&gt;0?a-b:-a-b
         </a>
     </li>
     <li class="tag-2">
-        <a href="../../../../../tag/shu-ju-jie-gou.html">
-            <i class="icon-tag icon-large"></i>数据结构
+        <a href="../../../../../tag/cao-zuo-xi-tong.html">
+            <i class="icon-tag icon-large"></i>操作系统
         </a>
     </li>
 
