@@ -292,8 +292,6 @@ while循环时都会有对True的判断操作。
 
 
 <p>因此处于内存的考虑，应尽量使用join操作。</p>
-<h2>很长的序列使用xrange()</h2>
-<p>相对于 range() 一次性载入整个序列， xrange() 可以帮你省下许多内存，因为它一次只载入一个元素。</p>
 <h2>6. string的反转</h2>
 <p>string的反转可以使用for循环从右向做输出。代码如下</p>
 <div class="highlight"><pre><span class="code-line"><span class="k">def</span> <span class="nf">reverse_str</span><span class="p">(</span><span class="n">string</span><span class="p">):</span></span>
@@ -367,7 +365,9 @@ while循环时都会有对True的判断操作。
 </pre></div>
 
 
-<h2>10.字典和列表</h2>
+<h2>10. 很长的序列使用xrange()</h2>
+<p>相对于 range() 一次性载入整个序列， xrange() 可以帮你省下许多内存，因为它一次只载入一个元素。</p>
+<h2>11.字典和列表</h2>
 <p>在Python中，字典是基于hash table实现的。因此查找操作的复杂度是O(1),而list实际是个数组，查找操作的复杂度是O(n)。  </p>
 <div class="highlight"><pre><span class="code-line"><span class="k">def</span> <span class="nf">test</span><span class="p">():</span></span>
 <span class="code-line">    <span class="n">t</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span></span>
@@ -383,7 +383,7 @@ while循环时都会有对True的判断操作。
 
 
 <p>当直接在list中进行查找时上述代码执行了7.14800000191s，当去掉注释，使用字典使，上述代码执行了2.4960000515s，效率提高了大约1.9倍。因此当需要对数据进行频繁访问和查找的时候，dict比list具有更大的优势。</p>
-<h2>11. 生成器</h2>
+<h2>12. 生成器</h2>
 <p>要理解生成器，首先需要理解Python迭代的内部机制：Python中的迭代就是对可迭代对象实现了__iter__()方法和迭代器(iterator)实现了__next__()方法的一个操作过程。就是说，可迭代对象的__iter__()方法可以返回迭代器，迭代器通过调用next()方法获取其中的每一个值。</p>
 <ul>
 <li>
@@ -406,7 +406,7 @@ while循环时都会有对True的判断操作。
 
 
 <p>当生成器要一个数时，生成器会执行，直至出现yield语句，生成器返回yield参数，之后生成器停止继续执行。 当需要下一个数时，生成器从上次的状态开始执行，直至出现yield语句，返回参数，停止。如此反复。 </p>
-<h2>12. Python中有用的数据结构</h2>
+<h2>13. Python中有用的数据结构</h2>
 <ul>
 <li>Counter()<ul>
 <li>Counter 用于统计可hash对象出现的次数。并以降序排序输出。</li>
@@ -491,9 +491,19 @@ while循环时都会有对True的判断操作。
 </li>
 
 <li class="nav-header"><a href="../../../../../tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
+    <li class="tag-4">
+        <a href="../../../../../tag/duo-xian-cheng.html">
+            <i class="icon-tag icon-large"></i>多线程
+        </a>
+    </li>
     <li class="tag-1">
-        <a href="../../../../../tag/c.html">
-            <i class="icon-tag icon-large"></i>C
+        <a href="../../../../../tag/suan-fa.html">
+            <i class="icon-tag icon-large"></i>算法
+        </a>
+    </li>
+    <li class="tag-2">
+        <a href="../../../../../tag/cao-zuo-xi-tong.html">
+            <i class="icon-tag icon-large"></i>操作系统
         </a>
     </li>
     <li class="tag-4">
@@ -502,8 +512,8 @@ while循环时都会有对True的判断操作。
         </a>
     </li>
     <li class="tag-1">
-        <a href="../../../../../tag/suan-fa.html">
-            <i class="icon-tag icon-large"></i>算法
+        <a href="../../../../../tag/c.html">
+            <i class="icon-tag icon-large"></i>C
         </a>
     </li>
     <li class="tag-4">
@@ -511,19 +521,9 @@ while循环时都会有对True的判断操作。
             <i class="icon-tag icon-large"></i>拥塞控制
         </a>
     </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/duo-xian-cheng.html">
-            <i class="icon-tag icon-large"></i>多线程
-        </a>
-    </li>
     <li class="tag-2">
         <a href="../../../../../tag/tcp.html">
             <i class="icon-tag icon-large"></i>TCP
-        </a>
-    </li>
-    <li class="tag-2">
-        <a href="../../../../../tag/cao-zuo-xi-tong.html">
-            <i class="icon-tag icon-large"></i>操作系统
         </a>
     </li>
 

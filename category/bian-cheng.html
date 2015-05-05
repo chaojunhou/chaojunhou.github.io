@@ -119,6 +119,52 @@
 <abbr class="published" title="2015-05-05T09:06:00+08:00">
     <i class="icon-calendar"></i>&nbsp;周二 05 五月 2015
 </abbr>
+<br/><a href="../author/chaojun-ho-u.html"><i class="icon-user"></i>&nbsp;ChaoJun Ho##  ##u</a>
+
+
+<br/>
+	&nbsp;&nbsp;<a href="../tag/suan-fa.html" class="label"><i class="icon-tag"></i>&nbsp;算法</a>
+</footer><!-- /.post-info --></div>
+    </div>
+    <div class="span6">
+        <div class="article well">
+            <h1><a href="../blog/2015/05/05/reverse-linked-list/">反转链表</a></h1>
+            <div class="summary"><p>首先介绍最简单的反转链表</p>
+<h3>题目描述:</h3>
+<p>Reverse a singly linked list.</p>
+<h3>分析：</h3>
+<p>题目比较简单，可以使用迭代或者递归分别实现。
+- <strong>迭代实现</strong>
+原链表中的元素依次插入到新的链表中，作为新链表的第一个元素，这里需要注意的是，防止断链。</p>
+<div class="highlight"><pre><span class="code-line"><span class="k">def</span> <span class="nf">reverseList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">head</span><span class="p">):</span></span>
+<span class="code-line">    <span class="n">dummy</span> <span class="o">=</span> <span class="n">ListNode</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">cur</span> <span class="o">=</span> <span class="bp">None</span></span>
+<span class="code-line">    <span class="n">dummy</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">cur</span></span>
+<span class="code-line">    <span class="k">while</span> <span class="n">head</span> <span class="p">:</span></span>
+<span class="code-line">        <span class="n">q</span> <span class="o">=</span> <span class="n">head</span><span class="o">.</span><span class="n">next</span> <span class="c"># 防止断链</span></span>
+<span class="code-line">        <span class="n">dummy</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">head</span></span>
+<span class="code-line">        <span class="n">head</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">cur</span></span>
+<span class="code-line">        <span class="n">cur</span> <span class="o">=</span> <span class="n">head</span></span>
+<span class="code-line">        <span class="n">head</span> <span class="o">=</span> <span class="n">q</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="n">dummy</span><span class="o">.</span><span class="n">next</span></span>
+</pre></div>
+
+
+<p><strong>或者</strong></p>
+<p>原地迭代，每次都把当前的节点链接到到前一个节点。</p>
+<div class="highlight"><pre><span class="code-line"><span class="k">def ...</span></span></pre></div>
+                <a class="btn btn-small" href="../blog/2015/05/05/reverse-linked-list/">more ...</a>
+            </div>
+        </div>
+    </div>
+    <div class="span8">
+        <hr />
+    </div>
+    <div class="span2">
+        <div class="well small"><footer class="post-info">
+<abbr class="published" title="2015-05-05T09:06:00+08:00">
+    <i class="icon-calendar"></i>&nbsp;周二 05 五月 2015
+</abbr>
 <br/><a href="../author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
 
 
@@ -130,7 +176,7 @@
         <div class="article well">
             <h1><a href="../blog/2015/05/05/sifting-prime/">素数筛选法</a></h1>
             <div class="summary"><p><strong>题目描述</strong>:
-Count the number of prime numbers less than a non-negative number, n。</p>
+Count the number of prime numbers less than a non-negative number, n</p>
 <p><strong>分析</strong>：
 这里需要注意的是n是很大的整数，因此不能在循环内使用函数的调用来判断一个数是否为素数，否则会超时。可以使用bool数组来确定这个数是否为素数。下面介绍一种素数筛选法来解决这个问题。
 素数筛选法就是的理论基础就是每个合数都是可以分解为两个或者多个素数相乘的形式。首先除2以外的偶数都不是素数，另外，对于素数3，它的倍数3*5，3*7，...，3*n，都不是素数。 
@@ -502,9 +548,19 @@ Unix链接器使用下面的规则来处理多重定义的符号：</p>
 </li>
 
 <li class="nav-header"><a href="../tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
+    <li class="tag-4">
+        <a href="../tag/duo-xian-cheng.html">
+            <i class="icon-tag icon-large"></i>多线程
+        </a>
+    </li>
     <li class="tag-1">
-        <a href="../tag/c.html">
-            <i class="icon-tag icon-large"></i>C
+        <a href="../tag/suan-fa.html">
+            <i class="icon-tag icon-large"></i>算法
+        </a>
+    </li>
+    <li class="tag-2">
+        <a href="../tag/cao-zuo-xi-tong.html">
+            <i class="icon-tag icon-large"></i>操作系统
         </a>
     </li>
     <li class="tag-4">
@@ -513,8 +569,8 @@ Unix链接器使用下面的规则来处理多重定义的符号：</p>
         </a>
     </li>
     <li class="tag-1">
-        <a href="../tag/suan-fa.html">
-            <i class="icon-tag icon-large"></i>算法
+        <a href="../tag/c.html">
+            <i class="icon-tag icon-large"></i>C
         </a>
     </li>
     <li class="tag-4">
@@ -522,19 +578,9 @@ Unix链接器使用下面的规则来处理多重定义的符号：</p>
             <i class="icon-tag icon-large"></i>拥塞控制
         </a>
     </li>
-    <li class="tag-4">
-        <a href="../tag/duo-xian-cheng.html">
-            <i class="icon-tag icon-large"></i>多线程
-        </a>
-    </li>
     <li class="tag-2">
         <a href="../tag/tcp.html">
             <i class="icon-tag icon-large"></i>TCP
-        </a>
-    </li>
-    <li class="tag-2">
-        <a href="../tag/cao-zuo-xi-tong.html">
-            <i class="icon-tag icon-large"></i>操作系统
         </a>
     </li>
 

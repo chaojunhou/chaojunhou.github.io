@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="google-site-verification" content="fdZTDVFyX3hKovPIzn1tgPixk_wysBXaPN8YQw1P8Jw" />
-    <title>Write the Code - Python | Write the Code</title>
+    <title>Write the Code - ChaoJun Ho##  ##u | Write the Code</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="keywords" content="" />
     <meta name="author" content="ChaoJun Hou" />
@@ -116,45 +116,44 @@
 <div class="row">
     <div class="span2">
         <div class="well small"><footer class="post-info">
-<abbr class="published" title="2015-04-01T16:09:00+08:00">
-    <i class="icon-calendar"></i>&nbsp;周三 01 四月 2015
+<abbr class="published" title="2015-05-05T09:06:00+08:00">
+    <i class="icon-calendar"></i>&nbsp;周二 05 五月 2015
 </abbr>
-<br/><a href="../author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
+<br/><a href="../author/chaojun-ho-u.html"><i class="icon-user"></i>&nbsp;ChaoJun Ho##  ##u</a>
 
 
 <br/>
-	&nbsp;&nbsp;<a href="../tag/python.html" class="label"><i class="icon-tag"></i>&nbsp;Python</a>
+	&nbsp;&nbsp;<a href="../tag/suan-fa.html" class="label"><i class="icon-tag"></i>&nbsp;算法</a>
 </footer><!-- /.post-info --></div>
     </div>
     <div class="span6">
         <div class="article well">
-            <h1><a href="../blog/2015/04/01/life-is-short-use-python/">人生苦短我用Python</a></h1>
-            <div class="summary"><blockquote>
-<p>Programs must be written for people to read, and only incidentally for machines to execute.                                         <br />
-  —   Abelson &amp; Sussman, Structure and Interpretation of Computer Programs </p>
-</blockquote>
-<h2>1. 交换变量</h2>
-<p>一般交换变量有以下三种方法：</p>
-<ol>
-<li>最常用的，就是设置一个临时变量</li>
-</ol>
-<div class="highlight"><pre><span class="code-line"><span class="n">temp</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span></span>
-<span class="code-line"><span class="n">x</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span></span>
-<span class="code-line"><span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span></span>
+            <h1><a href="../blog/2015/05/05/reverse-linked-list/">反转链表</a></h1>
+            <div class="summary"><p>首先介绍最简单的反转链表</p>
+<h3>题目描述:</h3>
+<p>Reverse a singly linked list.</p>
+<h3>分析：</h3>
+<p>题目比较简单，可以使用迭代或者递归分别实现。
+- <strong>迭代实现</strong>
+原链表中的元素依次插入到新的链表中，作为新链表的第一个元素，这里需要注意的是，防止断链。</p>
+<div class="highlight"><pre><span class="code-line"><span class="k">def</span> <span class="nf">reverseList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">head</span><span class="p">):</span></span>
+<span class="code-line">    <span class="n">dummy</span> <span class="o">=</span> <span class="n">ListNode</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">cur</span> <span class="o">=</span> <span class="bp">None</span></span>
+<span class="code-line">    <span class="n">dummy</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">cur</span></span>
+<span class="code-line">    <span class="k">while</span> <span class="n">head</span> <span class="p">:</span></span>
+<span class="code-line">        <span class="n">q</span> <span class="o">=</span> <span class="n">head</span><span class="o">.</span><span class="n">next</span> <span class="c"># 防止断链</span></span>
+<span class="code-line">        <span class="n">dummy</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">head</span></span>
+<span class="code-line">        <span class="n">head</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">cur</span></span>
+<span class="code-line">        <span class="n">cur</span> <span class="o">=</span> <span class="n">head</span></span>
+<span class="code-line">        <span class="n">head</span> <span class="o">=</span> <span class="n">q</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="n">dummy</span><span class="o">.</span><span class="n">next</span></span>
 </pre></div>
 
 
-<p>这种方法在python中可以更优雅的表示，而且效率更高。</p>
-<div class="highlight"><pre><span class="code-line"><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span></span>
-</pre></div>
-
-
-<ol>
-<li>不增加临时变量使用加法</li>
-</ol>
-<div class="highlight"><pre><span class="code-line"><span class="n">b</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span></span>
-<span class="code-line"><span class="n">a</span> <span class="o">=</span> <span class="n">b</span> <span class="o">-</span> <span class="n">a</span> <span class="c"># a = a + b ...</span></span></pre></div>
-                <a class="btn btn-small" href="../blog/2015/04/01/life-is-short-use-python/">more ...</a>
+<p><strong>或者</strong></p>
+<p>原地迭代，每次都把当前的节点链接到到前一个节点。</p>
+<div class="highlight"><pre><span class="code-line"><span class="k">def ...</span></span></pre></div>
+                <a class="btn btn-small" href="../blog/2015/05/05/reverse-linked-list/">more ...</a>
             </div>
         </div>
     </div>
