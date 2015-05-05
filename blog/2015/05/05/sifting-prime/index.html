@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="google-site-verification" content="fdZTDVFyX3hKovPIzn1tgPixk_wysBXaPN8YQw1P8Jw" />
-    <title>Longest Palindromic Substring | Write the Code</title>
+    <title>素数筛选法 | Write the Code</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="keywords" content="" />
     <meta name="author" content="ChaoJun Hou" />
@@ -64,13 +64,13 @@
             <ul class="nav">
                 <li ><a href="../../../../../pages/About.html">关于</a></li>
                 <li class="divider-vertical"></li>
-                <li >
+                <li class="active">
                   <a href="../../../../../category/bian-cheng.html">
 						        <i class="icon-folder-open icon-large"></i>编程
 					         </a>
                 </li>
                  <li class="divider-vertical"></li>
-                <li class="active">
+                <li >
                   <a href="../../../../../category/ji-suan-ji-ke-xue.html">
 						        <i class="icon-folder-open icon-large"></i>计算机科学
 					         </a>
@@ -117,8 +117,8 @@
     <div class="span2">
         <div class="well">
 <footer class="post-info">
-<abbr class="published" title="2013-12-22T00:00:00+08:00">
-    <i class="icon-calendar"></i>&nbsp;周日 22 十二月 2013
+<abbr class="published" title="2015-05-05T09:06:00+08:00">
+    <i class="icon-calendar"></i>&nbsp;周二 05 五月 2015
 </abbr>
 <br/><a href="../../../../../author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
 
@@ -134,45 +134,72 @@
             <h1>
                 <a href=""
                         rel="bookmark"
-                        title="Permalink to Longest Palindromic Substring">
-                        Longest Palindromic Substring
+                        title="Permalink to 素数筛选法">
+                        素数筛选法
                 </a>
             </h1>
         </header>
         <div class="entry-content">
 
-        <p><strong>题目：Given a string S, find the longest palindromic substring in S. You may assume that the maximum length of S is 1000, and there exists one unique longest palindromic substring.</strong></p>
-<p><strong>思路：从头开始遍历整个字符串。然后以每个字符串为中点向两边扩展，直到最长的Palindromic，记录中间出现的Palindromic的最大长度。需要注意的是Palindromic的长度可能为奇数也可能为偶数。</strong></p>
-<p><strong>时间复杂度：O(n^2)</strong>
-<strong>空间复杂度：O(1)</strong></p>
-<p><strong>Show the code:</strong>
-Run Time: 1247 ms</p>
-<div class="highlight"><pre><span class="code-line"><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span></span>
-<span class="code-line">    <span class="c"># @return a string</span></span>
-<span class="code-line">    <span class="k">def</span> <span class="nf">longestPalindrome</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span></span>
-<span class="code-line">        <span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span></span>
-<span class="code-line">        <span class="k">def</span> <span class="nf">expand</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">):</span></span>
-<span class="code-line">            <span class="k">while</span> <span class="n">left</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">right</span> <span class="o">&lt;</span> <span class="n">length</span> <span class="ow">and</span> <span class="n">s</span><span class="p">[</span><span class="n">left</span><span class="p">]</span> <span class="o">==</span> <span class="n">s</span><span class="p">[</span><span class="n">right</span><span class="p">]:</span></span>
-<span class="code-line">                <span class="n">left</span> <span class="o">-=</span><span class="mi">1</span></span>
-<span class="code-line">                <span class="n">right</span> <span class="o">+=</span><span class="mi">1</span></span>
-<span class="code-line">            <span class="k">return</span> <span class="n">right</span> <span class="o">-</span> <span class="n">left</span> <span class="o">-</span><span class="mi">1</span></span>
+        <p><strong>题目描述</strong>:
+Count the number of prime numbers less than a non-negative number, n。</p>
+<p><strong>分析</strong>：
+这里需要注意的是n是很大的整数，因此不能在循环内使用函数的调用来判断一个数是否为素数，否则会超时。可以使用bool数组来确定这个数是否为素数。下面介绍一种素数筛选法来解决这个问题。
+素数筛选法就是的理论基础就是每个合数都是可以分解为两个或者多个素数相乘的形式。首先除2以外的偶数都不是素数，另外，对于素数3，它的倍数3*5，3*7，...，3*n，都不是素数。 
+剩下都是素数。
+具体见下面的代码。</p>
+<div class="highlight"><pre><span class="code-line"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span></span>
+<span class="code-line"><span class="k">public</span><span class="o">:</span></span>
+<span class="code-line">    <span class="kt">int</span> <span class="n">countPrimes</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">        <span class="k">if</span><span class="p">(</span><span class="mi">2</span><span class="o">&gt;=</span><span class="n">n</span><span class="p">)</span> <span class="k">return</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line">        <span class="kt">bool</span><span class="o">*</span> <span class="n">a</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">bool</span><span class="p">[</span><span class="n">n</span><span class="p">];</span></span>
+<span class="code-line">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span></span>
+<span class="code-line">            <span class="k">if</span> <span class="p">(</span><span class="n">i</span><span class="o">%</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span></span>
+<span class="code-line">            <span class="p">{</span></span>
+<span class="code-line">                <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span></span>
+<span class="code-line">            <span class="p">}</span> <span class="c1">// 除2以外的偶数都不是素数</span></span>
+<span class="code-line">            <span class="k">else</span></span>
+<span class="code-line">            <span class="p">{</span>            </span>
+<span class="code-line">                <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span> <span class="p">;</span></span>
+<span class="code-line">            <span class="p">}</span></span>
+<span class="code-line">        <span class="p">}</span></span>
+<span class="code-line">        <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span><span class="c1">// 1 不是素数</span></span>
+<span class="code-line">        <span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span> <span class="c1">// 2 是素数</span></span>
+<span class="code-line">        <span class="kt">int</span> <span class="n">sn</span> <span class="o">=</span> <span class="kt">int</span><span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="n">n</span><span class="p">));</span></span>
+<span class="code-line">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">sn</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">+=</span><span class="mi">2</span><span class="p">){</span></span>
+<span class="code-line">            <span class="k">if</span> <span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">])</span></span>
+<span class="code-line">            <span class="p">{</span></span>
+<span class="code-line">                <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span><span class="o">*</span><span class="n">i</span><span class="p">;</span> <span class="n">j</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span> <span class="n">j</span><span class="o">+=</span><span class="n">i</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">)</span> <span class="c1">// i的奇数倍都不是素数</span></span>
+<span class="code-line">                <span class="p">{</span></span>
+<span class="code-line">                    <span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span></span>
+<span class="code-line">                <span class="p">}</span></span>
 <span class="code-line"></span>
-<span class="code-line">        <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span></span>
-<span class="code-line">        <span class="k">for</span>  <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">length</span><span class="p">):</span></span>
-<span class="code-line">            <span class="n">len1</span> <span class="o">=</span> <span class="n">expand</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">i</span><span class="p">)</span></span>
-<span class="code-line">            <span class="n">len2</span> <span class="o">=</span> <span class="n">expand</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span></span>
-<span class="code-line">            <span class="n">Len</span> <span class="o">=</span> <span class="nb">max</span> <span class="p">(</span><span class="n">len1</span><span class="p">,</span> <span class="n">len2</span><span class="p">)</span></span>
-<span class="code-line">            <span class="k">if</span> <span class="n">end</span> <span class="o">-</span> <span class="n">start</span> <span class="o">&lt;</span> <span class="n">Len</span><span class="p">:</span></span>
-<span class="code-line">                <span class="n">start</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="p">(</span><span class="n">Len</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span></span>
-<span class="code-line">                <span class="n">end</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">Len</span><span class="o">/</span><span class="mi">2</span></span>
-<span class="code-line">        <span class="k">return</span> <span class="n">s</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>  </span>
+<span class="code-line">            <span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="p">}</span></span>
+<span class="code-line">        <span class="kt">int</span> <span class="n">sum</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span></span>
+<span class="code-line">        <span class="p">{</span></span>
+<span class="code-line">            <span class="k">if</span> <span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> </span>
+<span class="code-line">            <span class="p">{</span></span>
+<span class="code-line">                <span class="n">sum</span> <span class="o">+=</span><span class="mi">1</span><span class="p">;</span></span>
+<span class="code-line">            <span class="p">}</span></span>
+<span class="code-line">        <span class="p">}</span></span>
+<span class="code-line">        <span class="k">delete</span><span class="p">[]</span> <span class="n">a</span><span class="p">;</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">sum</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"><span class="p">};</span></span>
 </pre></div>
+
+
+<p>Python代码实现见Github(https://github.com/chaojunhou/LeetCode)，需要注意的是Python中的bool数组必须声明为[True]*n.</p>
         </div><!-- /.entry-content -->
         <div class="comments">
         <h2>Comments !</h2>
             <div id="disqus_thread"></div>
             <script type="text/javascript">
-               var disqus_identifier = "blog/2013/12/22/longest-palindromic-substring/";
+               var disqus_identifier = "blog/2015/05/05/sifting-prime/";
                (function() {
                     var dsq = document.createElement('script');
                     dsq.type = 'text/javascript'; dsq.async = true;

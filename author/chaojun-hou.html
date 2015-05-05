@@ -116,6 +116,41 @@
 <div class="row">
     <div class="span2">
         <div class="well small"><footer class="post-info">
+<abbr class="published" title="2015-05-05T09:06:00+08:00">
+    <i class="icon-calendar"></i>&nbsp;周二 05 五月 2015
+</abbr>
+<br/><a href="../author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
+
+
+<br/>
+	&nbsp;&nbsp;<a href="../tag/suan-fa.html" class="label"><i class="icon-tag"></i>&nbsp;算法</a>
+</footer><!-- /.post-info --></div>
+    </div>
+    <div class="span6">
+        <div class="article well">
+            <h1><a href="../blog/2015/05/05/sifting-prime/">素数筛选法</a></h1>
+            <div class="summary"><p><strong>题目描述</strong>:
+Count the number of prime numbers less than a non-negative number, n。</p>
+<p><strong>分析</strong>：
+这里需要注意的是n是很大的整数，因此不能在循环内使用函数的调用来判断一个数是否为素数，否则会超时。可以使用bool数组来确定这个数是否为素数。下面介绍一种素数筛选法来解决这个问题。
+素数筛选法就是的理论基础就是每个合数都是可以分解为两个或者多个素数相乘的形式。首先除2以外的偶数都不是素数，另外，对于素数3，它的倍数3*5，3*7，...，3*n，都不是素数。 
+剩下都是素数。
+具体见下面的代码。</p>
+<div class="highlight"><pre><span class="code-line"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span></span>
+<span class="code-line"><span class="k">public</span><span class="o">:</span></span>
+<span class="code-line">    <span class="kt">int</span> <span class="n">countPrimes</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">        <span class="k">if</span><span class="p">(</span><span class="mi">2</span><span class="o">&gt;=</span><span class="n">n</span><span class="p">)</span> <span class="k">return</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line">        <span class="kt">bool</span><span class="o">*</span> <span class="n">a</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">bool</span><span class="p">[</span><span class="n">n</span><span class="p">];</span></span>
+<span class="code-line">        <span class="k">for ...</span></span></pre></div>
+                <a class="btn btn-small" href="../blog/2015/05/05/sifting-prime/">more ...</a>
+            </div>
+        </div>
+    </div>
+    <div class="span8">
+        <hr />
+    </div>
+    <div class="span2">
+        <div class="well small"><footer class="post-info">
 <abbr class="published" title="2015-05-04T20:11:00+08:00">
     <i class="icon-calendar"></i>&nbsp;周一 04 五月 2015
 </abbr>
@@ -266,7 +301,7 @@ Author: ChaoJun Hou</p>
 <p>预处理-&gt;编译-&gt;汇编-&gt;链接</p>
 <h1>程序的机器级表达</h1>
 <p>数据传递、局部变量的分配和释放通过操作程序栈来实现。机器用栈来传递过程参数、存储返回信息、保存寄存器用于恢复，以及本地存储。为单个过程分配的那部分栈称为栈桢。最顶端的栈桢以两个指针界定，寄存器%ebp为帧指针，寄存器%esp为栈指针。</p>
-<p><img src="/images/stack.png" width = "550" height = "5" alt="stack" align=center /></p>
+<p><img src="/images/stack.png" width = "350" height = "150" alt="stack" align=center /></p>
 <h1>存储器层级结构</h1>
 <p>计算机系统中的一个基本而持久的思想：如果你理解了系统是如何将数据在存储器层次结构中上上下下移动的，那么你可以编写你的应用程序，使得它们的数据项存储在层次结构中较高的地方，在那里CPU能更快地访问到它们。这个思想围绕着计算机程序的一个成为局部性（locality）的基本属性。</p>
 <p>局部性通常有两种形式：时间局部性（temporal locality）和空间局部性（spatial locality）。在一个具有良好时间局部性的程序中，被引用过一次的存储器位置很可能在不远的将来再被多次引用。在一个具有良好空间局部性的程序中，如果一个存储器位置被引用了一次，那么程序很可能在不远的将来引用附近的一个存储器位置。 </p>
@@ -300,24 +335,24 @@ Author: ChaoJun Hou</p>
 <h2>1. 交换变量</h2>
 <p>一般交换变量有以下三种方法：</p>
 <ol>
-<li>
-<p>最常用的，就是设置一个临时变量</p>
-<div class="highlight"><pre><span class="code-line">temp = x;</span>
-<span class="code-line">x = y;</span>
-<span class="code-line">y = x;</span>
+<li>最常用的，就是设置一个临时变量</li>
+</ol>
+<div class="highlight"><pre><span class="code-line"><span class="n">temp</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span></span>
+<span class="code-line"><span class="n">x</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span></span>
+<span class="code-line"><span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span></span>
 </pre></div>
 
 
 <p>这种方法在python中可以更优雅的表示，而且效率更高。</p>
-<div class="highlight"><pre><span class="code-line">x, y = y, x</span>
+<div class="highlight"><pre><span class="code-line"><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span></span>
 </pre></div>
 
 
-</li>
-<li>
-<p>不增加临时变量使用加法</p>
-<div class="highlight"><pre><span class="code-line">b = a + b</span>
-<span class="code-line">a = b - a # a = a + b ...</span></pre></div></li></ol>
+<ol>
+<li>不增加临时变量使用加法</li>
+</ol>
+<div class="highlight"><pre><span class="code-line"><span class="n">b</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span></span>
+<span class="code-line"><span class="n">a</span> <span class="o">=</span> <span class="n">b</span> <span class="o">-</span> <span class="n">a</span> <span class="c"># a = a + b ...</span></span></pre></div>
                 <a class="btn btn-small" href="../blog/2015/04/01/life-is-short-use-python/">more ...</a>
             </div>
         </div>
@@ -519,34 +554,6 @@ Unix链接器使用下面的规则来处理多重定义的符号：</p>
     <div class="span8">
         <hr />
     </div>
-    <div class="span2">
-        <div class="well small"><footer class="post-info">
-<abbr class="published" title="2013-12-22T00:00:00+08:00">
-    <i class="icon-calendar"></i>&nbsp;周日 22 十二月 2013
-</abbr>
-<br/><a href="../author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
-
-
-<br/>
-	&nbsp;&nbsp;<a href="../tag/suan-fa.html" class="label"><i class="icon-tag"></i>&nbsp;算法</a>
-</footer><!-- /.post-info --></div>
-    </div>
-    <div class="span6">
-        <div class="article well">
-            <h1><a href="../blog/2013/12/22/longest-palindromic-substring/">Longest Palindromic Substring</a></h1>
-            <div class="summary"><p><strong>题目：Given a string S, find the longest palindromic substring in S. You may assume that the maximum length of S is 1000, and there exists one unique longest palindromic substring.</strong></p>
-<p><strong>思路：从头开始遍历整个字符串。然后以每个字符串为中点向两边扩展，直到最长的Palindromic，记录中间出现的Palindromic的最大长度。需要注意的是Palindromic的长度可能为奇数也可能为偶数。</strong></p>
-<p><strong>时间复杂度：O(n^2)</strong>
-<strong>空间复杂度：O(1)</strong></p>
-<p><strong>Show the code:</strong>
-Run Time: 1247 ...</p>
-                <a class="btn btn-small" href="../blog/2013/12/22/longest-palindromic-substring/">more ...</a>
-            </div>
-        </div>
-    </div>
-    <div class="span8">
-        <hr />
-    </div>
 
 <div class="span6">
 <div class="pagination">
@@ -584,9 +591,19 @@ Run Time: 1247 ...</p>
 </li>
 
 <li class="nav-header"><a href="../tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
+    <li class="tag-1">
+        <a href="../tag/c.html">
+            <i class="icon-tag icon-large"></i>C
+        </a>
+    </li>
     <li class="tag-4">
-        <a href="../tag/duo-xian-cheng.html">
-            <i class="icon-tag icon-large"></i>多线程
+        <a href="../tag/python.html">
+            <i class="icon-tag icon-large"></i>Python
+        </a>
+    </li>
+    <li class="tag-1">
+        <a href="../tag/suan-fa.html">
+            <i class="icon-tag icon-large"></i>算法
         </a>
     </li>
     <li class="tag-4">
@@ -594,24 +611,14 @@ Run Time: 1247 ...</p>
             <i class="icon-tag icon-large"></i>拥塞控制
         </a>
     </li>
-    <li class="tag-1">
-        <a href="../tag/c.html">
-            <i class="icon-tag icon-large"></i>C
+    <li class="tag-4">
+        <a href="../tag/duo-xian-cheng.html">
+            <i class="icon-tag icon-large"></i>多线程
         </a>
     </li>
     <li class="tag-2">
         <a href="../tag/tcp.html">
             <i class="icon-tag icon-large"></i>TCP
-        </a>
-    </li>
-    <li class="tag-2">
-        <a href="../tag/suan-fa.html">
-            <i class="icon-tag icon-large"></i>算法
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../tag/python.html">
-            <i class="icon-tag icon-large"></i>Python
         </a>
     </li>
     <li class="tag-2">
