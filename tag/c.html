@@ -128,10 +128,8 @@
     </div>
     <div class="span6">
         <div class="article well">
-            <h1><a href="../blog/2015/05/04/ccheng-xu-zhong-chang-jian-de-yu-cun-chu-qi-you-guan-de-cuo-wu/">C程序中常见的与存储器有关的错误</a></h1>
-            <div class="summary"><p>Slug：usual-error-in-c
-Author: ChaoJun Hou</p>
-<ul>
+            <h1><a href="../blog/2015/05/04/usual-error-in-c/">C程序中常见的与存储器有关的错误</a></h1>
+            <div class="summary"><ul>
 <li>间接引用坏指针</li>
 </ul>
 <div class="highlight"><pre><span class="code-line"><span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">val</span><span class="p">);</span> <span class="c1">//right</span></span>
@@ -163,8 +161,9 @@ Author: ChaoJun Hou</p>
 </ul>
 <div class="highlight"><pre><span class="code-line"><span class="kt">int</span> <span class="o">**</span><span class="nf">makeArray</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span> <span class="n">m</span><span class="p">)</span></span>
 <span class="code-line"><span class="p">{</span></span>
-<span class="code-line">    <span class="kt">int</span> <span class="n">i ...</span></span></pre></div>
-                <a class="btn btn-small" href="../blog/2015/05/04/ccheng-xu-zhong-chang-jian-de-yu-cun-chu-qi-you-guan-de-cuo-wu/">more ...</a>
+<span class="code-line">    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span></span>
+<span class="code-line">    <span class="kt">int</span> <span class="o">**</span><span class="n">A</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span> <span class="o">**</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">n ...</span></span></pre></div>
+                <a class="btn btn-small" href="../blog/2015/05/04/usual-error-in-c/">more ...</a>
             </div>
         </div>
     </div>
@@ -187,8 +186,8 @@ Author: ChaoJun Hou</p>
         <div class="article well">
             <h1><a href="../blog/2015/03/27/link-and-preprocess/">链接和预编译</a></h1>
             <div class="summary"><h1>链接</h1>
-<p>C++中允许重载方法，这些方法在源代码中有相同的名字，却有不同的函数列表。编译器讲每个唯一的方法和参数列表组合编码成一个对链接器来说唯一的名字。这个编码过程叫做mangling。
-<img src="/images/elf.png" width = "500" height = "283" alt="ELF" align=center /></p>
+<p>C++中允许重载方法，这些方法在源代码中有相同的名字，却有不同的函数列表。编译器讲每个唯一的方法和参数列表组合编码成一个对链接器来说唯一的名字。这个编码过程叫做mangling。</p>
+<p><img src="/images/elf.png" class="img-responsive" alt="ELF" align=center /></p>
 <h2>链接器如何解析多重定义的全局符号</h2>
 <p>函数和已初始化的全局变量是强符号，未初始化的全局变量是弱符号。
 Unix链接器使用下面的规则来处理多重定义的符号：</p>
@@ -339,24 +338,19 @@ Unix链接器使用下面的规则来处理多重定义的符号：</p>
 </li>
 
 <li class="nav-header"><a href="../tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
-    <li class="tag-4">
-        <a href="../tag/python.html">
-            <i class="icon-tag icon-large"></i>Python
-        </a>
-    </li>
     <li class="tag-1">
         <a href="../tag/c.html">
             <i class="icon-tag icon-large"></i>C
         </a>
     </li>
-    <li class="tag-4">
-        <a href="../tag/yong-sai-kong-zhi.html">
-            <i class="icon-tag icon-large"></i>拥塞控制
+    <li class="tag-1">
+        <a href="../tag/suan-fa.html">
+            <i class="icon-tag icon-large"></i>算法
         </a>
     </li>
-    <li class="tag-2">
-        <a href="../tag/tcp.html">
-            <i class="icon-tag icon-large"></i>TCP
+    <li class="tag-4">
+        <a href="../tag/python.html">
+            <i class="icon-tag icon-large"></i>Python
         </a>
     </li>
     <li class="tag-4">
@@ -365,13 +359,23 @@ Unix链接器使用下面的规则来处理多重定义的符号：</p>
         </a>
     </li>
     <li class="tag-2">
+        <a href="../tag/tcp.html">
+            <i class="icon-tag icon-large"></i>TCP
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../tag/yong-sai-kong-zhi.html">
+            <i class="icon-tag icon-large"></i>拥塞控制
+        </a>
+    </li>
+    <li class="tag-2">
         <a href="../tag/cao-zuo-xi-tong.html">
             <i class="icon-tag icon-large"></i>操作系统
         </a>
     </li>
-    <li class="tag-1">
-        <a href="../tag/suan-fa.html">
-            <i class="icon-tag icon-large"></i>算法
+    <li class="tag-4">
+        <a href="../tag/zhi-li.html">
+            <i class="icon-tag icon-large"></i>智力
         </a>
     </li>
 
@@ -401,12 +405,12 @@ Unix链接器使用下面的规则来处理多重定义的符号：</p>
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="../theme/js/jquery-1.7.2.min.js"></script>
     <script src="../theme/js/bootstrap.min.js"></script>
+  <!-- Baidu Button BEGIN -->
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"6","bdPos":"right","bdTop":"250"},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+ <!-- Baidu Button END -->
   </body>
 
   <!-- hitwebcounter Code START -->
 
 <img src="http://hitwebcounter.com/counter/counter.php?page=6046616&style=0005&nbdigits=5&type=ip&initCount=0" title="" Alt=""   border="0" style="float:left">  
-  <!-- Baidu Button BEGIN -->
-<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"6","bdPos":"right","bdTop":"250"},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
- <!-- Baidu Button END -->
 </html>
