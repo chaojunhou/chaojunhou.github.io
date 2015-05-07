@@ -116,6 +116,44 @@
 <div class="row">
     <div class="span2">
         <div class="well small"><footer class="post-info">
+<abbr class="published" title="2015-05-07T09:06:00+08:00">
+    <i class="icon-calendar"></i>&nbsp;周四 07 五月 2015
+</abbr>
+<br/><a href="../author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
+
+
+<br/>
+	&nbsp;&nbsp;<a href="../tag/xiang-mu.html" class="label"><i class="icon-tag"></i>&nbsp;项目</a>
+</footer><!-- /.post-info --></div>
+    </div>
+    <div class="span6">
+        <div class="article well">
+            <h1><a href="../blog/2015/05/07/huawei-related/">德州扑克AI</a></h1>
+            <div class="summary"><ul>
+<li>解压缩文件：</li>
+</ul>
+<div class="highlight"><pre><span class="code-line"><span class="nv">$ </span><span class="nb">cd</span> /path/to/works</span>
+<span class="code-line"><span class="nv">$ </span>tar cvzf game.tar.gz works // 压缩</span>
+<span class="code-line"></span>
+<span class="code-line"><span class="nv">$ </span>tar zxvf game.tar.gz  // 解压缩</span>
+</pre></div>
+
+
+<ul>
+<li>SCP命令</li>
+</ul>
+<div class="highlight"><pre><span class="code-line">scp hostfilename remotename@remoteIP:/path/to/remote</span>
+<span class="code-line"><span class="nv">$ </span>scp ./works.zip root@192.168.56.101:/home/game</span>
+</pre></div>
+                <a class="btn btn-small" href="../blog/2015/05/07/huawei-related/">more ...</a>
+            </div>
+        </div>
+    </div>
+    <div class="span8">
+        <hr />
+    </div>
+    <div class="span2">
+        <div class="well small"><footer class="post-info">
 <abbr class="published" title="2015-05-05T09:06:00+08:00">
     <i class="icon-calendar"></i>&nbsp;周二 05 五月 2015
 </abbr>
@@ -507,59 +545,6 @@ Unix链接器使用下面的规则来处理多重定义的符号：</p>
     <div class="span8">
         <hr />
     </div>
-    <div class="span2">
-        <div class="well small"><footer class="post-info">
-<abbr class="published" title="2015-02-27T00:00:00+08:00">
-    <i class="icon-calendar"></i>&nbsp;周五 27 二月 2015
-</abbr>
-<br/><a href="../author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
-
-
-<br/>
-	&nbsp;&nbsp;<a href="../tag/duo-xian-cheng.html" class="label"><i class="icon-tag"></i>&nbsp;多线程</a>
-</footer><!-- /.post-info --></div>
-    </div>
-    <div class="span6">
-        <div class="article well">
-            <h1><a href="../blog/2015/02/27/multi-thread/">多线程</a></h1>
-            <div class="summary"><h2>线程安全</h2>
-<p>一个函数被称为线程安全的，当且仅当被多个并发线程反复地调用时，它会产生一直产生正确的结果。</p>
-<h3>四个线程不安全函数类</h3>
-<ul>
-<li>不保护共享变量的函数</li>
-</ul>
-<p>对一个未受保护的全局计数器变量加1.
-  改进：利用像P和V操作这样的同步操作来保护共享的变量。  <br />
-  优点，在调用程序中不需要做任何修改
-  缺点，同步操作讲减慢程序的执行时间</p>
-<ul>
-<li>保护跨越多个调用的状态的函数</li>
-</ul>
-<div class="highlight"><pre><span class="code-line"><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">next</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span></span>
-<span class="code-line"><span class="kt">int</span> <span class="nf">rand</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span></span>
-<span class="code-line"><span class="p">{</span></span>
-<span class="code-line">    <span class="n">next</span> <span class="o">=</span> <span class="n">next</span><span class="o">*</span><span class="mi">1102515245</span> <span class="o">+</span> <span class="mi">12345</span><span class="p">;</span></span>
-<span class="code-line">    <span class="k">return</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">)(</span><span class="n">next</span><span class="o">/</span><span class="mi">65536</span><span class="p">)</span><span class="o">%</span><span class="mi">32768</span><span class="p">;</span></span>
-<span class="code-line"><span class="p">}</span> </span>
-<span class="code-line"></span>
-<span class="code-line"><span class="kt">void</span> <span class="nf">srand</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">seed</span><span class="p">)</span></span>
-<span class="code-line"><span class="p">{</span></span>
-<span class="code-line">    <span class="n">next</span> <span class="o">=</span> <span class="n">seed</span><span class="p">;</span></span>
-<span class="code-line"><span class="p">}</span></span>
-</pre></div>
-
-
-<p>改进方法重写，使得它不再使用任何static数据，而是依靠调用者在参数中传递状态信息。</p>
-<div class="highlight"><pre><span class="code-line"><span class="kt">int</span> <span class="nf">rand_r</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="o">*</span><span class="n">nextp</span><span class="p">)</span></span>
-<span class="code-line"><span class="p">{</span></span>
-<span class="code-line">    <span class="o">*</span><span class="n">nextp</span> <span class="o">=</span> <span class="o">*</span><span class="n">nextp</span><span class="o">*</span><span class="mi">1102515245</span> <span class="o">+</span> <span class="mi">12345 ...</span></span></pre></div>
-                <a class="btn btn-small" href="../blog/2015/02/27/multi-thread/">more ...</a>
-            </div>
-        </div>
-    </div>
-    <div class="span8">
-        <hr />
-    </div>
 
 <div class="span6">
 <div class="pagination">
@@ -602,14 +587,9 @@ Unix链接器使用下面的规则来处理多重定义的符号：</p>
             <i class="icon-tag icon-large"></i>TCP
         </a>
     </li>
-    <li class="tag-2">
-        <a href="../tag/cao-zuo-xi-tong.html">
-            <i class="icon-tag icon-large"></i>操作系统
-        </a>
-    </li>
     <li class="tag-4">
-        <a href="../tag/yong-sai-kong-zhi.html">
-            <i class="icon-tag icon-large"></i>拥塞控制
+        <a href="../tag/xiang-mu.html">
+            <i class="icon-tag icon-large"></i>项目
         </a>
     </li>
     <li class="tag-1">
@@ -617,9 +597,14 @@ Unix链接器使用下面的规则来处理多重定义的符号：</p>
             <i class="icon-tag icon-large"></i>算法
         </a>
     </li>
-    <li class="tag-1">
-        <a href="../tag/python.html">
-            <i class="icon-tag icon-large"></i>Python
+    <li class="tag-4">
+        <a href="../tag/duo-xian-cheng.html">
+            <i class="icon-tag icon-large"></i>多线程
+        </a>
+    </li>
+    <li class="tag-2">
+        <a href="../tag/cao-zuo-xi-tong.html">
+            <i class="icon-tag icon-large"></i>操作系统
         </a>
     </li>
     <li class="tag-1">
@@ -628,13 +613,18 @@ Unix链接器使用下面的规则来处理多重定义的符号：</p>
         </a>
     </li>
     <li class="tag-4">
-        <a href="../tag/zhi-li.html">
-            <i class="icon-tag icon-large"></i>智力
+        <a href="../tag/yong-sai-kong-zhi.html">
+            <i class="icon-tag icon-large"></i>拥塞控制
+        </a>
+    </li>
+    <li class="tag-1">
+        <a href="../tag/python.html">
+            <i class="icon-tag icon-large"></i>Python
         </a>
     </li>
     <li class="tag-4">
-        <a href="../tag/duo-xian-cheng.html">
-            <i class="icon-tag icon-large"></i>多线程
+        <a href="../tag/zhi-li.html">
+            <i class="icon-tag icon-large"></i>智力
         </a>
     </li>
 
