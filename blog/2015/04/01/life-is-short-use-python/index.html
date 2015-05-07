@@ -147,9 +147,9 @@
 </blockquote>
 <h2>1. 交换变量</h2>
 <p>一般交换变量有以下三种方法：</p>
-<ol>
+<ul>
 <li>最常用的，就是设置一个临时变量</li>
-</ol>
+</ul>
 <div class="highlight"><pre><span class="code-line"><span class="n">temp</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span></span>
 <span class="code-line"><span class="n">x</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span></span>
 <span class="code-line"><span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span></span>
@@ -161,21 +161,28 @@
 </pre></div>
 
 
-<ol>
+<ul>
 <li>不增加临时变量使用加法</li>
-</ol>
+</ul>
 <div class="highlight"><pre><span class="code-line"><span class="n">b</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span></span>
 <span class="code-line"><span class="n">a</span> <span class="o">=</span> <span class="n">b</span> <span class="o">-</span> <span class="n">a</span> <span class="c"># a = a + b - a = b 即 a = b </span></span>
 <span class="code-line"><span class="n">b</span> <span class="o">=</span> <span class="n">b</span> <span class="o">-</span> <span class="n">a</span> <span class="c"># b = a + b - b = a</span></span>
 </pre></div>
 
 
-<ol>
+<ul>
 <li>使用位操作</li>
-</ol>
+</ul>
 <div class="highlight"><pre><span class="code-line"><span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="o">^</span><span class="n">b</span></span>
 <span class="code-line"><span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="o">^</span><span class="n">b</span></span>
 <span class="code-line"><span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="o">^</span><span class="n">b</span></span>
+</pre></div>
+
+
+<ul>
+<li>使用"+"和"-"的一行操作:</li>
+</ul>
+<div class="highlight"><pre><span class="code-line"><span class="n">a</span><span class="o">=</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">)</span><span class="o">-</span><span class="p">(</span><span class="n">b</span><span class="o">=</span><span class="n">a</span><span class="p">)</span></span>
 </pre></div>
 
 
@@ -196,18 +203,18 @@
 
 <h2>3. 读取文件</h2>
 <p>python中有三个方法来处理文件内容的输入：</p>
-<ol>
+<ul>
 <li>read（） 一次读取全部的文件内容。</li>
-</ol>
+</ul>
 <div class="highlight"><pre><span class="code-line"><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;path/to/file.txt&#39;</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span></span>
 <span class="code-line"><span class="n">ff</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span> </span>
 <span class="code-line"><span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></span>
 </pre></div>
 
 
-<ol>
+<ul>
 <li>readline() 每次读取文件的一行。</li>
-</ol>
+</ul>
 <div class="highlight"><pre><span class="code-line"><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;path/to/file.txt&#39;</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span></span>
 <span class="code-line"><span class="n">line</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span></span>
 <span class="code-line"><span class="k">while</span> <span class="mi">1</span><span class="p">:</span></span>
@@ -219,9 +226,9 @@
 </pre></div>
 
 
-<ol>
+<ul>
 <li>readlines() 读取文件的所有行，返回一个字符串列表</li>
-</ol>
+</ul>
 <div class="highlight"><pre><span class="code-line"><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;path/to/file.txt&#39;</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span></span>
 <span class="code-line"><span class="n">ff</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span> </span>
 <span class="code-line"><span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></span>
@@ -491,34 +498,9 @@ while循环时都会有对True的判断操作。
 </li>
 
 <li class="nav-header"><a href="../../../../../tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
-    <li class="tag-1">
-        <a href="../../../../../tag/c.html">
-            <i class="icon-tag icon-large"></i>C
-        </a>
-    </li>
-    <li class="tag-1">
-        <a href="../../../../../tag/suan-fa.html">
-            <i class="icon-tag icon-large"></i>算法
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/python.html">
-            <i class="icon-tag icon-large"></i>Python
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/duo-xian-cheng.html">
-            <i class="icon-tag icon-large"></i>多线程
-        </a>
-    </li>
     <li class="tag-2">
         <a href="../../../../../tag/tcp.html">
             <i class="icon-tag icon-large"></i>TCP
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/yong-sai-kong-zhi.html">
-            <i class="icon-tag icon-large"></i>拥塞控制
         </a>
     </li>
     <li class="tag-2">
@@ -527,8 +509,33 @@ while循环时都会有对True的判断操作。
         </a>
     </li>
     <li class="tag-4">
+        <a href="../../../../../tag/yong-sai-kong-zhi.html">
+            <i class="icon-tag icon-large"></i>拥塞控制
+        </a>
+    </li>
+    <li class="tag-1">
+        <a href="../../../../../tag/suan-fa.html">
+            <i class="icon-tag icon-large"></i>算法
+        </a>
+    </li>
+    <li class="tag-1">
+        <a href="../../../../../tag/python.html">
+            <i class="icon-tag icon-large"></i>Python
+        </a>
+    </li>
+    <li class="tag-1">
+        <a href="../../../../../tag/c.html">
+            <i class="icon-tag icon-large"></i>C
+        </a>
+    </li>
+    <li class="tag-4">
         <a href="../../../../../tag/zhi-li.html">
             <i class="icon-tag icon-large"></i>智力
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../../../../../tag/duo-xian-cheng.html">
+            <i class="icon-tag icon-large"></i>多线程
         </a>
     </li>
 

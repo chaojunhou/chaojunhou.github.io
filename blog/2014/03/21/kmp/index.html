@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="google-site-verification" content="fdZTDVFyX3hKovPIzn1tgPixk_wysBXaPN8YQw1P8Jw" />
-    <title>KMP | Write the Code</title>
+    <title>字符串匹配 | Write the Code</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="keywords" content="" />
     <meta name="author" content="ChaoJun Hou" />
@@ -93,7 +93,7 @@
   								<input type="hidden" name="ie" value="utf-8" />
   								<input type="hidden" name="hl" value="zh-CN" />
 						        <input type="text" name="q" size="38" maxlength="255" placeholder="Search…" />
-						        <input type="submit" name="btnG" value="Google Search" />
+						        <input type="submit" name="btnG" value="站内搜索" />
 						        <input type="hidden" name="domains" value="http://www.houcj.net/" />
 						        <input type="hidden" name="sitesearch" value="houcj.net" />
 						</form>
@@ -125,6 +125,7 @@
 
 <br/>
 	&nbsp;&nbsp;<a href="../../../../../tag/suan-fa.html" class="label"><i class="icon-tag"></i>&nbsp;算法</a>
+	&nbsp;&nbsp;<a href="../../../../../tag/python.html" class="label"><i class="icon-tag"></i>&nbsp;Python</a>
 </footer><!-- /.post-info -->        </div>
     </div>
     <div class="span6">
@@ -134,14 +135,74 @@
             <h1>
                 <a href=""
                         rel="bookmark"
-                        title="Permalink to KMP">
-                        KMP
+                        title="Permalink to 字符串匹配">
+                        字符串匹配
                 </a>
             </h1>
         </header>
         <div class="entry-content">
 
-        <p>to be continue...</p>
+        <h3>题目</h3>
+<p>Implement strStr() </p>
+<blockquote>
+<p>Implement strStr().</p>
+<p>Returns the index of the first occurrence of needle in haystack, 
+or -1 if needle is not part of haystack.</p>
+</blockquote>
+<h3>分析</h3>
+<h4>暴力解法</h4>
+<p>在haystack中遍历，直到可以找到于needle相匹配的位置。O(nm)时间复杂度, O(1) 空间复杂度的暴力解法:</p>
+<div class="highlight"><pre><span class="code-line"><span class="k">def</span> <span class="nf">strStr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">haystack</span><span class="p">,</span> <span class="n">needle</span><span class="p">):</span></span>
+<span class="code-line">    <span class="n">n</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">haystack</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">m</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">needle</span><span class="p">)</span></span>
+<span class="code-line">    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span></span>
+<span class="code-line">        <span class="k">if</span> <span class="n">haystack</span><span class="p">[</span><span class="n">x</span><span class="p">:</span><span class="n">m</span><span class="o">+</span><span class="n">x</span><span class="p">]</span><span class="o">==</span><span class="n">needle</span><span class="p">:</span></span>
+<span class="code-line">            <span class="k">return</span> <span class="n">x</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span> </span>
+</pre></div>
+
+
+<h4>KMP解法</h4>
+<p>匹配过程的时间复杂度为O(n)，预处理时间时间复杂度为O(m). O(m)的空间用来存储预处理数组。</p>
+<p><strong>KMP的核心就在于扫描字符串haystack，并更新可以匹配到needle的位置。</strong></p>
+<p>当haystack中的字符和needle中匹配的时候继续。
+不匹配的时候让haystack向右移动，这里使用了一个预处理数组来
+确定haystack应该移动的位置：不匹配字符所在位置 - 不匹配字符对应的预处理数组中的值
+预处理数组在下面介绍。</p>
+<div class="highlight"><pre><span class="code-line"><span class="k">def</span> <span class="nf">strStr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">haystack</span><span class="p">,</span> <span class="n">needle</span><span class="p">):</span></span>
+<span class="code-line">    <span class="n">n</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">haystack</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">m</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">needle</span><span class="p">)</span></span>
+<span class="code-line">    <span class="k">if</span> <span class="n">m</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span></span>
+<span class="code-line">            <span class="k">return</span> <span class="mi">0</span></span>
+<span class="code-line">    <span class="n">prefix</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">compute_prefix</span><span class="p">(</span><span class="n">needle</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">j</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>        </span>
+<span class="code-line">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span></span>
+<span class="code-line">        <span class="k">while</span> <span class="n">j</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">and</span> <span class="n">needle</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">!=</span><span class="n">haystack</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span></span>
+<span class="code-line">                <span class="n">j</span> <span class="o">=</span> <span class="n">prefix</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> </span>
+<span class="code-line">        <span class="k">if</span> <span class="n">needle</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">haystack</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span></span>
+<span class="code-line">                <span class="n">j</span> <span class="o">=</span> <span class="n">j</span><span class="o">+</span><span class="mi">1</span></span>
+<span class="code-line">        <span class="k">if</span> <span class="n">j</span> <span class="o">==</span> <span class="n">m</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span></span>
+<span class="code-line"></span>
+<span class="code-line">                <span class="k">return</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="o">-</span><span class="n">m</span></span>
+<span class="code-line">        <span class="c">#j = prefix[j] find more possible position for the next match</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span></span>
+</pre></div>
+
+
+<p>计算某个字符对应的预处理的值，就是看这个字符之前的字符串中有多大长度的相同前缀后缀。
+具体算法如下：</p>
+<div class="highlight"><pre><span class="code-line"><span class="k">def</span> <span class="nf">compute_prefix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">P</span><span class="p">):</span></span>
+<span class="code-line">    <span class="n">m</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">P</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">prefix</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">)]</span></span>
+<span class="code-line">    <span class="n">j</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span></span>
+<span class="code-line">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">m</span><span class="p">):</span></span>
+<span class="code-line">        <span class="k">while</span> <span class="n">j</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">and</span> <span class="n">P</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">!=</span><span class="n">P</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span></span>
+<span class="code-line">            <span class="n">j</span><span class="o">=</span><span class="n">prefix</span><span class="p">[</span><span class="n">j</span><span class="p">]</span></span>
+<span class="code-line">        <span class="k">if</span> <span class="n">P</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="n">P</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span></span>
+<span class="code-line">            <span class="n">j</span><span class="o">+=</span><span class="mi">1</span></span>
+<span class="code-line">        <span class="n">prefix</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">j</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="n">prefix</span> </span>
+</pre></div>
         </div><!-- /.entry-content -->
         <div class="comments">
         <h2>Comments !</h2>
@@ -186,54 +247,14 @@
 </li>
 
 <li class="nav-header"><a href="../../../../../tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
-    <li class="tag-1">
-        <a href="../../../../../tag/suan-fa.html">
-            <i class="icon-tag icon-large"></i>算法
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/zhi-li.html">
-            <i class="icon-tag icon-large"></i>智力
-        </a>
-    </li>
     <li class="tag-2">
-        <a href="../../../../../tag/c.html">
-            <i class="icon-tag icon-large"></i>C
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/shell.html">
-            <i class="icon-tag icon-large"></i>SHELL
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/pa-chong.html">
-            <i class="icon-tag icon-large"></i>爬虫
-        </a>
-    </li>
-    <li class="tag-3">
         <a href="../../../../../tag/tcp.html">
             <i class="icon-tag icon-large"></i>TCP
         </a>
     </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/duo-xian-cheng.html">
-            <i class="icon-tag icon-large"></i>多线程
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/gong-ju.html">
-            <i class="icon-tag icon-large"></i>工具
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/sql.html">
-            <i class="icon-tag icon-large"></i>SQL
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/tu-xiang.html">
-            <i class="icon-tag icon-large"></i>图像
+    <li class="tag-2">
+        <a href="../../../../../tag/cao-zuo-xi-tong.html">
+            <i class="icon-tag icon-large"></i>操作系统
         </a>
     </li>
     <li class="tag-4">
@@ -241,19 +262,29 @@
             <i class="icon-tag icon-large"></i>拥塞控制
         </a>
     </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/zheng-ze-biao-da-shi.html">
-            <i class="icon-tag icon-large"></i>正则表达式
+    <li class="tag-1">
+        <a href="../../../../../tag/suan-fa.html">
+            <i class="icon-tag icon-large"></i>算法
         </a>
     </li>
-    <li class="tag-4">
+    <li class="tag-1">
         <a href="../../../../../tag/python.html">
             <i class="icon-tag icon-large"></i>Python
         </a>
     </li>
-    <li class="tag-2">
-        <a href="../../../../../tag/shu-ju-jie-gou.html">
-            <i class="icon-tag icon-large"></i>数据结构
+    <li class="tag-1">
+        <a href="../../../../../tag/c.html">
+            <i class="icon-tag icon-large"></i>C
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../../../../../tag/zhi-li.html">
+            <i class="icon-tag icon-large"></i>智力
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../../../../../tag/duo-xian-cheng.html">
+            <i class="icon-tag icon-large"></i>多线程
         </a>
     </li>
 
@@ -283,15 +314,12 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="../../../../../theme/js/jquery-1.7.2.min.js"></script>
     <script src="../../../../../theme/js/bootstrap.min.js"></script>
+  <!-- Baidu Button BEGIN -->
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"6","bdPos":"right","bdTop":"250"},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+ <!-- Baidu Button END -->
   </body>
 
   <!-- hitwebcounter Code START -->
 
 <img src="http://hitwebcounter.com/counter/counter.php?page=6046616&style=0005&nbdigits=5&type=ip&initCount=0" title="" Alt=""   border="0" style="float:left">  
-  <!-- Baidu Button BEGIN -->
-<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"6","bdPos":"right","bdTop":"250"},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
- <!-- Baidu Button END -->
-<!-- UJian Button BEGIN -->
-<script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js?type=slide&fade=1"></script>
-<!-- UJian Button END -->
 </html>

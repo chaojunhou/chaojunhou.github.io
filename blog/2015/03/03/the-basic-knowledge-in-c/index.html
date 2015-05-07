@@ -254,16 +254,41 @@
 
 <p>而<strong>a++</strong>不能作为左值， 因为a++返回的是自身的值副本。因此上面的表达式是错误的。</p>
 <ul>
-<li>
-<p>大端和小端 （数据在内存中的字节排列顺序）</p>
-<ul>
-<li>大端：最低位置存放高位字节，高位优先。</li>
-<li>小端：最低位置存放低位字节，地位优先。</li>
+<li>C语言里函数的参数默认是从右往左处理的，输出时是从左往右。</li>
 </ul>
-</li>
-<li>
-<p>'NUL'和'NULL'的区别 </p>
+<div class="highlight"><pre><span class="code-line"><span class="cp">#include&lt;stdio.h&gt; </span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> </span>
+<span class="code-line"><span class="p">{</span> </span>
+<span class="code-line">    <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">30</span><span class="p">;</span> </span>
+<span class="code-line">    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s"> %d..%d..%d </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">+</span><span class="n">c</span><span class="p">,</span> <span class="p">(</span><span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="o">*</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="n">c</span> <span class="o">=</span> <span class="n">c</span><span class="o">*</span><span class="mi">2</span><span class="p">));</span> </span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span> </span>
+<span class="code-line"><span class="p">}</span> </span>
+</pre></div>
+
+
+<p>答：输出结果是：</p>
+<div class="highlight"><pre><span class="code-line"><span class="mf">110..40</span><span class="p">.</span><span class="mf">.60</span> </span>
+</pre></div>
+
+
 <ul>
+<li>void*和C结构体</li>
+</ul>
+<p>设计一个能接受任何类型的参数并返回interger（整数）结果的函数</p>
+<p>答：如下：</p>
+<div class="highlight"><pre><span class="code-line"><span class="kt">int</span> <span class="n">func</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">ptr</span><span class="p">)</span> </span>
+</pre></div>
+
+
+<p>如果这个函数的参数超过一个，那么这个函数应该由一个结构体来调用，
+这个结构体可以由需要传递参数来填充。
+- 大端和小端 （数据在内存中的字节排列顺序）
+    - 大端：最低位置存放高位字节，高位优先。
+    - 小端：最低位置存放低位字节，地位优先。</p>
+<ul>
+<li>'NUL'和'NULL'的区别 <ul>
 <li>一个'L'的'NUL'用于结束一个ASCII字符串。</li>
 <li>两个'L'的'NULL'用于表示什么也不指向（空指针）</li>
 </ul>
@@ -328,34 +353,9 @@
 </li>
 
 <li class="nav-header"><a href="../../../../../tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
-    <li class="tag-1">
-        <a href="../../../../../tag/c.html">
-            <i class="icon-tag icon-large"></i>C
-        </a>
-    </li>
-    <li class="tag-1">
-        <a href="../../../../../tag/suan-fa.html">
-            <i class="icon-tag icon-large"></i>算法
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/python.html">
-            <i class="icon-tag icon-large"></i>Python
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/duo-xian-cheng.html">
-            <i class="icon-tag icon-large"></i>多线程
-        </a>
-    </li>
     <li class="tag-2">
         <a href="../../../../../tag/tcp.html">
             <i class="icon-tag icon-large"></i>TCP
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/yong-sai-kong-zhi.html">
-            <i class="icon-tag icon-large"></i>拥塞控制
         </a>
     </li>
     <li class="tag-2">
@@ -364,8 +364,33 @@
         </a>
     </li>
     <li class="tag-4">
+        <a href="../../../../../tag/yong-sai-kong-zhi.html">
+            <i class="icon-tag icon-large"></i>拥塞控制
+        </a>
+    </li>
+    <li class="tag-1">
+        <a href="../../../../../tag/suan-fa.html">
+            <i class="icon-tag icon-large"></i>算法
+        </a>
+    </li>
+    <li class="tag-1">
+        <a href="../../../../../tag/python.html">
+            <i class="icon-tag icon-large"></i>Python
+        </a>
+    </li>
+    <li class="tag-1">
+        <a href="../../../../../tag/c.html">
+            <i class="icon-tag icon-large"></i>C
+        </a>
+    </li>
+    <li class="tag-4">
         <a href="../../../../../tag/zhi-li.html">
             <i class="icon-tag icon-large"></i>智力
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../../../../../tag/duo-xian-cheng.html">
+            <i class="icon-tag icon-large"></i>多线程
         </a>
     </li>
 

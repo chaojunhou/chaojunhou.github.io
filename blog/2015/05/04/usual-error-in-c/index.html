@@ -391,6 +391,63 @@
 <span class="code-line">    <span class="k">return</span> <span class="p">;</span> <span class="c1">// x is garbatge at this point</span></span>
 <span class="code-line"><span class="p">}</span></span>
 </pre></div>
+
+
+<ul>
+<li>strcpy（）函数</li>
+</ul>
+<div class="highlight"><pre><span class="code-line"><span class="cp">#include&lt;stdio.h&gt; </span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span> </span>
+<span class="code-line"><span class="p">{</span> </span>
+<span class="code-line">    <span class="kt">int</span> <span class="n">flag</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> </span>
+<span class="code-line">    <span class="kt">char</span> <span class="n">passwd</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span> </span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="n">memset</span><span class="p">(</span><span class="n">passwd</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">passwd</span><span class="p">));</span> </span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="n">strcpy</span><span class="p">(</span><span class="n">passwd</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span> <span class="cm">/*argv[1] = &quot;aaaaaaaaaaaaa&quot;是，下面的flag也为1*/</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">if</span><span class="p">(</span><span class="mi">0</span> <span class="o">==</span> <span class="n">strcmp</span><span class="p">(</span><span class="s">&quot;LinuxGeek&quot;</span><span class="p">,</span> <span class="n">passwd</span><span class="p">))</span> </span>
+<span class="code-line">    <span class="p">{</span> </span>
+<span class="code-line">        <span class="n">flag</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> </span>
+<span class="code-line">    <span class="p">}</span> </span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">if</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span> </span>
+<span class="code-line">    <span class="p">{</span> </span>
+<span class="code-line">        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s"> Password cracked </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span> </span>
+<span class="code-line">    <span class="p">}</span> </span>
+<span class="code-line">    <span class="k">else</span> </span>
+<span class="code-line">    <span class="p">{</span> </span>
+<span class="code-line">        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s"> Incorrect passwd </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span> </span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="p">}</span> </span>
+<span class="code-line">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span> </span>
+<span class="code-line"><span class="p">}</span> </span>
+</pre></div>
+
+
+<p>破解上述加密的关键在于利用攻破strcpy()函数的漏洞。
+所以用户在向“passwd”缓存输入随机密码的时候并没有提前检查“passwd”的容量是否足够。
+所以，如果用户输入一个足够造成缓存溢出并且重写“flag”变量默认值所存在位置的内存的长“密码”，
+即使这个密码无法通过验证，flag验证位也变成了非零，也就可以获得被保护的数据了。
+要避免这样的问题，<strong>建议使用 strncpy()函数</strong>。
+- 修改代码片段（只读代码）</p>
+<div class="highlight"><pre><span class="code-line"><span class="cp">#include&lt;stdio.h&gt; </span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> </span>
+<span class="code-line"><span class="p">{</span> </span>
+<span class="code-line">    <span class="kt">char</span> <span class="o">*</span><span class="n">ptr</span> <span class="o">=</span> <span class="s">&quot;China&quot;</span><span class="p">;</span> </span>
+<span class="code-line">    <span class="o">*</span><span class="n">ptr</span> <span class="o">=</span> <span class="sc">&#39;A&#39;</span><span class="p">;</span> </span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s"> [%s] </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">ptr</span><span class="p">);</span> </span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span> </span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<p>通过*ptr = ‘T’，会改变内存中代码段（只读代码）“China”的第一个字母。
+这个操作是无效的，因此会造成seg-fault或者崩溃。</p>
         </div><!-- /.entry-content -->
         <div class="comments">
         <h2>Comments !</h2>
@@ -435,34 +492,9 @@
 </li>
 
 <li class="nav-header"><a href="../../../../../tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
-    <li class="tag-1">
-        <a href="../../../../../tag/c.html">
-            <i class="icon-tag icon-large"></i>C
-        </a>
-    </li>
-    <li class="tag-1">
-        <a href="../../../../../tag/suan-fa.html">
-            <i class="icon-tag icon-large"></i>算法
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/python.html">
-            <i class="icon-tag icon-large"></i>Python
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/duo-xian-cheng.html">
-            <i class="icon-tag icon-large"></i>多线程
-        </a>
-    </li>
     <li class="tag-2">
         <a href="../../../../../tag/tcp.html">
             <i class="icon-tag icon-large"></i>TCP
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/yong-sai-kong-zhi.html">
-            <i class="icon-tag icon-large"></i>拥塞控制
         </a>
     </li>
     <li class="tag-2">
@@ -471,8 +503,33 @@
         </a>
     </li>
     <li class="tag-4">
+        <a href="../../../../../tag/yong-sai-kong-zhi.html">
+            <i class="icon-tag icon-large"></i>拥塞控制
+        </a>
+    </li>
+    <li class="tag-1">
+        <a href="../../../../../tag/suan-fa.html">
+            <i class="icon-tag icon-large"></i>算法
+        </a>
+    </li>
+    <li class="tag-1">
+        <a href="../../../../../tag/python.html">
+            <i class="icon-tag icon-large"></i>Python
+        </a>
+    </li>
+    <li class="tag-1">
+        <a href="../../../../../tag/c.html">
+            <i class="icon-tag icon-large"></i>C
+        </a>
+    </li>
+    <li class="tag-4">
         <a href="../../../../../tag/zhi-li.html">
             <i class="icon-tag icon-large"></i>智力
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../../../../../tag/duo-xian-cheng.html">
+            <i class="icon-tag icon-large"></i>多线程
         </a>
     </li>
 
