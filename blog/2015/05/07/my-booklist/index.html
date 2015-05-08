@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="google-site-verification" content="fdZTDVFyX3hKovPIzn1tgPixk_wysBXaPN8YQw1P8Jw" />
-    <title>TCP Congestion Control 中的相关参数 | Write the Code</title>
+    <title>我的书单 | Write the Code</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="keywords" content="" />
     <meta name="author" content="ChaoJun Hou" />
@@ -64,13 +64,13 @@
             <ul class="nav">
                 <li ><a href="../../../../../pages/About.html">关于</a></li>
                 <li class="divider-vertical"></li>
-                <li >
+                <li class="active">
                   <a href="../../../../../category/bian-cheng.html">
 						        <i class="icon-folder-open icon-large"></i>编程
 					         </a>
                 </li>
                  <li class="divider-vertical"></li>
-                <li class="active">
+                <li >
                   <a href="../../../../../category/ji-suan-ji-ke-xue.html">
 						        <i class="icon-folder-open icon-large"></i>计算机科学
 					         </a>
@@ -117,15 +117,14 @@
     <div class="span2">
         <div class="well">
 <footer class="post-info">
-<abbr class="published" title="2013-12-15T00:00:00+08:00">
-    <i class="icon-calendar"></i>&nbsp;周日 15 十二月 2013
+<abbr class="published" title="2015-05-07T09:06:00+08:00">
+    <i class="icon-calendar"></i>&nbsp;周四 07 五月 2015
 </abbr>
 <br/><a href="../../../../../author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
 
 
 <br/>
-	&nbsp;&nbsp;<a href="../../../../../tag/tcp.html" class="label"><i class="icon-tag"></i>&nbsp;TCP</a>
-	&nbsp;&nbsp;<a href="../../../../../tag/yong-sai-kong-zhi.html" class="label"><i class="icon-tag"></i>&nbsp;拥塞控制</a>
+	&nbsp;&nbsp;<a href="../../../../../tag/shu-dan.html" class="label"><i class="icon-tag"></i>&nbsp;书单</a>
 </footer><!-- /.post-info -->        </div>
     </div>
     <div class="span6">
@@ -135,35 +134,157 @@
             <h1>
                 <a href=""
                         rel="bookmark"
-                        title="Permalink to TCP Congestion Control 中的相关参数">
-                        TCP Congestion Control 中的相关参数
+                        title="Permalink to 我的书单">
+                        我的书单
                 </a>
             </h1>
         </header>
         <div class="entry-content">
 
-        <ul>
-<li>流量控制（Flow control） End-to-End,防止发送方速率过大，接收方来不及处理发送方的数据。- -</li>
-<li>拥塞控制（Congestion control） 到达子网中某一部分的分组数量过多，中间路由缓存分组，queueing，造成RTT增加。反应网络整体状况</li>
-<li>滑动窗口（Sliding Window） 位于发送方，由接收方的通告窗口（Advertised-Window）决定。接收方通过通告窗口告诉发送方自己还有多少buffer可以接收数据。</li>
-<li>通告窗口（Advertised-Window） 接收方使用流量控制的方式</li>
-<li>
-<p>拥塞窗口（Congestion Window） 拥塞窗口的大小指能够发出，但还没有收ACK的最大数据报文段。Linux 3.0 把CWND初始化10个MSS。发送方使用流量控制的方式。发送方取拥塞窗口与通告窗口中的最小值作为发送上限</p>
-</li>
-<li>
-<p>慢启动（Slow Start） 每个ACK，CWND增加一个报文段（CWND以字节为单位，一报文段为单位进行线性增加）
-报文段（Segment） 传输层分组称为报文段，是TCP</p>
-</li>
-<li>MSS（Maximum Segment Size ） vs MTU(Maximum Transmission Unit) 在以太网中，MSS最大值为1460（20字节的IP header和20字节的TCP header），MTU的值为1500字节。MSS用于控制发送数据的长度，避免以较小MTU连接到网络上的主机产生分组</li>
-<li>往返时延(Round-Trip Time ) 表示从发送端发送数据开始，到发送端收到来自接收端的ACK，总共经历的时延，由传播时延，传输时延，排队时延（Queuing Delay），节点处理时延决定（Node processing Dela y）。可以反应网络的拥塞状况</li>
-<li>传输时延（Transmission Delay），传播时延（Transmission Delay） 传输时延=L/R，L，表示分组长度，R，表示链路传输速率(带宽)。传播时延=d/s，d，表示两段的实际物力距离，s一般等于小于光速</li>
-</ul>
+        <h2>编程&amp;技术</h2>
+<h3>1. 系统架构&amp;设计模式</h3>
+<h4>未读书单</h4>
+<blockquote>
+<p>大型网站技术架构 [必读]
+设计模式可重用面向对象软件的基础 [必读]
+HeadFirst 设计模式 [必读]
+构建高性能的web站点 [要读] 
+简约之美：软件设计之道 [要读]
+重构:改善既有代码的设计</p>
+</blockquote>
+<p>关于系统结构和设计模式的东西了解的不多，需要加强 </p>
+<h3>2. 计算机科学</h3>
+<h4>网络</h4>
+<blockquote>
+<p>TCP/IP详解卷1 [Done]
+TCP/IP详解卷2 [10%]
+Unix网络编程  [0%]</p>
+</blockquote>
+<h4>算法与数据结构</h4>
+<blockquote>
+<p>算法导论 [Done]
+算法概论 [Done]
+编程珠玑 [Done]
+编程之美 [Done]
+剑指offer [Done]
+Cracking the Coding Interview [60%]</p>
+</blockquote>
+<h4>操作系统</h4>
+<blockquote>
+<p>深入理解计算机系统 [Done]
+鸟哥的Linux私房菜</p>
+</blockquote>
+<h4>未读书单</h4>
+<blockquote>
+<p>具体数学 [0%]
+算法竞赛入门经典训练指南 [0%]</p>
+</blockquote>
+<h3>编程语言&amp;c</h3>
+<p>C </p>
+<blockquote>
+<p>C专家编程 [Done]
+C陷阱和缺陷 [Done]
+C和指针 [10%]
+K&amp;R [0%]</p>
+</blockquote>
+<h3>C++</h3>
+<blockquote>
+<p>C++ primer [60%]
+Effective C++ [10%]
+More Effective C++</p>
+</blockquote>
+<h3>Python</h3>
+<blockquote>
+<p>Python基础教程 [Done]
+Python核心编程 [Done]
+Django Web开发指南 [Done]
+Python高级编程 [40%]
+Python 源码剖析 [20%]</p>
+</blockquote>
+<h3>机器学习</h3>
+<blockquote>
+<p>数学之美 [Done]
+集体智慧编程 [Done]
+统计学习方法 [Done]
+机器学习实战 [0%]</p>
+</blockquote>
+<h3>程序设计&amp;编程实践</h3>
+<blockquote>
+<p>计算机程序的构造与解释 [10%]
+代码的未来 [20%]
+可读代码的艺术 [10%]
+7周7语言
+代码大全 [0%]
+程序员的自我修养-链接装载与库 [10%]</p>
+</blockquote>
+<h2>3.软件开发</h2>
+<blockquote>
+<p>UNIX编程艺术 [30%]
+程序员的修炼之道-从小工到专家
+人件
+人月神话 [30%]
+高效能程序员的45个习惯：敏捷开发之道 [10%]
+程序员的思维修炼: 开发认知潜能的九堂课 [25%]</p>
+</blockquote>
+<h2>4. 科技人文</h2>
+<blockquote>
+<p>浪潮之巅 [Done]
+淘宝技术这十年 [Done]
+乔布斯转 [Done]
+悟空转 [Done]
+黄金时代 [Done]
+三体1 [Done]
+三体2 [40%]
+白银时代 [30%]
+世界是平的 [Done]
+金庸全系列 [Done]
+古龙全系列 [Done]
+mactalk 人生元编程 [Done]</p>
+</blockquote>
+<h2>思维</h2>
+<blockquote>
+<p>禅与摩托车维修艺术 [Done]
+自控力 [Done]
+天才在左，疯子在右 [Done]
+黑客与画家 [Done]
+失控 [30%]
+思考的快与慢 [0%]
+自私的基因 [0%]
+禅者的初心 [20%]
+乌合之众 [0%]
+影响力 [Done]</p>
+</blockquote>
+<h4>要读书单</h4>
+<blockquote>
+<p>三体3 
+批判性思维：带你走出思维的误区
+学习之道
+黑天鹅：如何应对不可预知的未来
+从0到1开启商业与未来的秘密</p>
+</blockquote>
+<h2>美剧&amp;英剧</h2>
+<blockquote>
+<p>Black Books
+Downton Abbey
+The IT Crowd
+Sherlock
+Black Mirror</p>
+</blockquote>
+<hr />
+<blockquote>
+<p>The Big Bong Thoery
+Game of Thrones
+Prison Break
+Breaking Bad
+House of Cards
+Hannibal</p>
+</blockquote>
         </div><!-- /.entry-content -->
         <div class="comments">
         <h2>Comments !</h2>
             <div id="disqus_thread"></div>
             <script type="text/javascript">
-               var disqus_identifier = "blog/2013/12/15/the-parameters-in-tcp-congestion-control/";
+               var disqus_identifier = "blog/2015/05/07/my-booklist/";
                (function() {
                     var dsq = document.createElement('script');
                     dsq.type = 'text/javascript'; dsq.async = true;
@@ -202,29 +323,9 @@
 </li>
 
 <li class="nav-header"><a href="../../../../../tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
-    <li class="tag-4">
-        <a href="../../../../../tag/yong-sai-kong-zhi.html">
-            <i class="icon-tag icon-large"></i>拥塞控制
-        </a>
-    </li>
     <li class="tag-1">
         <a href="../../../../../tag/suan-fa.html">
             <i class="icon-tag icon-large"></i>算法
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/duo-xian-cheng.html">
-            <i class="icon-tag icon-large"></i>多线程
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/zhi-li.html">
-            <i class="icon-tag icon-large"></i>智力
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/xiang-mu.html">
-            <i class="icon-tag icon-large"></i>项目
         </a>
     </li>
     <li class="tag-1">
@@ -232,9 +333,29 @@
             <i class="icon-tag icon-large"></i>Python
         </a>
     </li>
+    <li class="tag-4">
+        <a href="../../../../../tag/duo-xian-cheng.html">
+            <i class="icon-tag icon-large"></i>多线程
+        </a>
+    </li>
     <li class="tag-2">
         <a href="../../../../../tag/cao-zuo-xi-tong.html">
             <i class="icon-tag icon-large"></i>操作系统
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../../../../../tag/yong-sai-kong-zhi.html">
+            <i class="icon-tag icon-large"></i>拥塞控制
+        </a>
+    </li>
+    <li class="tag-2">
+        <a href="../../../../../tag/tcp.html">
+            <i class="icon-tag icon-large"></i>TCP
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../../../../../tag/zhi-li.html">
+            <i class="icon-tag icon-large"></i>智力
         </a>
     </li>
     <li class="tag-4">
@@ -247,9 +368,9 @@
             <i class="icon-tag icon-large"></i>C
         </a>
     </li>
-    <li class="tag-2">
-        <a href="../../../../../tag/tcp.html">
-            <i class="icon-tag icon-large"></i>TCP
+    <li class="tag-4">
+        <a href="../../../../../tag/xiang-mu.html">
+            <i class="icon-tag icon-large"></i>项目
         </a>
     </li>
 
