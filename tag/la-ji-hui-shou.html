@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="google-site-verification" content="fdZTDVFyX3hKovPIzn1tgPixk_wysBXaPN8YQw1P8Jw" />
-    <title>Change the World | Write the Code</title>
+    <title>Write the Code - 垃圾回收 | Write the Code</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="keywords" content="" />
     <meta name="author" content="ChaoJun Hou" />
@@ -11,7 +11,7 @@
     <meta name="kittycheck_position" content="top=60,right=60" />
 
     <!-- Le styles -->
-    <link rel="stylesheet" href="./theme/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../theme/css/bootstrap.min.css" type="text/css" />
     <style type="text/css">
       body {
         padding-top: 60px;
@@ -33,9 +33,9 @@
         font-size: 6pt;
      }
     </style>
-    <link href="./theme/css/bootstrap-responsive.min.css" rel="stylesheet">
-    <link href="./theme/css/font-awesome.css" rel="stylesheet">
-    <link href="./theme/css/pygments.css" rel="stylesheet">
+    <link href="../theme/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="../theme/css/font-awesome.css" rel="stylesheet">
+    <link href="../theme/css/pygments.css" rel="stylesheet">
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -43,12 +43,12 @@
     <![endif]-->
 
     <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="./theme/img/favicon.ico">
-    <link rel="apple-touch-icon" href="./theme/img/apple-touch-icon.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="./theme/img/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="./theme/img/apple-touch-icon-114x114.png">
+    <link rel="shortcut icon" href="../theme/img/favicon.ico">
+    <link rel="apple-touch-icon" href="../theme/img/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="../theme/img/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="../theme/img/apple-touch-icon-114x114.png">
 
-    <link href="./" type="application/atom+xml" rel="alternate" title="Write the Code ATOM Feed" />
+    <link href="../" type="application/atom+xml" rel="alternate" title="Write the Code ATOM Feed" />
   </head>
   <body>
     <div class="navbar navbar-fixed-top">
@@ -59,19 +59,19 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="./index.html">Write the Code </a>
+          <a class="brand" href="../index.html">Write the Code </a>
           <div class="nav-collapse">
             <ul class="nav">
-                <li ><a href="./pages/About.html">关于</a></li>
+                <li ><a href="../pages/About.html">关于</a></li>
                 <li class="divider-vertical"></li>
                 <li >
-                  <a href="./category/bian-cheng.html">
+                  <a href="../category/bian-cheng.html">
 						        <i class="icon-folder-open icon-large"></i>编程
 					         </a>
                 </li>
                  <li class="divider-vertical"></li>
                 <li >
-                  <a href="./category/ji-suan-ji-ke-xue.html">
+                  <a href="../category/ji-suan-ji-ke-xue.html">
 						        <i class="icon-folder-open icon-large"></i>计算机科学
 					         </a>
                 </li>
@@ -82,7 +82,7 @@
                     <li class="divider-vertical"></li>
               </ul>
               <ul class="nav">
-                    <li><a href="./archives.html"><i class="icon-th-list"></i>归档</a></li>
+                    <li><a href="../archives.html"><i class="icon-th-list"></i>归档</a></li>
                     <li class="divider-vertical"></li>
               </ul>
 
@@ -116,38 +116,21 @@
 <div class="row">
     <div class="span2">
         <div class="well small"><footer class="post-info">
-<abbr class="published" title="2013-12-03T10:20:00+08:00">
-    <i class="icon-calendar"></i>&nbsp;周二 03 十二月 2013
+<abbr class="published" title="2015-05-10T20:59:00+08:00">
+    <i class="icon-calendar"></i>&nbsp;周日 10 五月 2015
 </abbr>
-<br/><a href="./author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
+<br/><a href="../author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
 
 
 <br/>
-	&nbsp;&nbsp;<a href="./tag/c.html" class="label"><i class="icon-tag"></i>&nbsp;C</a>
+	&nbsp;&nbsp;<a href="../tag/la-ji-hui-shou.html" class="label"><i class="icon-tag"></i>&nbsp;垃圾回收</a>
 </footer><!-- /.post-info --></div>
     </div>
     <div class="span6">
         <div class="article well">
-            <h1><a href="./blog/2013/12/03/thanks-for-the-memory/">Thanks for the memory</a></h1>
-            <div class="summary"><ul>
-<li>虚拟内存通过<em>Page</em>的形式组织。Pages就是操作系统用于内存和磁盘之间移动或者进行保护的单位。Page in，Page out。磁盘上有个特殊的交换区来与内存进行交换。</li>
-<li>进程只能操作位于屋里内存中的页面。</li>
-</ul>
-<div class="highlight"><pre><span class="code-line"><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span></span>
-<span class="code-line"><span class="k">while</span><span class="p">(</span><span class="n">malloc</span><span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">20</span><span class="p">))</span> <span class="o">++</span><span class="n">i</span><span class="p">;</span> <span class="c1">// to see the memory available in this process.</span></span>
-<span class="code-line"><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Allocated %d MB total </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">i</span><span class="p">);</span></span>
-</pre></div>
-
-
-<ul>
-<li>cache<ul>
-<li>cache 的类型<ul>
-<li>write-through cache : 每次写入cache时同时写入到内存，保持内存与cache的一致性。</li>
-<li>write-back cache ： 当第一次写入时，只写入cache。如果已经写入过的cache行再次需要写入时，此时第一次写入的结果尚未保存，所以要先把它写入到内存中。当内存切换进程时，cache中所有的数据都要先写入到内存中。</li>
-</ul>
-</li>
-<li>line： 内存读取以行 ...</li></ul></li></ul>
-                <a class="btn btn-small" href="./blog/2013/12/03/thanks-for-the-memory/">more ...</a>
+            <h1><a href="../blog/2015/05/10/garbage-collection-in-python/">Python中的垃圾回收机制</a></h1>
+            <div class="summary"><p>Python采用了最常用的引用计数来跟踪和回收垃圾。在引用计数的基础上，通过标记清除解决容器对象可能产生的循环引用问题，通过分代回收以空间换时间的方法提高垃圾回收效率。</p>
+                <a class="btn btn-small" href="../blog/2015/05/10/garbage-collection-in-python/">more ...</a>
             </div>
         </div>
     </div>
@@ -156,15 +139,6 @@
     </div>
 
 <div class="span6">
-<div class="pagination">
-<ul>
-        <li class="prev"><a href="./index2.html">&larr; Previous</a></li>
-        <li class=""><a href="./index.html">1</a></li>
-        <li class=""><a href="./index2.html">2</a></li>
-        <li class="active"><a href="./index3.html">3</a></li>
-        <li class="next disabled"><a href="#">&rarr; Next</a></li>
-</ul>
-</div>
 </div>
 </div>
         </div><!--/span-->
@@ -174,86 +148,86 @@
     <li><div><i class="icon-external-link"></i><a href="http://www.rudy-yuan.net/">Rudy-yuan</a></div></li>
     <li><div><i class="icon-external-link"></i><a href="http://www.wengweitao.com">WWT</a></div></li>
 <li class="nav-header"><h4><i class="icon-home icon-large"></i> social</h4></li>
-<li><a href="./" rel="alternate"><i class="icon-bookmark icon-large"></i>atom feed</a></li>
+<li><a href="../" rel="alternate"><i class="icon-bookmark icon-large"></i>atom feed</a></li>
     <li><a href="https://twitter.com/chaojunhou"><i class="icon-Twitter-sign icon-large"></i>Twitter</a></li>
     <li><a href="https://www.tumblr.com/blog/houcj"><i class="icon-Tumblr-sign icon-large"></i>Tumblr</a></li>
     <li><a href="https://github.com/chaojunhou"><i class="icon-Github-sign icon-large"></i>Github</a></li>
 
 <li class="nav-header"><h4><i class="icon-folder-close icon-large"></i>Categories</h4></li>
 <li>
-<a href="./category/bian-cheng.html">
+<a href="../category/bian-cheng.html">
     <i class="icon-folder-open icon-large"></i>编程
 </a>
 </li>
 <li>
-<a href="./category/ji-suan-ji-ke-xue.html">
+<a href="../category/ji-suan-ji-ke-xue.html">
     <i class="icon-folder-open icon-large"></i>计算机科学
 </a>
 </li>
 
-<li class="nav-header"><a href="./tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
+<li class="nav-header"><a href="../tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
     <li class="tag-1">
-        <a href="./tag/suan-fa.html">
+        <a href="../tag/suan-fa.html">
             <i class="icon-tag icon-large"></i>算法
         </a>
     </li>
     <li class="tag-2">
-        <a href="./tag/tcp.html">
+        <a href="../tag/tcp.html">
             <i class="icon-tag icon-large"></i>TCP
         </a>
     </li>
     <li class="tag-4">
-        <a href="./tag/yong-sai-kong-zhi.html">
+        <a href="../tag/yong-sai-kong-zhi.html">
             <i class="icon-tag icon-large"></i>拥塞控制
         </a>
     </li>
     <li class="tag-1">
-        <a href="./tag/c.html">
+        <a href="../tag/c.html">
             <i class="icon-tag icon-large"></i>C
         </a>
     </li>
     <li class="tag-4">
-        <a href="./tag/la-ji-hui-shou.html">
+        <a href="../tag/la-ji-hui-shou.html">
             <i class="icon-tag icon-large"></i>垃圾回收
         </a>
     </li>
     <li class="tag-4">
-        <a href="./tag/bian-cheng-yu-yan.html">
+        <a href="../tag/bian-cheng-yu-yan.html">
             <i class="icon-tag icon-large"></i>编程语言
         </a>
     </li>
     <li class="tag-4">
-        <a href="./tag/shu-dan.html">
+        <a href="../tag/shu-dan.html">
             <i class="icon-tag icon-large"></i>书单
         </a>
     </li>
     <li class="tag-1">
-        <a href="./tag/python.html">
+        <a href="../tag/python.html">
             <i class="icon-tag icon-large"></i>Python
         </a>
     </li>
     <li class="tag-4">
-        <a href="./tag/duo-xian-cheng.html">
+        <a href="../tag/duo-xian-cheng.html">
             <i class="icon-tag icon-large"></i>多线程
         </a>
     </li>
     <li class="tag-4">
-        <a href="./tag/xiang-mu.html">
+        <a href="../tag/xiang-mu.html">
             <i class="icon-tag icon-large"></i>项目
         </a>
     </li>
     <li class="tag-4">
-        <a href="./tag/zhi-li.html">
+        <a href="../tag/zhi-li.html">
             <i class="icon-tag icon-large"></i>智力
         </a>
     </li>
     <li class="tag-2">
-        <a href="./tag/cao-zuo-xi-tong.html">
+        <a href="../tag/cao-zuo-xi-tong.html">
             <i class="icon-tag icon-large"></i>操作系统
         </a>
     </li>
     <li class="tag-4">
-        <a href="./tag/shu-ju-jie-gou.html">
+        <a href="../tag/shu-ju-jie-gou.html">
             <i class="icon-tag icon-large"></i>数据结构
         </a>
     </li>
@@ -282,8 +256,8 @@
 
     <!-- Le javascript -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="./theme/js/jquery-1.7.2.min.js"></script>
-    <script src="./theme/js/bootstrap.min.js"></script>
+    <script src="../theme/js/jquery-1.7.2.min.js"></script>
+    <script src="../theme/js/bootstrap.min.js"></script>
   <!-- Baidu Button BEGIN -->
 <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"6","bdPos":"right","bdTop":"250"},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
  <!-- Baidu Button END -->

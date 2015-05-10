@@ -116,6 +116,52 @@
 <div class="row">
     <div class="span2">
         <div class="well small"><footer class="post-info">
+<abbr class="published" title="2015-05-10T20:59:00+08:00">
+    <i class="icon-calendar"></i>&nbsp;周日 10 五月 2015
+</abbr>
+<br/><a href="../author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
+
+
+<br/>
+	&nbsp;&nbsp;<a href="../tag/la-ji-hui-shou.html" class="label"><i class="icon-tag"></i>&nbsp;垃圾回收</a>
+</footer><!-- /.post-info --></div>
+    </div>
+    <div class="span6">
+        <div class="article well">
+            <h1><a href="../blog/2015/05/10/garbage-collection-in-python/">Python中的垃圾回收机制</a></h1>
+            <div class="summary"><p>Python采用了最常用的引用计数来跟踪和回收垃圾。在引用计数的基础上，通过标记清除解决容器对象可能产生的循环引用问题，通过分代回收以空间换时间的方法提高垃圾回收效率。</p>
+                <a class="btn btn-small" href="../blog/2015/05/10/garbage-collection-in-python/">more ...</a>
+            </div>
+        </div>
+    </div>
+    <div class="span8">
+        <hr />
+    </div>
+    <div class="span2">
+        <div class="well small"><footer class="post-info">
+<abbr class="published" title="2015-05-10T00:00:00+08:00">
+    <i class="icon-calendar"></i>&nbsp;周日 10 五月 2015
+</abbr>
+<br/><a href="../author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
+
+
+<br/>
+	&nbsp;&nbsp;<a href="../tag/bian-cheng-yu-yan.html" class="label"><i class="icon-tag"></i>&nbsp;编程语言</a>
+</footer><!-- /.post-info --></div>
+    </div>
+    <div class="span6">
+        <div class="article well">
+            <h1><a href="../blog/2015/05/10/programming-language/">编程语言中的基本概念</a></h1>
+            <div class="summary"><p>无论使用什么编程语言，生产一条基本语句所需要的工数几乎是一定的。</p>
+                <a class="btn btn-small" href="../blog/2015/05/10/programming-language/">more ...</a>
+            </div>
+        </div>
+    </div>
+    <div class="span8">
+        <hr />
+    </div>
+    <div class="span2">
+        <div class="well small"><footer class="post-info">
 <abbr class="published" title="2015-05-01T19:15:00+08:00">
     <i class="icon-calendar"></i>&nbsp;周五 01 五月 2015
 </abbr>
@@ -224,6 +270,43 @@ or -1 if needle is not part of haystack.</p>
 <span class="code-line">    <span class="n">m</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">needle</span><span class="p">)</span></span>
 <span class="code-line">    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range ...</span></span></pre></div>
                 <a class="btn btn-small" href="../blog/2014/03/21/kmp/">more ...</a>
+            </div>
+        </div>
+    </div>
+    <div class="span8">
+        <hr />
+    </div>
+    <div class="span2">
+        <div class="well small"><footer class="post-info">
+<abbr class="published" title="2014-02-13T00:00:00+08:00">
+    <i class="icon-calendar"></i>&nbsp;周四 13 二月 2014
+</abbr>
+<br/><a href="../author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
+
+
+<br/>
+	&nbsp;&nbsp;<a href="../tag/shu-ju-jie-gou.html" class="label"><i class="icon-tag"></i>&nbsp;数据结构</a>
+</footer><!-- /.post-info --></div>
+    </div>
+    <div class="span6">
+        <div class="article well">
+            <h1><a href="../blog/2014/02/13/trie-lru/">有用的数据结构</a></h1>
+            <div class="summary"><hr />
+<h2>Trie (前缀树)</h2>
+<h3>Implement Trie (Prefix Tree)</h3>
+<hr />
+<blockquote>
+<p>Implement a trie with insert, search, and startsWith methods.</p>
+<p><strong>Note:</strong></p>
+<p>You may assume that all inputs are consist of lowercase letters a-z.</p>
+</blockquote>
+<h3>分析</h3>
+<p><a href="http://zh.wikipedia.org/wiki/Trie">Trie</a>，又称前缀树或字典树，是一种有序树，用于保存关联数组，
+其中的键通常是字符串，键不是直接保存在节点中，而是由节点在树中的位置决定。一个节点的所有子孙都有相同的前缀，也就是这个节点对应的字符串，而根节点对应空字符串。一般情况下，不是所有的节点都有对应的值，只有叶子节点和部分内部节点所对应的键才有相关的值。
+一个节点的所有子孙都有相同的前缀，也就是这个节点对应的空字符串，而根节点对应空字符串。</p>
+<p>由于Python是强类型语言，不支持隐式类型转换，因此使用字典来存储效果更好。</p>
+<h3>Python Code ...</h3>
+                <a class="btn btn-small" href="../blog/2014/02/13/trie-lru/">more ...</a>
             </div>
         </div>
     </div>
@@ -368,39 +451,34 @@ For "bbbbb" the longest substring is "b", with the length of 1.</p>
 </li>
 
 <li class="nav-header"><a href="../tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
+    <li class="tag-1">
+        <a href="../tag/suan-fa.html">
+            <i class="icon-tag icon-large"></i>算法
+        </a>
+    </li>
+    <li class="tag-2">
+        <a href="../tag/tcp.html">
+            <i class="icon-tag icon-large"></i>TCP
+        </a>
+    </li>
     <li class="tag-4">
         <a href="../tag/yong-sai-kong-zhi.html">
             <i class="icon-tag icon-large"></i>拥塞控制
         </a>
     </li>
     <li class="tag-1">
-        <a href="../tag/suan-fa.html">
-            <i class="icon-tag icon-large"></i>算法
+        <a href="../tag/c.html">
+            <i class="icon-tag icon-large"></i>C
         </a>
     </li>
     <li class="tag-4">
-        <a href="../tag/duo-xian-cheng.html">
-            <i class="icon-tag icon-large"></i>多线程
+        <a href="../tag/la-ji-hui-shou.html">
+            <i class="icon-tag icon-large"></i>垃圾回收
         </a>
     </li>
     <li class="tag-4">
-        <a href="../tag/zhi-li.html">
-            <i class="icon-tag icon-large"></i>智力
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../tag/xiang-mu.html">
-            <i class="icon-tag icon-large"></i>项目
-        </a>
-    </li>
-    <li class="tag-1">
-        <a href="../tag/python.html">
-            <i class="icon-tag icon-large"></i>Python
-        </a>
-    </li>
-    <li class="tag-2">
-        <a href="../tag/cao-zuo-xi-tong.html">
-            <i class="icon-tag icon-large"></i>操作系统
+        <a href="../tag/bian-cheng-yu-yan.html">
+            <i class="icon-tag icon-large"></i>编程语言
         </a>
     </li>
     <li class="tag-4">
@@ -409,13 +487,33 @@ For "bbbbb" the longest substring is "b", with the length of 1.</p>
         </a>
     </li>
     <li class="tag-1">
-        <a href="../tag/c.html">
-            <i class="icon-tag icon-large"></i>C
+        <a href="../tag/python.html">
+            <i class="icon-tag icon-large"></i>Python
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../tag/duo-xian-cheng.html">
+            <i class="icon-tag icon-large"></i>多线程
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../tag/xiang-mu.html">
+            <i class="icon-tag icon-large"></i>项目
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../tag/zhi-li.html">
+            <i class="icon-tag icon-large"></i>智力
         </a>
     </li>
     <li class="tag-2">
-        <a href="../tag/tcp.html">
-            <i class="icon-tag icon-large"></i>TCP
+        <a href="../tag/cao-zuo-xi-tong.html">
+            <i class="icon-tag icon-large"></i>操作系统
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../tag/shu-ju-jie-gou.html">
+            <i class="icon-tag icon-large"></i>数据结构
         </a>
     </li>
 

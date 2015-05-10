@@ -116,6 +116,52 @@
 <div class="row">
     <div class="span2">
         <div class="well small"><footer class="post-info">
+<abbr class="published" title="2015-05-10T20:59:00+08:00">
+    <i class="icon-calendar"></i>&nbsp;周日 10 五月 2015
+</abbr>
+<br/><a href="./author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
+
+
+<br/>
+	&nbsp;&nbsp;<a href="./tag/la-ji-hui-shou.html" class="label"><i class="icon-tag"></i>&nbsp;垃圾回收</a>
+</footer><!-- /.post-info --></div>
+    </div>
+    <div class="span6">
+        <div class="article well">
+            <h1><a href="./blog/2015/05/10/garbage-collection-in-python/">Python中的垃圾回收机制</a></h1>
+            <div class="summary"><p>Python采用了最常用的引用计数来跟踪和回收垃圾。在引用计数的基础上，通过标记清除解决容器对象可能产生的循环引用问题，通过分代回收以空间换时间的方法提高垃圾回收效率。</p>
+                <a class="btn btn-small" href="./blog/2015/05/10/garbage-collection-in-python/">more ...</a>
+            </div>
+        </div>
+    </div>
+    <div class="span8">
+        <hr />
+    </div>
+    <div class="span2">
+        <div class="well small"><footer class="post-info">
+<abbr class="published" title="2015-05-10T00:00:00+08:00">
+    <i class="icon-calendar"></i>&nbsp;周日 10 五月 2015
+</abbr>
+<br/><a href="./author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
+
+
+<br/>
+	&nbsp;&nbsp;<a href="./tag/bian-cheng-yu-yan.html" class="label"><i class="icon-tag"></i>&nbsp;编程语言</a>
+</footer><!-- /.post-info --></div>
+    </div>
+    <div class="span6">
+        <div class="article well">
+            <h1><a href="./blog/2015/05/10/programming-language/">编程语言中的基本概念</a></h1>
+            <div class="summary"><p>无论使用什么编程语言，生产一条基本语句所需要的工数几乎是一定的。</p>
+                <a class="btn btn-small" href="./blog/2015/05/10/programming-language/">more ...</a>
+            </div>
+        </div>
+    </div>
+    <div class="span8">
+        <hr />
+    </div>
+    <div class="span2">
+        <div class="well small"><footer class="post-info">
 <abbr class="published" title="2015-05-08T13:50:00+08:00">
     <i class="icon-calendar"></i>&nbsp;周五 08 五月 2015
 </abbr>
@@ -407,101 +453,6 @@ Count the number of prime numbers less than a non-negative number, n</p>
     <div class="span8">
         <hr />
     </div>
-    <div class="span2">
-        <div class="well small"><footer class="post-info">
-<abbr class="published" title="2015-04-01T16:09:00+08:00">
-    <i class="icon-calendar"></i>&nbsp;周三 01 四月 2015
-</abbr>
-<br/><a href="./author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
-
-
-<br/>
-	&nbsp;&nbsp;<a href="./tag/python.html" class="label"><i class="icon-tag"></i>&nbsp;Python</a>
-</footer><!-- /.post-info --></div>
-    </div>
-    <div class="span6">
-        <div class="article well">
-            <h1><a href="./blog/2015/04/01/life-is-short-use-python/">人生苦短我用Python</a></h1>
-            <div class="summary"><blockquote>
-<p>Programs must be written for people to read, and only incidentally for machines to execute.                                         <br />
-  —   Abelson &amp; Sussman, Structure and Interpretation of Computer Programs </p>
-</blockquote>
-<h2>1. 交换变量</h2>
-<p>一般交换变量有以下三种方法：</p>
-<ul>
-<li>最常用的，就是设置一个临时变量</li>
-</ul>
-<div class="highlight"><pre><span class="code-line"><span class="n">temp</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span></span>
-<span class="code-line"><span class="n">x</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span></span>
-<span class="code-line"><span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span></span>
-</pre></div>
-
-
-<p>这种方法在python中可以更优雅的表示，而且效率更高。</p>
-<div class="highlight"><pre><span class="code-line"><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span></span>
-</pre></div>
-
-
-<ul>
-<li>不增加临时变量使用加法</li>
-</ul>
-<div class="highlight"><pre><span class="code-line"><span class="n">b</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span></span>
-<span class="code-line"><span class="n">a</span> <span class="o">=</span> <span class="n">b</span> <span class="o">-</span> <span class="n">a</span> <span class="c"># a = a + b ...</span></span></pre></div>
-                <a class="btn btn-small" href="./blog/2015/04/01/life-is-short-use-python/">more ...</a>
-            </div>
-        </div>
-    </div>
-    <div class="span8">
-        <hr />
-    </div>
-    <div class="span2">
-        <div class="well small"><footer class="post-info">
-<abbr class="published" title="2015-03-27T23:07:00+08:00">
-    <i class="icon-calendar"></i>&nbsp;周五 27 三月 2015
-</abbr>
-<br/><a href="./author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
-
-
-<br/>
-	&nbsp;&nbsp;<a href="./tag/c.html" class="label"><i class="icon-tag"></i>&nbsp;C</a>
-</footer><!-- /.post-info --></div>
-    </div>
-    <div class="span6">
-        <div class="article well">
-            <h1><a href="./blog/2015/03/27/link-and-preprocess/">链接和预编译</a></h1>
-            <div class="summary"><h1>链接</h1>
-<p>C++中允许重载方法，这些方法在源代码中有相同的名字，却有不同的函数列表。编译器讲每个唯一的方法和参数列表组合编码成一个对链接器来说唯一的名字。这个编码过程叫做mangling。</p>
-<p><img src="/images/elf.png" class="img-responsive" alt="ELF" align=center /></p>
-<h2>链接器如何解析多重定义的全局符号</h2>
-<p>函数和已初始化的全局变量是强符号，未初始化的全局变量是弱符号。
-Unix链接器使用下面的规则来处理多重定义的符号：</p>
-<ul>
-<li>不允许有多个强符号。</li>
-<li>如果有一个强符号和一个弱符号，那么选择强符号</li>
-<li>如果有多个弱符号，那么从这些弱符号中任意选择一个</li>
-</ul>
-<p><strong>在命令行中，如果定义一个符号的库出现在引用这个符号的目标文件之前，那么引用就不能被解析，连接会失败</strong></p>
-<p>加载器（loader）将可执行目标文件的代码和数据从磁盘拷到内存中，然后跳转到程序的第一条指令或入口点来运行程序。这个将程序拷贝到内存并运行的过程叫做加载。</p>
-<p><strong>无论我们在存储器中的何处加载一个目标模块，数据段总是分配成紧随代码段后面。因此，代码段中任何指令和数据段中任何一个变量之间的距离都是一个运行时常量，和代码段和数据段的绝对的存储位置无关</strong></p>
-<p>链接器的两个主要任务是符号解析和重定位</p>
-<ul>
-<li><strong>符号解析</strong>讲姆讲目标文件中的每个全局符号都绑定到一个唯一的定义</li>
-<li><strong>重定位</strong>确定每个符号的最终在内存中的位置，并修改对那些目标的引用。       </li>
-</ul>
-<h2>链接器</h2>
-<ul>
-<li>分别编译：即若干个源程序可以在不同的时候单独进行编译，然后在恰当的时候将它们整合到一起。但是，链接器一般是与C编译器分离的。</li>
-<li>链接器通常把由编译器或汇编器生成的若干个目标模块整合成一个被称为载入模块或可执行文件的实体，该实体能够被操作系统直接执行。</li>
-<li>链接器通常把目标模块看成是由一组外部对象组成。每个外部对象代表机器内存中的某个部分，并通过一个外部名称来识别。</li>
-<li>exit函数和return函数的主要区别是：<ul>
-<li>exit用于在程序运行的过程中随时结束程序，exit的参数返回给操作系统 ...</li></ul></li></ul>
-                <a class="btn btn-small" href="./blog/2015/03/27/link-and-preprocess/">more ...</a>
-            </div>
-        </div>
-    </div>
-    <div class="span8">
-        <hr />
-    </div>
 
 <div class="span6">
 <div class="pagination">
@@ -509,6 +460,7 @@ Unix链接器使用下面的规则来处理多重定义的符号：</p>
         <li class="prev disabled"><a href="#">&larr; Previous</a></li>
         <li class="active"><a href="./index.html">1</a></li>
         <li class=""><a href="./index2.html">2</a></li>
+        <li class=""><a href="./index3.html">3</a></li>
         <li class="next"><a href="./index2.html">Next &rarr;</a></li>
 </ul>
 </div>
@@ -539,39 +491,34 @@ Unix链接器使用下面的规则来处理多重定义的符号：</p>
 </li>
 
 <li class="nav-header"><a href="./tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
+    <li class="tag-1">
+        <a href="./tag/suan-fa.html">
+            <i class="icon-tag icon-large"></i>算法
+        </a>
+    </li>
+    <li class="tag-2">
+        <a href="./tag/tcp.html">
+            <i class="icon-tag icon-large"></i>TCP
+        </a>
+    </li>
     <li class="tag-4">
         <a href="./tag/yong-sai-kong-zhi.html">
             <i class="icon-tag icon-large"></i>拥塞控制
         </a>
     </li>
     <li class="tag-1">
-        <a href="./tag/suan-fa.html">
-            <i class="icon-tag icon-large"></i>算法
+        <a href="./tag/c.html">
+            <i class="icon-tag icon-large"></i>C
         </a>
     </li>
     <li class="tag-4">
-        <a href="./tag/duo-xian-cheng.html">
-            <i class="icon-tag icon-large"></i>多线程
+        <a href="./tag/la-ji-hui-shou.html">
+            <i class="icon-tag icon-large"></i>垃圾回收
         </a>
     </li>
     <li class="tag-4">
-        <a href="./tag/zhi-li.html">
-            <i class="icon-tag icon-large"></i>智力
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="./tag/xiang-mu.html">
-            <i class="icon-tag icon-large"></i>项目
-        </a>
-    </li>
-    <li class="tag-1">
-        <a href="./tag/python.html">
-            <i class="icon-tag icon-large"></i>Python
-        </a>
-    </li>
-    <li class="tag-2">
-        <a href="./tag/cao-zuo-xi-tong.html">
-            <i class="icon-tag icon-large"></i>操作系统
+        <a href="./tag/bian-cheng-yu-yan.html">
+            <i class="icon-tag icon-large"></i>编程语言
         </a>
     </li>
     <li class="tag-4">
@@ -580,13 +527,33 @@ Unix链接器使用下面的规则来处理多重定义的符号：</p>
         </a>
     </li>
     <li class="tag-1">
-        <a href="./tag/c.html">
-            <i class="icon-tag icon-large"></i>C
+        <a href="./tag/python.html">
+            <i class="icon-tag icon-large"></i>Python
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="./tag/duo-xian-cheng.html">
+            <i class="icon-tag icon-large"></i>多线程
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="./tag/xiang-mu.html">
+            <i class="icon-tag icon-large"></i>项目
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="./tag/zhi-li.html">
+            <i class="icon-tag icon-large"></i>智力
         </a>
     </li>
     <li class="tag-2">
-        <a href="./tag/tcp.html">
-            <i class="icon-tag icon-large"></i>TCP
+        <a href="./tag/cao-zuo-xi-tong.html">
+            <i class="icon-tag icon-large"></i>操作系统
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="./tag/shu-ju-jie-gou.html">
+            <i class="icon-tag icon-large"></i>数据结构
         </a>
     </li>
 
