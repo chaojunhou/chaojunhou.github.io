@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="google-site-verification" content="fdZTDVFyX3hKovPIzn1tgPixk_wysBXaPN8YQw1P8Jw" />
-    <title>TCP Congestion Control 中的相关参数 | Write the Code</title>
+    <title>编程语言中的基本概念 | Write the Code</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="keywords" content="" />
     <meta name="author" content="ChaoJun Hou" />
@@ -117,15 +117,14 @@
     <div class="span2">
         <div class="well">
 <footer class="post-info">
-<abbr class="published" title="2013-12-15T00:00:00+08:00">
-    <i class="icon-calendar"></i>&nbsp;周日 15 十二月 2013
+<abbr class="published" title="2015-05-09T00:00:00+08:00">
+    <i class="icon-calendar"></i>&nbsp;周六 09 五月 2015
 </abbr>
 <br/><a href="../../../../../author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
 
 
 <br/>
-	&nbsp;&nbsp;<a href="../../../../../tag/tcp.html" class="label"><i class="icon-tag"></i>&nbsp;TCP</a>
-	&nbsp;&nbsp;<a href="../../../../../tag/yong-sai-kong-zhi.html" class="label"><i class="icon-tag"></i>&nbsp;拥塞控制</a>
+	&nbsp;&nbsp;<a href="../../../../../tag/bian-cheng-yu-yan.html" class="label"><i class="icon-tag"></i>&nbsp;编程语言</a>
 </footer><!-- /.post-info -->        </div>
     </div>
     <div class="span6">
@@ -135,35 +134,86 @@
             <h1>
                 <a href=""
                         rel="bookmark"
-                        title="Permalink to TCP Congestion Control 中的相关参数">
-                        TCP Congestion Control 中的相关参数
+                        title="Permalink to 编程语言中的基本概念">
+                        编程语言中的基本概念
                 </a>
             </h1>
         </header>
         <div class="entry-content">
 
-        <ul>
-<li>流量控制（Flow control） End-to-End,防止发送方速率过大，接收方来不及处理发送方的数据。- -</li>
-<li>拥塞控制（Congestion control） 到达子网中某一部分的分组数量过多，中间路由缓存分组，queueing，造成RTT增加。反应网络整体状况</li>
-<li>滑动窗口（Sliding Window） 位于发送方，由接收方的通告窗口（Advertised-Window）决定。接收方通过通告窗口告诉发送方自己还有多少buffer可以接收数据。</li>
-<li>通告窗口（Advertised-Window） 接收方使用流量控制的方式</li>
-<li>
-<p>拥塞窗口（Congestion Window） 拥塞窗口的大小指能够发出，但还没有收ACK的最大数据报文段。Linux 3.0 把CWND初始化10个MSS。发送方使用流量控制的方式。发送方取拥塞窗口与通告窗口中的最小值作为发送上限</p>
-</li>
-<li>
-<p>慢启动（Slow Start） 每个ACK，CWND增加一个报文段（CWND以字节为单位，一报文段为单位进行线性增加）
-报文段（Segment） 传输层分组称为报文段，是TCP</p>
-</li>
-<li>MSS（Maximum Segment Size ） vs MTU(Maximum Transmission Unit) 在以太网中，MSS最大值为1460（20字节的IP header和20字节的TCP header），MTU的值为1500字节。MSS用于控制发送数据的长度，避免以较小MTU连接到网络上的主机产生分组</li>
-<li>往返时延(Round-Trip Time ) 表示从发送端发送数据开始，到发送端收到来自接收端的ACK，总共经历的时延，由传播时延，传输时延，排队时延（Queuing Delay），节点处理时延决定（Node processing Dela y）。可以反应网络的拥塞状况</li>
-<li>传输时延（Transmission Delay），传播时延（Transmission Delay） 传输时延=L/R，L，表示分组长度，R，表示链路传输速率(带宽)。传播时延=d/s，d，表示两段的实际物力距离，s一般等于小于光速</li>
+        <hr />
+<blockquote>
+<p>无论使用什么编程语言，生产一条基本语句所需要的工数几乎是一定的。</p>
+<p>—弗雷德里克·布鲁克斯</p>
+</blockquote>
+<hr />
+<h2>特定领域语言(Domain Specific Language)</h2>
+<p>指利用为特定领域所专门设计的词汇和语法，简化程序设计过程，提高
+生产效率的技术。</p>
+<h3>优点</h3>
+<p>可以直接使用其对象领域中的概念，集中描述"what"部分，而不必对"how"
+进行描述。</p>
+<hr />
+<h3>外部DSL</h3>
+<p>像这些迷你语言为代表的，由专用的语言引擎来实现的DSL，称为外部DSL。</p>
+<p><strong>XML、SQL、正则表达式就是典型的外部DSL</strong></p>
+<h3>内部DSL</h3>
+<p>内部DSL是在现在语言中实现DSL，而作为DSL基础的这种现有语言，称为数组语言。</p>
+<hr />
+<p><strong>外部DSL是从UNIX脱胎发展而来的，而内部DSL则是发源于Lisp和Smalltalk</strong></p>
+<hr />
+<blockquote>
+<p>Programming is a process of designing DSL for your own application</p>
+<p>—— 大卫·托马斯</p>
+</blockquote>
+<hr />
+<h3>DSL设计的构成要素</h3>
+<ul>
+<li>上下文（Context）</li>
+<li>语句  （Sentence）</li>
+<li>单位 （Unit）</li>
+<li>词汇 （Vocabulary）</li>
+<li>层次结构 （Hierarchy）</li>
+</ul>
+<h2>元编程</h2>
+<p>所谓元编程就是用程序来编写程序。在Ruby和Python这样的语言中，由于程序本身的信息是可以被访问的，
+因此在程序运行中也可以对程序本身进行操作，这就是元编程。</p>
+<h3>反射</h3>
+<p>在C++中，一个对象是知道自己的数据类型的，
+通过这个信息，可以在调用虚拟成员函数时，选择与自己的类型相匹配的函数。
+像这样获取和变更程序本身信息的功能，被称为反射（Reflection）。</p>
+<h2>闭包</h2>
+<p>在函数对象中，将局部变量这一环境封闭起来的结构被称为闭包。</p>
+<ul>
+<li>对象：在数据中以方法的形式包含了过程</li>
+<li>闭包：在过程中以环境的形式包含了数据</li>
+</ul>
+<h2>动态运行</h2>
+<p>就是在运行后总的程序能够识别自身，并对自身进行操作。而程序对自身操作的编程也被称为元编程。</p>
+<h2>鸭子类型(Duck Typing)</h2>
+<p>不考虑某个对象到底是哪个类的实例，而只关心它拥有哪些方法，这就是鸭子类型。</p>
+<h3>结构子类型(Structuaral Subtyping)</h3>
+<p>以类型的结构来确定可代换性的类型关系，被称为结构子类型。</p>
+<h3>名义子类型 (Nominal Subtyping)</h3>
+<p>像Java这样根据声明拥有继承关系的类型具有可代换性的类型关系，被称为名义子类型。</p>
+<hr />
+<h2>非强制静态类型</h2>
+<p>在Dart中，没有指定类型的变量和表达式会被当做Dynamic型，其类型检查在运行时完成。</p>
+<h2>提高动态语言速度的三种技术</h2>
+<ul>
+<li>JIT(Just In Time Compiler)，指的是在程序运行时将其编译为机器语言的技术。由于编译为机器语言的程序可以以CPU原本的
+速度来运行，因此能够克服解释器所带来的劣势。</li>
+<li>特殊化，指的是一种在将函数转换为内部表达时所需用的技术。通常假定参数为特殊类型，
+事先准备一个特殊化的高速版本，在函数调用的开头先执行类型检查，当前提条件成立时直接运行
+高速版本，从而避免了在运行时伴随的大量的类型检查。</li>
+<li>分代回收，见<a href="http://www.houcj.net/blog/2015/05/10/garbage-collection-in-python/">垃圾回收</a>。</li>
 </ul>
         </div><!-- /.entry-content -->
         <div class="comments">
         <h2>Comments !</h2>
             <div id="disqus_thread"></div>
             <script type="text/javascript">
-               var disqus_identifier = "blog/2013/12/15/the-parameters-in-tcp-congestion-control/";
+               var disqus_identifier = "blog/2015/05/09/programming-language/";
                (function() {
                     var dsq = document.createElement('script');
                     dsq.type = 'text/javascript'; dsq.async = true;

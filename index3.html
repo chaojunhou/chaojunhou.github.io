@@ -116,6 +116,42 @@
 <div class="row">
     <div class="span2">
         <div class="well small"><footer class="post-info">
+<abbr class="published" title="2013-12-15T00:00:00+08:00">
+    <i class="icon-calendar"></i>&nbsp;周日 15 十二月 2013
+</abbr>
+<br/><a href="./author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
+
+
+<br/>
+	&nbsp;&nbsp;<a href="./tag/tcp.html" class="label"><i class="icon-tag"></i>&nbsp;TCP</a>
+	&nbsp;&nbsp;<a href="./tag/yong-sai-kong-zhi.html" class="label"><i class="icon-tag"></i>&nbsp;拥塞控制</a>
+</footer><!-- /.post-info --></div>
+    </div>
+    <div class="span6">
+        <div class="article well">
+            <h1><a href="./blog/2013/12/15/the-parameters-in-tcp-congestion-control/">TCP Congestion Control 中的相关参数</a></h1>
+            <div class="summary"><ul>
+<li>流量控制（Flow control） End-to-End,防止发送方速率过大，接收方来不及处理发送方的数据。- -</li>
+<li>拥塞控制（Congestion control） 到达子网中某一部分的分组数量过多，中间路由缓存分组，queueing，造成RTT增加。反应网络整体状况</li>
+<li>滑动窗口（Sliding Window） 位于发送方，由接收方的通告窗口（Advertised-Window）决定。接收方通过通告窗口告诉发送方自己还有多少buffer可以接收数据。</li>
+<li>通告窗口（Advertised-Window） 接收方使用流量控制的方式</li>
+<li>
+<p>拥塞窗口（Congestion Window） 拥塞窗口的大小指能够发出，但还没有收ACK的最大数据报文段。Linux 3.0 把CWND初始化10个MSS。发送方使用流量控制的方式。发送方取拥塞窗口与通告窗口中的最小值作为发送上限</p>
+</li>
+<li>
+<p>慢启动（Slow Start） 每个ACK，CWND增加一个报文段（CWND以字节为单位，一报文段为单位进行线性增加）
+报文段（Segment） 传输层分组称为报文段，是TCP</p>
+</li>
+<li>MSS（Maximum Segment ...</li></ul>
+                <a class="btn btn-small" href="./blog/2013/12/15/the-parameters-in-tcp-congestion-control/">more ...</a>
+            </div>
+        </div>
+    </div>
+    <div class="span8">
+        <hr />
+    </div>
+    <div class="span2">
+        <div class="well small"><footer class="post-info">
 <abbr class="published" title="2013-12-03T10:20:00+08:00">
     <i class="icon-calendar"></i>&nbsp;周二 03 十二月 2013
 </abbr>
@@ -173,6 +209,7 @@
 <li class="nav-header"><h4><i class="icon-external-link"></i>blogroll</h4></li>
     <li><div><i class="icon-external-link"></i><a href="http://www.rudy-yuan.net/">Rudy-yuan</a></div></li>
     <li><div><i class="icon-external-link"></i><a href="http://www.wengweitao.com">WWT</a></div></li>
+    <li><div><i class="icon-external-link"></i><a href="http://hult.tiddlyspot.com/">HULT</a></div></li>
 <li class="nav-header"><h4><i class="icon-home icon-large"></i> social</h4></li>
 <li><a href="./" rel="alternate"><i class="icon-bookmark icon-large"></i>atom feed</a></li>
     <li><a href="https://twitter.com/chaojunhou"><i class="icon-Twitter-sign icon-large"></i>Twitter</a></li>
@@ -193,23 +230,28 @@
 
 <li class="nav-header"><a href="./tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
     <li class="tag-1">
+        <a href="./tag/c.html">
+            <i class="icon-tag icon-large"></i>C
+        </a>
+    </li>
+    <li class="tag-1">
         <a href="./tag/suan-fa.html">
             <i class="icon-tag icon-large"></i>算法
         </a>
     </li>
     <li class="tag-2">
-        <a href="./tag/tcp.html">
-            <i class="icon-tag icon-large"></i>TCP
+        <a href="./tag/cao-zuo-xi-tong.html">
+            <i class="icon-tag icon-large"></i>操作系统
         </a>
     </li>
     <li class="tag-4">
-        <a href="./tag/yong-sai-kong-zhi.html">
-            <i class="icon-tag icon-large"></i>拥塞控制
+        <a href="./tag/shu-dan.html">
+            <i class="icon-tag icon-large"></i>书单
         </a>
     </li>
-    <li class="tag-1">
-        <a href="./tag/c.html">
-            <i class="icon-tag icon-large"></i>C
+    <li class="tag-2">
+        <a href="./tag/shu-ju-jie-gou.html">
+            <i class="icon-tag icon-large"></i>数据结构
         </a>
     </li>
     <li class="tag-4">
@@ -218,13 +260,8 @@
         </a>
     </li>
     <li class="tag-4">
-        <a href="./tag/bian-cheng-yu-yan.html">
-            <i class="icon-tag icon-large"></i>编程语言
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="./tag/shu-dan.html">
-            <i class="icon-tag icon-large"></i>书单
+        <a href="./tag/duo-xian-cheng.html">
+            <i class="icon-tag icon-large"></i>多线程
         </a>
     </li>
     <li class="tag-1">
@@ -233,8 +270,18 @@
         </a>
     </li>
     <li class="tag-4">
-        <a href="./tag/duo-xian-cheng.html">
-            <i class="icon-tag icon-large"></i>多线程
+        <a href="./tag/yong-sai-kong-zhi.html">
+            <i class="icon-tag icon-large"></i>拥塞控制
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="./tag/bian-cheng-yu-yan.html">
+            <i class="icon-tag icon-large"></i>编程语言
+        </a>
+    </li>
+    <li class="tag-2">
+        <a href="./tag/tcp.html">
+            <i class="icon-tag icon-large"></i>TCP
         </a>
     </li>
     <li class="tag-4">
@@ -245,16 +292,6 @@
     <li class="tag-4">
         <a href="./tag/zhi-li.html">
             <i class="icon-tag icon-large"></i>智力
-        </a>
-    </li>
-    <li class="tag-2">
-        <a href="./tag/cao-zuo-xi-tong.html">
-            <i class="icon-tag icon-large"></i>操作系统
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="./tag/shu-ju-jie-gou.html">
-            <i class="icon-tag icon-large"></i>数据结构
         </a>
     </li>
 
