@@ -159,14 +159,13 @@
 <span class="code-line">2. 根节点为黑色</span>
 <span class="code-line">3. 每个叶子节点(NIL)是黑色</span>
 <span class="code-line">4. 如果一个节点是红色的，则它的两个子节点必须是黑色的。</span>
-<span class="code-line">5. 对每个节点，从该节点到其所有后代叶节点的简单路径上，都包含相同数目的</span>
-<span class="code-line">黑色节点</span>
+<span class="code-line">5. 对每个节点，从该节点到其所有后代叶节点的简单路径上，都包含相同数目的黑色节点</span>
 </pre></div>
 
 
 <p>PS：
 - 特性3中的叶子节点，是为空的节点
-   - 特性5确保没有一条路径比其他路径长两倍。</p>
+- 特性5确保没有一条路径比其他路径长两倍。</p>
 <hr />
 <h2>红黑树的应用</h2>
 <p>红黑树主要用来存储有序的数据，它的时间复杂度是O(lgn)，空间复杂度也是
@@ -174,57 +173,62 @@ O(lgn)。C++ STL中的set、map，linux虚拟内存管理都是通过红黑树�
 <h2>红黑树的操作</h2>
 <p>红黑树中有两种基本操作，插入和删除。需要注意的是，每次进行这样的操作的时候都会
 有可能改变红黑树的性质，因此必须通过相应的INSERT-FIXUP和DELETE-FIXUP来保证红黑树的性质。
-具体情况见<a href="http://book.douban.com/subject/20432061/">算法导论</a>，而它们都会用到旋转的方法。</p>
+具体情况见<a href="http://book.douban.com/subject/20432061/">算法导论</a>，而它们都会用到旋转的方法。
+下面就具体介绍旋转和相应的插入删除操作。</p>
 <h3>旋转</h3>
-<p>下面主要介绍左旋，右旋的操作基本类似。
+<p>这里主要介绍左旋，右旋的操作基本类似。
 左旋的伪码如下：</p>
-<div class="highlight"><pre><span class="code-line"><span class="n">LEFT</span><span class="o">-</span><span class="n">ROTATE</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>  </span>
-<span class="code-line"><span class="mi">1</span>  <span class="n">y</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>            <span class="c"># Set y.  </span></span>
-<span class="code-line"><span class="mi">2</span>  <span class="n">right</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="n">y</span><span class="p">]</span>      <span class="c"># Turn y&#39;s left subtree into x&#39;s right subtree.  </span></span>
-<span class="code-line"><span class="mi">3</span>  <span class="n">p</span><span class="p">[</span><span class="n">left</span><span class="p">[</span><span class="n">y</span><span class="p">]]</span> <span class="o">=</span> <span class="n">x</span>  </span>
-<span class="code-line"><span class="mi">4</span>  <span class="n">p</span><span class="p">[</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>             <span class="c"># Link x&#39;s parent to y.  </span></span>
-<span class="code-line"><span class="mi">5</span>  <span class="k">if</span> <span class="n">p</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">==</span> <span class="n">nil</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>  </span>
-<span class="code-line"><span class="mi">6</span>     <span class="n">root</span><span class="p">[</span><span class="n">T</span><span class="p">]</span> <span class="err">←</span> <span class="n">y</span>  </span>
-<span class="code-line"><span class="mi">7</span>  <span class="k">else</span> <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">left</span><span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="n">x</span><span class="p">]]</span>  </span>
-<span class="code-line"><span class="mi">8</span>     <span class="n">left</span><span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="n">x</span><span class="p">]]</span> <span class="o">=</span> <span class="n">y</span>  </span>
-<span class="code-line"><span class="mi">9</span>  <span class="k">else</span> <span class="n">right</span><span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="n">x</span><span class="p">]]</span> <span class="o">=</span> <span class="n">y</span>  </span>
-<span class="code-line"><span class="mi">10</span> <span class="n">left</span><span class="p">[</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span>             <span class="c"># Put x on y&#39;s left.  </span></span>
-<span class="code-line"><span class="mi">11</span> <span class="n">p</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span>  </span>
+<div class="highlight"><pre><span class="code-line"><span class="n">LEFT_ROTATE</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> </span>
+<span class="code-line"><span class="mi">1</span>   <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">right</span>                <span class="c"># set y </span></span>
+<span class="code-line"><span class="mi">2</span>   <span class="n">x</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">left</span>           <span class="c"># turn y&#39;s left subtree into x&#39;s right subtree</span></span>
+<span class="code-line"><span class="mi">3</span>   <span class="k">if</span> <span class="n">y</span><span class="o">.</span><span class="n">left</span> <span class="o">!=</span> <span class="n">T</span><span class="o">.</span><span class="n">nil</span></span>
+<span class="code-line"><span class="mi">4</span>       <span class="n">y</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="n">x</span></span>
+<span class="code-line"><span class="mi">5</span>   <span class="n">y</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">parent</span>        <span class="c"># link x&#39;s parent to y</span></span>
+<span class="code-line"><span class="mi">6</span>   <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">parent</span> <span class="o">==</span> <span class="n">T</span><span class="o">.</span><span class="n">nil</span> </span>
+<span class="code-line"><span class="mi">7</span>       <span class="n">T</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">y</span></span>
+<span class="code-line"><span class="mi">8</span>   <span class="k">elif</span> <span class="n">x</span> <span class="o">==</span> <span class="n">x</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">left</span></span>
+<span class="code-line"><span class="mi">9</span>       <span class="n">x</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">y</span></span>
+<span class="code-line"><span class="mi">10</span>  <span class="k">else</span></span>
+<span class="code-line"><span class="mi">11</span>      <span class="n">x</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">y</span></span>
+<span class="code-line"><span class="mi">12</span>  <span class="n">y</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">x</span>                 <span class="c"># put x on y&#39;s left </span></span>
+<span class="code-line"><span class="mi">13</span>  <span class="n">x</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="n">y</span>                      </span>
 </pre></div>
 
 
 <h3>插入</h3>
 <p>红黑树本身就是一种二叉查找树，插入的时候也需要首先不能改变二叉查找树的性质，然后将该节点着色为
-红色。最后通过修改着色和重新着色来重新成为一棵红黑树。
+红色(插入红色节点是为了保证满足性质5)。最后通过修改着色和重新着色来重新成为一棵红黑树。
 <strong>类似二叉查找树的插入操作</strong></p>
-<div class="highlight"><pre><span class="code-line"><span class="n">RB</span><span class="o">-</span><span class="n">INSERT</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>  </span>
-<span class="code-line"> <span class="mi">1</span>  <span class="n">y</span> <span class="o">=</span> <span class="n">nil</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>  </span>
-<span class="code-line"> <span class="mi">2</span>  <span class="n">x</span> <span class="o">=</span> <span class="n">root</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>  </span>
-<span class="code-line"> <span class="mi">3</span>  <span class="k">while</span> <span class="n">x</span> <span class="o">!=</span> <span class="n">nil</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>  </span>
-<span class="code-line"> <span class="mi">4</span>      <span class="n">y</span> <span class="o">=</span> <span class="n">x</span>  </span>
-<span class="code-line"> <span class="mi">5</span>      <span class="k">if</span> <span class="n">key</span><span class="p">[</span><span class="n">z</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">key</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>  </span>
-<span class="code-line"> <span class="mi">6</span>          <span class="n">x</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>  </span>
-<span class="code-line"> <span class="mi">7</span>       <span class="k">else</span> <span class="n">x</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>  </span>
-<span class="code-line"> <span class="mi">8</span>  <span class="n">p</span><span class="p">[</span><span class="n">z</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span>  </span>
-<span class="code-line"> <span class="mi">9</span>  <span class="k">if</span> <span class="n">y</span> <span class="o">==</span> <span class="n">nil</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>  </span>
-<span class="code-line"><span class="mi">10</span>      <span class="n">root</span><span class="p">[</span><span class="n">T</span><span class="p">]</span> <span class="o">=</span> <span class="n">z</span>  </span>
-<span class="code-line"><span class="mi">11</span>  <span class="k">else</span> <span class="k">if</span> <span class="n">key</span><span class="p">[</span><span class="n">z</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">key</span><span class="p">[</span><span class="n">y</span><span class="p">]</span>  </span>
-<span class="code-line"><span class="mi">12</span>      <span class="n">left</span><span class="p">[</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">z</span>  </span>
-<span class="code-line"><span class="mi">13</span>  <span class="k">else</span> <span class="n">right</span><span class="p">[</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">z</span>  </span>
-<span class="code-line"><span class="mi">14</span>  <span class="n">left</span><span class="p">[</span><span class="n">z</span><span class="p">]</span> <span class="o">=</span> <span class="n">nil</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>  </span>
-<span class="code-line"><span class="mi">15</span>  <span class="n">right</span><span class="p">[</span><span class="n">z</span><span class="p">]</span> <span class="o">=</span> <span class="n">nil</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>  </span>
-<span class="code-line"><span class="mi">16</span>  <span class="n">color</span><span class="p">[</span><span class="n">z</span><span class="p">]</span> <span class="o">=</span> <span class="n">RED</span>  </span>
-<span class="code-line"><span class="mi">17</span>  <span class="n">RB</span><span class="o">-</span><span class="n">INSERT</span><span class="o">-</span><span class="n">FIXUP</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>  </span>
+<div class="highlight"><pre><span class="code-line"><span class="n">RB_INSERT</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span> </span>
+<span class="code-line"><span class="mi">1</span>   <span class="n">y</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">NIL</span></span>
+<span class="code-line"><span class="mi">2</span>   <span class="n">x</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">root</span></span>
+<span class="code-line"><span class="mi">3</span>   <span class="k">while</span> <span class="n">x</span> <span class="o">!=</span> <span class="n">T</span><span class="o">.</span><span class="n">NIL</span> </span>
+<span class="code-line"><span class="mi">4</span>       <span class="n">y</span> <span class="o">=</span> <span class="n">x</span></span>
+<span class="code-line"><span class="mi">5</span>       <span class="k">if</span> <span class="n">z</span><span class="o">.</span><span class="n">key</span> <span class="o">&lt;</span> <span class="n">x</span><span class="o">.</span><span class="n">key</span></span>
+<span class="code-line"><span class="mi">6</span>           <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">left</span></span>
+<span class="code-line"><span class="mi">7</span>       <span class="k">else</span></span>
+<span class="code-line"><span class="mi">8</span>           <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">right</span></span>
+<span class="code-line"><span class="mi">9</span>  <span class="n">z</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="n">y</span></span>
+<span class="code-line"><span class="mi">10</span>  <span class="k">if</span> <span class="n">y</span> <span class="o">==</span> <span class="n">T</span><span class="o">.</span><span class="n">nil</span> </span>
+<span class="code-line"><span class="mi">11</span>      <span class="n">T</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">z</span></span>
+<span class="code-line"><span class="mi">12</span>  <span class="k">elif</span> <span class="n">z</span><span class="o">.</span><span class="n">key</span> <span class="o">&lt;</span> <span class="n">y</span><span class="o">.</span><span class="n">key</span></span>
+<span class="code-line"><span class="mi">13</span>      <span class="n">y</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">z</span></span>
+<span class="code-line"><span class="mi">14</span>  <span class="k">else</span></span>
+<span class="code-line"><span class="mi">15</span>      <span class="n">y</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">z</span></span>
+<span class="code-line"><span class="mi">17</span>  <span class="n">z</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">nil</span></span>
+<span class="code-line"><span class="mi">18</span>  <span class="n">z</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">nil</span></span>
+<span class="code-line"><span class="mi">19</span>  <span class="n">z</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">RED</span></span>
+<span class="code-line"><span class="mi">20</span>  <span class="n">RB_INSERT_FIXUP</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span></span>
 </pre></div>
 
 
 <hr />
-<p>插入之后可能破坏红黑树性质，需要根据相应的情况做出相应的处理策略。</p>
+<p>插入之后可能破坏红黑树的性质2和4，需要根据相应的情况做出相应的处理策略。</p>
 <hr />
 <table>
 <thead>
 <tr>
-<th align="left">情况</th>
+<th align="center">情况</th>
 <th>现象说明</th>
 <th>处理策略</th>
 <th></th>
@@ -232,19 +236,19 @@ O(lgn)。C++ STL中的set、map，linux虚拟内存管理都是通过红黑树�
 </thead>
 <tbody>
 <tr>
-<td align="left">case1</td>
+<td align="center">case1</td>
 <td>z的叔节点y是红色的</td>
 <td>1)将父节点设为黑色 2)将叔节点设为黑色 3)将祖父节点设为红色 4)将祖父节点设为当前节点，继续处理</td>
 <td></td>
 </tr>
 <tr>
-<td align="left">case2</td>
+<td align="center">case2</td>
 <td>z的叔节点y是黑色的且z是一个右孩子</td>
 <td>1)将父节点设为当前节点 2)对当前节点进行左旋操作</td>
 <td></td>
 </tr>
 <tr>
-<td align="left">case3</td>
+<td align="center">case3</td>
 <td>z的叔节点y是黑色的且z是一个左孩子</td>
 <td>1)将父节点设为黑色 2)将祖父节点设为红色 3)对祖父节点进行右 旋操作</td>
 <td></td>
@@ -252,27 +256,26 @@ O(lgn)。C++ STL中的set、map，linux虚拟内存管理都是通过红黑树�
 </tbody>
 </table>
 <hr />
-<p>其中z表示当前节点，y表示z的叔节点，z的父节点是红色的。
-<strong>修复插入操作</strong></p>
-<hr />
-<div class="highlight"><pre><span class="code-line"><span class="n">RB</span><span class="o">-</span><span class="n">INSERT</span><span class="o">-</span><span class="n">FIXUP</span><span class="err">（</span><span class="n">T</span><span class="p">,</span><span class="n">z</span><span class="err">）</span></span>
-<span class="code-line"> <span class="mi">1</span> <span class="k">while</span> <span class="n">color</span><span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="n">z</span><span class="p">]]</span> <span class="o">==</span> <span class="n">RED</span>  </span>
-<span class="code-line"> <span class="mi">2</span>     <span class="k">if</span> <span class="n">p</span><span class="p">[</span><span class="n">z</span><span class="p">]</span> <span class="o">==</span> <span class="n">left</span><span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="n">z</span><span class="p">]]]</span>  </span>
-<span class="code-line"> <span class="mi">3</span>      <span class="n">y</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="n">z</span><span class="p">]]]</span>  </span>
-<span class="code-line"> <span class="mi">4</span>      <span class="k">if</span> <span class="n">color</span><span class="p">[</span><span class="n">y</span><span class="p">]</span> <span class="o">==</span> <span class="n">RED</span>  </span>
-<span class="code-line"> <span class="mi">5</span>          <span class="n">color</span><span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="n">z</span><span class="p">]]</span> <span class="o">=</span> <span class="n">BLACK</span>                    <span class="err">▹</span> <span class="n">Case</span> <span class="mi">1</span>  </span>
-<span class="code-line"> <span class="mi">6</span>          <span class="n">color</span><span class="p">[</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">BLACK</span>                       <span class="err">▹</span> <span class="n">Case</span> <span class="mi">1</span>  </span>
-<span class="code-line"> <span class="mi">7</span>          <span class="n">color</span><span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="n">z</span><span class="p">]]]</span> <span class="o">=</span> <span class="n">RED</span>                   <span class="err">▹</span> <span class="n">Case</span> <span class="mi">1</span>  </span>
-<span class="code-line"> <span class="mi">8</span>          <span class="n">z</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="n">z</span><span class="p">]]</span>                            <span class="err">▹</span> <span class="n">Case</span> <span class="mi">1</span>  </span>
-<span class="code-line"> <span class="mi">9</span>      <span class="k">else</span> <span class="k">if</span> <span class="n">z</span> <span class="o">==</span> <span class="n">right</span><span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="n">z</span><span class="p">]]</span>  </span>
-<span class="code-line"><span class="mi">10</span>              <span class="n">z</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="n">z</span><span class="p">]</span>                       <span class="err">▹</span> <span class="n">Case</span> <span class="mi">2</span>  </span>
-<span class="code-line"><span class="mi">11</span>              <span class="n">LEFT</span><span class="o">-</span><span class="n">ROTATE</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>              <span class="err">▹</span> <span class="n">Case</span> <span class="mi">2</span>  </span>
-<span class="code-line"><span class="mi">12</span>      <span class="n">color</span><span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="n">z</span><span class="p">]]</span> <span class="o">=</span> <span class="n">BLACK</span>                 <span class="err">▹</span> <span class="n">Case</span> <span class="mi">3</span>  </span>
-<span class="code-line"><span class="mi">13</span>      <span class="n">color</span><span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="n">z</span><span class="p">]]]</span> <span class="o">=</span> <span class="n">RED</span>                <span class="err">▹</span> <span class="n">Case</span> <span class="mi">3</span>  </span>
-<span class="code-line"><span class="mi">14</span>      <span class="n">RIGHT</span><span class="o">-</span><span class="n">ROTATE</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">p</span><span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="n">z</span><span class="p">]])</span>            <span class="err">▹</span> <span class="n">Case</span> <span class="mi">3</span>  </span>
-<span class="code-line"><span class="mi">15</span> <span class="k">else</span> <span class="p">(</span><span class="n">same</span> <span class="k">as</span> <span class="n">then</span> <span class="n">clause</span>  </span>
-<span class="code-line">                         <span class="k">with</span> <span class="s">&quot;right&quot;</span> <span class="ow">and</span> <span class="s">&quot;left&quot;</span> <span class="n">exchanged</span><span class="p">)</span>  </span>
-<span class="code-line"><span class="mi">16</span> <span class="n">color</span><span class="p">[</span><span class="n">root</span><span class="p">[</span><span class="n">T</span><span class="p">]]</span> <span class="err">←</span> <span class="n">BLACK</span>  </span>
+<p>其中z表示当前节点，y表示z的叔节点，z的父节点是红色的。</p>
+<h2><strong>修复插入操作</strong></h2>
+<div class="highlight"><pre><span class="code-line"><span class="n">RB_INSERT_FIXUP</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span> </span>
+<span class="code-line"><span class="mi">1</span>   <span class="k">while</span> <span class="n">z</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">color</span> <span class="o">==</span> <span class="n">RED</span> </span>
+<span class="code-line"><span class="mi">2</span>       <span class="k">if</span> <span class="n">z</span><span class="o">.</span><span class="n">parent</span> <span class="o">==</span> <span class="n">z</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">left</span> </span>
+<span class="code-line"><span class="mi">3</span>           <span class="n">y</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">right</span></span>
+<span class="code-line"><span class="mi">4</span>           <span class="k">if</span> <span class="n">y</span><span class="o">.</span><span class="n">color</span> <span class="o">==</span> <span class="n">RED</span>                         <span class="c"># CASE 1</span></span>
+<span class="code-line"><span class="mi">5</span>               <span class="n">z</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">BLACK</span></span>
+<span class="code-line"><span class="mi">6</span>               <span class="n">y</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">BLACK</span></span>
+<span class="code-line"><span class="mi">7</span>               <span class="n">z</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">RED</span></span>
+<span class="code-line"><span class="mi">8</span>               <span class="n">z</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span></span>
+<span class="code-line"><span class="mi">9</span>           <span class="k">elif</span> <span class="n">z</span> <span class="o">==</span> <span class="n">z</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">right</span>                  <span class="c"># CASE 2</span></span>
+<span class="code-line"><span class="mi">10</span>              <span class="n">z</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">parent</span></span>
+<span class="code-line"><span class="mi">11</span>              <span class="n">LEFT_ROTATE</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>                                                  </span>
+<span class="code-line"><span class="mi">12</span>          <span class="n">z</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">BLACK</span>                    <span class="c"># CASE 3</span></span>
+<span class="code-line"><span class="mi">13</span>          <span class="n">z</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">RED</span></span>
+<span class="code-line"><span class="mi">14</span>          <span class="n">RIGHT_ROTATE</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">z</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span><span class="p">)</span></span>
+<span class="code-line"><span class="mi">15</span>      <span class="k">else</span><span class="p">(</span><span class="n">same</span> <span class="k">as</span> <span class="n">the</span> <span class="n">previous</span> <span class="s">&quot;if&quot;</span> <span class="n">clause</span>         <span class="c"># z&#39;s parent is a right child</span></span>
+<span class="code-line">                <span class="k">with</span> <span class="s">&quot;right&quot;</span> <span class="ow">and</span> <span class="s">&quot;left&quot;</span> <span class="n">extranged</span><span class="p">)</span></span>
+<span class="code-line"><span class="mi">16</span>  <span class="n">T</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">BLACK</span></span>
 </pre></div>
 
 
@@ -281,30 +284,45 @@ O(lgn)。C++ STL中的set、map，linux虚拟内存管理都是通过红黑树�
 <p>将红黑树内的某一个节点删除花费O(lgn)时间。红黑树本身就是一种二叉查找树，删除的时候也需要首先不能改变二叉查找树的性质，
 然后通过修改着色和重新着色来重新成为一棵红黑树。
 <strong>类似二叉查找树的删除操作</strong></p>
-<div class="highlight"><pre><span class="code-line"><span class="n">RB</span><span class="o">-</span><span class="n">DELETE</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span></span>
-<span class="code-line"> <span class="mi">1</span> <span class="k">if</span> <span class="n">left</span><span class="p">[</span><span class="n">z</span><span class="p">]</span> <span class="o">==</span> <span class="n">nil</span><span class="p">[</span><span class="n">T</span><span class="p">]</span> <span class="ow">or</span> <span class="n">right</span><span class="p">[</span><span class="n">z</span><span class="p">]</span> <span class="o">==</span> <span class="n">nil</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>  </span>
-<span class="code-line"> <span class="mi">2</span>     <span class="n">y</span> <span class="o">=</span> <span class="n">z</span>  </span>
-<span class="code-line"> <span class="mi">3</span> <span class="k">else</span> <span class="n">y</span> <span class="o">=</span> <span class="n">TREE</span><span class="o">-</span><span class="n">SUCCESSOR</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>  </span>
-<span class="code-line"> <span class="mi">4</span> <span class="k">if</span> <span class="n">left</span><span class="p">[</span><span class="n">y</span><span class="p">]</span> <span class="o">!=</span> <span class="n">nil</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>  </span>
-<span class="code-line"> <span class="mi">5</span>     <span class="n">x</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="n">y</span><span class="p">]</span>  </span>
-<span class="code-line"> <span class="mi">6</span> <span class="k">else</span> <span class="n">x</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">y</span><span class="p">]</span>  </span>
-<span class="code-line"> <span class="mi">7</span> <span class="n">p</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="n">y</span><span class="p">]</span>  </span>
-<span class="code-line"> <span class="mi">8</span> <span class="k">if</span> <span class="n">p</span><span class="p">[</span><span class="n">y</span><span class="p">]</span> <span class="o">==</span> <span class="n">nil</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>  </span>
-<span class="code-line"> <span class="mi">9</span>     <span class="n">root</span><span class="p">[</span><span class="n">T</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span>  </span>
-<span class="code-line"><span class="mi">10</span> <span class="k">else</span> <span class="k">if</span> <span class="n">y</span> <span class="o">==</span> <span class="n">left</span><span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="n">y</span><span class="p">]]</span>  </span>
-<span class="code-line"><span class="mi">11</span>     <span class="n">left</span><span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="n">y</span><span class="p">]]</span> <span class="o">=</span> <span class="n">x</span>  </span>
-<span class="code-line"><span class="mi">12</span> <span class="k">else</span> <span class="n">right</span><span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="n">y</span><span class="p">]]</span> <span class="o">=</span> <span class="n">x</span>  </span>
-<span class="code-line"><span class="mi">13</span> <span class="k">if</span> <span class="n">y</span> <span class="o">!=</span> <span class="n">z</span>  </span>
-<span class="code-line"><span class="mi">14</span>     <span class="n">key</span><span class="p">[</span><span class="n">z</span><span class="p">]</span> <span class="o">=</span> <span class="n">key</span><span class="p">[</span><span class="n">y</span><span class="p">]</span>  </span>
-<span class="code-line"><span class="mi">15</span>     <span class="n">copy</span> <span class="n">y</span><span class="s">&#39;s satellite data into z  </span></span>
-<span class="code-line"><span class="mi">16</span> <span class="k">if</span> <span class="n">color</span><span class="p">[</span><span class="n">y</span><span class="p">]</span> <span class="o">==</span> <span class="n">BLACK</span>  </span>
-<span class="code-line"><span class="mi">17</span>    <span class="n">then</span> <span class="n">RB</span><span class="o">-</span><span class="n">DELETE</span><span class="o">-</span><span class="n">FIXUP</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>  </span>
-<span class="code-line"><span class="mi">18</span> <span class="k">return</span> <span class="n">y</span>  </span>
+<div class="highlight"><pre><span class="code-line"><span class="n">RB_DELETE</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span> </span>
+<span class="code-line"><span class="mi">1</span>   <span class="n">y</span> <span class="o">=</span> <span class="n">z</span></span>
+<span class="code-line"><span class="mi">2</span>   <span class="n">y</span><span class="o">-</span><span class="n">original</span><span class="o">-</span><span class="n">color</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">color</span></span>
+<span class="code-line"><span class="mi">3</span>   <span class="k">if</span> <span class="n">z</span><span class="o">.</span><span class="n">left</span> <span class="o">==</span> <span class="n">T</span><span class="o">.</span><span class="n">nil</span></span>
+<span class="code-line"><span class="mi">4</span>       <span class="n">x</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">left</span></span>
+<span class="code-line"><span class="mi">5</span>       <span class="n">RB</span><span class="o">-</span><span class="n">TRANSPLANT</span><span class="p">(</span><span class="n">T</span><span class="p">,</span><span class="n">z</span><span class="p">,</span><span class="n">z</span><span class="o">.</span><span class="n">right</span><span class="p">)</span></span>
+<span class="code-line"><span class="mi">6</span>   <span class="k">elif</span> <span class="n">z</span><span class="o">.</span><span class="n">right</span> <span class="o">==</span> <span class="n">T</span><span class="o">.</span><span class="n">nil</span></span>
+<span class="code-line"><span class="mi">7</span>       <span class="n">x</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">right</span></span>
+<span class="code-line"><span class="mi">8</span>       <span class="n">RB</span><span class="o">-</span><span class="n">TRANSPLANT</span><span class="p">(</span><span class="n">T</span><span class="p">,</span><span class="n">z</span><span class="p">,</span><span class="n">z</span><span class="o">.</span><span class="n">left</span><span class="p">)</span></span>
+<span class="code-line"><span class="mi">9</span>   <span class="k">else</span> </span>
+<span class="code-line"><span class="mi">10</span>      <span class="n">y</span> <span class="o">=</span> <span class="n">TREE</span><span class="o">-</span><span class="n">MINIMUM</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">right</span><span class="p">)</span></span>
+<span class="code-line"><span class="mi">11</span>      <span class="n">y</span><span class="o">-</span><span class="n">original</span><span class="o">-</span><span class="n">color</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">color</span></span>
+<span class="code-line"><span class="mi">12</span>      <span class="n">x</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">right</span></span>
+<span class="code-line"><span class="mi">13</span>      <span class="k">if</span> <span class="n">y</span><span class="o">.</span><span class="n">parent</span> <span class="o">==</span> <span class="n">z</span></span>
+<span class="code-line"><span class="mi">14</span>          <span class="n">x</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="n">y</span></span>
+<span class="code-line"><span class="mi">15</span>      <span class="k">else</span></span>
+<span class="code-line"><span class="mi">16</span>            <span class="n">RB</span><span class="o">-</span><span class="n">TRANSPLANT</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">right</span><span class="p">)</span></span>
+<span class="code-line"><span class="mi">17</span>          <span class="n">y</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">right</span></span>
+<span class="code-line"><span class="mi">18</span>          <span class="n">y</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="n">y</span></span>
+<span class="code-line"><span class="mi">19</span>      <span class="n">RB</span><span class="o">-</span><span class="n">TRANSPLANT</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span></span>
+<span class="code-line"><span class="mi">20</span>      <span class="n">y</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">left</span></span>
+<span class="code-line"><span class="mi">21</span>      <span class="n">y</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="n">y</span></span>
+<span class="code-line"><span class="mi">22</span>      <span class="n">y</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">color</span></span>
+<span class="code-line"><span class="mi">23</span>  <span class="k">if</span> <span class="n">y</span><span class="o">-</span><span class="n">original</span><span class="o">-</span><span class="n">color</span> <span class="o">==</span> <span class="n">BLACK</span></span>
+<span class="code-line"><span class="mi">24</span>      <span class="n">RB_DELETE_FIXUP</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="n">RB</span><span class="o">-</span><span class="n">TRANSPLANT</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span></span>
+<span class="code-line"><span class="mi">1</span>   <span class="k">if</span> <span class="n">u</span><span class="o">.</span><span class="n">parent</span> <span class="o">==</span> <span class="n">T</span><span class="o">.</span><span class="n">nil</span></span>
+<span class="code-line"><span class="mi">2</span>       <span class="n">T</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">v</span></span>
+<span class="code-line"><span class="mi">3</span>   <span class="k">elif</span> <span class="n">u</span> <span class="o">==</span> <span class="n">u</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">left</span>    </span>
+<span class="code-line"><span class="mi">4</span>       <span class="n">u</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">v</span>  </span>
+<span class="code-line"><span class="mi">5</span>   <span class="k">else</span></span>
+<span class="code-line"><span class="mi">6</span>       <span class="n">u</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">v</span></span>
+<span class="code-line"><span class="mi">7</span>   <span class="n">v</span><span class="o">.</span><span class="n">p</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">p</span></span>
 </pre></div>
 
 
 <hr />
-<p>删除之后可能破坏红黑树性质的，需要根据相应的情况做出相应的处理策略。</p>
+<p>删除之后可能破坏红黑树性质的1，2，4，需要根据相应的情况做出相应的处理策略。</p>
 <hr />
 <table>
 <thead>
@@ -345,30 +363,31 @@ O(lgn)。C++ STL中的set、map，linux虚拟内存管理都是通过红黑树�
 <hr />
 <p>其中x为当前节点，w是x的兄弟节点。</p>
 <p><strong>修复删除操作</strong></p>
-<div class="highlight"><pre><span class="code-line"><span class="n">RB</span><span class="o">-</span><span class="n">DELETE</span><span class="o">-</span><span class="n">FIXUP</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span></span>
-<span class="code-line"> <span class="mi">1</span> <span class="k">while</span> <span class="n">x</span> <span class="o">!=</span> <span class="n">root</span><span class="p">[</span><span class="n">T</span><span class="p">]</span> <span class="ow">and</span> <span class="n">color</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">==</span> <span class="n">BLACK</span>  </span>
-<span class="code-line"> <span class="mi">2</span>     <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">left</span><span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="n">x</span><span class="p">]]</span>  </span>
-<span class="code-line"> <span class="mi">3</span>         <span class="n">w</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="n">x</span><span class="p">]]</span>  </span>
-<span class="code-line"> <span class="mi">4</span>         <span class="k">if</span> <span class="n">color</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="o">==</span> <span class="n">RED</span>  </span>
-<span class="code-line"> <span class="mi">5</span>             <span class="n">color</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="o">=</span> <span class="n">BLACK</span>                        <span class="err">▹</span>  <span class="n">Case</span> <span class="mi">1</span>  </span>
-<span class="code-line"> <span class="mi">6</span>             <span class="n">color</span><span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="n">x</span><span class="p">]]</span> <span class="o">=</span> <span class="n">RED</span>                       <span class="err">▹</span>  <span class="n">Case</span> <span class="mi">1</span>  </span>
-<span class="code-line"> <span class="mi">7</span>             <span class="n">LEFT</span><span class="o">-</span><span class="n">ROTATE</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">p</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>                    <span class="err">▹</span>  <span class="n">Case</span> <span class="mi">1</span>  </span>
-<span class="code-line"> <span class="mi">8</span>             <span class="n">w</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="n">x</span><span class="p">]]</span>                         <span class="err">▹</span>  <span class="n">Case</span> <span class="mi">1</span>  </span>
-<span class="code-line"> <span class="mi">9</span>         <span class="k">if</span> <span class="n">color</span><span class="p">[</span><span class="n">left</span><span class="p">[</span><span class="n">w</span><span class="p">]]</span> <span class="o">=</span> <span class="n">BLACK</span> <span class="ow">and</span> <span class="n">color</span><span class="p">[</span><span class="n">right</span><span class="p">[</span><span class="n">w</span><span class="p">]]</span> <span class="o">=</span> <span class="n">BLACK</span>  </span>
-<span class="code-line"><span class="mi">10</span>             <span class="n">color</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="o">=</span> <span class="n">RED</span>                          <span class="err">▹</span>  <span class="n">Case</span> <span class="mi">2</span>  </span>
-<span class="code-line"><span class="mi">11</span>             <span class="n">x</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>                                <span class="err">▹</span>  <span class="n">Case</span> <span class="mi">2</span>  </span>
-<span class="code-line"><span class="mi">12</span>         <span class="k">else</span> <span class="k">if</span> <span class="n">color</span><span class="p">[</span><span class="n">right</span><span class="p">[</span><span class="n">w</span><span class="p">]]</span> <span class="o">=</span> <span class="n">BLACK</span>  </span>
-<span class="code-line"><span class="mi">13</span>                 <span class="n">color</span><span class="p">[</span><span class="n">left</span><span class="p">[</span><span class="n">w</span><span class="p">]]</span> <span class="o">=</span> <span class="n">BLACK</span>          <span class="err">▹</span>  <span class="n">Case</span> <span class="mi">3</span>  </span>
-<span class="code-line"><span class="mi">14</span>                 <span class="n">color</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="o">=</span> <span class="n">RED</span>                  <span class="err">▹</span>  <span class="n">Case</span> <span class="mi">3</span>  </span>
-<span class="code-line"><span class="mi">15</span>                 <span class="n">RIGHT</span><span class="o">-</span><span class="n">ROTATE</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>              <span class="err">▹</span>  <span class="n">Case</span> <span class="mi">3</span>  </span>
-<span class="code-line"><span class="mi">16</span>                 <span class="n">w</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="n">x</span><span class="p">]]</span>                 <span class="err">▹</span>  <span class="n">Case</span> <span class="mi">3</span>  </span>
-<span class="code-line"><span class="mi">17</span>             <span class="n">color</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="o">=</span> <span class="n">color</span><span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="n">x</span><span class="p">]]</span>                 <span class="err">▹</span>  <span class="n">Case</span> <span class="mi">4</span>  </span>
-<span class="code-line"><span class="mi">18</span>             <span class="n">color</span><span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="n">x</span><span class="p">]]</span> <span class="o">=</span> <span class="n">BLACK</span>                    <span class="err">▹</span>  <span class="n">Case</span> <span class="mi">4</span>  </span>
-<span class="code-line"><span class="mi">19</span>             <span class="n">color</span><span class="p">[</span><span class="n">right</span><span class="p">[</span><span class="n">w</span><span class="p">]]</span> <span class="o">=</span> <span class="n">BLACK</span>                <span class="err">▹</span>  <span class="n">Case</span> <span class="mi">4</span>  </span>
-<span class="code-line"><span class="mi">20</span>             <span class="n">LEFT</span><span class="o">-</span><span class="n">ROTATE</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">p</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>                   <span class="err">▹</span>  <span class="n">Case</span> <span class="mi">4</span>  </span>
-<span class="code-line"><span class="mi">21</span>             <span class="n">x</span> <span class="o">=</span> <span class="n">root</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>                            <span class="err">▹</span>  <span class="n">Case</span> <span class="mi">4</span>  </span>
-<span class="code-line"><span class="mi">22</span>     <span class="k">else</span> <span class="p">(</span><span class="n">same</span> <span class="k">as</span> <span class="n">then</span> <span class="n">clause</span> <span class="k">with</span> <span class="s">&quot;right&quot;</span> <span class="ow">and</span> <span class="s">&quot;left&quot;</span> <span class="n">exchanged</span><span class="p">)</span>  </span>
-<span class="code-line"><span class="mi">23</span> <span class="n">color</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="err">←</span> <span class="n">BLACK</span>  </span>
+<div class="highlight"><pre><span class="code-line"><span class="n">RB_DELETE_FIXUP</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> </span>
+<span class="code-line"><span class="mi">1</span>   <span class="k">while</span> <span class="n">x</span> <span class="o">!=</span> <span class="n">root</span> <span class="ow">and</span> <span class="n">x</span><span class="o">.</span><span class="n">color</span> <span class="o">==</span> <span class="n">BLACK</span> </span>
+<span class="code-line"><span class="mi">2</span>     <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">x</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">left</span> </span>
+<span class="code-line"><span class="mi">3</span>         <span class="n">w</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">right</span>                                        <span class="c"># CASE 1</span></span>
+<span class="code-line"><span class="mi">4</span>         <span class="k">if</span> <span class="n">w</span><span class="o">.</span><span class="n">color</span> <span class="o">==</span> <span class="n">RED</span></span>
+<span class="code-line"><span class="mi">5</span>             <span class="n">w</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">BLACK</span></span>
+<span class="code-line"><span class="mi">6</span>             <span class="n">x</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">RED</span></span>
+<span class="code-line"><span class="mi">7</span>             <span class="n">LEFT_ROTATE</span> <span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">p</span><span class="p">[</span><span class="n">x</span><span class="p">])</span></span>
+<span class="code-line"><span class="mi">8</span>             <span class="n">w</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">right</span>                                           </span>
+<span class="code-line"><span class="mi">9</span>         <span class="k">if</span> <span class="n">w</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">color</span> <span class="o">==</span> <span class="n">BLACK</span> <span class="ow">and</span> <span class="n">w</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">right</span> <span class="o">==</span> <span class="n">BLACK</span>      <span class="c">#CASE 2</span></span>
+<span class="code-line"><span class="mi">10</span>            <span class="n">w</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">RED</span></span>
+<span class="code-line"><span class="mi">11</span>            <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">parent</span></span>
+<span class="code-line"><span class="mi">12</span>        <span class="k">elif</span> <span class="n">w</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">color</span> <span class="o">==</span> <span class="n">BLACK</span>                              <span class="c">#CASE 3</span></span>
+<span class="code-line"><span class="mi">13</span>            <span class="n">w</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">BLACK</span></span>
+<span class="code-line"><span class="mi">14</span>            <span class="n">w</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">RED</span></span>
+<span class="code-line"><span class="mi">15</span>            <span class="n">RIGHT_ROTATE</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span></span>
+<span class="code-line"><span class="mi">16</span>            <span class="n">w</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">right</span></span>
+<span class="code-line"><span class="mi">17</span>        <span class="n">w</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">color</span>                                 <span class="c">#CASE 4</span></span>
+<span class="code-line"><span class="mi">18</span>        <span class="n">x</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">BLACK</span></span>
+<span class="code-line"><span class="mi">19</span>        <span class="n">w</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">BLACK</span></span>
+<span class="code-line"><span class="mi">20</span>        <span class="n">LEFT_ROTATE</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">parent</span><span class="p">)</span></span>
+<span class="code-line"><span class="mi">21</span>        <span class="n">x</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">root</span></span>
+<span class="code-line"><span class="mi">22</span>    <span class="k">else</span></span>
+<span class="code-line"><span class="mi">23</span>      <span class="n">same</span> <span class="k">as</span> <span class="n">the</span> <span class="n">previous</span> <span class="s">&quot;if&quot;</span> <span class="n">clause</span> <span class="k">with</span> <span class="s">&quot;right&quot;</span> <span class="ow">and</span> <span class="s">&quot;left&quot;</span> <span class="n">exchanged</span><span class="p">;</span></span>
+<span class="code-line"><span class="mi">24</span>  <span class="n">x</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">BLACK</span><span class="p">;</span> </span>
 </pre></div>
 
 
@@ -418,36 +437,6 @@ O(lgn)。C++ STL中的set、map，linux虚拟内存管理都是通过红黑树�
 </li>
 
 <li class="nav-header"><a href="../../../../../tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
-    <li class="tag-1">
-        <a href="../../../../../tag/c.html">
-            <i class="icon-tag icon-large"></i>C
-        </a>
-    </li>
-    <li class="tag-1">
-        <a href="../../../../../tag/suan-fa.html">
-            <i class="icon-tag icon-large"></i>算法
-        </a>
-    </li>
-    <li class="tag-2">
-        <a href="../../../../../tag/cao-zuo-xi-tong.html">
-            <i class="icon-tag icon-large"></i>操作系统
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/shu-dan.html">
-            <i class="icon-tag icon-large"></i>书单
-        </a>
-    </li>
-    <li class="tag-2">
-        <a href="../../../../../tag/shu-ju-jie-gou.html">
-            <i class="icon-tag icon-large"></i>数据结构
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/la-ji-hui-shou.html">
-            <i class="icon-tag icon-large"></i>垃圾回收
-        </a>
-    </li>
     <li class="tag-4">
         <a href="../../../../../tag/duo-xian-cheng.html">
             <i class="icon-tag icon-large"></i>多线程
@@ -463,9 +452,14 @@ O(lgn)。C++ STL中的set、map，linux虚拟内存管理都是通过红黑树�
             <i class="icon-tag icon-large"></i>拥塞控制
         </a>
     </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/bian-cheng-yu-yan.html">
-            <i class="icon-tag icon-large"></i>编程语言
+    <li class="tag-2">
+        <a href="../../../../../tag/cao-zuo-xi-tong.html">
+            <i class="icon-tag icon-large"></i>操作系统
+        </a>
+    </li>
+    <li class="tag-2">
+        <a href="../../../../../tag/shu-ju-jie-gou.html">
+            <i class="icon-tag icon-large"></i>数据结构
         </a>
     </li>
     <li class="tag-2">
@@ -474,13 +468,38 @@ O(lgn)。C++ STL中的set、map，linux虚拟内存管理都是通过红黑树�
         </a>
     </li>
     <li class="tag-4">
+        <a href="../../../../../tag/zhi-li.html">
+            <i class="icon-tag icon-large"></i>智力
+        </a>
+    </li>
+    <li class="tag-4">
         <a href="../../../../../tag/xiang-mu.html">
             <i class="icon-tag icon-large"></i>项目
         </a>
     </li>
     <li class="tag-4">
-        <a href="../../../../../tag/zhi-li.html">
-            <i class="icon-tag icon-large"></i>智力
+        <a href="../../../../../tag/bian-cheng-yu-yan.html">
+            <i class="icon-tag icon-large"></i>编程语言
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../../../../../tag/shu-dan.html">
+            <i class="icon-tag icon-large"></i>书单
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../../../../../tag/la-ji-hui-shou.html">
+            <i class="icon-tag icon-large"></i>垃圾回收
+        </a>
+    </li>
+    <li class="tag-1">
+        <a href="../../../../../tag/suan-fa.html">
+            <i class="icon-tag icon-large"></i>算法
+        </a>
+    </li>
+    <li class="tag-1">
+        <a href="../../../../../tag/c.html">
+            <i class="icon-tag icon-large"></i>C
         </a>
     </li>
 
