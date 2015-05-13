@@ -116,6 +116,43 @@
 <div class="row">
     <div class="span2">
         <div class="well small"><footer class="post-info">
+<abbr class="published" title="2015-04-15T10:55:00+08:00">
+    <i class="icon-calendar"></i>&nbsp;周三 15 四月 2015
+</abbr>
+<br/><a href="../author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
+
+
+<br/>
+	&nbsp;&nbsp;<a href="../tag/cao-zuo-xi-tong.html" class="label"><i class="icon-tag"></i>&nbsp;操作系统</a>
+</footer><!-- /.post-info --></div>
+    </div>
+    <div class="span6">
+        <div class="article well">
+            <h1><a href="../blog/2015/04/15/csapp/">深入理解计算机系统</a></h1>
+            <div class="summary"><p>操作系统内核是应用程序和硬件之间的媒介。它提供三个基本抽象：</p>
+<ul>
+<li>文件是对I/O设备的抽象</li>
+<li>虚拟存储器是对主存和磁盘的抽象</li>
+<li>进程是对处理器、主存和I/O设备的抽象</li>
+</ul>
+<p>系统中所有的信息，都是一串位表示的。区分不同数据对象的唯一方法就是我们读到这些数据对象时的上下文。</p>
+<p>预处理-&gt;编译-&gt;汇编-&gt;链接</p>
+<h1>程序的机器级表达</h1>
+<p>数据传递、局部变量的分配和释放通过操作程序栈来实现。机器用栈来传递过程参数、存储返回信息、保存寄存器用于恢复，以及本地存储。为单个过程分配的那部分栈称为栈桢。最顶端的栈桢以两个指针界定，寄存器%ebp为帧指针，寄存器%esp为栈指针。</p>
+<p><img src="/images/stack.png" class="img-responsive" alt="stack" align=center /></p>
+<h1>存储器层级结构</h1>
+<p>计算机系统中的一个基本而持久的思想：如果你理解了系统是如何将数据在存储器层次结构中上上下下移动的，那么你可以编写你的应用程序，使得它们的数据项存储在层次结构中较高的地方，在那里CPU能更快地访问到它们。这个思想围绕着计算机程序的一个成为局部性（locality）的基本属性。</p>
+<p>局部性通常有两种形式：时间局部性（temporal locality）和空间局部性（spatial locality）。在一个具有良好时间局部性的程序中，被引用过一次的存储器位置很可能在不远的将来再被多次引用。在一个具有良好空间局部性的程序中，如果一个存储器位置被引用了一次，那么程序很可能在不远的将来引用附近的一个存储器位置。 </p>
+<p>理解存储器层次结构的本质的程序员能够利用这些知识 ...</p>
+                <a class="btn btn-small" href="../blog/2015/04/15/csapp/">more ...</a>
+            </div>
+        </div>
+    </div>
+    <div class="span8">
+        <hr />
+    </div>
+    <div class="span2">
+        <div class="well small"><footer class="post-info">
 <abbr class="published" title="2015-04-01T16:09:00+08:00">
     <i class="icon-calendar"></i>&nbsp;周三 01 四月 2015
 </abbr>
@@ -475,37 +512,6 @@ or -1 if needle is not part of haystack.</p>
     <div class="span8">
         <hr />
     </div>
-    <div class="span2">
-        <div class="well small"><footer class="post-info">
-<abbr class="published" title="2013-12-22T00:00:00+08:00">
-    <i class="icon-calendar"></i>&nbsp;周日 22 十二月 2013
-</abbr>
-<br/><a href="../author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
-
-
-<br/>
-	&nbsp;&nbsp;<a href="../tag/suan-fa.html" class="label"><i class="icon-tag"></i>&nbsp;算法</a>
-</footer><!-- /.post-info --></div>
-    </div>
-    <div class="span6">
-        <div class="article well">
-            <h1><a href="../blog/2013/12/22/string-related/">字符串相关</a></h1>
-            <div class="summary"><h2>子字符串</h2>
-<h3>最长不重复子串</h3>
-<blockquote>
-<p>Given a string, find the length of the longest substring without repeating characters. 
-For example, the longest substring without repeating letters for "abcabcbb" is "abc", which the length is 3. 
-For "bbbbb" the longest substring is "b", with the length of 1.</p>
-</blockquote>
-<h3>分析</h3>
-<p><strong>O(n)时间复杂度， O(1 ...</strong></p>
-                <a class="btn btn-small" href="../blog/2013/12/22/string-related/">more ...</a>
-            </div>
-        </div>
-    </div>
-    <div class="span8">
-        <hr />
-    </div>
 
 <div class="span6">
 <div class="pagination">
@@ -546,18 +552,8 @@ For "bbbbb" the longest substring is "b", with the length of 1.</p>
 
 <li class="nav-header"><a href="../tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
     <li class="tag-4">
-        <a href="../tag/bian-cheng-yu-yan.html">
-            <i class="icon-tag icon-large"></i>编程语言
-        </a>
-    </li>
-    <li class="tag-2">
-        <a href="../tag/shu-ju-jie-gou.html">
-            <i class="icon-tag icon-large"></i>数据结构
-        </a>
-    </li>
-    <li class="tag-1">
-        <a href="../tag/c.html">
-            <i class="icon-tag icon-large"></i>C
+        <a href="../tag/yong-sai-kong-zhi.html">
+            <i class="icon-tag icon-large"></i>拥塞控制
         </a>
     </li>
     <li class="tag-4">
@@ -565,9 +561,9 @@ For "bbbbb" the longest substring is "b", with the length of 1.</p>
             <i class="icon-tag icon-large"></i>垃圾回收
         </a>
     </li>
-    <li class="tag-2">
-        <a href="../tag/cao-zuo-xi-tong.html">
-            <i class="icon-tag icon-large"></i>操作系统
+    <li class="tag-4">
+        <a href="../tag/xiang-mu.html">
+            <i class="icon-tag icon-large"></i>项目
         </a>
     </li>
     <li class="tag-4">
@@ -576,23 +572,8 @@ For "bbbbb" the longest substring is "b", with the length of 1.</p>
         </a>
     </li>
     <li class="tag-4">
-        <a href="../tag/zhi-li.html">
-            <i class="icon-tag icon-large"></i>智力
-        </a>
-    </li>
-    <li class="tag-1">
-        <a href="../tag/suan-fa.html">
-            <i class="icon-tag icon-large"></i>算法
-        </a>
-    </li>
-    <li class="tag-4">
         <a href="../tag/duo-xian-cheng.html">
             <i class="icon-tag icon-large"></i>多线程
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../tag/yong-sai-kong-zhi.html">
-            <i class="icon-tag icon-large"></i>拥塞控制
         </a>
     </li>
     <li class="tag-2">
@@ -600,14 +581,39 @@ For "bbbbb" the longest substring is "b", with the length of 1.</p>
             <i class="icon-tag icon-large"></i>TCP
         </a>
     </li>
-    <li class="tag-4">
-        <a href="../tag/xiang-mu.html">
-            <i class="icon-tag icon-large"></i>项目
+    <li class="tag-1">
+        <a href="../tag/c.html">
+            <i class="icon-tag icon-large"></i>C
         </a>
     </li>
     <li class="tag-1">
         <a href="../tag/python.html">
             <i class="icon-tag icon-large"></i>Python
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../tag/bian-cheng-yu-yan.html">
+            <i class="icon-tag icon-large"></i>编程语言
+        </a>
+    </li>
+    <li class="tag-1">
+        <a href="../tag/suan-fa.html">
+            <i class="icon-tag icon-large"></i>算法
+        </a>
+    </li>
+    <li class="tag-2">
+        <a href="../tag/cao-zuo-xi-tong.html">
+            <i class="icon-tag icon-large"></i>操作系统
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../tag/zhi-li.html">
+            <i class="icon-tag icon-large"></i>智力
+        </a>
+    </li>
+    <li class="tag-1">
+        <a href="../tag/shu-ju-jie-gou.html">
+            <i class="icon-tag icon-large"></i>数据结构
         </a>
     </li>
 
