@@ -144,14 +144,14 @@
         <hr />
 <p><strong>和树的遍历类似，关于的图的遍历一般也有两种，深度优先和宽度优先。
 </strong></p>
-<h3>课程安排</h3>
+<h3>课程安排 I&amp;II</h3>
 <blockquote>
 <p>There are a total of n courses you have to take, labeled from 0 to n - 1.</p>
 <p>Some courses may have prerequisites, for example to take course 0 you have to first take course 1, which is expressed as a pair: [0,1]</p>
 <p>Given the total number of courses and a list of prerequisite pairs, is it possible for you to finish all courses?</p>
 </blockquote>
 <h3>分析</h3>
-<p><strong>核心是遍历图，确定图中节点的数目，以及图中是否有环。这里可以使用<a href="http://en.wikipedia.org/wiki/Topological_sorting#Algorithms">Topological sorting</a>
+<p><strong>核心是遍历图，确定图中节点的数目，以及图中是否有环。其中课程安排II的核心是根据拓扑排序后的节点约束的如果小于课程数目，则剩下的按正常排序即可（节点之间没有前后的约束关系），这里可以使用<a href="http://en.wikipedia.org/wiki/Topological_sorting#Algorithms">Topological sorting</a>
 具体深度优先的算法如下</strong></p>
 <div class="highlight"><pre><span class="code-line"><span class="n">L</span> <span class="o">=</span> <span class="n">Empty</span> <span class="nb">list</span> <span class="n">that</span> <span class="n">will</span> <span class="n">contain</span> <span class="n">the</span> <span class="nb">sorted</span> <span class="n">nodes</span></span>
 <span class="code-line"><span class="k">while</span> <span class="n">there</span> <span class="n">are</span> <span class="n">unmarked</span> <span class="n">nodes</span> <span class="n">do</span></span>
@@ -166,6 +166,36 @@
 <span class="code-line">        <span class="n">mark</span> <span class="n">n</span> <span class="n">permanently</span></span>
 <span class="code-line">        <span class="n">unmark</span> <span class="n">n</span> <span class="n">temporarily</span></span>
 <span class="code-line">        <span class="n">add</span> <span class="n">n</span> <span class="n">to</span> <span class="n">head</span> <span class="n">of</span> <span class="n">L</span></span>
+</pre></div>
+
+
+<hr />
+<p><strong>具体实现</strong></p>
+<div class="highlight"><pre><span class="code-line">    <span class="k">def</span> <span class="nf">findOrder</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">numCourses</span><span class="p">,</span> <span class="n">prerequisites</span><span class="p">):</span></span>
+<span class="code-line">        <span class="bp">self</span><span class="o">.</span><span class="n">lst</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="code-line">        <span class="bp">self</span><span class="o">.</span><span class="n">visited</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">numCourses</span></span>
+<span class="code-line">        <span class="bp">self</span><span class="o">.</span><span class="n">hascyle</span> <span class="o">=</span> <span class="bp">False</span></span>
+<span class="code-line">        <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">prerequisites</span><span class="p">:</span></span>
+<span class="code-line">            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">visited</span><span class="p">[</span><span class="n">edge</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span></span>
+<span class="code-line">                <span class="bp">self</span><span class="o">.</span><span class="n">visit</span><span class="p">(</span><span class="n">edge</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">prerequisites</span><span class="p">)</span></span>
+<span class="code-line">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">hascyle</span><span class="p">:</span></span>
+<span class="code-line">            <span class="k">return</span> <span class="p">[]</span></span>
+<span class="code-line">        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numCourses</span><span class="p">):</span></span>
+<span class="code-line">            <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">lst</span><span class="p">:</span></span>
+<span class="code-line">                <span class="bp">self</span><span class="o">.</span><span class="n">lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">lst</span></span>
+<span class="code-line">    <span class="k">def</span> <span class="nf">visit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">node</span><span class="p">,</span><span class="n">prerequisites</span><span class="p">):</span></span>
+<span class="code-line">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">visited</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span></span>
+<span class="code-line">            <span class="bp">self</span><span class="o">.</span><span class="n">hascyle</span> <span class="o">=</span> <span class="bp">True</span></span>
+<span class="code-line">            <span class="k">return</span></span>
+<span class="code-line">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">visited</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span></span>
+<span class="code-line">            <span class="bp">self</span><span class="o">.</span><span class="n">visited</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="code-line">            <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">prerequisites</span><span class="p">:</span></span>
+<span class="code-line">                <span class="k">if</span> <span class="n">edge</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">node</span><span class="p">:</span></span>
+<span class="code-line">                    <span class="bp">self</span><span class="o">.</span><span class="n">visit</span><span class="p">(</span><span class="n">edge</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">prerequisites</span><span class="p">)</span></span>
+<span class="code-line">            <span class="c">#self.visited[node] =-1</span></span>
+<span class="code-line">            <span class="bp">self</span><span class="o">.</span><span class="n">visited</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span></span>
+<span class="code-line">            <span class="bp">self</span><span class="o">.</span><span class="n">lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>   </span>
 </pre></div>
 
 
@@ -213,6 +243,9 @@ DFS调用中，就会找到一个连通分支，直到遍历图中的所有节�
 <span class="code-line">                    <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span></span>
 <span class="code-line">        <span class="k">return</span> <span class="n">count</span>  </span>
 </pre></div>
+
+
+<h3></h3>
         </div><!-- /.entry-content -->
         <div class="comments">
         <h2>Comments !</h2>
@@ -258,24 +291,14 @@ DFS调用中，就会找到一个连通分支，直到遍历图中的所有节�
 </li>
 
 <li class="nav-header"><a href="../../../../../tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
+    <li class="tag-1">
+        <a href="../../../../../tag/c.html">
+            <i class="icon-tag icon-large"></i>C
+        </a>
+    </li>
     <li class="tag-4">
         <a href="../../../../../tag/yong-sai-kong-zhi.html">
             <i class="icon-tag icon-large"></i>拥塞控制
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/la-ji-hui-shou.html">
-            <i class="icon-tag icon-large"></i>垃圾回收
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/xiang-mu.html">
-            <i class="icon-tag icon-large"></i>项目
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/shu-dan.html">
-            <i class="icon-tag icon-large"></i>书单
         </a>
     </li>
     <li class="tag-4">
@@ -283,14 +306,39 @@ DFS调用中，就会找到一个连通分支，直到遍历图中的所有节�
             <i class="icon-tag icon-large"></i>多线程
         </a>
     </li>
+    <li class="tag-4">
+        <a href="../../../../../tag/shu-dan.html">
+            <i class="icon-tag icon-large"></i>书单
+        </a>
+    </li>
     <li class="tag-2">
         <a href="../../../../../tag/tcp.html">
             <i class="icon-tag icon-large"></i>TCP
         </a>
     </li>
+    <li class="tag-4">
+        <a href="../../../../../tag/la-ji-hui-shou.html">
+            <i class="icon-tag icon-large"></i>垃圾回收
+        </a>
+    </li>
     <li class="tag-1">
-        <a href="../../../../../tag/c.html">
-            <i class="icon-tag icon-large"></i>C
+        <a href="../../../../../tag/shu-ju-jie-gou.html">
+            <i class="icon-tag icon-large"></i>数据结构
+        </a>
+    </li>
+    <li class="tag-1">
+        <a href="../../../../../tag/suan-fa.html">
+            <i class="icon-tag icon-large"></i>算法
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../../../../../tag/bian-cheng-yu-yan.html">
+            <i class="icon-tag icon-large"></i>编程语言
+        </a>
+    </li>
+    <li class="tag-2">
+        <a href="../../../../../tag/cao-zuo-xi-tong.html">
+            <i class="icon-tag icon-large"></i>操作系统
         </a>
     </li>
     <li class="tag-1">
@@ -299,28 +347,13 @@ DFS调用中，就会找到一个连通分支，直到遍历图中的所有节�
         </a>
     </li>
     <li class="tag-4">
-        <a href="../../../../../tag/bian-cheng-yu-yan.html">
-            <i class="icon-tag icon-large"></i>编程语言
-        </a>
-    </li>
-    <li class="tag-1">
-        <a href="../../../../../tag/suan-fa.html">
-            <i class="icon-tag icon-large"></i>算法
-        </a>
-    </li>
-    <li class="tag-2">
-        <a href="../../../../../tag/cao-zuo-xi-tong.html">
-            <i class="icon-tag icon-large"></i>操作系统
-        </a>
-    </li>
-    <li class="tag-4">
         <a href="../../../../../tag/zhi-li.html">
             <i class="icon-tag icon-large"></i>智力
         </a>
     </li>
-    <li class="tag-1">
-        <a href="../../../../../tag/shu-ju-jie-gou.html">
-            <i class="icon-tag icon-large"></i>数据结构
+    <li class="tag-4">
+        <a href="../../../../../tag/xiang-mu.html">
+            <i class="icon-tag icon-large"></i>项目
         </a>
     </li>
 
