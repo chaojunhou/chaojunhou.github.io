@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="google-site-verification" content="fdZTDVFyX3hKovPIzn1tgPixk_wysBXaPN8YQw1P8Jw" />
-    <title>Write the Code - TCP | Write the Code</title>
+    <title>Write the Code - 概率 | Write the Code</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="keywords" content="" />
     <meta name="author" content="ChaoJun Hou" />
@@ -116,76 +116,32 @@
 <div class="row">
     <div class="span2">
         <div class="well small"><footer class="post-info">
-<abbr class="published" title="2014-01-02T00:00:00+08:00">
-    <i class="icon-calendar"></i>&nbsp;周四 02 一月 2014
+<abbr class="published" title="2014-02-18T13:23:00+08:00">
+    <i class="icon-calendar"></i>&nbsp;周二 18 二月 2014
 </abbr>
 <br/><a href="../author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
 
 
 <br/>
-	&nbsp;&nbsp;<a href="../tag/tcp.html" class="label"><i class="icon-tag"></i>&nbsp;TCP</a>
+	&nbsp;&nbsp;<a href="../tag/suan-fa.html" class="label"><i class="icon-tag"></i>&nbsp;算法</a>
+	&nbsp;&nbsp;<a href="../tag/gai-lu.html" class="label"><i class="icon-tag"></i>&nbsp;概率</a>
 </footer><!-- /.post-info --></div>
     </div>
     <div class="span6">
         <div class="article well">
-            <h1><a href="../blog/2014/01/02/timer/">TCP中的七种定时器</a></h1>
-            <div class="summary"><p>TCP为每个连接建立了七个定时器。下面讲按照这些定时器在一条连接生存期内出现的次序依次进行介绍。
- <img src="/images/fsm.png" class="img-responsive" alt="FSM" align=center /></p>
-<ul>
-<li>Connection establishment Timer(​连接建立定时器)<ul>
-<li>为了防止client端一直等待服务器端的情况发生。 在Client发送SYN报文段建立新的链接时，该定时器启动，如果在75s内没有收到响应，连接建立将会终止。确定连接的有效建立。</li>
-</ul>
-</li>
-<li>Retransmission Timer(重传定时器)<ul>
-<li>重传定时器在TCP发送数据时设定。在该定时器超时，而没有收到另外一端的ACK的时候，将重传数据。重传定时器的值是动态计算的，取决于该连接RTT的值和被重传的次数。</li>
-</ul>
-</li>
-<li>Delayed ACK Timer(延迟ACK定时器)定时器在200ms<ul>
-<li>延迟ACK定时器负责在该终端（end）收到一个数据包时，无需马上发出ACK进行确认，而是等待200ms内，有数据要在该连接上发送，延迟的ACK响应就可随着数据一起发送回另一个终端。这种方式也被成为捎带确认。</li>
-</ul>
-</li>
-<li>Persist Timer（持续定时器）<ul>
-<li>持续定时器在收到连接另一端的发送通告窗口为零时，阻止该端继续发送数据时设定。因此当该端有数据要发送时， 但连接的另一端的通告窗口为零时，持续定时器就会启动，超时后向连接另一端发送1字节的数据，来判断另一方的接收窗口是否打开。被称为零窗口探测。持续定时器的值是动态计算的，取决于往返时间，时间在5s到60s之间取值。</li>
-</ul>
-</li>
-<li>Keep alive ...</li></ul>
-                <a class="btn btn-small" href="../blog/2014/01/02/timer/">more ...</a>
-            </div>
-        </div>
-    </div>
-    <div class="span8">
-        <hr />
-    </div>
-    <div class="span2">
-        <div class="well small"><footer class="post-info">
-<abbr class="published" title="2013-12-15T00:00:00+08:00">
-    <i class="icon-calendar"></i>&nbsp;周日 15 十二月 2013
-</abbr>
-<br/><a href="../author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
-
-
-<br/>
-	&nbsp;&nbsp;<a href="../tag/tcp.html" class="label"><i class="icon-tag"></i>&nbsp;TCP</a>
-	&nbsp;&nbsp;<a href="../tag/yong-sai-kong-zhi.html" class="label"><i class="icon-tag"></i>&nbsp;拥塞控制</a>
-</footer><!-- /.post-info --></div>
-    </div>
-    <div class="span6">
-        <div class="article well">
-            <h1><a href="../blog/2013/12/15/the-parameters-in-tcp-congestion-control/">TCP Congestion Control 中的相关参数</a></h1>
-            <div class="summary"><ul>
-<li>流量控制（Flow control） End-to-End,防止发送方速率过大，接收方来不及处理发送方的数据。- -</li>
-<li>拥塞控制（Congestion control） 到达子网中某一部分的分组数量过多，中间路由缓存分组，queueing，造成RTT增加。反应网络整体状况</li>
-<li>滑动窗口（Sliding Window） 位于发送方，由接收方的通告窗口（Advertised-Window）决定。接收方通过通告窗口告诉发送方自己还有多少buffer可以接收数据。</li>
-<li>通告窗口（Advertised-Window） 接收方使用流量控制的方式</li>
-<li>
-<p>拥塞窗口（Congestion Window） 拥塞窗口的大小指能够发出，但还没有收ACK的最大数据报文段。Linux 3.0 把CWND初始化10个MSS。发送方使用流量控制的方式。发送方取拥塞窗口与通告窗口中的最小值作为发送上限</p>
-</li>
-<li>
-<p>慢启动（Slow Start） 每个ACK，CWND增加一个报文段（CWND以字节为单位，一报文段为单位进行线性增加）
-报文段（Segment） 传输层分组称为报文段，是TCP</p>
-</li>
-<li>MSS（Maximum Segment ...</li></ul>
-                <a class="btn btn-small" href="../blog/2013/12/15/the-parameters-in-tcp-congestion-control/">more ...</a>
+            <h1><a href="../blog/2014/02/18/equal-probability/">概率问题</a></h1>
+            <div class="summary"><hr />
+<h3>等概率：蓄水池问题</h3>
+<p>要求从N个元素中随机的抽取k个元素，其中N无法确定。</p>
+<p>这种应用的场景一般是数据流的情况下，由于数据只能被读取一次，而且数据量很大，并不能全部保存，因此数据量N是无法在抽样开始时确定的；但又要保持随机性，于是有了这个问题。所以搜索网站有时候会问这样的问题。</p>
+<p>这里的核心问题就是“随机”，怎么才能是随机的抽取元素呢？我们设想，买彩票的时候，由于所有彩票的中奖概率都是一样的，所以我们才是“随机的”买彩票。那么要使抽取数据也随机，必须使每一个数据被抽样出来的概率都一样。</p>
+<h3>分析：</h3>
+<p>由于N无法确定，数据只能读取一次，并且要求随机，就是每个元素抽出的概率一样，都是k/N。</p>
+<p>解法一：最小k个指纹</p>
+<p>找到一个哈希函数能产生随机数，同时用一个k个元素的堆用来保存最小的k个元素。那么过一遍所有的元素，计算每个的哈希值，通过堆来选择k个元素。</p>
+<p>解法二：数学计算</p>
+<p>先选中前k个， 从第k+1个元素到最后一个元素为止， 以1/i  (i=k+1, k+2,...,N ...</p>
+                <a class="btn btn-small" href="../blog/2014/02/18/equal-probability/">more ...</a>
             </div>
         </div>
     </div>
