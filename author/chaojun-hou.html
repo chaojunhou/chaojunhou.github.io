@@ -116,6 +116,41 @@
 <div class="row">
     <div class="span2">
         <div class="well small"><footer class="post-info">
+<abbr class="published" title="2015-05-18T14:53:00+08:00">
+    <i class="icon-calendar"></i>&nbsp;周一 18 五月 2015
+</abbr>
+<br/><a href="../author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
+
+
+<br/>
+	&nbsp;&nbsp;<a href="../tag/suan-fa.html" class="label"><i class="icon-tag"></i>&nbsp;算法</a>
+</footer><!-- /.post-info --></div>
+    </div>
+    <div class="span6">
+        <div class="article well">
+            <h1><a href="../blog/2015/05/18/binary-tree/">二叉树</a></h1>
+            <div class="summary"><hr />
+<h3>把二叉查找树保存到文件中</h3>
+<blockquote>
+<p>Describe an algorithm to save a Binary Search Tree (BST) to a file in terms of run-time and disk space complexity. 
+You must be able to restore to the exact original BST using the saved format.</p>
+</blockquote>
+<h3>分析</h3>
+<p><strong>由于二叉排序树在中序遍历中为一个升序的序列，因此考虑使用前序遍历
+或者后序遍历来保存二叉树的信息。使用后序遍历时，每个parent节点都在children节点之后，无法有效的通过
+中序遍历文件中的数据来重新构造一棵二叉树。因此使用二叉树前序遍历来保存这些节点的信息，同时使用中序遍历来
+构造一棵二叉树。</strong>
+<strong>构造二叉树的代码如下：</strong></p>
+<div class="highlight"><pre><span class="code-line"><span class="kt">void ...</span></span></pre></div>
+                <a class="btn btn-small" href="../blog/2015/05/18/binary-tree/">more ...</a>
+            </div>
+        </div>
+    </div>
+    <div class="span8">
+        <hr />
+    </div>
+    <div class="span2">
+        <div class="well small"><footer class="post-info">
 <abbr class="published" title="2015-05-13T22:02:00+08:00">
     <i class="icon-calendar"></i>&nbsp;周三 13 五月 2015
 </abbr>
@@ -415,34 +450,6 @@ Count the number of prime numbers less than a non-negative number, n</p>
     <div class="span8">
         <hr />
     </div>
-    <div class="span2">
-        <div class="well small"><footer class="post-info">
-<abbr class="published" title="2015-04-25T19:21:00+08:00">
-    <i class="icon-calendar"></i>&nbsp;周六 25 四月 2015
-</abbr>
-<br/><a href="../author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
-
-
-<br/>
-	&nbsp;&nbsp;<a href="../tag/suan-fa.html" class="label"><i class="icon-tag"></i>&nbsp;算法</a>
-</footer><!-- /.post-info --></div>
-    </div>
-    <div class="span6">
-        <div class="article well">
-            <h1><a href="../blog/2015/04/25/cal24/">24点游戏编程</a></h1>
-            <div class="summary"><p><a href="http://zh.wikipedia.org/wiki/24%E7%82%B9">24点游戏</a>是一种使用扑克牌来进行的益智类游戏，游戏内容是：从一副扑克牌中抽去大小王剩下52张，任意抽取4张牌，把牌面上的数（A代表1）运用加、减、乘、除和括号进行运算得出24。每张牌都必须使用一次，但不能重复使用。在不同版本中，对J、Q、和K的处理有些差异。一个常见的版本是把J、Q、和K去除，或当成10；还有一个版本是把J表示11，Q表示12，K代表13。</p>
-<p>虽然大多数24点存在很多解法，有相当一部分数字组合只存在唯一的解法。这种组合往往较有难度，也较为有趣。这里总结一些常见的组合。</p>
-<ul>
-<li>
-<p>分数运算</p>
-<p>虽然给出4个数字都是整数，中间步骤中有时会出现分数。这种4个数字的组合往往较有难度。一个经典的例子是1，5，5，5，其解答为5 × (5 − 1 ÷ 5) = 24；另外 一个例子是3，3，8，8，其解答为8 ÷ (3 - 8 ...</p></li></ul>
-                <a class="btn btn-small" href="../blog/2015/04/25/cal24/">more ...</a>
-            </div>
-        </div>
-    </div>
-    <div class="span8">
-        <hr />
-    </div>
 
 <div class="span6">
 <div class="pagination">
@@ -482,9 +489,39 @@ Count the number of prime numbers less than a non-negative number, n</p>
 </li>
 
 <li class="nav-header"><a href="../tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
+    <li class="tag-4">
+        <a href="../tag/bian-cheng-yu-yan.html">
+            <i class="icon-tag icon-large"></i>编程语言
+        </a>
+    </li>
     <li class="tag-2">
         <a href="../tag/shu-ju-jie-gou.html">
             <i class="icon-tag icon-large"></i>数据结构
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../tag/yong-sai-kong-zhi.html">
+            <i class="icon-tag icon-large"></i>拥塞控制
+        </a>
+    </li>
+    <li class="tag-2">
+        <a href="../tag/cao-zuo-xi-tong.html">
+            <i class="icon-tag icon-large"></i>操作系统
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../tag/gai-lu.html">
+            <i class="icon-tag icon-large"></i>概率
+        </a>
+    </li>
+    <li class="tag-1">
+        <a href="../tag/c.html">
+            <i class="icon-tag icon-large"></i>C
+        </a>
+    </li>
+    <li class="tag-1">
+        <a href="../tag/python.html">
+            <i class="icon-tag icon-large"></i>Python
         </a>
     </li>
     <li class="tag-4">
@@ -493,23 +530,23 @@ Count the number of prime numbers less than a non-negative number, n</p>
         </a>
     </li>
     <li class="tag-4">
+        <a href="../tag/shu-dan.html">
+            <i class="icon-tag icon-large"></i>书单
+        </a>
+    </li>
+    <li class="tag-4">
         <a href="../tag/duo-xian-cheng.html">
             <i class="icon-tag icon-large"></i>多线程
         </a>
     </li>
-    <li class="tag-4">
-        <a href="../tag/gai-lu.html">
-            <i class="icon-tag icon-large"></i>概率
+    <li class="tag-1">
+        <a href="../tag/suan-fa.html">
+            <i class="icon-tag icon-large"></i>算法
         </a>
     </li>
-    <li class="tag-4">
-        <a href="../tag/bian-cheng-yu-yan.html">
-            <i class="icon-tag icon-large"></i>编程语言
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../tag/yong-sai-kong-zhi.html">
-            <i class="icon-tag icon-large"></i>拥塞控制
+    <li class="tag-2">
+        <a href="../tag/tcp.html">
+            <i class="icon-tag icon-large"></i>TCP
         </a>
     </li>
     <li class="tag-4">
@@ -517,39 +554,9 @@ Count the number of prime numbers less than a non-negative number, n</p>
             <i class="icon-tag icon-large"></i>智力
         </a>
     </li>
-    <li class="tag-0">
-        <a href="../tag/suan-fa.html">
-            <i class="icon-tag icon-large"></i>算法
-        </a>
-    </li>
-    <li class="tag-1">
-        <a href="../tag/c.html">
-            <i class="icon-tag icon-large"></i>C
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../tag/shu-dan.html">
-            <i class="icon-tag icon-large"></i>书单
-        </a>
-    </li>
     <li class="tag-4">
         <a href="../tag/la-ji-hui-shou.html">
             <i class="icon-tag icon-large"></i>垃圾回收
-        </a>
-    </li>
-    <li class="tag-1">
-        <a href="../tag/python.html">
-            <i class="icon-tag icon-large"></i>Python
-        </a>
-    </li>
-    <li class="tag-2">
-        <a href="../tag/cao-zuo-xi-tong.html">
-            <i class="icon-tag icon-large"></i>操作系统
-        </a>
-    </li>
-    <li class="tag-2">
-        <a href="../tag/tcp.html">
-            <i class="icon-tag icon-large"></i>TCP
         </a>
     </li>
 

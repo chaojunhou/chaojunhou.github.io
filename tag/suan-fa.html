@@ -116,6 +116,41 @@
 <div class="row">
     <div class="span2">
         <div class="well small"><footer class="post-info">
+<abbr class="published" title="2015-05-18T14:53:00+08:00">
+    <i class="icon-calendar"></i>&nbsp;周一 18 五月 2015
+</abbr>
+<br/><a href="../author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
+
+
+<br/>
+	&nbsp;&nbsp;<a href="../tag/suan-fa.html" class="label"><i class="icon-tag"></i>&nbsp;算法</a>
+</footer><!-- /.post-info --></div>
+    </div>
+    <div class="span6">
+        <div class="article well">
+            <h1><a href="../blog/2015/05/18/binary-tree/">二叉树</a></h1>
+            <div class="summary"><hr />
+<h3>把二叉查找树保存到文件中</h3>
+<blockquote>
+<p>Describe an algorithm to save a Binary Search Tree (BST) to a file in terms of run-time and disk space complexity. 
+You must be able to restore to the exact original BST using the saved format.</p>
+</blockquote>
+<h3>分析</h3>
+<p><strong>由于二叉排序树在中序遍历中为一个升序的序列，因此考虑使用前序遍历
+或者后序遍历来保存二叉树的信息。使用后序遍历时，每个parent节点都在children节点之后，无法有效的通过
+中序遍历文件中的数据来重新构造一棵二叉树。因此使用二叉树前序遍历来保存这些节点的信息，同时使用中序遍历来
+构造一棵二叉树。</strong>
+<strong>构造二叉树的代码如下：</strong></p>
+<div class="highlight"><pre><span class="code-line"><span class="kt">void ...</span></span></pre></div>
+                <a class="btn btn-small" href="../blog/2015/05/18/binary-tree/">more ...</a>
+            </div>
+        </div>
+    </div>
+    <div class="span8">
+        <hr />
+    </div>
+    <div class="span2">
+        <div class="well small"><footer class="post-info">
 <abbr class="published" title="2015-05-05T09:06:00+08:00">
     <i class="icon-calendar"></i>&nbsp;周二 05 五月 2015
 </abbr>
@@ -362,9 +397,39 @@ For "bbbbb" the longest substring is "b", with the length of 1.</p>
 </li>
 
 <li class="nav-header"><a href="../tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
+    <li class="tag-4">
+        <a href="../tag/bian-cheng-yu-yan.html">
+            <i class="icon-tag icon-large"></i>编程语言
+        </a>
+    </li>
     <li class="tag-2">
         <a href="../tag/shu-ju-jie-gou.html">
             <i class="icon-tag icon-large"></i>数据结构
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../tag/yong-sai-kong-zhi.html">
+            <i class="icon-tag icon-large"></i>拥塞控制
+        </a>
+    </li>
+    <li class="tag-2">
+        <a href="../tag/cao-zuo-xi-tong.html">
+            <i class="icon-tag icon-large"></i>操作系统
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="../tag/gai-lu.html">
+            <i class="icon-tag icon-large"></i>概率
+        </a>
+    </li>
+    <li class="tag-1">
+        <a href="../tag/c.html">
+            <i class="icon-tag icon-large"></i>C
+        </a>
+    </li>
+    <li class="tag-1">
+        <a href="../tag/python.html">
+            <i class="icon-tag icon-large"></i>Python
         </a>
     </li>
     <li class="tag-4">
@@ -373,23 +438,23 @@ For "bbbbb" the longest substring is "b", with the length of 1.</p>
         </a>
     </li>
     <li class="tag-4">
+        <a href="../tag/shu-dan.html">
+            <i class="icon-tag icon-large"></i>书单
+        </a>
+    </li>
+    <li class="tag-4">
         <a href="../tag/duo-xian-cheng.html">
             <i class="icon-tag icon-large"></i>多线程
         </a>
     </li>
-    <li class="tag-4">
-        <a href="../tag/gai-lu.html">
-            <i class="icon-tag icon-large"></i>概率
+    <li class="tag-1">
+        <a href="../tag/suan-fa.html">
+            <i class="icon-tag icon-large"></i>算法
         </a>
     </li>
-    <li class="tag-4">
-        <a href="../tag/bian-cheng-yu-yan.html">
-            <i class="icon-tag icon-large"></i>编程语言
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../tag/yong-sai-kong-zhi.html">
-            <i class="icon-tag icon-large"></i>拥塞控制
+    <li class="tag-2">
+        <a href="../tag/tcp.html">
+            <i class="icon-tag icon-large"></i>TCP
         </a>
     </li>
     <li class="tag-4">
@@ -397,39 +462,9 @@ For "bbbbb" the longest substring is "b", with the length of 1.</p>
             <i class="icon-tag icon-large"></i>智力
         </a>
     </li>
-    <li class="tag-0">
-        <a href="../tag/suan-fa.html">
-            <i class="icon-tag icon-large"></i>算法
-        </a>
-    </li>
-    <li class="tag-1">
-        <a href="../tag/c.html">
-            <i class="icon-tag icon-large"></i>C
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../tag/shu-dan.html">
-            <i class="icon-tag icon-large"></i>书单
-        </a>
-    </li>
     <li class="tag-4">
         <a href="../tag/la-ji-hui-shou.html">
             <i class="icon-tag icon-large"></i>垃圾回收
-        </a>
-    </li>
-    <li class="tag-1">
-        <a href="../tag/python.html">
-            <i class="icon-tag icon-large"></i>Python
-        </a>
-    </li>
-    <li class="tag-2">
-        <a href="../tag/cao-zuo-xi-tong.html">
-            <i class="icon-tag icon-large"></i>操作系统
-        </a>
-    </li>
-    <li class="tag-2">
-        <a href="../tag/tcp.html">
-            <i class="icon-tag icon-large"></i>TCP
         </a>
     </li>
 

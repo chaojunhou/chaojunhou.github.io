@@ -116,6 +116,34 @@
 <div class="row">
     <div class="span2">
         <div class="well small"><footer class="post-info">
+<abbr class="published" title="2015-04-25T19:21:00+08:00">
+    <i class="icon-calendar"></i>&nbsp;周六 25 四月 2015
+</abbr>
+<br/><a href="./author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
+
+
+<br/>
+	&nbsp;&nbsp;<a href="./tag/suan-fa.html" class="label"><i class="icon-tag"></i>&nbsp;算法</a>
+</footer><!-- /.post-info --></div>
+    </div>
+    <div class="span6">
+        <div class="article well">
+            <h1><a href="./blog/2015/04/25/cal24/">24点游戏编程</a></h1>
+            <div class="summary"><p><a href="http://zh.wikipedia.org/wiki/24%E7%82%B9">24点游戏</a>是一种使用扑克牌来进行的益智类游戏，游戏内容是：从一副扑克牌中抽去大小王剩下52张，任意抽取4张牌，把牌面上的数（A代表1）运用加、减、乘、除和括号进行运算得出24。每张牌都必须使用一次，但不能重复使用。在不同版本中，对J、Q、和K的处理有些差异。一个常见的版本是把J、Q、和K去除，或当成10；还有一个版本是把J表示11，Q表示12，K代表13。</p>
+<p>虽然大多数24点存在很多解法，有相当一部分数字组合只存在唯一的解法。这种组合往往较有难度，也较为有趣。这里总结一些常见的组合。</p>
+<ul>
+<li>
+<p>分数运算</p>
+<p>虽然给出4个数字都是整数，中间步骤中有时会出现分数。这种4个数字的组合往往较有难度。一个经典的例子是1，5，5，5，其解答为5 × (5 − 1 ÷ 5) = 24；另外 一个例子是3，3，8，8，其解答为8 ÷ (3 - 8 ...</p></li></ul>
+                <a class="btn btn-small" href="./blog/2015/04/25/cal24/">more ...</a>
+            </div>
+        </div>
+    </div>
+    <div class="span8">
+        <hr />
+    </div>
+    <div class="span2">
+        <div class="well small"><footer class="post-info">
 <abbr class="published" title="2015-04-15T10:55:00+08:00">
     <i class="icon-calendar"></i>&nbsp;周三 15 四月 2015
 </abbr>
@@ -481,48 +509,6 @@ or -1 if needle is not part of haystack.</p>
     <div class="span8">
         <hr />
     </div>
-    <div class="span2">
-        <div class="well small"><footer class="post-info">
-<abbr class="published" title="2014-01-02T00:00:00+08:00">
-    <i class="icon-calendar"></i>&nbsp;周四 02 一月 2014
-</abbr>
-<br/><a href="./author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
-
-
-<br/>
-	&nbsp;&nbsp;<a href="./tag/tcp.html" class="label"><i class="icon-tag"></i>&nbsp;TCP</a>
-</footer><!-- /.post-info --></div>
-    </div>
-    <div class="span6">
-        <div class="article well">
-            <h1><a href="./blog/2014/01/02/timer/">TCP中的七种定时器</a></h1>
-            <div class="summary"><p>TCP为每个连接建立了七个定时器。下面讲按照这些定时器在一条连接生存期内出现的次序依次进行介绍。
- <img src="/images/fsm.png" class="img-responsive" alt="FSM" align=center /></p>
-<ul>
-<li>Connection establishment Timer(​连接建立定时器)<ul>
-<li>为了防止client端一直等待服务器端的情况发生。 在Client发送SYN报文段建立新的链接时，该定时器启动，如果在75s内没有收到响应，连接建立将会终止。确定连接的有效建立。</li>
-</ul>
-</li>
-<li>Retransmission Timer(重传定时器)<ul>
-<li>重传定时器在TCP发送数据时设定。在该定时器超时，而没有收到另外一端的ACK的时候，将重传数据。重传定时器的值是动态计算的，取决于该连接RTT的值和被重传的次数。</li>
-</ul>
-</li>
-<li>Delayed ACK Timer(延迟ACK定时器)定时器在200ms<ul>
-<li>延迟ACK定时器负责在该终端（end）收到一个数据包时，无需马上发出ACK进行确认，而是等待200ms内，有数据要在该连接上发送，延迟的ACK响应就可随着数据一起发送回另一个终端。这种方式也被成为捎带确认。</li>
-</ul>
-</li>
-<li>Persist Timer（持续定时器）<ul>
-<li>持续定时器在收到连接另一端的发送通告窗口为零时，阻止该端继续发送数据时设定。因此当该端有数据要发送时， 但连接的另一端的通告窗口为零时，持续定时器就会启动，超时后向连接另一端发送1字节的数据，来判断另一方的接收窗口是否打开。被称为零窗口探测。持续定时器的值是动态计算的，取决于往返时间，时间在5s到60s之间取值。</li>
-</ul>
-</li>
-<li>Keep alive ...</li></ul>
-                <a class="btn btn-small" href="./blog/2014/01/02/timer/">more ...</a>
-            </div>
-        </div>
-    </div>
-    <div class="span8">
-        <hr />
-    </div>
 
 <div class="span6">
 <div class="pagination">
@@ -562,9 +548,39 @@ or -1 if needle is not part of haystack.</p>
 </li>
 
 <li class="nav-header"><a href="./tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
+    <li class="tag-4">
+        <a href="./tag/bian-cheng-yu-yan.html">
+            <i class="icon-tag icon-large"></i>编程语言
+        </a>
+    </li>
     <li class="tag-2">
         <a href="./tag/shu-ju-jie-gou.html">
             <i class="icon-tag icon-large"></i>数据结构
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="./tag/yong-sai-kong-zhi.html">
+            <i class="icon-tag icon-large"></i>拥塞控制
+        </a>
+    </li>
+    <li class="tag-2">
+        <a href="./tag/cao-zuo-xi-tong.html">
+            <i class="icon-tag icon-large"></i>操作系统
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="./tag/gai-lu.html">
+            <i class="icon-tag icon-large"></i>概率
+        </a>
+    </li>
+    <li class="tag-1">
+        <a href="./tag/c.html">
+            <i class="icon-tag icon-large"></i>C
+        </a>
+    </li>
+    <li class="tag-1">
+        <a href="./tag/python.html">
+            <i class="icon-tag icon-large"></i>Python
         </a>
     </li>
     <li class="tag-4">
@@ -573,23 +589,23 @@ or -1 if needle is not part of haystack.</p>
         </a>
     </li>
     <li class="tag-4">
+        <a href="./tag/shu-dan.html">
+            <i class="icon-tag icon-large"></i>书单
+        </a>
+    </li>
+    <li class="tag-4">
         <a href="./tag/duo-xian-cheng.html">
             <i class="icon-tag icon-large"></i>多线程
         </a>
     </li>
-    <li class="tag-4">
-        <a href="./tag/gai-lu.html">
-            <i class="icon-tag icon-large"></i>概率
+    <li class="tag-1">
+        <a href="./tag/suan-fa.html">
+            <i class="icon-tag icon-large"></i>算法
         </a>
     </li>
-    <li class="tag-4">
-        <a href="./tag/bian-cheng-yu-yan.html">
-            <i class="icon-tag icon-large"></i>编程语言
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="./tag/yong-sai-kong-zhi.html">
-            <i class="icon-tag icon-large"></i>拥塞控制
+    <li class="tag-2">
+        <a href="./tag/tcp.html">
+            <i class="icon-tag icon-large"></i>TCP
         </a>
     </li>
     <li class="tag-4">
@@ -597,39 +613,9 @@ or -1 if needle is not part of haystack.</p>
             <i class="icon-tag icon-large"></i>智力
         </a>
     </li>
-    <li class="tag-0">
-        <a href="./tag/suan-fa.html">
-            <i class="icon-tag icon-large"></i>算法
-        </a>
-    </li>
-    <li class="tag-1">
-        <a href="./tag/c.html">
-            <i class="icon-tag icon-large"></i>C
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="./tag/shu-dan.html">
-            <i class="icon-tag icon-large"></i>书单
-        </a>
-    </li>
     <li class="tag-4">
         <a href="./tag/la-ji-hui-shou.html">
             <i class="icon-tag icon-large"></i>垃圾回收
-        </a>
-    </li>
-    <li class="tag-1">
-        <a href="./tag/python.html">
-            <i class="icon-tag icon-large"></i>Python
-        </a>
-    </li>
-    <li class="tag-2">
-        <a href="./tag/cao-zuo-xi-tong.html">
-            <i class="icon-tag icon-large"></i>操作系统
-        </a>
-    </li>
-    <li class="tag-2">
-        <a href="./tag/tcp.html">
-            <i class="icon-tag icon-large"></i>TCP
         </a>
     </li>
 
