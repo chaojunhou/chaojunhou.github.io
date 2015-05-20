@@ -1,2 +1,0 @@
-User-agent: *
-Sitemap: http://chaojunhou.github.io/sitemap.xml
