@@ -1,149 +1,77 @@
 <!DOCTYPE html>
-<html lang="zh">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="google-site-verification" content="fdZTDVFyX3hKovPIzn1tgPixk_wysBXaPN8YQw1P8Jw" />
-    <title>素数筛选法 | Write the Code</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="keywords" content="" />
-    <meta name="author" content="ChaoJun Hou" />
-    <meta name="kittycheck_rumble" content="true" />
-    <meta name="kittycheck_position" content="top=60,right=60" />
+<html lang="en-US">
+    <head>
+        <meta charset="utf-8"> 
+        <meta name="google-site-verification" content="fdZTDVFyX3hKovPIzn1tgPixk_wysBXaPN8YQw1P8Jw" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="ChaoJun Hou" />
+        <meta name="copyright" content="ChaoJun Hou" />
 
-    <!-- Le styles -->
-    <link rel="stylesheet" href="../../../../../theme/css/bootstrap.min.css" type="text/css" />
-    <style type="text/css">
-      body {
-        padding-top: 60px;
-        padding-bottom: 40px;
-      }
-      .sidebar-nav {
-        padding: 9px 0;
-      }
-      .tag-1 {
-        font-size: 13pt;
-      }
-      .tag-2 {
-        font-size: 10pt;
-      }
-      .tag-2 {
-        font-size: 8pt;
-      }
-      .tag-4 {
-        font-size: 6pt;
-     }
-    </style>
-    <link href="../../../../../theme/css/bootstrap-responsive.min.css" rel="stylesheet">
-    <link href="../../../../../theme/css/font-awesome.css" rel="stylesheet">
-    <link href="../../../../../theme/css/pygments.css" rel="stylesheet">
-
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
-    <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="../../../../../theme/img/favicon.ico">
-    <link rel="apple-touch-icon" href="../../../../../theme/img/apple-touch-icon.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="../../../../../theme/img/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="../../../../../theme/img/apple-touch-icon-114x114.png">
-
-    <link href="../../../../../" type="application/atom+xml" rel="alternate" title="Write the Code ATOM Feed" />
-  </head>
-  <body>
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container-fluid">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <a class="brand" href="../../../../../index.html">Write the Code </a>
-          <div class="nav-collapse">
-            <ul class="nav">
-                <li ><a href="../../../../../pages/About.html">关于</a></li>
-                <li class="divider-vertical"></li>
-                <li class="active">
-                  <a href="../../../../../category/bian-cheng.html">
-						        <i class="icon-folder-open icon-large"></i>编程
-					         </a>
-                </li>
-                 <li class="divider-vertical"></li>
-                <li >
-                  <a href="../../../../../category/ji-suan-ji-ke-xue.html">
-						        <i class="icon-folder-open icon-large"></i>计算机科学
-					         </a>
-                </li>
-                 <li class="divider-vertical"></li>
-             
-              <ul class="nav ">
-                    <li><a href="/random.html"><i class="icon-folder-open icon-large"></i>随机文章</a></li>
-                    <li class="divider-vertical"></li>
-              </ul>
-              <ul class="nav">
-                    <li><a href="../../../../../archives.html"><i class="icon-th-list"></i>归档</a></li>
-                    <li class="divider-vertical"></li>
-              </ul>
-
-              <ul class="nav pull-right" style="height: 40px; margin-top: 5px; ">
-                    <li >
-		              	<form method="get" action="http://www.google.com/search">
-		              			<input type="hidden" name="cref" value="" />
-  								<input type="hidden" name="ie" value="utf-8" />
-  								<input type="hidden" name="hl" value="zh-CN" />
-						        <input type="text" name="q" size="38" maxlength="255" placeholder="Search…" />
-						        <input type="submit" name="btnG" value="站内搜索" />
-						        <input type="hidden" name="domains" value="http://www.houcj.net/" />
-						        <input type="hidden" name="sitesearch" value="houcj.net" />
-						</form>
-	              </li>
-              </ul>
-                      
-         
-
-            </ul>
-            <!--<p class="navbar-text pull-right">Logged in as <a href="#">username</a></p>-->
-          </div><!--/.nav-collapse -->
+<meta name="keywords" content="算法, Python, C, 编程, " />
+        <title>素数筛选法  · Change the World| Write the Code
+</title>
+        <link href="http://cdn-images.mailchimp.com/embedcode/slim-081711.css" rel="stylesheet" type="text/css">
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="../../../../../theme/css/style.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="../../../../../theme/css/solarizedlight.css" media="screen">
+        <link rel="shortcut icon" href="../../../../../theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="apple-touch-icon" href="../../../../../theme/images/apple-touch-icon.png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="../../../../../theme/images/apple-touch-icon-57x57.png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="../../../../../theme/images/apple-touch-icon-72x72.png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="../../../../../theme/images/apple-touch-icon-114x114.png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="../../../../../theme/images/apple-touch-icon-144x144.png" />
+        <link rel="icon" href="../../../../../theme/images/apple-touch-icon-144x144.png" />
+        <link href="houcj.net/feed.xml" type="application/rss+xml" rel="alternate" title="Write the Code - Full RSS Feed" />
+    <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '61957498']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+    </script>
+    </head>
+    <body>
+        <div id="content-sans-footer">
+        <div class="navbar navbar-static-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../../../../"><span class=site-name>Write the Code</span></a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav pull-right top-menu">
+                            <li ><a href="../../../../..">Home</a></li>
+                            <li ><a href="../../../../../pages/About.html">关于</a></li>
+                            <li ><a href="../../../../../categories.html">Categories</a></li>
+                            <li ><a href="../../../../../tags.html">Tags</a></li>
+                            <li ><a href="../../../../../archives.html">Archives</a></li>
+                            <li><form class="navbar-search" action="../../../../../search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-   
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span1"></div>
+                <div class="span10">
+<article>
+<div class="row-fluid">
+    <header class="page_header span10 offset2">
+    <h1><a href="../../../../../blog/2015/05/05/sifting-prime/"> 素数筛选法  </a></h1>
+    </header>
+</div>
 
-    <div class="container">
-      <div class="row">
-        <div class="span8" id="content">
-<div class="row">
-    <div class="span2">
-        <div class="well">
-<footer class="post-info">
-<abbr class="published" title="2015-05-05T09:06:00+08:00">
-    <i class="icon-calendar"></i>&nbsp;周二 05 五月 2015
-</abbr>
-<br/><a href="../../../../../author/chaojun-hou.html"><i class="icon-user"></i>&nbsp;ChaoJun Hou</a>
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
 
-
-<br/>
-	&nbsp;&nbsp;<a href="../../../../../tag/suan-fa.html" class="label"><i class="icon-tag"></i>&nbsp;算法</a>
-	&nbsp;&nbsp;<a href="../../../../../tag/python.html" class="label"><i class="icon-tag"></i>&nbsp;Python</a>
-	&nbsp;&nbsp;<a href="../../../../../tag/c.html" class="label"><i class="icon-tag"></i>&nbsp;C</a>
-</footer><!-- /.post-info -->        </div>
-    </div>
-    <div class="span6">
-<section id="content" class="well">
-    <article>
-        <header>
-            <h1>
-                <a href=""
-                        rel="bookmark"
-                        title="Permalink to 素数筛选法">
-                        素数筛选法
-                </a>
-            </h1>
-        </header>
-        <div class="entry-content">
-
-        <p><strong>题目描述</strong>:
+            <p><strong>题目描述</strong>:
 Count the number of prime numbers less than a non-negative number, n</p>
 <p><strong>分析</strong>：
 这里需要注意的是n是很大的整数，因此不能在循环内使用函数的调用来判断一个数是否为素数，否则会超时。可以使用bool数组来确定这个数是否为素数。下面介绍一种素数筛选法来解决这个问题。
@@ -196,149 +124,121 @@ Count the number of prime numbers less than a non-negative number, n</p>
 
 
 <p>Python代码实现见<a href="https://github.com/chaojunhou/LeetCode">Github</a>，需要注意的是Python中的bool数组必须声明为[True]*n.</p>
-        </div><!-- /.entry-content -->
-        <div class="comments">
-        <h2>Comments !</h2>
-            <div id="disqus_thread"></div>
-            <script type="text/javascript">
-               var disqus_identifier = "blog/2015/05/05/sifting-prime/";
-               (function() {
-                    var dsq = document.createElement('script');
-                    dsq.type = 'text/javascript'; dsq.async = true;
-                    dsq.src = 'http://houcj.disqus.com/embed.js';
-                    (document.getElementsByTagName('head')[0] ||
-                     document.getElementsByTagName('body')[0]).appendChild(dsq);
-              })();
-            </script>
+<section>
+<p id="comment-message">So what do you think? Leave your comments below. </p>
+<div class="accordion" id="accordion2">
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle disqus-comment-count" data-toggle="collapse" data-parent="#accordion2"
+                href="../../../../../blog/2015/05/05/sifting-prime/#disqus_thread">
+                Comments
+            </a>
         </div>
-    </article>
+        <div id="disqus_thread" class="accordion-body collapse">
+            <div class="accordion-inner">
+                <div class="comments">
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'houcj';
+
+
+    (function() {
+         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </section>
+            <aside>
+            <hr/>
+            <nav>
+            <ul class="articles_timeline">
+ 
+                <li class="previous_article">« <a href="../../../../../blog/2015/05/04/usual-error-in-c/" title="Previous: C程序中常见的与存储器有关的错误">C程序中常见的与存储器有关的错误</a></li>
+ 
+                <li class="next_article"><a href="../../../../../blog/2015/05/05/reverse-linked-list/" title="Next: 反转链表">反转链表</a> »</li>
+            </ul>
+            </nav>
+            </aside>
+        </div>
+        <section>
+        <div class="span2" style="float:right;font-size:0.9em;">
+ 
+            <h4>Published</h4>
+            <time pubdate="pubdate" datetime="2015-05-05T09:06:00+08:00">5月 5, 2015</time>
+            <h4>Category</h4>
+            <a class="category-link" href="/categories.html#编程-ref">编程</a> 
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article"> 
+                <li><a href="/tags.html#C-ref">C
+                    <span>5</span>
+</a></li>
+                <li><a href="/tags.html#Python-ref">Python
+                    <span>4</span>
+</a></li>
+                <li><a href="/tags.html#算法-ref">算法
+                    <span>7</span>
+</a></li>
+            </ul>
+
+        </div>
+        </section>
 </div>
+</article>
+                </div>
+                <div class="span1"></div>
+            </div>
+        </div>
+    </div>
+<footer>
+<div id="footer">
+    <ul class="footer-content">
+        <li class="elegant-power">Powered by <a href="http://getpelican.com/" title="Pelican Home Page">Pelican</a>. Theme: <a href="http://oncrashreboot.com/pelican-elegant" title="Theme Elegant Home Page">Elegant</a> by <a href="http://oncrashreboot.com" title="Talha Mansoor Home Page">Talha Mansoor</a></li>
+    </ul>
 </div>
-        </div><!--/span-->
-        <div class="span3 well sidebar-nav" id="sidebar">
-<ul class="nav nav-list">
-<li class="nav-header"><h4><i class="icon-external-link"></i>blogroll</h4></li>
-    <li><div><i class="icon-external-link"></i><a href="http://www.rudy-yuan.net/">Rudy-yuan</a></div></li>
-    <li><div><i class="icon-external-link"></i><a href="http://www.wengweitao.com">WWT</a></div></li>
-    <li><div><i class="icon-external-link"></i><a href="http://hult.tiddlyspot.com/">HULT</a></div></li>
-<li class="nav-header"><h4><i class="icon-home icon-large"></i> social</h4></li>
-<li><a href="../../../../../" rel="alternate"><i class="icon-bookmark icon-large"></i>atom feed</a></li>
-    <li><a href="https://twitter.com/chaojunhou"><i class="icon-Twitter-sign icon-large"></i>Twitter</a></li>
-    <li><a href="https://www.tumblr.com/blog/houcj"><i class="icon-Tumblr-sign icon-large"></i>Tumblr</a></li>
-    <li><a href="https://github.com/chaojunhou"><i class="icon-Github-sign icon-large"></i>Github</a></li>
-
-<li class="nav-header"><h4><i class="icon-folder-close icon-large"></i>Categories</h4></li>
-<li>
-<a href="../../../../../category/bian-cheng.html">
-    <i class="icon-folder-open icon-large"></i>编程
-</a>
-</li>
-<li>
-<a href="../../../../../category/ji-suan-ji-ke-xue.html">
-    <i class="icon-folder-open icon-large"></i>计算机科学
-</a>
-</li>
-
-<li class="nav-header"><a href="../../../../../tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
-    <li class="tag-2">
-        <a href="../../../../../tag/tcp.html">
-            <i class="icon-tag icon-large"></i>TCP
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/xiang-mu.html">
-            <i class="icon-tag icon-large"></i>项目
-        </a>
-    </li>
-    <li class="tag-1">
-        <a href="../../../../../tag/python.html">
-            <i class="icon-tag icon-large"></i>Python
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/gai-lu.html">
-            <i class="icon-tag icon-large"></i>概率
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/zhi-li.html">
-            <i class="icon-tag icon-large"></i>智力
-        </a>
-    </li>
-    <li class="tag-1">
-        <a href="../../../../../tag/c.html">
-            <i class="icon-tag icon-large"></i>C
-        </a>
-    </li>
-    <li class="tag-1">
-        <a href="../../../../../tag/suan-fa.html">
-            <i class="icon-tag icon-large"></i>算法
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/duo-xian-cheng.html">
-            <i class="icon-tag icon-large"></i>多线程
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/yong-sai-kong-zhi.html">
-            <i class="icon-tag icon-large"></i>拥塞控制
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/bian-cheng-yu-yan.html">
-            <i class="icon-tag icon-large"></i>编程语言
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/shu-dan.html">
-            <i class="icon-tag icon-large"></i>书单
-        </a>
-    </li>
-    <li class="tag-2">
-        <a href="../../../../../tag/cao-zuo-xi-tong.html">
-            <i class="icon-tag icon-large"></i>操作系统
-        </a>
-    </li>
-    <li class="tag-2">
-        <a href="../../../../../tag/shu-ju-jie-gou.html">
-            <i class="icon-tag icon-large"></i>数据结构
-        </a>
-    </li>
-    <li class="tag-4">
-        <a href="../../../../../tag/la-ji-hui-shou.html">
-            <i class="icon-tag icon-large"></i>垃圾回收
-        </a>
-    </li>
-
-
-</ul>        </div><!--/.well -->
-
-      </div><!--/row-->
-
-      <hr>
-
-    </div><!--/.fluid-container-->
+</footer>            <script src="http://code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
 
 <script type="text/javascript">
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', '61957498']);
-  _gaq.push(['_trackPageview']);
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-</script>
-     
- 
+    var disqus_shortname = 'houcj';
 
-    <!-- Le javascript -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="../../../../../theme/js/jquery-1.7.2.min.js"></script>
-    <script src="../../../../../theme/js/bootstrap.min.js"></script>
-  <!-- Baidu Button BEGIN -->
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+    </script>
+        <script  language="javascript" type="text/javascript">
+            function uncollapse() {
+                var hash_str = window.location.hash;
+                if (window.location.hash.match(/^#comment-\d+$/))
+                {
+                    var hash_str = '#disqus_thread';
+                }
+                $(hash_str).collapse({
+                    toggle: true
+                    })
+            }
+        </script>
+
+        <script type="text/javascript" language="JavaScript">
+            uncollapse(); 
+        </script>
+    </body>
+      <!-- Baidu Button BEGIN -->
 <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"6","bdPos":"right","bdTop":"250"},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
  <!-- Baidu Button END -->
   </body>
