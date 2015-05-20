@@ -2800,11 +2800,12 @@ or -1 if needle is not part of haystack.&lt;/p&gt;
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
 &lt;/script&gt;</summary><category term="智力"></category></entry><entry><title>概率问题</title><link href="houcj.net/blog/2014/02/18/equal-probability/" rel="alternate"></link><updated>2014-02-18T13:23:00+08:00</updated><author><name>ChaoJun Hou</name></author><id>tag:,2014-02-18:houcj.net/blog/2014/02/18/equal-probability/</id><summary type="html">&lt;hr /&gt;
-&lt;h3&gt;等概率：蓄水池问题&lt;/h3&gt;
+&lt;p&gt;&lt;fuck&gt;&lt;/p&gt;
+&lt;h3 id="_1"&gt;等概率：蓄水池问题&lt;/h3&gt;
 &lt;p&gt;要求从N个元素中随机的抽取k个元素，其中N无法确定。&lt;/p&gt;
 &lt;p&gt;这种应用的场景一般是数据流的情况下，由于数据只能被读取一次，而且数据量很大，并不能全部保存，因此数据量N是无法在抽样开始时确定的；但又要保持随机性，于是有了这个问题。所以搜索网站有时候会问这样的问题。&lt;/p&gt;
 &lt;p&gt;这里的核心问题就是“随机”，怎么才能是随机的抽取元素呢？我们设想，买彩票的时候，由于所有彩票的中奖概率都是一样的，所以我们才是“随机的”买彩票。那么要使抽取数据也随机，必须使每一个数据被抽样出来的概率都一样。&lt;/p&gt;
-&lt;h3&gt;分析：&lt;/h3&gt;
+&lt;h3 id="_2"&gt;分析：&lt;/h3&gt;
 &lt;p&gt;由于N无法确定，数据只能读取一次，并且要求随机，就是每个元素抽出的概率一样，都是k/N。&lt;/p&gt;
 &lt;p&gt;解法一：最小k个指纹&lt;/p&gt;
 &lt;p&gt;找到一个哈希函数能产生随机数，同时用一个k个元素的堆用来保存最小的k个元素。那么过一遍所有的元素，计算每个的哈希值，通过堆来选择k个元素。&lt;/p&gt;
@@ -2823,12 +2824,12 @@ or -1 if needle is not part of haystack.&lt;/p&gt;
 
 &lt;p&gt;证毕！&lt;/p&gt;
 &lt;hr /&gt;
-&lt;h3&gt;拒绝采样&lt;/h3&gt;
+&lt;h3 id="_3"&gt;拒绝采样&lt;/h3&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Given a function which generates a random integer in the range 1 to 7, 
 write a function which generates a random integer in the range 1 to 10 uniformly.&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h3&gt;分析：&lt;/h3&gt;
+&lt;h3 id="_4"&gt;分析：&lt;/h3&gt;
 &lt;p&gt;下面是我们通过两次rand7()的位置，第一次代表行的位置，第二次代表列的位置，然后来唯一确定1-10的值，
 其中"*"表示随机从下面的表中取出一个数字。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;   1  2  3  4  5  6  7&lt;/span&gt;
@@ -2856,14 +2857,14 @@ write a function which generates a random integer in the range 1 to 10 uniformly
 
 
 &lt;hr /&gt;
-&lt;h3&gt;洗牌算法&lt;/h3&gt;
+&lt;h3 id="_5"&gt;洗牌算法&lt;/h3&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Given an array of distinct integers, give an algorithm to randomly reorder the
 integers so that each possible reordering is equally likely. In other words, given a
 deck of cards, how can you shuffle them such that any permutation of cards is
 equally likely?&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h3&gt;分析&lt;/h3&gt;
+&lt;h3 id="_6"&gt;分析&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;洗牌算法可以有效的解决这类问题，所谓的洗牌算法就是按顺序依次遍历所有的牌，然后从后面的元素中随机的取一个元素来与当前元素交换&lt;/strong&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;random&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;Shuffle&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;li&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;&lt;/span&gt;
@@ -2878,6 +2879,46 @@ equally likely?&lt;/p&gt;
 其概率为：&lt;/p&gt;
 &lt;div class="math"&gt;\begin{equation*}
 p_i=\frac{n-1}{n}\times\frac{n-2}{n-1}\times\cdots\times\frac{n-i+1}{n-i+2}\times\frac{1}{n-i+1}=\frac{1}{n}
+\end{equation*}&lt;/div&gt;
+&lt;hr /&gt;
+&lt;h3 id="_7"&gt;条件概率&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;老王有两个孩子，已知至少有一个孩子是在星期二出生的男孩。问：两个孩子都是男孩的概率是多大？
+[假设生男生女的概率相等]&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id="_8"&gt;分析&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;根据题目可以得出，两个事件，事件A:至少有一个周二出生的男孩，事件B:两个孩子都是男孩。题目所求即为P(B|A)，即在A事件满足的条件下，B事件发生的机率。
+由贝叶斯公式可得：&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="math"&gt;\begin{equation*}
+P(B|A)=\frac{P(AB)}{P(A)}=\frac{P(A|B)P(B)}{P(A)}
+\end{equation*}&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;依次计算公式中的各个概率值：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;在已知两个孩子都是男孩的条件下，至少有一个是周二出生的男孩：
+&lt;div class="math"&gt;\begin{equation*}
+P(A|B)=1-{(\frac{6}{7})}^2=\frac{13}{49}
+\end{equation*}&lt;/div&gt;
+&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;两个孩子都是男孩：&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="math"&gt;\begin{equation*}
+P(B|A)=\frac{P(AB)}{P(A)}=\frac{P(A|B)P(B)}{P(A)}
+\end{equation*}&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;至少有一个孩子是周二出生的男孩：
+&lt;div class="math"&gt;\begin{equation*}
+P(A)=1-{(\frac{1}{2}\times\frac{6}{7}+\frac{1}{2})}^2=\frac{27}{196}
+\end{equation*}&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;代入即可得：
+&lt;/p&gt;
+&lt;div class="math"&gt;\begin{equation*}
+P(B|A)=\frac{P(A|B)P(B)}{P(A)}=\frac{13}{49}\times\frac{1}{4}\div\frac{27}{196}=\frac{13}{27}
 \end{equation*}&lt;/div&gt;
 &lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var align = "center",
@@ -3010,428 +3051,4 @@ p_i=\frac{n-1}{n}\times\frac{n-2}{n-1}\times\cdots\times\frac{n-i+1}{n-i+2}\time
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;hr /&gt;</summary><category term="数据结构"></category></entry><entry><title>TCP中的七种定时器</title><link href="houcj.net/blog/2014/01/02/timer/" rel="alternate"></link><updated>2014-01-02T00:00:00+08:00</updated><author><name>ChaoJun Hou</name></author><id>tag:,2014-01-02:houcj.net/blog/2014/01/02/timer/</id><summary type="html">&lt;p&gt;TCP为每个连接建立了七个定时器。下面讲按照这些定时器在一条连接生存期内出现的次序依次进行介绍。
- &lt;img src="/images/fsm.png" class="img-responsive" alt="FSM" align=center /&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Connection establishment Timer(​连接建立定时器)&lt;ul&gt;
-&lt;li&gt;为了防止client端一直等待服务器端的情况发生。 在Client发送SYN报文段建立新的链接时，该定时器启动，如果在75s内没有收到响应，连接建立将会终止。确定连接的有效建立。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Retransmission Timer(重传定时器)&lt;ul&gt;
-&lt;li&gt;重传定时器在TCP发送数据时设定。在该定时器超时，而没有收到另外一端的ACK的时候，将重传数据。重传定时器的值是动态计算的，取决于该连接RTT的值和被重传的次数。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Delayed ACK Timer(延迟ACK定时器)定时器在200ms&lt;ul&gt;
-&lt;li&gt;延迟ACK定时器负责在该终端（end）收到一个数据包时，无需马上发出ACK进行确认，而是等待200ms内，有数据要在该连接上发送，延迟的ACK响应就可随着数据一起发送回另一个终端。这种方式也被成为捎带确认。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Persist Timer（持续定时器）&lt;ul&gt;
-&lt;li&gt;持续定时器在收到连接另一端的发送通告窗口为零时，阻止该端继续发送数据时设定。因此当该端有数据要发送时， 但连接的另一端的通告窗口为零时，持续定时器就会启动，超时后向连接另一端发送1字节的数据，来判断另一方的接收窗口是否打开。被称为零窗口探测。持续定时器的值是动态计算的，取决于往返时间，时间在5s到60s之间取值。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Keep alive Timer（保活定时器）&lt;ul&gt;
-&lt;li&gt;如果连接的持续时间超过2hour，保活定时器就会超时，向对端发送连接探测报文，强迫对端发出响应。如果连续若干次保活测试收不到相应的相应，就认为对端发生了故障。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;FIN_WAIT_2 Timer&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;当某个连接从FIN_WAIT_1状态变迁到FIN_WAIT_2状态，并且不能再收到任何新的数据时，该定时器就会启动设为10分钟。定时器超时重设为75s，第二次超时后连接被关闭。该定时器的目的是为了避免对方一直不发送FIN，某个连接一直处于FIN_WAIT_2状态。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;TIME_WAIT_Timer (也成为2MSL定时器)&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;当连接转移到TIME_WAIT状态，定时器启动。2MSL等待时间的原因就是为了确保最后一个ACK在一个MSL丢包后重传&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;TCP包括连个定时器函数，快速定时器（200ms调用一次），慢速定时器（500ms）调用一次。延迟ACK定时器时，每个200ms超时后，延迟的ACK必须被发送。其他的定时器是每500ms递减一次，计数器减为0时，就触发相应的动作。&lt;/p&gt;</summary><category term="TCP"></category></entry><entry><title>Black Red Tree</title><link href="houcj.net/blog/2013/12/22/red-black-tree/" rel="alternate"></link><updated>2013-12-22T00:00:00+08:00</updated><author><name>ChaoJun Hou</name></author><id>tag:,2013-12-22:houcj.net/blog/2013/12/22/red-black-tree/</id><summary type="html">&lt;hr /&gt;
-&lt;h2&gt;二叉查找树&lt;/h2&gt;
-&lt;p&gt;由于红黑树本质上就是一棵&lt;a href="http://en.wikipedia.org/wiki/Binary_search_tree"&gt;二叉查找树&lt;/a&gt;，所以在了解红黑树之前先来看下二叉查找树。&lt;/p&gt;
-&lt;p&gt;二叉查找树（Binary Search Tree），也称有序二叉树（ordered binary tree）,排序二叉树（sorted binary tree），是指一棵空树或者具有下列性质的二叉树：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;若任意结点的左子树不空，则左子树上所有结点的值均小于它的根结点的值&lt;/li&gt;
-&lt;li&gt;若任意结点的右子树不空，则右子树上所有结点的值均大于它的根结点的值&lt;/li&gt;
-&lt;li&gt;任意结点的左、右子树也分别为二叉查找树&lt;/li&gt;
-&lt;li&gt;没有键值相等的结点（no duplicate nodes）&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;因为，一棵由n个结点，随机构造的二叉查找树的高度为lgn，所以顺理成章，一般操作的执行时间为O（lgn）&lt;/p&gt;
-&lt;hr /&gt;
-&lt;h2&gt;红黑树&lt;/h2&gt;
-&lt;p&gt;红黑树是一棵二叉搜索树，并且满足以下性质：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;1. 每个节点或者是红色的，或者是黑色的&lt;/span&gt;
-&lt;span class="code-line"&gt;2. 根节点为黑色&lt;/span&gt;
-&lt;span class="code-line"&gt;3. 每个叶子节点(NIL)是黑色&lt;/span&gt;
-&lt;span class="code-line"&gt;4. 如果一个节点是红色的，则它的两个子节点必须是黑色的。&lt;/span&gt;
-&lt;span class="code-line"&gt;5. 对每个节点，从该节点到其所有后代叶节点的简单路径上，都包含相同数目的黑色节点&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;PS：
-- 特性3中的叶子节点，是为空的节点
-- 特性5确保没有一条路径比其他路径长两倍。&lt;/p&gt;
-&lt;hr /&gt;
-&lt;h2&gt;红黑树的应用&lt;/h2&gt;
-&lt;p&gt;红黑树主要用来存储有序的数据，它的时间复杂度是O(lgn)，空间复杂度也是
-O(lgn)。C++ STL中的set、map，linux虚拟内存管理都是通过红黑树去实现。&lt;/p&gt;
-&lt;h2&gt;红黑树的操作&lt;/h2&gt;
-&lt;p&gt;红黑树中有两种基本操作，插入和删除。需要注意的是，每次进行这样的操作的时候都会
-有可能改变红黑树的性质，因此必须通过相应的INSERT-FIXUP和DELETE-FIXUP来保证红黑树的性质。
-具体情况见&lt;a href="http://book.douban.com/subject/20432061/"&gt;算法导论&lt;/a&gt;，而它们都会用到旋转的方法。
-下面就具体介绍旋转和相应的插入删除操作。&lt;/p&gt;
-&lt;h3&gt;旋转&lt;/h3&gt;
-&lt;p&gt;这里主要介绍左旋，右旋的操作基本类似。
-左旋的伪码如下：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="n"&gt;LEFT_ROTATE&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;right&lt;/span&gt;                &lt;span class="c"&gt;# set y &lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;2&lt;/span&gt;   &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;right&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;left&lt;/span&gt;           &lt;span class="c"&gt;# turn y&amp;#39;s left subtree into x&amp;#39;s right subtree&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;3&lt;/span&gt;   &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;left&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;nil&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;4&lt;/span&gt;       &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;left&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;5&lt;/span&gt;   &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;        &lt;span class="c"&gt;# link x&amp;#39;s parent to y&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;6&lt;/span&gt;   &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;nil&lt;/span&gt; &lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;7&lt;/span&gt;       &lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;8&lt;/span&gt;   &lt;span class="k"&gt;elif&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;left&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;9&lt;/span&gt;       &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;left&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;10&lt;/span&gt;  &lt;span class="k"&gt;else&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;11&lt;/span&gt;      &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;right&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;12&lt;/span&gt;  &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;left&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;                 &lt;span class="c"&gt;# put x on y&amp;#39;s left &lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;13&lt;/span&gt;  &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;                      &lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;h3&gt;插入&lt;/h3&gt;
-&lt;p&gt;红黑树本身就是一种二叉查找树，插入的时候也需要首先不能改变二叉查找树的性质，然后将该节点着色为
-红色(插入红色节点是为了保证满足性质5)。最后通过修改着色和重新着色来重新成为一棵红黑树。
-&lt;strong&gt;类似二叉查找树的插入操作&lt;/strong&gt;&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="n"&gt;RB_INSERT&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;z&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;NIL&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;2&lt;/span&gt;   &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;3&lt;/span&gt;   &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;NIL&lt;/span&gt; &lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;4&lt;/span&gt;       &lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;5&lt;/span&gt;       &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;z&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;key&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;key&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;6&lt;/span&gt;           &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;left&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;7&lt;/span&gt;       &lt;span class="k"&gt;else&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;8&lt;/span&gt;           &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;right&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;9&lt;/span&gt;  &lt;span class="n"&gt;z&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;10&lt;/span&gt;  &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;nil&lt;/span&gt; &lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;11&lt;/span&gt;      &lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;z&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;12&lt;/span&gt;  &lt;span class="k"&gt;elif&lt;/span&gt; &lt;span class="n"&gt;z&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;key&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;key&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;13&lt;/span&gt;      &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;left&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;z&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;14&lt;/span&gt;  &lt;span class="k"&gt;else&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;15&lt;/span&gt;      &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;right&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;z&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;17&lt;/span&gt;  &lt;span class="n"&gt;z&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;left&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;nil&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;18&lt;/span&gt;  &lt;span class="n"&gt;z&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;right&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;nil&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;19&lt;/span&gt;  &lt;span class="n"&gt;z&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;RED&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;20&lt;/span&gt;  &lt;span class="n"&gt;RB_INSERT_FIXUP&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;z&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;hr /&gt;
-&lt;p&gt;插入之后可能破坏红黑树的性质2和4，需要根据相应的情况做出相应的处理策略。&lt;/p&gt;
-&lt;hr /&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th align="center"&gt;情况&lt;/th&gt;
-&lt;th&gt;现象说明&lt;/th&gt;
-&lt;th&gt;处理策略&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td align="center"&gt;case1&lt;/td&gt;
-&lt;td&gt;z的叔节点y是红色的&lt;/td&gt;
-&lt;td&gt;1)将父节点设为黑色 2)将叔节点设为黑色 3)将祖父节点设为红色 4)将祖父节点设为当前节点，继续处理&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td align="center"&gt;case2&lt;/td&gt;
-&lt;td&gt;z的叔节点y是黑色的且z是一个右孩子&lt;/td&gt;
-&lt;td&gt;1)将父节点设为当前节点 2)对当前节点进行左旋操作&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td align="center"&gt;case3&lt;/td&gt;
-&lt;td&gt;z的叔节点y是黑色的且z是一个左孩子&lt;/td&gt;
-&lt;td&gt;1)将父节点设为黑色 2)将祖父节点设为红色 3)对祖父节点进行右 旋操作&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;hr /&gt;
-&lt;p&gt;其中z表示当前节点，y表示z的叔节点，z的父节点是红色的。&lt;/p&gt;
-&lt;h2&gt;&lt;strong&gt;修复插入操作&lt;/strong&gt;&lt;/h2&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="n"&gt;RB_INSERT_FIXUP&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;z&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="n"&gt;z&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;RED&lt;/span&gt; &lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;2&lt;/span&gt;       &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;z&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;z&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;left&lt;/span&gt; &lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;3&lt;/span&gt;           &lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;z&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;right&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;4&lt;/span&gt;           &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;RED&lt;/span&gt;                         &lt;span class="c"&gt;# CASE 1&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;5&lt;/span&gt;               &lt;span class="n"&gt;z&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;BLACK&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;6&lt;/span&gt;               &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;BLACK&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;7&lt;/span&gt;               &lt;span class="n"&gt;z&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;RED&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;8&lt;/span&gt;               &lt;span class="n"&gt;z&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;z&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;9&lt;/span&gt;           &lt;span class="k"&gt;elif&lt;/span&gt; &lt;span class="n"&gt;z&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;z&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;right&lt;/span&gt;                  &lt;span class="c"&gt;# CASE 2&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;10&lt;/span&gt;              &lt;span class="n"&gt;z&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;z&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;11&lt;/span&gt;              &lt;span class="n"&gt;LEFT_ROTATE&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;z&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;                                                  &lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;12&lt;/span&gt;          &lt;span class="n"&gt;z&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;BLACK&lt;/span&gt;                    &lt;span class="c"&gt;# CASE 3&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;13&lt;/span&gt;          &lt;span class="n"&gt;z&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;RED&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;14&lt;/span&gt;          &lt;span class="n"&gt;RIGHT_ROTATE&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;z&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;15&lt;/span&gt;      &lt;span class="k"&gt;else&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;same&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;previous&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;if&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;clause&lt;/span&gt;         &lt;span class="c"&gt;# z&amp;#39;s parent is a right child&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;                &lt;span class="k"&gt;with&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;right&amp;quot;&lt;/span&gt; &lt;span class="ow"&gt;and&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;left&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;extranged&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;16&lt;/span&gt;  &lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;BLACK&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;hr /&gt;
-&lt;h3&gt;删除&lt;/h3&gt;
-&lt;p&gt;将红黑树内的某一个节点删除花费O(lgn)时间。红黑树本身就是一种二叉查找树，删除的时候也需要首先不能改变二叉查找树的性质，
-然后通过修改着色和重新着色来重新成为一棵红黑树。
-&lt;strong&gt;类似二叉查找树的删除操作&lt;/strong&gt;&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="n"&gt;RB_DELETE&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;z&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;z&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;2&lt;/span&gt;   &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;original&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;3&lt;/span&gt;   &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;z&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;left&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;nil&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;4&lt;/span&gt;       &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;z&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;left&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;5&lt;/span&gt;       &lt;span class="n"&gt;RB&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;TRANSPLANT&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;z&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;z&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;right&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;6&lt;/span&gt;   &lt;span class="k"&gt;elif&lt;/span&gt; &lt;span class="n"&gt;z&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;right&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;nil&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;7&lt;/span&gt;       &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;z&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;right&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;8&lt;/span&gt;       &lt;span class="n"&gt;RB&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;TRANSPLANT&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;z&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;z&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;left&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;9&lt;/span&gt;   &lt;span class="k"&gt;else&lt;/span&gt; &lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;10&lt;/span&gt;      &lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;TREE&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;MINIMUM&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;z&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;right&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;11&lt;/span&gt;      &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;original&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;12&lt;/span&gt;      &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;right&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;13&lt;/span&gt;      &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;z&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;14&lt;/span&gt;          &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;15&lt;/span&gt;      &lt;span class="k"&gt;else&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;16&lt;/span&gt;            &lt;span class="n"&gt;RB&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;TRANSPLANT&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;right&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;17&lt;/span&gt;          &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;right&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;z&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;right&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;18&lt;/span&gt;          &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;right&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;19&lt;/span&gt;      &lt;span class="n"&gt;RB&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;TRANSPLANT&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;z&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;20&lt;/span&gt;      &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;left&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;z&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;left&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;21&lt;/span&gt;      &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;left&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;22&lt;/span&gt;      &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;z&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;23&lt;/span&gt;  &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;original&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;BLACK&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;24&lt;/span&gt;      &lt;span class="n"&gt;RB_DELETE_FIXUP&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="n"&gt;RB&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;TRANSPLANT&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;v&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;nil&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;2&lt;/span&gt;       &lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;v&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;3&lt;/span&gt;   &lt;span class="k"&gt;elif&lt;/span&gt; &lt;span class="n"&gt;u&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;left&lt;/span&gt;    &lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;4&lt;/span&gt;       &lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;left&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;v&lt;/span&gt;  &lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;5&lt;/span&gt;   &lt;span class="k"&gt;else&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;6&lt;/span&gt;       &lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;right&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;v&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;7&lt;/span&gt;   &lt;span class="n"&gt;v&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;hr /&gt;
-&lt;p&gt;删除之后可能破坏红黑树性质的1，2，4，需要根据相应的情况做出相应的处理策略。&lt;/p&gt;
-&lt;hr /&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th align="center"&gt;情况&lt;/th&gt;
-&lt;th&gt;现象说明&lt;/th&gt;
-&lt;th&gt;处理策略&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td align="center"&gt;case1&lt;/td&gt;
-&lt;td&gt;x的兄弟节点w是红色的&lt;/td&gt;
-&lt;td&gt;1)将x的兄弟节点设为黑色 2)将x的父节点设为红色 3)对x的父节点进行左旋 4)左旋后，重新设置x的兄弟节点&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td align="center"&gt;case2&lt;/td&gt;
-&lt;td&gt;x的兄弟节点w是黑色，w的两个子节点都是黑色的&lt;/td&gt;
-&lt;td&gt;1)将x的兄弟节点设为红色 2)设置x的父节点为新的x节点&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td align="center"&gt;case3&lt;/td&gt;
-&lt;td&gt;x的兄弟节点w是黑色；x的兄弟节点的左孩子是红色，右孩子是黑色的&lt;/td&gt;
-&lt;td&gt;1)将x兄弟节点的左孩子设为黑色 2)将x兄弟节点设为红色 3)对x的兄弟节点进行右旋 4)右旋后，重新设置x的兄弟节点&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td align="center"&gt;case4&lt;/td&gt;
-&lt;td&gt;x的兄弟节点w是黑色；w的右孩子是红色的&lt;/td&gt;
-&lt;td&gt;1)将x父节点颜色赋值给x的兄弟节点 2)将x父节点设为黑色 3)将x兄弟节点的右子节设为黑色 4)对x的父节点进行左旋 5)设置x为根节点&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;hr /&gt;
-&lt;p&gt;其中x为当前节点，w是x的兄弟节点。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;修复删除操作&lt;/strong&gt;&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="n"&gt;RB_DELETE_FIXUP&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;1&lt;/span&gt;   &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="n"&gt;root&lt;/span&gt; &lt;span class="ow"&gt;and&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;BLACK&lt;/span&gt; &lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;2&lt;/span&gt;     &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;left&lt;/span&gt; &lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;3&lt;/span&gt;         &lt;span class="n"&gt;w&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;right&lt;/span&gt;                                        &lt;span class="c"&gt;# CASE 1&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;4&lt;/span&gt;         &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;RED&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;5&lt;/span&gt;             &lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;BLACK&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;6&lt;/span&gt;             &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;RED&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;7&lt;/span&gt;             &lt;span class="n"&gt;LEFT_ROTATE&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;8&lt;/span&gt;             &lt;span class="n"&gt;w&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;right&lt;/span&gt;                                           &lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;9&lt;/span&gt;         &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;left&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;BLACK&lt;/span&gt; &lt;span class="ow"&gt;and&lt;/span&gt; &lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;right&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;right&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;BLACK&lt;/span&gt;      &lt;span class="c"&gt;#CASE 2&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;10&lt;/span&gt;            &lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;RED&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;11&lt;/span&gt;            &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;12&lt;/span&gt;        &lt;span class="k"&gt;elif&lt;/span&gt; &lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;right&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;BLACK&lt;/span&gt;                              &lt;span class="c"&gt;#CASE 3&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;13&lt;/span&gt;            &lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;left&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;BLACK&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;14&lt;/span&gt;            &lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;RED&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;15&lt;/span&gt;            &lt;span class="n"&gt;RIGHT_ROTATE&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;16&lt;/span&gt;            &lt;span class="n"&gt;w&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;right&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;17&lt;/span&gt;        &lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt;                                 &lt;span class="c"&gt;#CASE 4&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;18&lt;/span&gt;        &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;BLACK&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;19&lt;/span&gt;        &lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;right&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;BLACK&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;20&lt;/span&gt;        &lt;span class="n"&gt;LEFT_ROTATE&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;21&lt;/span&gt;        &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;22&lt;/span&gt;    &lt;span class="k"&gt;else&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;23&lt;/span&gt;      &lt;span class="n"&gt;same&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;previous&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;if&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;clause&lt;/span&gt; &lt;span class="k"&gt;with&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;right&amp;quot;&lt;/span&gt; &lt;span class="ow"&gt;and&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;left&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;exchanged&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="mi"&gt;24&lt;/span&gt;  &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;BLACK&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;下面是一个简单的&lt;a href="http://www.cnblogs.com/zuoyuan/p/4272529.html"&gt;Python&lt;/a&gt;实现.&lt;/p&gt;</summary><category term="数据结构"></category></entry><entry><title>字符串相关</title><link href="houcj.net/blog/2013/12/22/string-related/" rel="alternate"></link><updated>2013-12-22T00:00:00+08:00</updated><author><name>ChaoJun Hou</name></author><id>tag:,2013-12-22:houcj.net/blog/2013/12/22/string-related/</id><summary type="html">&lt;h2&gt;子字符串&lt;/h2&gt;
-&lt;h3&gt;最长不重复子串&lt;/h3&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Given a string, find the length of the longest substring without repeating characters. 
-For example, the longest substring without repeating letters for "abcabcbb" is "abc", which the length is 3. 
-For "bbbbb" the longest substring is "b", with the length of 1.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h3&gt;分析&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;O(n)时间复杂度， O(1)空间复杂度&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;可以考虑使用字典，记录字符下标出现的位置。遍历整个字符串，如果发现其中的一个字符存在字典中，说明它出现过，即为重复的字符，那么从该字符后重新计算，并记录出现的不重复子串的最大长度。&lt;/strong&gt;&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Solution&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;lengthOfLongestSubstring&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;        &lt;span class="n"&gt;dic&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nb"&gt;chr&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;256&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;        &lt;span class="n"&gt;length&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;res&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;        &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;length&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;            &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;dic&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]]&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;=&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;                &lt;span class="n"&gt;j&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;dic&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]]&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;            &lt;span class="n"&gt;dic&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;            &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;res&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;                &lt;span class="n"&gt;res&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;res&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;h3&gt;最长回文子串&lt;/h3&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Given a string S, find the longest palindromic substring in S. You may assume that the maximum length of S is 1000, and there exists one unique longest palindromic substring.**&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h3&gt;分析&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;O(n^2)时间复杂度， O(1)空间复杂度&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;从头开始遍历整个字符串。然后以每个字符串为中点向两边扩展，直到最长的Palindromic，记录中间出现的Palindromic的最大长度。需要注意的是Palindromic的长度可能为奇数也可能为偶数。&lt;/strong&gt;&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Solution&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="c"&gt;# @return a string&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;longestPalindrome&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;        &lt;span class="n"&gt;length&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;        &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;expand&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;left&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;right&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;            &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="n"&gt;left&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="ow"&gt;and&lt;/span&gt; &lt;span class="n"&gt;right&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;length&lt;/span&gt; &lt;span class="ow"&gt;and&lt;/span&gt; &lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;left&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;right&lt;/span&gt;&lt;span class="p"&gt;]:&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;                &lt;span class="n"&gt;left&lt;/span&gt; &lt;span class="o"&gt;-=&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;                &lt;span class="n"&gt;right&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;            &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;right&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;left&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;        &lt;span class="n"&gt;start&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;end&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;        &lt;span class="k"&gt;for&lt;/span&gt;  &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;length&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;            &lt;span class="n"&gt;len1&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;expand&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;            &lt;span class="n"&gt;len2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;expand&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;            &lt;span class="n"&gt;Len&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;max&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;len1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;len2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;            &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;end&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;start&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;Len&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;                &lt;span class="n"&gt;start&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Len&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;                &lt;span class="n"&gt;end&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;Len&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;start&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;end&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;  &lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary><category term="算法"></category></entry><entry><title>TCP Congestion Control 中的相关参数</title><link href="houcj.net/blog/2013/12/15/the-parameters-in-tcp-congestion-control/" rel="alternate"></link><updated>2013-12-15T00:00:00+08:00</updated><author><name>ChaoJun Hou</name></author><id>tag:,2013-12-15:houcj.net/blog/2013/12/15/the-parameters-in-tcp-congestion-control/</id><summary type="html">&lt;ul&gt;
-&lt;li&gt;流量控制（Flow control） End-to-End,防止发送方速率过大，接收方来不及处理发送方的数据。- -&lt;/li&gt;
-&lt;li&gt;拥塞控制（Congestion control） 到达子网中某一部分的分组数量过多，中间路由缓存分组，queueing，造成RTT增加。反应网络整体状况&lt;/li&gt;
-&lt;li&gt;滑动窗口（Sliding Window） 位于发送方，由接收方的通告窗口（Advertised-Window）决定。接收方通过通告窗口告诉发送方自己还有多少buffer可以接收数据。&lt;/li&gt;
-&lt;li&gt;通告窗口（Advertised-Window） 接收方使用流量控制的方式&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;拥塞窗口（Congestion Window） 拥塞窗口的大小指能够发出，但还没有收ACK的最大数据报文段。Linux 3.0 把CWND初始化10个MSS。发送方使用流量控制的方式。发送方取拥塞窗口与通告窗口中的最小值作为发送上限&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;慢启动（Slow Start） 每个ACK，CWND增加一个报文段（CWND以字节为单位，一报文段为单位进行线性增加）
-报文段（Segment） 传输层分组称为报文段，是TCP&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;MSS（Maximum Segment Size ） vs MTU(Maximum Transmission Unit) 在以太网中，MSS最大值为1460（20字节的IP header和20字节的TCP header），MTU的值为1500字节。MSS用于控制发送数据的长度，避免以较小MTU连接到网络上的主机产生分组&lt;/li&gt;
-&lt;li&gt;往返时延(Round-Trip Time ) 表示从发送端发送数据开始，到发送端收到来自接收端的ACK，总共经历的时延，由传播时延，传输时延，排队时延（Queuing Delay），节点处理时延决定（Node processing Dela y）。可以反应网络的拥塞状况&lt;/li&gt;
-&lt;li&gt;传输时延（Transmission Delay），传播时延（Transmission Delay） 传输时延=L/R，L，表示分组长度，R，表示链路传输速率(带宽)。传播时延=d/s，d，表示两段的实际物力距离，s一般等于小于光速&lt;/li&gt;
-&lt;/ul&gt;</summary><category term="TCP"></category><category term="拥塞控制"></category></entry><entry><title>Thanks for the memory</title><link href="houcj.net/blog/2013/12/03/thanks-for-the-memory/" rel="alternate"></link><updated>2013-12-03T10:20:00+08:00</updated><author><name>ChaoJun Hou</name></author><id>tag:,2013-12-03:houcj.net/blog/2013/12/03/thanks-for-the-memory/</id><summary type="html">&lt;ul&gt;
-&lt;li&gt;虚拟内存通过&lt;em&gt;Page&lt;/em&gt;的形式组织。Pages就是操作系统用于内存和磁盘之间移动或者进行保护的单位。Page in，Page out。磁盘上有个特殊的交换区来与内存进行交换。&lt;/li&gt;
-&lt;li&gt;进程只能操作位于屋里内存中的页面。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="k"&gt;while&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;malloc&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class="mi"&gt;20&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// to see the memory available in this process.&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="n"&gt;printf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Allocated %d MB total &lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;ul&gt;
-&lt;li&gt;cache&lt;ul&gt;
-&lt;li&gt;cache 的类型&lt;ul&gt;
-&lt;li&gt;write-through cache : 每次写入cache时同时写入到内存，保持内存与cache的一致性。&lt;/li&gt;
-&lt;li&gt;write-back cache ： 当第一次写入时，只写入cache。如果已经写入过的cache行再次需要写入时，此时第一次写入的结果尚未保存，所以要先把它写入到内存中。当内存切换进程时，cache中所有的数据都要先写入到内存中。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;line： 内存读取以行（32 bytes）为单位，整行的数据也会被装入到cache中。每行由两部分组成：一个数据部分以及一个标签，用于指定它所代表的地址。&lt;/li&gt;
-&lt;li&gt;block： 一个行内的数据块被称作块。块保存来回移动于Cache行和内存之间的字节数据。
--堆&lt;/li&gt;
-&lt;li&gt;堆区域用于动态&lt;/li&gt;
-&lt;li&gt;用于内存管理的调用是：&lt;ul&gt;
-&lt;li&gt;malloc 和 free ------------从堆中获得内存以及把内存返回给堆&lt;/li&gt;
-&lt;li&gt;brk 和 sbrk --------------调整数据端的大小至一个绝对值。 &lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;堆中经常出现的两类问题：&lt;ul&gt;
-&lt;li&gt;释放或改写仍在使用的内存；（内存损坏）&lt;/li&gt;
-&lt;li&gt;未释放不再使用的内存；（内存泄露）&lt;ul&gt;
-&lt;li&gt;内存泄露的的检测：&lt;ul&gt;
-&lt;li&gt;swap 观察交换区&lt;/li&gt;
-&lt;li&gt;netstat、vmstat等工具&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;对齐（alignment）：数据项只能存储在地址是数据项大小整数倍的内存位置上。数据项不能跨越页面或者cache边界&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;段（segment）错误原因：&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;dereference Null pointer. &lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;NULL&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;ul&gt;
-&lt;li&gt;或者解引用一个包含非法值的指针。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;malloc&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;256&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;256&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;ul&gt;
-&lt;li&gt;在未得到正确的权限时进行访问。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;(){&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// 表达式必须是可以修改的左值。&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;ul&gt;
-&lt;li&gt;消耗完了堆栈或者堆空间。&lt;/li&gt;
-&lt;/ul&gt;</summary><category term="C"></category></entry></feed>
+&lt;hr /&gt;</summary><category term="数据结构"></category></entry></feed>

@@ -1018,11 +1018,12 @@ or -1 if needle is not part of haystack.&lt;/p&gt;
 &lt;span class="code-line"&gt;        &lt;span class="n"&gt;prefix&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;prefix&lt;/span&gt; &lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;</summary><category term="算法"></category><category term="Python"></category></entry><entry><title>概率问题</title><link href="houcj.net/blog/2014/02/18/equal-probability/" rel="alternate"></link><updated>2014-02-18T13:23:00+08:00</updated><author><name>ChaoJun Hou</name></author><id>tag:,2014-02-18:houcj.net/blog/2014/02/18/equal-probability/</id><summary type="html">&lt;hr /&gt;
-&lt;h3&gt;等概率：蓄水池问题&lt;/h3&gt;
+&lt;p&gt;&lt;fuck&gt;&lt;/p&gt;
+&lt;h3 id="_1"&gt;等概率：蓄水池问题&lt;/h3&gt;
 &lt;p&gt;要求从N个元素中随机的抽取k个元素，其中N无法确定。&lt;/p&gt;
 &lt;p&gt;这种应用的场景一般是数据流的情况下，由于数据只能被读取一次，而且数据量很大，并不能全部保存，因此数据量N是无法在抽样开始时确定的；但又要保持随机性，于是有了这个问题。所以搜索网站有时候会问这样的问题。&lt;/p&gt;
 &lt;p&gt;这里的核心问题就是“随机”，怎么才能是随机的抽取元素呢？我们设想，买彩票的时候，由于所有彩票的中奖概率都是一样的，所以我们才是“随机的”买彩票。那么要使抽取数据也随机，必须使每一个数据被抽样出来的概率都一样。&lt;/p&gt;
-&lt;h3&gt;分析：&lt;/h3&gt;
+&lt;h3 id="_2"&gt;分析：&lt;/h3&gt;
 &lt;p&gt;由于N无法确定，数据只能读取一次，并且要求随机，就是每个元素抽出的概率一样，都是k/N。&lt;/p&gt;
 &lt;p&gt;解法一：最小k个指纹&lt;/p&gt;
 &lt;p&gt;找到一个哈希函数能产生随机数，同时用一个k个元素的堆用来保存最小的k个元素。那么过一遍所有的元素，计算每个的哈希值，通过堆来选择k个元素。&lt;/p&gt;
@@ -1041,12 +1042,12 @@ or -1 if needle is not part of haystack.&lt;/p&gt;
 
 &lt;p&gt;证毕！&lt;/p&gt;
 &lt;hr /&gt;
-&lt;h3&gt;拒绝采样&lt;/h3&gt;
+&lt;h3 id="_3"&gt;拒绝采样&lt;/h3&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Given a function which generates a random integer in the range 1 to 7, 
 write a function which generates a random integer in the range 1 to 10 uniformly.&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h3&gt;分析：&lt;/h3&gt;
+&lt;h3 id="_4"&gt;分析：&lt;/h3&gt;
 &lt;p&gt;下面是我们通过两次rand7()的位置，第一次代表行的位置，第二次代表列的位置，然后来唯一确定1-10的值，
 其中"*"表示随机从下面的表中取出一个数字。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;   1  2  3  4  5  6  7&lt;/span&gt;
@@ -1074,14 +1075,14 @@ write a function which generates a random integer in the range 1 to 10 uniformly
 
 
 &lt;hr /&gt;
-&lt;h3&gt;洗牌算法&lt;/h3&gt;
+&lt;h3 id="_5"&gt;洗牌算法&lt;/h3&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Given an array of distinct integers, give an algorithm to randomly reorder the
 integers so that each possible reordering is equally likely. In other words, given a
 deck of cards, how can you shuffle them such that any permutation of cards is
 equally likely?&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h3&gt;分析&lt;/h3&gt;
+&lt;h3 id="_6"&gt;分析&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;洗牌算法可以有效的解决这类问题，所谓的洗牌算法就是按顺序依次遍历所有的牌，然后从后面的元素中随机的取一个元素来与当前元素交换&lt;/strong&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;random&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;Shuffle&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;li&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;&lt;/span&gt;
@@ -1096,6 +1097,46 @@ equally likely?&lt;/p&gt;
 其概率为：&lt;/p&gt;
 &lt;div class="math"&gt;\begin{equation*}
 p_i=\frac{n-1}{n}\times\frac{n-2}{n-1}\times\cdots\times\frac{n-i+1}{n-i+2}\times\frac{1}{n-i+1}=\frac{1}{n}
+\end{equation*}&lt;/div&gt;
+&lt;hr /&gt;
+&lt;h3 id="_7"&gt;条件概率&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;老王有两个孩子，已知至少有一个孩子是在星期二出生的男孩。问：两个孩子都是男孩的概率是多大？
+[假设生男生女的概率相等]&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id="_8"&gt;分析&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;根据题目可以得出，两个事件，事件A:至少有一个周二出生的男孩，事件B:两个孩子都是男孩。题目所求即为P(B|A)，即在A事件满足的条件下，B事件发生的机率。
+由贝叶斯公式可得：&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="math"&gt;\begin{equation*}
+P(B|A)=\frac{P(AB)}{P(A)}=\frac{P(A|B)P(B)}{P(A)}
+\end{equation*}&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;依次计算公式中的各个概率值：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;在已知两个孩子都是男孩的条件下，至少有一个是周二出生的男孩：
+&lt;div class="math"&gt;\begin{equation*}
+P(A|B)=1-{(\frac{6}{7})}^2=\frac{13}{49}
+\end{equation*}&lt;/div&gt;
+&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;两个孩子都是男孩：&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="math"&gt;\begin{equation*}
+P(B|A)=\frac{P(AB)}{P(A)}=\frac{P(A|B)P(B)}{P(A)}
+\end{equation*}&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;至少有一个孩子是周二出生的男孩：
+&lt;div class="math"&gt;\begin{equation*}
+P(A)=1-{(\frac{1}{2}\times\frac{6}{7}+\frac{1}{2})}^2=\frac{27}{196}
+\end{equation*}&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;代入即可得：
+&lt;/p&gt;
+&lt;div class="math"&gt;\begin{equation*}
+P(B|A)=\frac{P(A|B)P(B)}{P(A)}=\frac{13}{49}\times\frac{1}{4}\div\frac{27}{196}=\frac{13}{27}
 \end{equation*}&lt;/div&gt;
 &lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var align = "center",
