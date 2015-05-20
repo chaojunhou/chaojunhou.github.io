@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="utf-8"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="ChaoJun Hou" />
+        <meta name="copyright" content="ChaoJun Hou" />
+
+<meta name="keywords" content="算法, 概率, 计算机科学, " />
+        <title>概率问题  · Write the Code
+</title>
+        <link href="http://cdn-images.mailchimp.com/embedcode/slim-081711.css" rel="stylesheet" type="text/css">
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="../../../../../theme/css/style.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="../../../../../theme/css/solarizedlight.css" media="screen">
+        <link rel="shortcut icon" href="../../../../../theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="apple-touch-icon" href="../../../../../theme/images/apple-touch-icon.png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="../../../../../theme/images/apple-touch-icon-57x57.png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="../../../../../theme/images/apple-touch-icon-72x72.png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="../../../../../theme/images/apple-touch-icon-114x114.png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="../../../../../theme/images/apple-touch-icon-144x144.png" />
+        <link rel="icon" href="../../../../../theme/images/apple-touch-icon-144x144.png" />
+    <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '61957498']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+    </script>
+    </head>
+    <body>
+        <div id="content-sans-footer">
+        <div class="navbar navbar-static-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../../../../"><span class=site-name>Write the Code</span></a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav pull-right top-menu">
+                            <li ><a href="../../../../..">Home</a></li>
+                            <li ><a href="../../../../../pages/About.html">关于</a></li>
+                            <li ><a href="../../../../../categories.html">Categories</a></li>
+                            <li ><a href="../../../../../tags.html">Tags</a></li>
+                            <li ><a href="../../../../../archives.html">Archives</a></li>
+                            <li><form class="navbar-search" action="../../../../../search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span1"></div>
+                <div class="span10">
+<article>
+<div class="row-fluid">
+    <header class="page_header span10 offset2">
+    <h1><a href="../../../../../blog/2014/02/18/equal-probability/"> 概率问题  </a></h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+
+            <hr />
+<h3>等概率：蓄水池问题</h3>
+<p>要求从N个元素中随机的抽取k个元素，其中N无法确定。</p>
+<p>这种应用的场景一般是数据流的情况下，由于数据只能被读取一次，而且数据量很大，并不能全部保存，因此数据量N是无法在抽样开始时确定的；但又要保持随机性，于是有了这个问题。所以搜索网站有时候会问这样的问题。</p>
+<p>这里的核心问题就是“随机”，怎么才能是随机的抽取元素呢？我们设想，买彩票的时候，由于所有彩票的中奖概率都是一样的，所以我们才是“随机的”买彩票。那么要使抽取数据也随机，必须使每一个数据被抽样出来的概率都一样。</p>
+<h3>分析：</h3>
+<p>由于N无法确定，数据只能读取一次，并且要求随机，就是每个元素抽出的概率一样，都是k/N。</p>
+<p>解法一：最小k个指纹</p>
+<p>找到一个哈希函数能产生随机数，同时用一个k个元素的堆用来保存最小的k个元素。那么过一遍所有的元素，计算每个的哈希值，通过堆来选择k个元素。</p>
+<p>解法二：数学计算</p>
+<p>先选中前k个， 从第k+1个元素到最后一个元素为止， 以1/i  (i=k+1, k+2,...,N) 的概率选中第i个元素， 并且随机替换掉一个原先选中的元素， 这样遍历一次得到k个元素， 可以保证完全随机选取。
+任意元素G在i轮留下来的概率：</p>
+<div class="highlight"><pre><span class="code-line">P(G留下) = P(G已经存在) * P(G没有被替换)</span>
+<span class="code-line">         = P(G已经存在) * (1 - P(G被替换))</span>
+<span class="code-line">         = P(G已经存在) * (1 - P(第i个元素要替换某个元素) * P(某个元素是G))</span>
+<span class="code-line">         = (k/i) * (1 - (k/(i+1)) * (1/k))</span>
+<span class="code-line">         = (k/i) * (1 - (1/(i+1)))</span>
+<span class="code-line">         = (k/i) * (i/(i+1))</span>
+<span class="code-line">         = (k/(i+1))</span>
+</pre></div>
+
+
+<p>证毕！</p>
+<hr />
+<h3>拒绝采样</h3>
+<blockquote>
+<p>Given a function which generates a random integer in the range 1 to 7, 
+write a function which generates a random integer in the range 1 to 10 uniformly.</p>
+</blockquote>
+<h3>分析：</h3>
+<p>下面是我们通过两次rand7()的位置，第一次代表行的位置，第二次代表列的位置，然后来唯一确定1-10的值，
+其中"*"表示随机从下面的表中取出一个数字。</p>
+<div class="highlight"><pre><span class="code-line">   1  2  3  4  5  6  7</span>
+<span class="code-line">1  1  2  3  4  5  6  7</span>
+<span class="code-line">2  8  9 10  1  2  3  4</span>
+<span class="code-line">3  5  6  7  8  9 10  1</span>
+<span class="code-line">4  2  3  4  5  6  7  8</span>
+<span class="code-line">5  9 10  1  2  3  4  5</span>
+<span class="code-line">6  6  7  8  9 10  *  *</span>
+<span class="code-line">7  *  *  *  *  *  *  *</span>
+</pre></div>
+
+
+<p><strong>具体算法如下</strong></p>
+<div class="highlight"><pre><span class="code-line"><span class="kt">int</span> <span class="nf">rand10</span><span class="p">()</span> <span class="p">{</span></span>
+<span class="code-line">  <span class="kt">int</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">idx</span><span class="p">;</span></span>
+<span class="code-line">  <span class="k">do</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="n">row</span> <span class="o">=</span> <span class="n">rand7</span><span class="p">();</span></span>
+<span class="code-line">    <span class="n">col</span> <span class="o">=</span> <span class="n">rand7</span><span class="p">();</span></span>
+<span class="code-line">    <span class="n">idx</span> <span class="o">=</span> <span class="n">col</span> <span class="o">+</span> <span class="p">(</span><span class="n">row</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mi">7</span><span class="p">;</span></span>
+<span class="code-line">  <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">idx</span> <span class="o">&gt;</span> <span class="mi">40</span><span class="p">);</span></span>
+<span class="code-line">  <span class="k">return</span> <span class="mi">1</span> <span class="o">+</span> <span class="p">(</span><span class="n">idx</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="mi">10</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<hr />
+<h3>洗牌算法</h3>
+<blockquote>
+<p>Given an array of distinct integers, give an algorithm to randomly reorder the
+integers so that each possible reordering is equally likely. In other words, given a
+deck of cards, how can you shuffle them such that any permutation of cards is
+equally likely?</p>
+</blockquote>
+<h3>分析</h3>
+<p><strong>洗牌算法可以有效的解决这类问题，所谓的洗牌算法就是按顺序依次遍历所有的牌，然后从后面的元素中随机的取一个元素来与当前元素交换</strong></p>
+<div class="highlight"><pre><span class="code-line"><span class="kn">import</span> <span class="nn">random</span></span>
+<span class="code-line"><span class="k">def</span> <span class="nf">Shuffle</span><span class="p">(</span><span class="n">li</span><span class="p">):</span></span>
+<span class="code-line">  <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">li</span><span class="p">)</span></span>
+<span class="code-line">  <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>  </span>
+<span class="code-line">    <span class="n">y</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>            <span class="c"># 从后面的数据中随机选取一个</span></span>
+<span class="code-line">    <span class="n">li</span><span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="n">li</span><span class="p">[</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">li</span><span class="p">[</span><span class="n">y</span><span class="p">],</span> <span class="n">li</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>         <span class="c"># 将随机选取的元素与当前位置元素互换</span></span>
+</pre></div>
+
+
+<p>如果某个元素被放入第i（1≤i≤n ）个位置，就必须是在前i - 1次选取中都没有选到它，并且第i次选取是恰好选中它。
+其概率为：</p>
+<div class="math">\begin{equation*}
+p_i=\frac{n-1}{n}\times\frac{n-2}{n-1}\times\cdots\times\frac{n-i+1}{n-i+2}\times\frac{1}{n-i+1}=\frac{1}{n}
+\end{equation*}</div>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+    
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); ";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+<section>
+<div class="accordion" id="accordion2">
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle disqus-comment-count" data-toggle="collapse" data-parent="#accordion2"
+                href="../../../../../blog/2014/02/18/equal-probability/#disqus_thread">
+                Comments
+            </a>
+        </div>
+        <div id="disqus_thread" class="accordion-body collapse">
+            <div class="accordion-inner">
+                <div class="comments">
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'houcj';
+        var disqus_identifier = '../../../../../blog/2014/02/18/equal-probability/';
+    var disqus_url = '../../../../../blog/2014/02/18/equal-probability/';
+
+    (function() {
+         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+            <aside>
+            <hr/>
+            <nav>
+            <ul class="articles_timeline">
+ 
+                <li class="previous_article">« <a href="../../../../../blog/2014/02/13/trie-lru/" title="Previous: 有用的数据结构">有用的数据结构</a></li>
+ 
+                <li class="next_article"><a href="../../../../../blog/2014/02/20/mind-trick/" title="Next: Mind trick">Mind trick</a> »</li>
+            </ul>
+            </nav>
+            </aside>
+        </div>
+        <section>
+        <div class="span2" style="float:right;font-size:0.9em;">
+ 
+            <h4>Published</h4>
+            <time pubdate="pubdate" datetime="2014-02-18T13:23:00+08:00">2月 18, 2014</time>
+            <h4>Category</h4>
+            <a class="category-link" href="/categories.html#计算机科学-ref">计算机科学</a> 
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article"> 
+                <li><a href="/tags.html#概率-ref">概率
+                    <span>1</span>
+</a></li>
+                <li><a href="/tags.html#算法-ref">算法
+                    <span>7</span>
+</a></li>
+            </ul>
+
+        </div>
+        </section>
+</div>
+</article>
+                </div>
+                <div class="span1"></div>
+            </div>
+        </div>
+    </div>
+<footer>
+<div id="footer">
+    <ul class="footer-content">
+        <li class="elegant-power">Powered by <a href="http://getpelican.com/" title="Pelican Home Page">Pelican</a>. Theme: <a href="http://oncrashreboot.com/pelican-elegant" title="Theme Elegant Home Page">Elegant</a> by <a href="http://oncrashreboot.com" title="Talha Mansoor Home Page">Talha Mansoor</a></li>
+    </ul>
+</div>
+</footer>            <script src="http://code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+<script type="text/javascript">
+    var disqus_shortname = 'houcj';
+
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+    </script>
+        <script  language="javascript" type="text/javascript">
+            function uncollapse() {
+                var hash_str = window.location.hash;
+                if (window.location.hash.match(/^#comment-\d+$/))
+                {
+                    var hash_str = '#disqus_thread';
+                }
+                $(hash_str).collapse({
+                    toggle: true
+                    })
+            }
+        </script>
+
+        <script type="text/javascript" language="JavaScript">
+            uncollapse(); 
+        </script>
+    </body>
+</html>

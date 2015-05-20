@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="utf-8"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="ChaoJun Hou" />
+        <meta name="copyright" content="ChaoJun Hou" />
+
+<meta name="keywords" content="编程语言, 计算机科学, " />
+        <title>编程语言中的基本概念  · Write the Code
+</title>
+        <link href="http://cdn-images.mailchimp.com/embedcode/slim-081711.css" rel="stylesheet" type="text/css">
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="../../../../../theme/css/style.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="../../../../../theme/css/solarizedlight.css" media="screen">
+        <link rel="shortcut icon" href="../../../../../theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="apple-touch-icon" href="../../../../../theme/images/apple-touch-icon.png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="../../../../../theme/images/apple-touch-icon-57x57.png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="../../../../../theme/images/apple-touch-icon-72x72.png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="../../../../../theme/images/apple-touch-icon-114x114.png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="../../../../../theme/images/apple-touch-icon-144x144.png" />
+        <link rel="icon" href="../../../../../theme/images/apple-touch-icon-144x144.png" />
+    <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '61957498']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+    </script>
+    </head>
+    <body>
+        <div id="content-sans-footer">
+        <div class="navbar navbar-static-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../../../../"><span class=site-name>Write the Code</span></a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav pull-right top-menu">
+                            <li ><a href="../../../../..">Home</a></li>
+                            <li ><a href="../../../../../pages/About.html">关于</a></li>
+                            <li ><a href="../../../../../categories.html">Categories</a></li>
+                            <li ><a href="../../../../../tags.html">Tags</a></li>
+                            <li ><a href="../../../../../archives.html">Archives</a></li>
+                            <li><form class="navbar-search" action="../../../../../search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span1"></div>
+                <div class="span10">
+<article>
+<div class="row-fluid">
+    <header class="page_header span10 offset2">
+    <h1><a href="../../../../../blog/2015/05/09/programming-language/"> 编程语言中的基本概念  </a></h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+
+            <hr />
+<blockquote>
+<p>无论使用什么编程语言，生产一条基本语句所需要的工数几乎是一定的。</p>
+<p>—弗雷德里克·布鲁克斯</p>
+</blockquote>
+<hr />
+<h2>特定领域语言(Domain Specific Language)</h2>
+<p>指利用为特定领域所专门设计的词汇和语法，简化程序设计过程，提高
+生产效率的技术。</p>
+<h3>优点</h3>
+<p>可以直接使用其对象领域中的概念，集中描述"what"部分，而不必对"how"
+进行描述。</p>
+<hr />
+<h3>外部DSL</h3>
+<p>像这些迷你语言为代表的，由专用的语言引擎来实现的DSL，称为外部DSL。</p>
+<p><strong>XML、SQL、正则表达式就是典型的外部DSL</strong></p>
+<h3>内部DSL</h3>
+<p>内部DSL是在现在语言中实现DSL，而作为DSL基础的这种现有语言，称为数组语言。</p>
+<hr />
+<p><strong>外部DSL是从UNIX脱胎发展而来的，而内部DSL则是发源于Lisp和Smalltalk</strong></p>
+<hr />
+<blockquote>
+<p>Programming is a process of designing DSL for your own application</p>
+<p>—— 大卫·托马斯</p>
+</blockquote>
+<hr />
+<h3>DSL设计的构成要素</h3>
+<ul>
+<li>上下文（Context）</li>
+<li>语句  （Sentence）</li>
+<li>单位 （Unit）</li>
+<li>词汇 （Vocabulary）</li>
+<li>层次结构 （Hierarchy）</li>
+</ul>
+<h2>元编程</h2>
+<p>所谓元编程就是用程序来编写程序。在Ruby和Python这样的语言中，由于程序本身的信息是可以被访问的，
+因此在程序运行中也可以对程序本身进行操作，这就是元编程。</p>
+<h3>反射</h3>
+<p>在C++中，一个对象是知道自己的数据类型的，
+通过这个信息，可以在调用虚拟成员函数时，选择与自己的类型相匹配的函数。
+像这样获取和变更程序本身信息的功能，被称为反射（Reflection）。</p>
+<h2>闭包</h2>
+<p>在函数对象中，将局部变量这一环境封闭起来的结构被称为闭包。</p>
+<ul>
+<li>对象：在数据中以方法的形式包含了过程</li>
+<li>闭包：在过程中以环境的形式包含了数据</li>
+</ul>
+<h2>动态运行</h2>
+<p>就是在运行后总的程序能够识别自身，并对自身进行操作。而程序对自身操作的编程也被称为元编程。</p>
+<h2>鸭子类型(Duck Typing)</h2>
+<p>不考虑某个对象到底是哪个类的实例，而只关心它拥有哪些方法，这就是鸭子类型。</p>
+<h3>结构子类型(Structuaral Subtyping)</h3>
+<p>以类型的结构来确定可代换性的类型关系，被称为结构子类型。</p>
+<h3>名义子类型 (Nominal Subtyping)</h3>
+<p>像Java这样根据声明拥有继承关系的类型具有可代换性的类型关系，被称为名义子类型。</p>
+<hr />
+<h2>非强制静态类型</h2>
+<p>在Dart中，没有指定类型的变量和表达式会被当做Dynamic型，其类型检查在运行时完成。</p>
+<h2>提高动态语言速度的三种技术</h2>
+<ul>
+<li>JIT(Just In Time Compiler)，指的是在程序运行时将其编译为机器语言的技术。由于编译为机器语言的程序可以以CPU原本的
+速度来运行，因此能够克服解释器所带来的劣势。</li>
+<li>特殊化，指的是一种在将函数转换为内部表达时所需用的技术。通常假定参数为特殊类型，
+事先准备一个特殊化的高速版本，在函数调用的开头先执行类型检查，当前提条件成立时直接运行
+高速版本，从而避免了在运行时伴随的大量的类型检查。</li>
+<li>分代回收，见<a href="http://www.houcj.net/blog/2015/05/10/garbage-collection-in-python/">垃圾回收</a>。</li>
+</ul>
+<section>
+<div class="accordion" id="accordion2">
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle disqus-comment-count" data-toggle="collapse" data-parent="#accordion2"
+                href="../../../../../blog/2015/05/09/programming-language/#disqus_thread">
+                Comments
+            </a>
+        </div>
+        <div id="disqus_thread" class="accordion-body collapse">
+            <div class="accordion-inner">
+                <div class="comments">
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'houcj';
+        var disqus_identifier = '../../../../../blog/2015/05/09/programming-language/';
+    var disqus_url = '../../../../../blog/2015/05/09/programming-language/';
+
+    (function() {
+         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+            <aside>
+            <hr/>
+            <nav>
+            <ul class="articles_timeline">
+ 
+                <li class="previous_article">« <a href="../../../../../blog/2015/05/08/my-booklist/" title="Previous: 我的书单">我的书单</a></li>
+ 
+                <li class="next_article"><a href="../../../../../blog/2015/05/10/garbage-collection-in-python/" title="Next: Python中的垃圾回收机制">Python中的垃圾回收机制</a> »</li>
+            </ul>
+            </nav>
+            </aside>
+        </div>
+        <section>
+        <div class="span2" style="float:right;font-size:0.9em;">
+ 
+            <h4>Published</h4>
+            <time pubdate="pubdate" datetime="2015-05-09T00:00:00+08:00">5月 9, 2015</time>
+            <h4>Category</h4>
+            <a class="category-link" href="/categories.html#计算机科学-ref">计算机科学</a> 
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article"> 
+                <li><a href="/tags.html#编程语言-ref">编程语言
+                    <span>1</span>
+</a></li>
+            </ul>
+
+        </div>
+        </section>
+</div>
+</article>
+                </div>
+                <div class="span1"></div>
+            </div>
+        </div>
+    </div>
+<footer>
+<div id="footer">
+    <ul class="footer-content">
+        <li class="elegant-power">Powered by <a href="http://getpelican.com/" title="Pelican Home Page">Pelican</a>. Theme: <a href="http://oncrashreboot.com/pelican-elegant" title="Theme Elegant Home Page">Elegant</a> by <a href="http://oncrashreboot.com" title="Talha Mansoor Home Page">Talha Mansoor</a></li>
+    </ul>
+</div>
+</footer>            <script src="http://code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+<script type="text/javascript">
+    var disqus_shortname = 'houcj';
+
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+    </script>
+        <script  language="javascript" type="text/javascript">
+            function uncollapse() {
+                var hash_str = window.location.hash;
+                if (window.location.hash.match(/^#comment-\d+$/))
+                {
+                    var hash_str = '#disqus_thread';
+                }
+                $(hash_str).collapse({
+                    toggle: true
+                    })
+            }
+        </script>
+
+        <script type="text/javascript" language="JavaScript">
+            uncollapse(); 
+        </script>
+    </body>
+</html>

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="utf-8"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="ChaoJun Hou" />
+        <meta name="copyright" content="ChaoJun Hou" />
+
+<meta name="keywords" content="算法, 计算机科学, " />
+        <title>二叉树  · Write the Code
+</title>
+        <link href="http://cdn-images.mailchimp.com/embedcode/slim-081711.css" rel="stylesheet" type="text/css">
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="../../../../../theme/css/style.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="../../../../../theme/css/solarizedlight.css" media="screen">
+        <link rel="shortcut icon" href="../../../../../theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="apple-touch-icon" href="../../../../../theme/images/apple-touch-icon.png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="../../../../../theme/images/apple-touch-icon-57x57.png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="../../../../../theme/images/apple-touch-icon-72x72.png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="../../../../../theme/images/apple-touch-icon-114x114.png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="../../../../../theme/images/apple-touch-icon-144x144.png" />
+        <link rel="icon" href="../../../../../theme/images/apple-touch-icon-144x144.png" />
+    <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '61957498']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+    </script>
+    </head>
+    <body>
+        <div id="content-sans-footer">
+        <div class="navbar navbar-static-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../../../../"><span class=site-name>Write the Code</span></a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav pull-right top-menu">
+                            <li ><a href="../../../../..">Home</a></li>
+                            <li ><a href="../../../../../pages/About.html">关于</a></li>
+                            <li ><a href="../../../../../categories.html">Categories</a></li>
+                            <li ><a href="../../../../../tags.html">Tags</a></li>
+                            <li ><a href="../../../../../archives.html">Archives</a></li>
+                            <li><form class="navbar-search" action="../../../../../search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span1"></div>
+                <div class="span10">
+<article>
+<div class="row-fluid">
+    <header class="page_header span10 offset2">
+    <h1><a href="../../../../../blog/2015/05/18/binary-tree/"> 二叉树  </a></h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+
+            <hr />
+<h3>把二叉查找树保存到文件中</h3>
+<blockquote>
+<p>Describe an algorithm to save a Binary Search Tree (BST) to a file in terms of run-time and disk space complexity. 
+You must be able to restore to the exact original BST using the saved format.</p>
+</blockquote>
+<h3>分析</h3>
+<p><strong>由于二叉排序树在中序遍历中为一个升序的序列，因此考虑使用前序遍历
+或者后序遍历来保存二叉树的信息。使用后序遍历时，每个parent节点都在children节点之后，无法有效的通过
+中序遍历文件中的数据来重新构造一棵二叉树。因此使用二叉树前序遍历来保存这些节点的信息，同时使用中序遍历来
+构造一棵二叉树。</strong>
+<strong>构造二叉树的代码如下：</strong></p>
+<div class="highlight"><pre><span class="code-line"><span class="kt">void</span> <span class="nf">readBSTHelper</span><span class="p">(</span><span class="kt">int</span> <span class="n">min</span><span class="p">,</span> <span class="kt">int</span> <span class="n">max</span><span class="p">,</span> <span class="kt">int</span> <span class="o">&amp;</span><span class="n">insertVal</span><span class="p">,</span></span>
+<span class="code-line">                   <span class="n">BinaryTree</span> <span class="o">*&amp;</span><span class="n">p</span><span class="p">,</span> <span class="n">ifstream</span> <span class="o">&amp;</span><span class="n">fin</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">  <span class="k">if</span> <span class="p">(</span><span class="n">insertVal</span> <span class="o">&gt;</span> <span class="n">min</span> <span class="o">&amp;&amp;</span> <span class="n">insertVal</span> <span class="o">&lt;</span> <span class="n">max</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="kt">int</span> <span class="n">val</span> <span class="o">=</span> <span class="n">insertVal</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BinaryTree</span><span class="p">(</span><span class="n">val</span><span class="p">);</span></span>
+<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="n">fin</span> <span class="o">&gt;&gt;</span> <span class="n">insertVal</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">      <span class="n">readBSTHelper</span><span class="p">(</span><span class="n">min</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">insertVal</span><span class="p">,</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">,</span> <span class="n">fin</span><span class="p">);</span></span>
+<span class="code-line">      <span class="n">readBSTHelper</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">max</span><span class="p">,</span> <span class="n">insertVal</span><span class="p">,</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">,</span> <span class="n">fin</span><span class="p">);</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line">  <span class="p">}</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kt">void</span> <span class="nf">readBST</span><span class="p">(</span><span class="n">BinaryTree</span> <span class="o">*&amp;</span><span class="n">root</span><span class="p">,</span> <span class="n">ifstream</span> <span class="o">&amp;</span><span class="n">fin</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">  <span class="kt">int</span> <span class="n">val</span><span class="p">;</span></span>
+<span class="code-line">  <span class="n">fin</span> <span class="o">&gt;&gt;</span> <span class="n">val</span><span class="p">;</span></span>
+<span class="code-line">  <span class="n">readBSTHelper</span><span class="p">(</span><span class="n">INT_MIN</span><span class="p">,</span> <span class="n">INT_MAX</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">fin</span><span class="p">);</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<hr />
+<h3>Serialization/Deserialization of a Binary Tree</h3>
+<blockquote>
+<p>Design an algorithm and write code to serialize and deserialize a binary tree.
+Writing the tree to a file is called ‘serialization’ and reading back from the file to reconstruct the exact same binary tree is ‘deserialization’.</p>
+</blockquote>
+<h3>分析：</h3>
+<p><strong>在二叉排序树中，中序遍历是有序的，而普通的二叉树就没有这样的性质。因此需要使用哨兵来输出那些空的节点，来最终确定每个
+节点的位置。这里使用前序遍历。</strong></p>
+<p><strong>Cpp Code</strong></p>
+<div class="highlight"><pre><span class="code-line"><span class="kt">void</span> <span class="nf">writeBinaryTree</span><span class="p">(</span><span class="n">BinaryTree</span> <span class="o">*</span><span class="n">p</span><span class="p">,</span> <span class="n">ostream</span> <span class="o">&amp;</span><span class="n">out</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">p</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="n">out</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;# &quot;</span><span class="p">;</span></span>
+<span class="code-line">  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="n">out</span> <span class="o">&lt;&lt;</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">writeBinaryTree</span><span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">,</span> <span class="n">out</span><span class="p">);</span></span>
+<span class="code-line">    <span class="n">writeBinaryTree</span><span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">,</span> <span class="n">out</span><span class="p">);</span></span>
+<span class="code-line">  <span class="p">}</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<p><strong>从文件中读取这个二叉树的操作也是类似的。我们同样使用先序遍历，如果遍历到的节点是一个哨兵，说明是
+空节点，我们忽视这个节点就好。如果是一个具体的数值，我们就把它插入到当前的节点，然后遍历它的左孩子，
+然后遍历它的右孩子。</strong></p>
+<p><strong>Cpp Code</strong></p>
+<div class="highlight"><pre><span class="code-line"><span class="kt">void</span> <span class="nf">readBinaryTree</span><span class="p">(</span><span class="n">BinaryTree</span> <span class="o">*&amp;</span><span class="n">p</span><span class="p">,</span> <span class="n">ifstream</span> <span class="o">&amp;</span><span class="n">fin</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">  <span class="kt">int</span> <span class="n">token</span><span class="p">;</span></span>
+<span class="code-line">  <span class="kt">bool</span> <span class="n">isNumber</span><span class="p">;</span></span>
+<span class="code-line">  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">readNextToken</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="n">fin</span><span class="p">,</span> <span class="n">isNumber</span><span class="p">))</span> </span>
+<span class="code-line">    <span class="k">return</span><span class="p">;</span></span>
+<span class="code-line">  <span class="k">if</span> <span class="p">(</span><span class="n">isNumber</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BinaryTree</span><span class="p">(</span><span class="n">token</span><span class="p">);</span></span>
+<span class="code-line">    <span class="n">readBinaryTree</span><span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">,</span> <span class="n">fin</span><span class="p">);</span></span>
+<span class="code-line">    <span class="n">readBinaryTree</span><span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">,</span> <span class="n">fin</span><span class="p">);</span></span>
+<span class="code-line">  <span class="p">}</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<p><strong>当然我们也可以使用层次遍历。</strong></p>
+<hr />
+<h3>Printing a Binary Tree in Level Order</h3>
+<blockquote>
+<p>Given a binary tree, print out the tree in level order (ie, from left to right, level by level). Output a newline after the end of each level.</p>
+</blockquote>
+<div class="highlight"><pre><span class="code-line">     3</span>
+<span class="code-line">   /  \</span>
+<span class="code-line">  9   20    </span>
+<span class="code-line">     /  \</span>
+<span class="code-line">    15    7</span>
+</pre></div>
+
+
+<p>For example, the level order output of the tree above is:</p>
+<div class="highlight"><pre><span class="code-line">3 </span>
+<span class="code-line">9 20 </span>
+<span class="code-line">15 7</span>
+</pre></div>
+
+
+<h3>分析</h3>
+<p><strong>可以使用BFS或者DFS</strong></p>
+<h4>BFS</h4>
+<p><strong>使用BFS时，需要记录一层的节点数目，以及下层的节点数目。当这层的
+节点数目为0的时候，说明这层的节点已经完全被输出。然后接着输出下一层。</strong></p>
+<div class="highlight"><pre><span class="code-line"><span class="kt">void</span> <span class="nf">printLevelOrder</span><span class="p">(</span><span class="n">BinaryTree</span> <span class="o">*</span><span class="n">root</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">root</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span></span>
+<span class="code-line">  <span class="n">queue</span><span class="o">&lt;</span><span class="n">BinaryTree</span><span class="o">*&gt;</span> <span class="n">nodesQueue</span><span class="p">;</span></span>
+<span class="code-line">  <span class="kt">int</span> <span class="n">nodesInCurrentLevel</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span></span>
+<span class="code-line">  <span class="kt">int</span> <span class="n">nodesInNextLevel</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line">  <span class="n">nodesQueue</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">root</span><span class="p">);</span></span>
+<span class="code-line">  <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">nodesQueue</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="n">BinaryTree</span> <span class="o">*</span><span class="n">currNode</span> <span class="o">=</span> <span class="n">nodesQueue</span><span class="p">.</span><span class="n">front</span><span class="p">();</span></span>
+<span class="code-line">    <span class="n">nodesQueue</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span></span>
+<span class="code-line">    <span class="n">nodesInCurrentLevel</span><span class="o">--</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="n">currNode</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">      <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">currNode</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span><span class="p">;</span></span>
+<span class="code-line">      <span class="n">nodesQueue</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">currNode</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span></span>
+<span class="code-line">      <span class="n">nodesQueue</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">currNode</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span></span>
+<span class="code-line">      <span class="n">nodesInNextLevel</span> <span class="o">+=</span> <span class="mi">2</span><span class="p">;</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="n">nodesInCurrentLevel</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">      <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span></span>
+<span class="code-line">      <span class="n">nodesInCurrentLevel</span> <span class="o">=</span> <span class="n">nodesInNextLevel</span><span class="p">;</span></span>
+<span class="code-line">      <span class="n">nodesInNextLevel</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line">  <span class="p">}</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<h4>DFS</h4>
+<p><strong>使用DFS时需要记录递归的深度，根据递归的深度来确定层数</strong></p>
+<div class="highlight"><pre><span class="code-line"><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span></span>
+<span class="code-line">    <span class="c"># @param root, a tree node</span></span>
+<span class="code-line">    <span class="c"># @return a list of lists of integers</span></span>
+<span class="code-line">    <span class="k">def</span> <span class="nf">levelOrder</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">):</span></span>
+<span class="code-line">        <span class="n">res</span><span class="o">=</span> <span class="p">[]</span> </span>
+<span class="code-line">        <span class="k">def</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">root</span><span class="p">,</span><span class="n">depth</span><span class="p">):</span></span>
+<span class="code-line">            <span class="k">if</span> <span class="n">root</span><span class="p">:</span></span>
+<span class="code-line">                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cur</span> <span class="o">==</span> <span class="n">depth</span><span class="p">:</span></span>
+<span class="code-line">                    <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">root</span><span class="o">.</span><span class="n">val</span><span class="p">])</span></span>
+<span class="code-line">                    <span class="bp">self</span><span class="o">.</span><span class="n">cur</span> <span class="o">+=</span> <span class="mi">1</span></span>
+<span class="code-line">                <span class="k">else</span><span class="p">:</span></span>
+<span class="code-line">                    <span class="n">res</span><span class="p">[</span><span class="n">depth</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">val</span><span class="p">)</span></span>
+<span class="code-line">                <span class="n">dfs</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="p">,</span><span class="n">depth</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span></span>
+<span class="code-line">                <span class="n">dfs</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="p">,</span><span class="n">depth</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span></span>
+<span class="code-line">        <span class="k">if</span> <span class="n">root</span><span class="p">:</span></span>
+<span class="code-line">            <span class="bp">self</span><span class="o">.</span><span class="n">cur</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="code-line">            <span class="n">dfs</span><span class="p">(</span><span class="n">root</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">res</span></span>
+</pre></div>
+
+
+<hr />
+<h3>Convert Sorted List to Balanced Binary Search Tree (BST)</h3>
+<blockquote>
+<p>Given a singly linked list where elements are sorted in ascending order, convert it to a height balanced BST.</p>
+</blockquote>
+<h3>分析</h3>
+<p><strong>由于链表只能顺序遍历，因此最优的解法应该是在遍历链表的同时，构造这个二叉查找树。
+因此我们采取bottom-up(而非通常的top-down)的方法，从底到上创建二叉查找树节点，然后把他们分配到它们的父亲节点中
+这样就可以一边遍历，一遍构造二叉查找树。</strong></p>
+<div class="highlight"><pre><span class="code-line"><span class="n">BinaryTree</span><span class="o">*</span> <span class="nf">sortedListToBST</span><span class="p">(</span><span class="n">ListNode</span> <span class="o">*&amp;</span> <span class="n">list</span><span class="p">,</span> <span class="kt">int</span> <span class="n">start</span><span class="p">,</span> <span class="kt">int</span> <span class="n">end</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">  <span class="k">if</span> <span class="p">(</span><span class="n">start</span> <span class="o">&gt;</span> <span class="n">end</span><span class="p">)</span> <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span></span>
+<span class="code-line">  <span class="c1">// same as (start+end)/2, avoids overflow</span></span>
+<span class="code-line">  <span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span></span>
+<span class="code-line">  <span class="n">BinaryTree</span> <span class="o">*</span><span class="n">leftChild</span> <span class="o">=</span> <span class="n">sortedListToBST</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">mid</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span></span>
+<span class="code-line">  <span class="n">BinaryTree</span> <span class="o">*</span><span class="n">parent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BinaryTree</span><span class="p">(</span><span class="n">list</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">);</span></span>
+<span class="code-line">  <span class="n">parent</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">=</span> <span class="n">leftChild</span><span class="p">;</span></span>
+<span class="code-line">  <span class="n">list</span> <span class="o">=</span> <span class="n">list</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span></span>
+<span class="code-line">  <span class="n">parent</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">=</span> <span class="n">sortedListToBST</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">mid</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">end</span><span class="p">);</span></span>
+<span class="code-line">  <span class="k">return</span> <span class="n">parent</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="n">BinaryTree</span><span class="o">*</span> <span class="nf">sortedListToBST</span><span class="p">(</span><span class="n">ListNode</span> <span class="o">*</span><span class="n">head</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">  <span class="k">return</span> <span class="n">sortedListToBST</span><span class="p">(</span><span class="n">head</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<hr />
+<h3>Convert Binary Search Tree (BST) to Sorted Doubly-Linked List</h3>
+<h3>分析</h3>
+<p><strong>同上面的方法类似，我们可以采用中序遍历的方法，把每个遍历到的节点依次插入到
+双向链表中，同时保持双向链表的有序性</strong></p>
+<div class="highlight"><pre><span class="code-line"><span class="kt">void</span> <span class="nf">treeToDoublyList</span><span class="p">(</span><span class="n">Node</span> <span class="o">*</span><span class="n">p</span><span class="p">,</span> <span class="n">Node</span> <span class="o">*&amp;</span> <span class="n">prev</span><span class="p">,</span> <span class="n">Node</span> <span class="o">*&amp;</span> <span class="n">head</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">p</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span></span>
+<span class="code-line">  <span class="n">treeToDoublyList</span><span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">,</span> <span class="n">prev</span><span class="p">,</span> <span class="n">head</span><span class="p">);</span></span>
+<span class="code-line">  <span class="c1">// current node&#39;s left points to previous node</span></span>
+<span class="code-line">  <span class="n">p</span><span class="o">-&gt;</span><span class="n">previous</span> <span class="o">=</span> <span class="n">prev</span><span class="p">;</span></span>
+<span class="code-line">  <span class="k">if</span> <span class="p">(</span><span class="n">prev</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">prev</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">p</span><span class="p">;</span>  <span class="c1">// previous node&#39;s right points to current node</span></span>
+<span class="code-line">  <span class="k">else</span></span>
+<span class="code-line">    <span class="n">head</span> <span class="o">=</span> <span class="n">p</span><span class="p">;</span> <span class="c1">// current node (smallest element) is head of</span></span>
+<span class="code-line">              <span class="c1">// the list if previous node is not available</span></span>
+<span class="code-line">  <span class="c1">// as soon as the recursion ends, the head&#39;s left pointer </span></span>
+<span class="code-line">  <span class="c1">// points to the last node, and the last node&#39;s right pointer</span></span>
+<span class="code-line">  <span class="c1">// points to the head pointer.</span></span>
+<span class="code-line">  <span class="n">Node</span> <span class="o">*</span><span class="n">right</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">;</span></span>
+<span class="code-line">  <span class="n">head</span><span class="o">-&gt;</span><span class="n">previous</span> <span class="o">=</span> <span class="n">p</span><span class="p">;</span></span>
+<span class="code-line">  <span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">=</span> <span class="n">head</span><span class="p">;</span></span>
+<span class="code-line">  <span class="c1">// updates previous node</span></span>
+<span class="code-line">  <span class="n">prev</span> <span class="o">=</span> <span class="n">p</span><span class="p">;</span></span>
+<span class="code-line">  <span class="n">treeToDoublyList</span><span class="p">(</span><span class="n">right</span><span class="p">,</span> <span class="n">prev</span><span class="p">,</span> <span class="n">head</span><span class="p">);</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="c1">// Given an ordered binary tree, returns a sorted circular</span></span>
+<span class="code-line"><span class="c1">// doubly-linked list. The conversion is done in-place.</span></span>
+<span class="code-line"><span class="n">Node</span><span class="o">*</span> <span class="nf">treeToDoublyList</span><span class="p">(</span><span class="n">Node</span> <span class="o">*</span><span class="n">root</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">  <span class="n">Node</span> <span class="o">*</span><span class="n">prev</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span></span>
+<span class="code-line">  <span class="n">Node</span> <span class="o">*</span><span class="n">head</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span></span>
+<span class="code-line">  <span class="n">treeToDoublyList</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">prev</span><span class="p">,</span> <span class="n">head</span><span class="p">);</span></span>
+<span class="code-line">  <span class="k">return</span> <span class="n">head</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+<section>
+<div class="accordion" id="accordion2">
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle disqus-comment-count" data-toggle="collapse" data-parent="#accordion2"
+                href="../../../../../blog/2015/05/18/binary-tree/#disqus_thread">
+                Comments
+            </a>
+        </div>
+        <div id="disqus_thread" class="accordion-body collapse">
+            <div class="accordion-inner">
+                <div class="comments">
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'houcj';
+        var disqus_identifier = '../../../../../blog/2015/05/18/binary-tree/';
+    var disqus_url = '../../../../../blog/2015/05/18/binary-tree/';
+
+    (function() {
+         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+            <aside>
+            <hr/>
+            <nav>
+            <ul class="articles_timeline">
+ 
+                <li class="previous_article">« <a href="../../../../../blog/2015/05/13/graph/" title="Previous: 图论">图论</a></li>
+            </ul>
+            </nav>
+            </aside>
+        </div>
+        <section>
+        <div class="span2" style="float:right;font-size:0.9em;">
+ 
+            <h4>Published</h4>
+            <time pubdate="pubdate" datetime="2015-05-18T14:53:00+08:00">5月 18, 2015</time>
+            <h4>Category</h4>
+            <a class="category-link" href="/categories.html#计算机科学-ref">计算机科学</a> 
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article"> 
+                <li><a href="/tags.html#算法-ref">算法
+                    <span>7</span>
+</a></li>
+            </ul>
+
+        </div>
+        </section>
+</div>
+</article>
+                </div>
+                <div class="span1"></div>
+            </div>
+        </div>
+    </div>
+<footer>
+<div id="footer">
+    <ul class="footer-content">
+        <li class="elegant-power">Powered by <a href="http://getpelican.com/" title="Pelican Home Page">Pelican</a>. Theme: <a href="http://oncrashreboot.com/pelican-elegant" title="Theme Elegant Home Page">Elegant</a> by <a href="http://oncrashreboot.com" title="Talha Mansoor Home Page">Talha Mansoor</a></li>
+    </ul>
+</div>
+</footer>            <script src="http://code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+<script type="text/javascript">
+    var disqus_shortname = 'houcj';
+
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+    </script>
+        <script  language="javascript" type="text/javascript">
+            function uncollapse() {
+                var hash_str = window.location.hash;
+                if (window.location.hash.match(/^#comment-\d+$/))
+                {
+                    var hash_str = '#disqus_thread';
+                }
+                $(hash_str).collapse({
+                    toggle: true
+                    })
+            }
+        </script>
+
+        <script type="text/javascript" language="JavaScript">
+            uncollapse(); 
+        </script>
+    </body>
+</html>

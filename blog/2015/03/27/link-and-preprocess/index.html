@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="utf-8"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="ChaoJun Hou" />
+        <meta name="copyright" content="ChaoJun Hou" />
+
+<meta name="keywords" content="C, 编程, " />
+        <title>链接和预编译  · Write the Code
+</title>
+        <link href="http://cdn-images.mailchimp.com/embedcode/slim-081711.css" rel="stylesheet" type="text/css">
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="../../../../../theme/css/style.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="../../../../../theme/css/solarizedlight.css" media="screen">
+        <link rel="shortcut icon" href="../../../../../theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="apple-touch-icon" href="../../../../../theme/images/apple-touch-icon.png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="../../../../../theme/images/apple-touch-icon-57x57.png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="../../../../../theme/images/apple-touch-icon-72x72.png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="../../../../../theme/images/apple-touch-icon-114x114.png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="../../../../../theme/images/apple-touch-icon-144x144.png" />
+        <link rel="icon" href="../../../../../theme/images/apple-touch-icon-144x144.png" />
+    <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '61957498']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+    </script>
+    </head>
+    <body>
+        <div id="content-sans-footer">
+        <div class="navbar navbar-static-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../../../../"><span class=site-name>Write the Code</span></a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav pull-right top-menu">
+                            <li ><a href="../../../../..">Home</a></li>
+                            <li ><a href="../../../../../pages/About.html">关于</a></li>
+                            <li ><a href="../../../../../categories.html">Categories</a></li>
+                            <li ><a href="../../../../../tags.html">Tags</a></li>
+                            <li ><a href="../../../../../archives.html">Archives</a></li>
+                            <li><form class="navbar-search" action="../../../../../search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span1"></div>
+                <div class="span10">
+<article>
+<div class="row-fluid">
+    <header class="page_header span10 offset2">
+    <h1><a href="../../../../../blog/2015/03/27/link-and-preprocess/"> 链接和预编译  </a></h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+
+            <h1>链接</h1>
+<p>C++中允许重载方法，这些方法在源代码中有相同的名字，却有不同的函数列表。编译器讲每个唯一的方法和参数列表组合编码成一个对链接器来说唯一的名字。这个编码过程叫做mangling。</p>
+<p><img src="/images/elf.png" class="img-responsive" alt="ELF" align=center /></p>
+<h2>链接器如何解析多重定义的全局符号</h2>
+<p>函数和已初始化的全局变量是强符号，未初始化的全局变量是弱符号。
+Unix链接器使用下面的规则来处理多重定义的符号：</p>
+<ul>
+<li>不允许有多个强符号。</li>
+<li>如果有一个强符号和一个弱符号，那么选择强符号</li>
+<li>如果有多个弱符号，那么从这些弱符号中任意选择一个</li>
+</ul>
+<p><strong>在命令行中，如果定义一个符号的库出现在引用这个符号的目标文件之前，那么引用就不能被解析，连接会失败</strong></p>
+<p>加载器（loader）将可执行目标文件的代码和数据从磁盘拷到内存中，然后跳转到程序的第一条指令或入口点来运行程序。这个将程序拷贝到内存并运行的过程叫做加载。</p>
+<p><strong>无论我们在存储器中的何处加载一个目标模块，数据段总是分配成紧随代码段后面。因此，代码段中任何指令和数据段中任何一个变量之间的距离都是一个运行时常量，和代码段和数据段的绝对的存储位置无关</strong></p>
+<p>链接器的两个主要任务是符号解析和重定位</p>
+<ul>
+<li><strong>符号解析</strong>讲姆讲目标文件中的每个全局符号都绑定到一个唯一的定义</li>
+<li><strong>重定位</strong>确定每个符号的最终在内存中的位置，并修改对那些目标的引用。       </li>
+</ul>
+<h2>链接器</h2>
+<ul>
+<li>分别编译：即若干个源程序可以在不同的时候单独进行编译，然后在恰当的时候将它们整合到一起。但是，链接器一般是与C编译器分离的。</li>
+<li>链接器通常把由编译器或汇编器生成的若干个目标模块整合成一个被称为载入模块或可执行文件的实体，该实体能够被操作系统直接执行。</li>
+<li>链接器通常把目标模块看成是由一组外部对象组成。每个外部对象代表机器内存中的某个部分，并通过一个外部名称来识别。</li>
+<li>exit函数和return函数的主要区别是：<ul>
+<li>exit用于在程序运行的过程中随时结束程序，exit的参数返回给操作系统。exit函数运行时会先执行由atexit（）函数等级的函数，然后会做一些自身的清理工作，同时刷新所有输出流、关闭所有打开的流并且关闭通过标准I/O函数tmpfile（）创建的临时文件。exit是结束一个进程，它将删除进程的内存空间，同时讲错误信息返回给父进程。exit是系统调用级别的，表示整个进程的结束。</li>
+<li>return表示终止当前函数的运行，并将操作权返回给调用者。如果在main函数中，表示将操作权返回给操作系统，隐式调用exit。​如果return没有值就返回空，表示中断函数的执行，返回调用函数处。return是语言级别的，它表示了调用堆栈的返回；</li>
+</ul>
+</li>
+<li>理解复杂声明可用的“右左法则”：从变量名看起，先往右，再往左，碰到一个圆括号就调转阅读的方向；括号内分析完就跳出括号，还是按先右后左的顺序，如此循环，直到整个声明分析完。
+分析下面的例子，答案见最后。</li>
+</ul>
+<div class="highlight"><pre><span class="code-line"><span class="kt">char</span> <span class="o">*</span> <span class="k">const</span> <span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="n">next</span><span class="p">)();</span></span>
+<span class="code-line"><span class="kt">char</span> <span class="o">*</span> <span class="p">(</span><span class="o">*</span> <span class="n">c</span><span class="p">[</span><span class="mi">10</span><span class="p">])</span><span class="kt">int</span> <span class="p">(</span><span class="o">**</span><span class="n">p</span><span class="p">);</span></span>
+</pre></div>
+
+
+<ul>
+<li>
+<p>每个外部对象只在一个地方声明。这个声明的地方一般就在一个头文件中，需要用到该外部对象的所有模块都应该包括在这个头文件。特别注意：定义该外部对应的那个模块也应该包括这个头文件。 </p>
+</li>
+<li>
+<p>编译：生成目标平台的指令
+-解释：在运行过程中才生成目标平台的指令。需要虚拟机来将编译后生成的中间代码翻译成目标平台的指令。</p>
+</li>
+<li>
+<p>Interposition指用户定义的函数取代函数库中声明<strong><em>完全相同的函数</em></strong>，不是重载.</p>
+</li>
+</ul>
+<div class="highlight"><pre><span class="code-line"><span class="kt">void</span> <span class="nf">mktemp</span><span class="p">()</span> <span class="p">{..}</span></span>
+<span class="code-line"><span class="kt">void</span> <span class="nf">getwd</span><span class="p">()</span> <span class="p">{</span> <span class="n">mktemp</span><span class="p">();}</span></span>
+<span class="code-line"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span></span>
+<span class="code-line">   <span class="p">{</span></span>
+<span class="code-line">          <span class="n">mktemp</span><span class="p">();</span></span>
+<span class="code-line">          <span class="n">getwd</span><span class="p">();</span> <span class="c1">// 即使库函数有 void mktemp(){}，操作系统也会调用用户自己定义的函数</span></span>
+<span class="code-line">          <span class="k">return</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line">   <span class="p">}</span></span>
+</pre></div>
+
+
+<ul>
+<li>链接库的五个特殊秘密<ul>
+<li>动态链接库的扩展名为 ".so"，静态的为".a"</li>
+<li>通过-lthread选项，告诉编译器链接到libthread.so</li>
+<li>编译器期望在确定的目录下找到这些库函数</li>
+<li>观察头文件，确定所使用的函数库</li>
+<li>与提取动态库中的符号相比，静态库中的符号提取的方法限制更严格</li>
+</ul>
+</li>
+<li>动态库的优点：<ul>
+<li>动态链接可执行文件比功能相同的静态链接可执行文件的体积小。</li>
+<li>所有动态链接到某个特定函数库的可执行文件在运行时共享该函数库的一个单独拷贝。  </li>
+</ul>
+</li>
+<li>关于库函数的使用，最好的用法就是尽量使用系统头文件。</li>
+</ul>
+<h1>预处理</h1>
+<ul>
+<li>宏定义使用预处理器实现，做一些简单的字符替换因此不能进行参数有效性的检测。</li>
+<li>宏定义中的空格不能忽视</li>
+</ul>
+<div class="highlight"><pre><span class="code-line"><span class="cp">#define f (x) ((x)-1）</span></span>
+</pre></div>
+
+
+<p>的意思是f代表(x) ((x)-1而不是f(x)代表((x)-1</p>
+<ul>
+<li>宏定义中出现的括号的作用是预防引起与优先级有关的问题。例如</li>
+</ul>
+<div class="highlight"><pre><span class="code-line"><span class="cp">#define abs(x) (((x)&gt;=0)?:(x):-(x))</span><span class="c1">// 正确</span></span>
+<span class="code-line"><span class="cp">#define abs(x) x&gt;0?x:-x </span><span class="c1">// 错误</span></span>
+</pre></div>
+
+
+<p>abs(a-b)在错误的表达式中会展开为 a-b&gt;0?a-b:-a-b
+   即使是用括号括起来也可能出错。</p>
+<div class="highlight"><pre><span class="code-line"><span class="cp">#define max(a,b) ((a)&gt;(b)?(a):(b))</span></span>
+</pre></div>
+
+
+<p>在上面的表达式中，如果a大于b，那么a将会被求两次值，此时max(a++,b)就会产生错误的结果。
+   正确的做法如下：</p>
+<div class="highlight"><pre><span class="code-line"><span class="cp">#define max(x, y) ({</span></span>
+<span class="code-line"><span class="n">typeof</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="n">_max1</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">);</span>  </span>
+<span class="code-line"><span class="n">typeof</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="n">_max2</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span><span class="p">);</span>  </span>
+<span class="code-line"><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">_max1</span> <span class="o">==</span> <span class="o">&amp;</span><span class="n">_max2</span><span class="p">);</span>  <span class="c1">// 当两个比较两个类型不同的变量的地址时,编译器会给出一个警告.提示我们在进行类型不同的比较.</span></span>
+<span class="code-line"><span class="n">_max1</span> <span class="o">&gt;</span> <span class="n">_max2</span> <span class="o">?</span> <span class="nl">_max1</span> <span class="p">:</span> <span class="n">_max2</span><span class="p">;</span> <span class="p">})</span></span>
+</pre></div>
+
+
+<p>前面的(void)又是干什么用的呢?因为我们在比较两个地址之后并没有保存比较结果,编译器会认为这是一条无效语句,同样会给出一个警告.我们将它转换为(void)类型,编译器会认为我们对结果使用了,就不会提示这个错误。
+   再看一个经典的例子 </p>
+<div class="highlight"><pre><span class="code-line"><span class="cp">#define toupper(c)</span></span>
+<span class="code-line"><span class="p">((</span><span class="n">c</span><span class="p">)</span><span class="o">&gt;=</span><span class="sc">&#39;a&#39;</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="o">&lt;=</span><span class="sc">&#39;z&#39;</span><span class="o">?</span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="sc">&#39;A&#39;</span><span class="o">-</span><span class="sc">&#39;a&#39;</span><span class="p">)</span><span class="o">:</span><span class="p">(</span><span class="n">c</span><span class="p">))</span></span>
+</pre></div>
+
+
+<p>这样做的原因是因为touppper(函数在调用时造成的系统开销要大大多于函数体内的实际计算操作。</p>
+<h2>动态语言和静态语言</h2>
+<p>通常我们所说的动态语言、静态语言是指动态类型语言和静态类型语言。</p>
+<ul>
+<li>
+<p>动态类型语言：动态类型语言是指在<strong>运行期间</strong>才去做数据类型检查的语言，也就是说，在用动态类型的语言编程时，永远也不用给任何变量指定数据类型，该语言会在你第一次赋值给变量时，在内部将数据类型记录下来。Python和Ruby就是一种典型的动态类型语言</p>
+</li>
+<li>
+<p>静态类型语言：静态类型语言与动态类型语言刚好相反，它的数据类型是在<strong>编译期间</strong>检查的，也就是说在写程序时要声明所有变量的数据类型，C/C++是静态类型语言的典型代表</p>
+</li>
+</ul>
+<p>一般情况静态类型的语言运行速度要高于动态语言。</p>
+<h2>强类型定义语言和弱类型定义语言</h2>
+<ul>
+<li>
+<p>强类型定义语言：强制数据类型定义的语言。也就是说，一旦一个变量被指定了某个数据类型，如果不经过强制转换，那么它就永远是这个数据类型了。举个例子：如果你定义了一个整型变量a,那么程序根本不可能将a当作字符串类型处理。强类型定义语言是类型安全的语言，可以有效的避免许多错误</p>
+</li>
+<li>
+<p>弱类型定义语言：数据类型可以被忽略的语言。它与强类型定义语言相反, 一个变量可以赋不同数据类型的值。</p>
+</li>
+</ul>
+<p>Python是动态的强类型语言，C是静态的弱类型语言</p>
+<section>
+<div class="accordion" id="accordion2">
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle disqus-comment-count" data-toggle="collapse" data-parent="#accordion2"
+                href="../../../../../blog/2015/03/27/link-and-preprocess/#disqus_thread">
+                Comments
+            </a>
+        </div>
+        <div id="disqus_thread" class="accordion-body collapse">
+            <div class="accordion-inner">
+                <div class="comments">
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'houcj';
+        var disqus_identifier = '../../../../../blog/2015/03/27/link-and-preprocess/';
+    var disqus_url = '../../../../../blog/2015/03/27/link-and-preprocess/';
+
+    (function() {
+         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+            <aside>
+            <hr/>
+            <nav>
+            <ul class="articles_timeline">
+ 
+                <li class="previous_article">« <a href="../../../../../blog/2015/03/03/the-basic-knowledge-in-c/" title="Previous: The basic Knowledge in C">The basic Knowledge in C</a></li>
+ 
+                <li class="next_article"><a href="../../../../../blog/2015/04/01/life-is-short-use-python/" title="Next: 人生苦短我用Python">人生苦短我用Python</a> »</li>
+            </ul>
+            </nav>
+            </aside>
+        </div>
+        <section>
+        <div class="span2" style="float:right;font-size:0.9em;">
+ 
+            <h4>Published</h4>
+            <time pubdate="pubdate" datetime="2015-03-27T23:07:00+08:00">3月 27, 2015</time>
+            <h4>Category</h4>
+            <a class="category-link" href="/categories.html#编程-ref">编程</a> 
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article"> 
+                <li><a href="/tags.html#C-ref">C
+                    <span>5</span>
+</a></li>
+            </ul>
+
+        </div>
+        </section>
+</div>
+</article>
+                </div>
+                <div class="span1"></div>
+            </div>
+        </div>
+    </div>
+<footer>
+<div id="footer">
+    <ul class="footer-content">
+        <li class="elegant-power">Powered by <a href="http://getpelican.com/" title="Pelican Home Page">Pelican</a>. Theme: <a href="http://oncrashreboot.com/pelican-elegant" title="Theme Elegant Home Page">Elegant</a> by <a href="http://oncrashreboot.com" title="Talha Mansoor Home Page">Talha Mansoor</a></li>
+    </ul>
+</div>
+</footer>            <script src="http://code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+<script type="text/javascript">
+    var disqus_shortname = 'houcj';
+
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+    </script>
+        <script  language="javascript" type="text/javascript">
+            function uncollapse() {
+                var hash_str = window.location.hash;
+                if (window.location.hash.match(/^#comment-\d+$/))
+                {
+                    var hash_str = '#disqus_thread';
+                }
+                $(hash_str).collapse({
+                    toggle: true
+                    })
+            }
+        </script>
+
+        <script type="text/javascript" language="JavaScript">
+            uncollapse(); 
+        </script>
+    </body>
+</html>
