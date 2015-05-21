@@ -70,9 +70,15 @@
 </div>
 
 <div class="row-fluid">
-        <div class="span8 offset2 article-content">
+    <div class="span2 table-of-content">
+        <nav>
+        <h4>Contents</h4>
+        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="The basic Knowledge in C">The basic Knowledge in C</a><ul><li><a class="toc-href" href="#c" title="C 语言中的运算规则">C 语言中的运算规则</a></li><li><a class="toc-href" href="#c_1" title="C语言中常见的问题">C语言中常见的问题</a></li></ul></li></ul></div></body></html>
+        </nav>
+    </div>
+    <div class="span8 article-content">
 
-            <h2>C 语言中的运算规则</h2>
+            <h2 id="c">C 语言中的运算规则</h2>
 <ul>
 <li>C语言中每个token应该尽可能多的包含更多的字符。如果编译器的输入流截止到某个字符之前已经被分解成一个个的token，那么从该字符之后应尽可能的组成一个最长的字符串的token。除了字符串与字符串常量，符号的中间不能嵌有空白（空格符、制表符，换行符）。</li>
 <li>C语言中符号之间的空白将被忽略，这些符号包括空格符，制表符，换行符号：</li>
@@ -85,8 +91,6 @@
 <span class="code-line"><span class="n">b</span> <span class="o">=</span> </span>
 <span class="code-line"><span class="n">a</span><span class="p">;</span></span>
 </pre></div>
-
-
 <ul>
 <li>C语言变量的声明包括两部分：类型，以及声明符。</li>
 <li>
@@ -104,7 +108,7 @@
 </ul>
 </li>
 </ul>
-<h2>C语言中常见的问题</h2>
+<h2 id="c_1">C语言中常见的问题</h2>
 <ul>
 <li>如果一个整形常量的第一个字符是数字0，那么该常量将被视作八位数。譬如010会被当成十进制中的8。</li>
 <li>在C语言中用单引号引起的字符所代表的是该字符ASCII码的整数值。而双引号引起的字符串，代表的是一个指向无名数组起始字符的指针。</li>
@@ -123,19 +127,15 @@
 <span class="code-line">    <span class="k">break</span><span class="p">;</span></span>
 <span class="code-line"><span class="p">}</span></span>
 </pre></div>
-
-
 <ul>
 <li>如果strlen(s)的值是n，那么该字符串实际需要n+1个字符的空间，'\0'作为结束标志。</li>
 </ul>
 <div class="highlight"><pre><span class="code-line"><span class="kt">char</span> <span class="o">*</span><span class="n">p</span><span class="p">,</span><span class="o">*</span><span class="n">q</span><span class="p">;</span></span>
-<span class="code-line"><span class="n">p</span> <span class="o">=</span> <span class="s">&quot;xyz&quot;</span></span>
+<span class="code-line"><span class="n">p</span> <span class="o">=</span> <span class="s">"xyz"</span></span>
 <span class="code-line"><span class="n">q</span> <span class="o">=</span> <span class="n">p</span><span class="p">;</span></span>
-<span class="code-line"><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;X&#39;</span></span>
-<span class="code-line"><span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;Y&#39;</span></span>
+<span class="code-line"><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="sc">'X'</span></span>
+<span class="code-line"><span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="sc">'Y'</span></span>
 </pre></div>
-
-
 <ul>
 <li>复制指针并不同时复制指针所指向的数据，而是把指针所指向的地址复制给另一个指针。</li>
 </ul>
@@ -146,16 +146,14 @@
 <span class="code-line"><span class="k">while</span> <span class="p">(</span><span class="n">n</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span></span>
 <span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="n">bufptr</span> <span class="o">==</span> <span class="o">&amp;</span><span class="n">buffer</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span></span>
 <span class="code-line">    <span class="p">{</span></span>
-<span class="code-line">        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Work well !</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span></span>
+<span class="code-line">        <span class="n">printf</span><span class="p">(</span><span class="s">"Work well !</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span></span>
 <span class="code-line">        <span class="k">break</span><span class="p">;</span></span>
 <span class="code-line">        <span class="p">}</span></span>
 <span class="code-line">        <span class="o">*</span><span class="n">bufptr</span><span class="o">++</span> <span class="o">=</span> <span class="o">*</span><span class="n">p</span><span class="o">++</span><span class="p">;</span></span>
 <span class="code-line">        <span class="n">n</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">;</span></span>
 <span class="code-line">    <span class="p">}</span></span>
 </pre></div>
-
-
-<p>所以上面的代码执行后，p，q共同指向字符串“XYz” 
+<p>所以上面的代码执行后，p，q共同指向字符串&ldquo;XYz&rdquo; 
 - 当常量被转换为指针使用时，这个指针绝对不能解引用，即不能使用该指针所指向内存中的存储内容。ANSI规定：数组中实际不存在的溢界元素的地址位于数组所占用内存之后，这个地址可以用于进行赋值比较。但是不能引用该地址的元素。</p>
 <ul>
 <li>
@@ -175,14 +173,10 @@
 </ul>
 <div class="highlight"><pre><span class="code-line"><span class="n">a</span><span class="o">+++++</span><span class="n">b</span><span class="p">;</span></span>
 </pre></div>
-
-
 <p>由于编译器的中最长匹配的原则，上式会被翻译为</p>
 <div class="highlight"><pre><span class="code-line"><span class="n">a</span><span class="o">++++</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span><span class="c1">//即</span></span>
 <span class="code-line"><span class="p">((</span><span class="n">a</span><span class="o">++</span><span class="p">)</span><span class="o">++</span><span class="p">)</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span></span>
 </pre></div>
-
-
 <p>而<strong>a++</strong>不能作为左值， 因为a++返回的是自身的值副本。因此上面的表达式是错误的。</p>
 <ul>
 <li>C语言里函数的参数默认是从右往左处理的，输出时是从左往右。</li>
@@ -192,18 +186,14 @@
 <span class="code-line"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> </span>
 <span class="code-line"><span class="p">{</span> </span>
 <span class="code-line">    <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">30</span><span class="p">;</span> </span>
-<span class="code-line">    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s"> %d..%d..%d </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">+</span><span class="n">c</span><span class="p">,</span> <span class="p">(</span><span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="o">*</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="n">c</span> <span class="o">=</span> <span class="n">c</span><span class="o">*</span><span class="mi">2</span><span class="p">));</span> </span>
+<span class="code-line">    <span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s"> %d..%d..%d </span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">+</span><span class="n">c</span><span class="p">,</span> <span class="p">(</span><span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="o">*</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="n">c</span> <span class="o">=</span> <span class="n">c</span><span class="o">*</span><span class="mi">2</span><span class="p">));</span> </span>
 <span class="code-line"></span>
 <span class="code-line">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span> </span>
 <span class="code-line"><span class="p">}</span> </span>
 </pre></div>
-
-
 <p>答：输出结果是：</p>
 <div class="highlight"><pre><span class="code-line"><span class="mf">110..40</span><span class="p">.</span><span class="mf">.60</span> </span>
 </pre></div>
-
-
 <ul>
 <li>void*和C结构体</li>
 </ul>
@@ -211,8 +201,6 @@
 <p>答：如下：</p>
 <div class="highlight"><pre><span class="code-line"><span class="kt">int</span> <span class="n">func</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">ptr</span><span class="p">)</span> </span>
 </pre></div>
-
-
 <p>如果这个函数的参数超过一个，那么这个函数应该由一个结构体来调用，
 这个结构体可以由需要传递参数来填充。
 - 大端和小端 （数据在内存中的字节排列顺序）

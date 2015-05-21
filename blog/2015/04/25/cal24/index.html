@@ -77,11 +77,11 @@
 <ul>
 <li>
 <p>分数运算</p>
-<p>虽然给出4个数字都是整数，中间步骤中有时会出现分数。这种4个数字的组合往往较有难度。一个经典的例子是1，5，5，5，其解答为5 × (5 − 1 ÷ 5) = 24；另外 一个例子是3，3，8，8，其解答为8 ÷ (3 - 8 ÷ 3) = 24。</p>
+<p>虽然给出4个数字都是整数，中间步骤中有时会出现分数。这种4个数字的组合往往较有难度。一个经典的例子是1，5，5，5，其解答为5 &times; (5 &minus; 1 &divide; 5) = 24；另外 一个例子是3，3，8，8，其解答为8 &divide; (3 - 8 &divide; 3) = 24。</p>
 </li>
 <li>
 <p>大数／奇数运算</p>
-<p>有些组合中会涉及到一些较大数字，这些组合通常较有难度。比如4、4、10、10的解法为(10 × 10 − 4) ÷ 4 = 24，5、6、6、9的解法为6 × 9 − 5 × 6 = 24。</p>
+<p>有些组合中会涉及到一些较大数字，这些组合通常较有难度。比如4、4、10、10的解法为(10 &times; 10 &minus; 4) &divide; 4 = 24，5、6、6、9的解法为6 &times; 9 &minus; 5 &times; 6 = 24。</p>
 </li>
 </ul>
 <p>下面的代码可以解决上面出现的情况。</p>
@@ -107,33 +107,33 @@
 <span class="code-line">            <span class="n">expb</span><span class="o">=</span><span class="n">result</span><span class="p">[</span><span class="n">j</span><span class="p">]</span></span>
 <span class="code-line">            <span class="n">result</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">=</span><span class="n">result</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></span>
 <span class="code-line"></span>
-<span class="code-line">            <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="s">&#39;(&#39;</span><span class="o">+</span><span class="n">expa</span><span class="o">+</span><span class="s">&#39;+&#39;</span><span class="o">+</span><span class="n">expb</span><span class="o">+</span><span class="s">&#39;)&#39;</span></span>
+<span class="code-line">            <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="s">'('</span><span class="o">+</span><span class="n">expa</span><span class="o">+</span><span class="s">'+'</span><span class="o">+</span><span class="n">expb</span><span class="o">+</span><span class="s">')'</span></span>
 <span class="code-line">            <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="n">a</span><span class="o">*</span><span class="n">d</span><span class="o">+</span><span class="n">b</span><span class="o">*</span><span class="n">c</span></span>
 <span class="code-line">            <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">b</span><span class="o">*</span><span class="n">d</span></span>
 <span class="code-line"></span>
 <span class="code-line">            <span class="k">if</span><span class="p">(</span><span class="n">PointGame</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)):</span></span>
 <span class="code-line">                <span class="k">return</span> <span class="bp">True</span></span>
 <span class="code-line"></span>
-<span class="code-line">            <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="s">&#39;(&#39;</span><span class="o">+</span><span class="n">expa</span><span class="o">+</span><span class="s">&#39;-&#39;</span><span class="o">+</span><span class="n">expb</span><span class="o">+</span><span class="s">&#39;)&#39;</span></span>
+<span class="code-line">            <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="s">'('</span><span class="o">+</span><span class="n">expa</span><span class="o">+</span><span class="s">'-'</span><span class="o">+</span><span class="n">expb</span><span class="o">+</span><span class="s">')'</span></span>
 <span class="code-line">            <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="n">a</span><span class="o">*</span><span class="n">d</span><span class="o">-</span><span class="n">b</span><span class="o">*</span><span class="n">c</span></span>
 <span class="code-line">            <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">b</span><span class="o">*</span><span class="n">d</span></span>
 <span class="code-line">            <span class="k">if</span><span class="p">(</span><span class="n">PointGame</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)):</span></span>
 <span class="code-line">                <span class="k">return</span> <span class="bp">True</span></span>
 <span class="code-line"></span>
-<span class="code-line">            <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="s">&#39;(&#39;</span><span class="o">+</span><span class="n">expb</span><span class="o">+</span><span class="s">&#39;-&#39;</span><span class="o">+</span><span class="n">expa</span><span class="o">+</span><span class="s">&#39;)&#39;</span></span>
+<span class="code-line">            <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="s">'('</span><span class="o">+</span><span class="n">expb</span><span class="o">+</span><span class="s">'-'</span><span class="o">+</span><span class="n">expa</span><span class="o">+</span><span class="s">')'</span></span>
 <span class="code-line">            <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="n">b</span><span class="o">*</span><span class="n">c</span><span class="o">-</span><span class="n">a</span><span class="o">*</span><span class="n">d</span></span>
 <span class="code-line">            <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">b</span><span class="o">*</span><span class="n">d</span></span>
 <span class="code-line">            <span class="k">if</span><span class="p">(</span><span class="n">PointGame</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)):</span></span>
 <span class="code-line">                <span class="k">return</span> <span class="bp">True</span></span>
 <span class="code-line"></span>
-<span class="code-line">            <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="s">&#39;(&#39;</span><span class="o">+</span><span class="n">expa</span><span class="o">+</span><span class="s">&#39;*&#39;</span><span class="o">+</span><span class="n">expb</span><span class="o">+</span><span class="s">&#39;)&#39;</span></span>
+<span class="code-line">            <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="s">'('</span><span class="o">+</span><span class="n">expa</span><span class="o">+</span><span class="s">'*'</span><span class="o">+</span><span class="n">expb</span><span class="o">+</span><span class="s">')'</span></span>
 <span class="code-line">            <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="n">a</span><span class="o">*</span><span class="n">c</span></span>
 <span class="code-line">            <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">b</span><span class="o">*</span><span class="n">d</span></span>
 <span class="code-line">            <span class="k">if</span><span class="p">(</span><span class="n">PointGame</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)):</span></span>
 <span class="code-line">                <span class="k">return</span> <span class="bp">True</span></span>
 <span class="code-line"></span>
 <span class="code-line">            <span class="k">if</span> <span class="n">c</span><span class="o">!=</span><span class="mi">0</span><span class="p">:</span></span>
-<span class="code-line">                <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="s">&#39;(&#39;</span><span class="o">+</span><span class="n">expa</span><span class="o">+</span><span class="s">&#39;/&#39;</span><span class="o">+</span><span class="n">expb</span><span class="o">+</span><span class="s">&#39;)&#39;</span></span>
+<span class="code-line">                <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="s">'('</span><span class="o">+</span><span class="n">expa</span><span class="o">+</span><span class="s">'/'</span><span class="o">+</span><span class="n">expb</span><span class="o">+</span><span class="s">')'</span></span>
 <span class="code-line">                <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="n">a</span><span class="o">*</span><span class="n">d</span></span>
 <span class="code-line">                <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">b</span><span class="o">*</span><span class="n">c</span></span>
 <span class="code-line"></span>
@@ -141,7 +141,7 @@
 <span class="code-line">                    <span class="k">return</span> <span class="bp">True</span></span>
 <span class="code-line"></span>
 <span class="code-line">            <span class="k">if</span> <span class="n">a</span><span class="o">!=</span><span class="mi">0</span><span class="p">:</span></span>
-<span class="code-line">                <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="s">&#39;(&#39;</span><span class="o">+</span><span class="n">expb</span><span class="o">+</span><span class="s">&#39;/&#39;</span><span class="o">+</span><span class="n">expa</span><span class="o">+</span><span class="s">&#39;)&#39;</span></span>
+<span class="code-line">                <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="s">'('</span><span class="o">+</span><span class="n">expb</span><span class="o">+</span><span class="s">'/'</span><span class="o">+</span><span class="n">expa</span><span class="o">+</span><span class="s">')'</span></span>
 <span class="code-line">                <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="n">b</span><span class="o">*</span><span class="n">c</span></span>
 <span class="code-line">                <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">a</span><span class="o">*</span><span class="n">d</span></span>
 <span class="code-line"></span>
@@ -158,8 +158,6 @@
 <span class="code-line">            <span class="n">i</span><span class="o">+=</span><span class="mi">1</span></span>
 <span class="code-line">    <span class="k">return</span> <span class="bp">False</span></span>
 </pre></div>
-
-
 <p>完整的代码见<a href="https://github.com/chaojunhou/Cal24">Github</a></p>
 <p>代码持续更新，该算法的核心就是穷举每种出现的可能，为了更好的实现，上面的代码对数字出现的顺序有一定的要求。不同的顺序得到的结果可能不一样。</p>
 <section>

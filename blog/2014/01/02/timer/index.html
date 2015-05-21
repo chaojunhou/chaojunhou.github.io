@@ -73,7 +73,7 @@
         <div class="span8 offset2 article-content">
 
             <p>TCP为每个连接建立了七个定时器。下面讲按照这些定时器在一条连接生存期内出现的次序依次进行介绍。
- <img src="/images/fsm.png" class="img-responsive" alt="FSM" align=center /></p>
+ <img align="center" alt="FSM" class="img-responsive" src="/images/fsm.png"/></p>
 <ul>
 <li>Connection establishment Timer(​连接建立定时器)<ul>
 <li>为了防止client端一直等待服务器端的情况发生。 在Client发送SYN报文段建立新的链接时，该定时器启动，如果在75s内没有收到响应，连接建立将会终止。确定连接的有效建立。</li>

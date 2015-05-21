@@ -75,11 +75,9 @@
             <ul>
 <li>间接引用坏指针</li>
 </ul>
-<div class="highlight"><pre><span class="code-line"><span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">val</span><span class="p">);</span> <span class="c1">//right</span></span>
-<span class="code-line"><span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span> <span class="n">val</span><span class="p">);</span>  <span class="c1">//wrong，会把val的内容当成地址读进去</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">val</span><span class="p">);</span> <span class="c1">//right</span></span>
+<span class="code-line"><span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="n">val</span><span class="p">);</span>  <span class="c1">//wrong，会把val的内容当成地址读进去</span></span>
 </pre></div>
-
-
 <ul>
 <li>
 <p>读未初始化的存储器</p>
@@ -97,8 +95,6 @@
 <span class="code-line">    <span class="k">return</span><span class="p">;</span> <span class="c1">// should use fgest to limit the input        size </span></span>
 <span class="code-line"><span class="p">}</span></span>
 </pre></div>
-
-
 <ul>
 <li>假设指针和他们指向的对象是相同大小</li>
 </ul>
@@ -114,8 +110,6 @@
 <span class="code-line"></span>
 <span class="code-line"><span class="p">}</span></span>
 </pre></div>
-
-
 <ul>
 <li>造成错位（off-by-one）错误</li>
 </ul>
@@ -131,8 +125,6 @@
 <span class="code-line"></span>
 <span class="code-line"><span class="p">}</span></span>
 </pre></div>
-
-
 <ul>
 <li>引用指针而不是它所指向的对象</li>
 </ul>
@@ -145,8 +137,6 @@
 <span class="code-line">    <span class="k">return</span><span class="p">(</span><span class="n">packet</span><span class="p">);</span></span>
 <span class="code-line"><span class="p">}</span></span>
 </pre></div>
-
-
 <ul>
 <li>误解指针运算</li>
 </ul>
@@ -157,8 +147,6 @@
 <span class="code-line">    <span class="k">return</span> <span class="n">p</span></span>
 <span class="code-line"><span class="p">}</span></span>
 </pre></div>
-
-
 <ul>
 <li>引用不存在的变量</li>
 </ul>
@@ -168,8 +156,6 @@
 <span class="code-line">    <span class="k">return</span> <span class="o">&amp;</span><span class="n">val</span><span class="p">;</span></span>
 <span class="code-line"><span class="p">}</span></span>
 </pre></div>
-
-
 <ul>
 <li>引用空闲堆块中的数据</li>
 </ul>
@@ -186,8 +172,6 @@
 <span class="code-line">    <span class="p">}</span></span>
 <span class="code-line"><span class="p">}</span></span>
 </pre></div>
-
-
 <ul>
 <li>引起存储器泄露</li>
 </ul>
@@ -197,16 +181,12 @@
 <span class="code-line">    <span class="k">return</span> <span class="p">;</span> <span class="c1">// x is garbatge at this point</span></span>
 <span class="code-line"><span class="p">}</span><span class="cm">/*C程序中常见的与存储器有关的错误 */</span></span>
 </pre></div>
-
-
 <ul>
 <li>间接引用坏指针</li>
 </ul>
-<div class="highlight"><pre><span class="code-line"><span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">val</span><span class="p">);</span> <span class="c1">//right</span></span>
-<span class="code-line"><span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span> <span class="n">val</span><span class="p">);</span>  <span class="c1">//wrong，会把val的内容当成地址读进去</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">val</span><span class="p">);</span> <span class="c1">//right</span></span>
+<span class="code-line"><span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="n">val</span><span class="p">);</span>  <span class="c1">//wrong，会把val的内容当成地址读进去</span></span>
 </pre></div>
-
-
 <ul>
 <li>
 <p>允许栈缓冲区溢出</p>
@@ -220,8 +200,6 @@
 <span class="code-line">    <span class="k">return</span><span class="p">;</span> <span class="c1">// should use fgest to limit the input size </span></span>
 <span class="code-line"><span class="p">}</span></span>
 </pre></div>
-
-
 <ul>
 <li>假设指针和他们指向的对象是相同大小</li>
 </ul>
@@ -237,8 +215,6 @@
 <span class="code-line"></span>
 <span class="code-line"><span class="p">}</span></span>
 </pre></div>
-
-
 <ul>
 <li>造成错位（off-by-one）错误</li>
 </ul>
@@ -254,8 +230,6 @@
 <span class="code-line"></span>
 <span class="code-line"><span class="p">}</span></span>
 </pre></div>
-
-
 <ul>
 <li>
 <p>引用指针而不是它所指向的对象</p>
@@ -268,8 +242,6 @@
 <span class="code-line">    return(packet);</span>
 <span class="code-line">}</span>
 </pre></div>
-
-
 </li>
 <li>
 <p>误解指针运算</p>
@@ -282,8 +254,6 @@
 <span class="code-line">    <span class="k">return</span> <span class="n">p</span></span>
 <span class="code-line"><span class="p">}</span></span>
 </pre></div>
-
-
 <ul>
 <li>引用不存在的变量</li>
 </ul>
@@ -293,8 +263,6 @@
 <span class="code-line">    <span class="k">return</span> <span class="o">&amp;</span><span class="n">val</span><span class="p">;</span></span>
 <span class="code-line"><span class="p">}</span></span>
 </pre></div>
-
-
 <ul>
 <li>引用空闲堆块中的数据</li>
 </ul>
@@ -311,8 +279,6 @@
 <span class="code-line">    <span class="p">}</span></span>
 <span class="code-line"><span class="p">}</span></span>
 </pre></div>
-
-
 <ul>
 <li>引起存储器泄露</li>
 </ul>
@@ -322,8 +288,6 @@
 <span class="code-line">    <span class="k">return</span> <span class="p">;</span> <span class="c1">// x is garbatge at this point</span></span>
 <span class="code-line"><span class="p">}</span></span>
 </pre></div>
-
-
 <ul>
 <li>strcpy（）函数</li>
 </ul>
@@ -336,30 +300,28 @@
 <span class="code-line"></span>
 <span class="code-line">    <span class="n">memset</span><span class="p">(</span><span class="n">passwd</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">passwd</span><span class="p">));</span> </span>
 <span class="code-line"></span>
-<span class="code-line">    <span class="n">strcpy</span><span class="p">(</span><span class="n">passwd</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span> <span class="cm">/*argv[1] = &quot;aaaaaaaaaaaaa&quot;是，下面的flag也为1*/</span></span>
+<span class="code-line">    <span class="n">strcpy</span><span class="p">(</span><span class="n">passwd</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span> <span class="cm">/*argv[1] = "aaaaaaaaaaaaa"是，下面的flag也为1*/</span></span>
 <span class="code-line"></span>
-<span class="code-line">    <span class="k">if</span><span class="p">(</span><span class="mi">0</span> <span class="o">==</span> <span class="n">strcmp</span><span class="p">(</span><span class="s">&quot;LinuxGeek&quot;</span><span class="p">,</span> <span class="n">passwd</span><span class="p">))</span> </span>
+<span class="code-line">    <span class="k">if</span><span class="p">(</span><span class="mi">0</span> <span class="o">==</span> <span class="n">strcmp</span><span class="p">(</span><span class="s">"LinuxGeek"</span><span class="p">,</span> <span class="n">passwd</span><span class="p">))</span> </span>
 <span class="code-line">    <span class="p">{</span> </span>
 <span class="code-line">        <span class="n">flag</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> </span>
 <span class="code-line">    <span class="p">}</span> </span>
 <span class="code-line"></span>
 <span class="code-line">    <span class="k">if</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span> </span>
 <span class="code-line">    <span class="p">{</span> </span>
-<span class="code-line">        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s"> Password cracked </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span> </span>
+<span class="code-line">        <span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s"> Password cracked </span><span class="se">\n</span><span class="s">"</span><span class="p">);</span> </span>
 <span class="code-line">    <span class="p">}</span> </span>
 <span class="code-line">    <span class="k">else</span> </span>
 <span class="code-line">    <span class="p">{</span> </span>
-<span class="code-line">        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s"> Incorrect passwd </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span> </span>
+<span class="code-line">        <span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s"> Incorrect passwd </span><span class="se">\n</span><span class="s">"</span><span class="p">);</span> </span>
 <span class="code-line"></span>
 <span class="code-line">    <span class="p">}</span> </span>
 <span class="code-line">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span> </span>
 <span class="code-line"><span class="p">}</span> </span>
 </pre></div>
-
-
 <p>破解上述加密的关键在于利用攻破strcpy()函数的漏洞。
-所以用户在向“passwd”缓存输入随机密码的时候并没有提前检查“passwd”的容量是否足够。
-所以，如果用户输入一个足够造成缓存溢出并且重写“flag”变量默认值所存在位置的内存的长“密码”，
+所以用户在向&ldquo;passwd&rdquo;缓存输入随机密码的时候并没有提前检查&ldquo;passwd&rdquo;的容量是否足够。
+所以，如果用户输入一个足够造成缓存溢出并且重写&ldquo;flag&rdquo;变量默认值所存在位置的内存的长&ldquo;密码&rdquo;，
 即使这个密码无法通过验证，flag验证位也变成了非零，也就可以获得被保护的数据了。
 要避免这样的问题，<strong>建议使用 strncpy()函数</strong>。
 - 修改代码片段（只读代码）</p>
@@ -367,17 +329,15 @@
 <span class="code-line"></span>
 <span class="code-line"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> </span>
 <span class="code-line"><span class="p">{</span> </span>
-<span class="code-line">    <span class="kt">char</span> <span class="o">*</span><span class="n">ptr</span> <span class="o">=</span> <span class="s">&quot;China&quot;</span><span class="p">;</span> </span>
-<span class="code-line">    <span class="o">*</span><span class="n">ptr</span> <span class="o">=</span> <span class="sc">&#39;A&#39;</span><span class="p">;</span> </span>
+<span class="code-line">    <span class="kt">char</span> <span class="o">*</span><span class="n">ptr</span> <span class="o">=</span> <span class="s">"China"</span><span class="p">;</span> </span>
+<span class="code-line">    <span class="o">*</span><span class="n">ptr</span> <span class="o">=</span> <span class="sc">'A'</span><span class="p">;</span> </span>
 <span class="code-line"></span>
-<span class="code-line">    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s"> [%s] </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">ptr</span><span class="p">);</span> </span>
+<span class="code-line">    <span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s"> [%s] </span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">ptr</span><span class="p">);</span> </span>
 <span class="code-line"></span>
 <span class="code-line">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span> </span>
 <span class="code-line"><span class="p">}</span></span>
 </pre></div>
-
-
-<p>通过*ptr = ‘T’，会改变内存中代码段（只读代码）“China”的第一个字母。
+<p>通过*ptr = &lsquo;T&rsquo;，会改变内存中代码段（只读代码）&ldquo;China&rdquo;的第一个字母。
 这个操作是无效的，因此会造成seg-fault或者崩溃。</p>
 <section>
 <p id="comment-message">So what do you think? Leave your comments below. </p>

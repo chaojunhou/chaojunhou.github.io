@@ -70,13 +70,19 @@
 </div>
 
 <div class="row-fluid">
-        <div class="span8 offset2 article-content">
+    <div class="span2 table-of-content">
+        <nav>
+        <h4>Contents</h4>
+        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="人生苦短我用Python">人生苦短我用Python</a><ul><li><a class="toc-href" href="#1" title="1. 交换变量">1. 交换变量</a></li><li><a class="toc-href" href="#2-python" title="2. Python字典中判断键值是否存在">2. Python字典中判断键值是否存在</a></li><li><a class="toc-href" href="#3" title="3. 读取文件">3. 读取文件</a></li><li><a class="toc-href" href="#4-while-1-while-truer" title="4. while 1 还是 while True？r">4. while 1 还是 while True？r</a></li><li><a class="toc-href" href="#5-string" title="5. string的连接">5. string的连接</a></li><li><a class="toc-href" href="#6-string" title="6. string的反转">6. string的反转</a></li><li><a class="toc-href" href="#7-setdefault" title="7. 字典中的setdefault函数">7. 字典中的setdefault函数</a></li><li><a class="toc-href" href="#8" title="8.  列举">8.  列举</a></li><li><a class="toc-href" href="#9-list-comprehension" title="9. 列表展开（list comprehension）">9. 列表展开（list comprehension）</a></li><li><a class="toc-href" href="#10-xrange" title="10. 很长的序列使用xrange()">10. 很长的序列使用xrange()</a></li><li><a class="toc-href" href="#11" title="11.字典和列表">11.字典和列表</a></li><li><a class="toc-href" href="#12" title="12. 生成器">12. 生成器</a></li><li><a class="toc-href" href="#13-python" title="13. Python中有用的数据结构">13. Python中有用的数据结构</a></li></ul></li></ul></div></body></html>
+        </nav>
+    </div>
+    <div class="span8 article-content">
 
             <blockquote>
-<p>Programs must be written for people to read, and only incidentally for machines to execute.                                         <br />
-  —   Abelson &amp; Sussman, Structure and Interpretation of Computer Programs </p>
+<p>Programs must be written for people to read, and only incidentally for machines to execute.                                         <br/>
+  &mdash;   Abelson &amp; Sussman, Structure and Interpretation of Computer Programs </p>
 </blockquote>
-<h2>1. 交换变量</h2>
+<h2 id="1">1. 交换变量</h2>
 <p>一般交换变量有以下三种方法：</p>
 <ul>
 <li>最常用的，就是设置一个临时变量</li>
@@ -85,13 +91,9 @@
 <span class="code-line"><span class="n">x</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span></span>
 <span class="code-line"><span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span></span>
 </pre></div>
-
-
 <p>这种方法在python中可以更优雅的表示，而且效率更高。</p>
 <div class="highlight"><pre><span class="code-line"><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span></span>
 </pre></div>
-
-
 <ul>
 <li>不增加临时变量使用加法</li>
 </ul>
@@ -99,8 +101,6 @@
 <span class="code-line"><span class="n">a</span> <span class="o">=</span> <span class="n">b</span> <span class="o">-</span> <span class="n">a</span> <span class="c"># a = a + b - a = b 即 a = b </span></span>
 <span class="code-line"><span class="n">b</span> <span class="o">=</span> <span class="n">b</span> <span class="o">-</span> <span class="n">a</span> <span class="c"># b = a + b - b = a</span></span>
 </pre></div>
-
-
 <ul>
 <li>使用位操作</li>
 </ul>
@@ -108,45 +108,35 @@
 <span class="code-line"><span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="o">^</span><span class="n">b</span></span>
 <span class="code-line"><span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="o">^</span><span class="n">b</span></span>
 </pre></div>
-
-
 <ul>
 <li>使用"+"和"-"的一行操作:</li>
 </ul>
 <div class="highlight"><pre><span class="code-line"><span class="n">a</span><span class="o">=</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">)</span><span class="o">-</span><span class="p">(</span><span class="n">b</span><span class="o">=</span><span class="n">a</span><span class="p">)</span></span>
 </pre></div>
-
-
-<h2>2. Python字典中判断键值是否存在</h2>
+<h2 id="2-python">2. Python字典中判断键值是否存在</h2>
 <p>一般情况会是用一个判断语句   </p>
-<div class="highlight"><pre><span class="code-line"><span class="n">dic</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;key&#39;</span> <span class="p">:</span> <span class="s">&#39;value&#39;</span><span class="p">}</span></span>
-<span class="code-line"><span class="k">if</span> <span class="s">&#39;key&#39;</span> <span class="ow">in</span> <span class="n">dic</span><span class="p">:</span></span>
-<span class="code-line">    <span class="k">print</span> <span class="n">dic</span><span class="p">[</span><span class="s">&#39;key&#39;</span><span class="p">]</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="n">dic</span> <span class="o">=</span> <span class="p">{</span><span class="s">'key'</span> <span class="p">:</span> <span class="s">'value'</span><span class="p">}</span></span>
+<span class="code-line"><span class="k">if</span> <span class="s">'key'</span> <span class="ow">in</span> <span class="n">dic</span><span class="p">:</span></span>
+<span class="code-line">    <span class="k">print</span> <span class="n">dic</span><span class="p">[</span><span class="s">'key'</span><span class="p">]</span></span>
 <span class="code-line"><span class="k">else</span><span class="p">:</span></span>
-<span class="code-line">    <span class="k">print</span> <span class="s">&#39;not found&#39;</span></span>
+<span class="code-line">    <span class="k">print</span> <span class="s">'not found'</span></span>
 </pre></div>
-
-
 <p>在python中可以内置的get函数即可</p>
-<div class="highlight"><pre><span class="code-line"><span class="k">print</span> <span class="n">dic</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;key&#39;</span><span class="p">,</span><span class="s">&#39;not found&#39;</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="k">print</span> <span class="n">dic</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'key'</span><span class="p">,</span><span class="s">'not found'</span><span class="p">)</span></span>
 </pre></div>
-
-
-<h2>3. 读取文件</h2>
+<h2 id="3">3. 读取文件</h2>
 <p>python中有三个方法来处理文件内容的输入：</p>
 <ul>
 <li>read（） 一次读取全部的文件内容。</li>
 </ul>
-<div class="highlight"><pre><span class="code-line"><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;path/to/file.txt&#39;</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">'path/to/file.txt'</span><span class="p">,</span> <span class="s">'r'</span><span class="p">)</span></span>
 <span class="code-line"><span class="n">ff</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span> </span>
 <span class="code-line"><span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></span>
 </pre></div>
-
-
 <ul>
 <li>readline() 每次读取文件的一行。</li>
 </ul>
-<div class="highlight"><pre><span class="code-line"><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;path/to/file.txt&#39;</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">'path/to/file.txt'</span><span class="p">,</span> <span class="s">'r'</span><span class="p">)</span></span>
 <span class="code-line"><span class="n">line</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span></span>
 <span class="code-line"><span class="k">while</span> <span class="mi">1</span><span class="p">:</span></span>
 <span class="code-line">    <span class="k">if</span> <span class="n">line</span><span class="p">:</span></span>
@@ -155,30 +145,22 @@
 <span class="code-line">       <span class="k">break</span></span>
 <span class="code-line">    <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></span>
 </pre></div>
-
-
 <ul>
 <li>readlines() 读取文件的所有行，返回一个字符串列表</li>
 </ul>
-<div class="highlight"><pre><span class="code-line"><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;path/to/file.txt&#39;</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">'path/to/file.txt'</span><span class="p">,</span> <span class="s">'r'</span><span class="p">)</span></span>
 <span class="code-line"><span class="n">ff</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span> </span>
 <span class="code-line"><span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></span>
 </pre></div>
-
-
 <p>由于文件操作需要注意文件的打开和关闭操作，因此更优雅的做法是</p>
-<div class="highlight"><pre><span class="code-line"><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;path/to/file.txt&#39;</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">):</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">'path/to/file.txt'</span><span class="p">,</span> <span class="s">'r'</span><span class="p">):</span></span>
 <span class="code-line">    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span></span>
 <span class="code-line">       <span class="n">do_somenthing</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>  </span>
 </pre></div>
-
-
-<h2>4. while 1 还是 while True？r</h2>
+<h2 id="4-while-1-while-truer">4. while 1 还是 while True？r</h2>
 <p>在python 2中，由于<strong>True</strong>不是关键字，因此可以对True进行赋值。下面的语句是可以的</p>
-<div class="highlight"><pre><span class="code-line"><span class="bp">True</span> <span class="o">=</span> <span class="s">&#39;Hello&#39;</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="bp">True</span> <span class="o">=</span> <span class="s">'Hello'</span></span>
 </pre></div>
-
-
 <p>因此在无限循环中，我们应该使用while 1，因为while True在每次
 while循环时都会有对True的判断操作。
 下面使用dis，Disassembler for Python bytecode,即把python代码反汇编为字节码指令， 模块观察生成的字节码。</p>
@@ -193,10 +175,10 @@ while循环时都会有对True的判断操作。
 <span class="code-line"><span class="o">....</span><span class="p">:</span> <span class="k">pass</span></span>
 <span class="code-line"><span class="o">....</span><span class="p">:</span> </span>
 <span class="code-line"></span>
-<span class="code-line"><span class="n">In</span> <span class="p">[</span><span class="mi">13</span><span class="p">]:</span> <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span></span>
-<span class="code-line"><span class="o">....</span><span class="p">:</span> <span class="n">Print</span> <span class="s">&#39;while 1&#39;</span>   </span>
+<span class="code-line"><span class="n">In</span> <span class="p">[</span><span class="mi">13</span><span class="p">]:</span> <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span></span>
+<span class="code-line"><span class="o">....</span><span class="p">:</span> <span class="n">Print</span> <span class="s">'while 1'</span>   </span>
 <span class="code-line"><span class="o">....</span><span class="p">:</span> <span class="n">dis</span><span class="o">.</span><span class="n">dis</span><span class="p">(</span><span class="n">while_one</span><span class="p">)</span></span>
-<span class="code-line"><span class="o">....</span><span class="p">:</span> <span class="n">Print</span> <span class="s">&#39;while True&#39;</span></span>
+<span class="code-line"><span class="o">....</span><span class="p">:</span> <span class="n">Print</span> <span class="s">'while True'</span></span>
 <span class="code-line"><span class="o">....</span><span class="p">:</span> <span class="n">dis</span><span class="o">.</span><span class="n">dis</span><span class="p">(</span><span class="n">while_true</span><span class="p">)</span></span>
 <span class="code-line"><span class="c">##########output</span></span>
 <span class="code-line">    <span class="k">while</span> <span class="mi">1</span>       </span>
@@ -215,9 +197,7 @@ while循环时都会有对True的判断操作。
 <span class="code-line">            <span class="o">&gt;&gt;</span>   <span class="mi">13</span> <span class="n">LOAD_CONST</span>               <span class="mi">0</span> <span class="p">(</span><span class="bp">None</span><span class="p">)</span></span>
 <span class="code-line">                 <span class="mi">16</span> <span class="n">RETURN_VALUE</span>    </span>
 </pre></div>
-
-
-<h2>5. string的连接</h2>
+<h2 id="5-string">5. string的连接</h2>
 <p>对一个可迭代对象，经常需要对其中的字符串元素进行连接操作，这时候一般有下面两种方法 <strong>'+'</strong>和<strong>'join'</strong>。</p>
 <ul>
 <li>使用'+'进行操作时，每次都需要创建新的对象，然后再对新的对象进行操作。</li>
@@ -227,31 +207,23 @@ while循环时都会有对True的判断操作。
 <span class="code-line"><span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="nb">input</span><span class="p">():</span></span>
 <span class="code-line">    <span class="n">my_string</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span></span>
 </pre></div>
-
-
 <p>因此处于内存的考虑，应尽量使用join操作。</p>
-<h2>6. string的反转</h2>
+<h2 id="6-string">6. string的反转</h2>
 <p>string的反转可以使用for循环从右向做输出。代码如下</p>
 <div class="highlight"><pre><span class="code-line"><span class="k">def</span> <span class="nf">reverse_str</span><span class="p">(</span><span class="n">string</span><span class="p">):</span></span>
-<span class="code-line">    <span class="k">return</span> <span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">string</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">string</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>     </span>
+<span class="code-line">    <span class="k">return</span> <span class="s">''</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">string</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">string</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>     </span>
 </pre></div>
-
-
 <p>或者使用递归</p>
 <div class="highlight"><pre><span class="code-line"><span class="k">def</span> <span class="nf">reverse_str1</span><span class="p">(</span><span class="n">string</span><span class="p">):</span></span>
 <span class="code-line">    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">string</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span></span>
 <span class="code-line">       <span class="k">return</span> <span class="n">string</span></span>
 <span class="code-line">    <span class="k">return</span> <span class="n">reverse_str</span><span class="p">(</span><span class="n">string</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span><span class="o">+</span><span class="n">string</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></span>
 </pre></div>
-
-
 <p>当然最简单和效率最高的是使用切片。</p>
 <div class="highlight"><pre><span class="code-line"><span class="k">def</span> <span class="nf">reverse_str1</span><span class="p">(</span><span class="n">string</span><span class="p">):</span></span>
 <span class="code-line">    <span class="k">return</span> <span class="n">string</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> </span>
 </pre></div>
-
-
-<h2>7. 字典中的setdefault函数</h2>
+<h2 id="7-setdefault">7. 字典中的setdefault函数</h2>
 <p>我们经常需要使用字典来初始化数据，每个字典的值是一个列表。通常使用以下的方法</p>
 <div class="highlight"><pre><span class="code-line"><span class="n">dics</span> <span class="o">=</span> <span class="p">{}</span></span>
 <span class="code-line"><span class="k">for</span> <span class="p">(</span><span class="n">val</span><span class="p">,</span><span class="n">dic</span><span class="p">)</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span></span>
@@ -260,16 +232,12 @@ while循环时都会有对True的判断操作。
 <span class="code-line">    <span class="k">else</span><span class="p">:</span></span>
 <span class="code-line">       <span class="n">dics</span><span class="p">[</span><span class="n">val</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">dic</span><span class="p">]</span></span>
 </pre></div>
-
-
 <p>通过setdefault可以优化为</p>
 <div class="highlight"><pre><span class="code-line"><span class="n">dics</span> <span class="o">=</span> <span class="p">{}</span></span>
 <span class="code-line"><span class="k">for</span> <span class="p">(</span><span class="n">val</span><span class="p">,</span><span class="n">dic</span><span class="p">)</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span></span>
 <span class="code-line">    <span class="n">dics</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dic</span><span class="p">)</span></span>
 </pre></div>
-
-
-<h2>8.  列举</h2>
+<h2 id="8">8.  列举</h2>
 <p>在python中遍历list获得index和item。可以通过下面的代码：</p>
 <div class="highlight"><pre><span class="code-line"><span class="n">index</span> <span class="o">=</span> <span class="mi">0</span></span>
 <span class="code-line"><span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">:</span></span>
@@ -279,38 +247,30 @@ while循环时都会有对True的判断操作。
 <span class="code-line"><span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">lst</span><span class="p">)):</span></span>
 <span class="code-line">    <span class="k">print</span> <span class="n">index</span><span class="p">,</span> <span class="n">lst</span><span class="p">[</span><span class="n">index</span><span class="p">]</span></span>
 </pre></div>
-
-
 <p>而使用enumerate可以使代码更清晰， 更易读。</p>
 <div class="highlight"><pre><span class="code-line"><span class="k">for</span> <span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">:</span></span>
 <span class="code-line">    <span class="k">print</span> <span class="n">index</span><span class="p">,</span> <span class="n">item</span></span>
 </pre></div>
-
-
-<h2>9. 列表展开（list comprehension）</h2>
+<h2 id="9-list-comprehension">9. 列表展开（list comprehension）</h2>
 <p>列表展开比一般的循环操作的效率更高，而且更简单。</p>
 <div class="highlight"><pre><span class="code-line"><span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span></span>
 <span class="code-line"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)):</span></span>
 <span class="code-line">    <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="o">**</span><span class="mi">2</span> <span class="o">//</span> <span class="o">**</span><span class="err">比</span><span class="nb">pow</span><span class="err">（）的效率更高，因此它在</span><span class="n">python</span><span class="err">中是一个运算符</span></span>
 </pre></div>
-
-
 <p>或者更高的实现</p>
 <div class="highlight"><pre><span class="code-line"><span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span></span>
 <span class="code-line"><span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="n">val</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">a</span><span class="p">]</span></span>
 <span class="code-line"><span class="c"># or :</span></span>
 <span class="code-line"><span class="n">a</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">i</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>      </span>
 </pre></div>
-
-
-<h2>10. 很长的序列使用xrange()</h2>
+<h2 id="10-xrange">10. 很长的序列使用xrange()</h2>
 <p>相对于 range() 一次性载入整个序列， xrange() 可以帮你省下许多内存，因为它一次只载入一个元素。</p>
-<h2>11.字典和列表</h2>
+<h2 id="11">11.字典和列表</h2>
 <p>在Python中，字典是基于hash table实现的。因此查找操作的复杂度是O(1),而list实际是个数组，查找操作的复杂度是O(n)。  </p>
 <div class="highlight"><pre><span class="code-line"><span class="k">def</span> <span class="nf">test</span><span class="p">():</span></span>
 <span class="code-line">    <span class="n">t</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span></span>
-<span class="code-line">    <span class="n">lst</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;the&#39;</span><span class="p">,</span><span class="s">&#39;zen&#39;</span><span class="p">,</span><span class="s">&#39;of&#39;</span><span class="p">,</span><span class="s">&#39;python&#39;</span><span class="p">,</span><span class="s">&#39;Beautiful&#39;</span><span class="p">,</span> <span class="s">&#39;is&#39;</span><span class="p">,</span> <span class="s">&#39;better&#39;</span><span class="p">,</span> <span class="s">&#39;than&#39;</span><span class="p">,</span> <span class="s">&#39;ugly&#39;</span><span class="p">]</span></span>
-<span class="code-line">    <span class="n">found</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;Explicit&#39;</span><span class="p">,</span><span class="s">&#39;is&#39;</span><span class="p">,</span><span class="s">&#39;better&#39;</span><span class="p">,</span><span class="s">&#39;than&#39;</span><span class="p">,</span><span class="s">&#39;implicit&#39;</span><span class="p">]</span></span>
+<span class="code-line">    <span class="n">lst</span> <span class="o">=</span> <span class="p">[</span><span class="s">'the'</span><span class="p">,</span><span class="s">'zen'</span><span class="p">,</span><span class="s">'of'</span><span class="p">,</span><span class="s">'python'</span><span class="p">,</span><span class="s">'Beautiful'</span><span class="p">,</span> <span class="s">'is'</span><span class="p">,</span> <span class="s">'better'</span><span class="p">,</span> <span class="s">'than'</span><span class="p">,</span> <span class="s">'ugly'</span><span class="p">]</span></span>
+<span class="code-line">    <span class="n">found</span> <span class="o">=</span> <span class="p">[</span><span class="s">'Explicit'</span><span class="p">,</span><span class="s">'is'</span><span class="p">,</span><span class="s">'better'</span><span class="p">,</span><span class="s">'than'</span><span class="p">,</span><span class="s">'implicit'</span><span class="p">]</span></span>
 <span class="code-line">    <span class="c">#lst = dict.fromkeys(lst,1)</span></span>
 <span class="code-line">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">10</span><span class="o">**</span><span class="mi">7</span><span class="p">):</span></span>
 <span class="code-line">       <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">found</span><span class="p">:</span></span>
@@ -318,10 +278,8 @@ while循环时都会有对True的判断操作。
 <span class="code-line">               <span class="k">pass</span></span>
 <span class="code-line">    <span class="k">print</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">t</span>     </span>
 </pre></div>
-
-
 <p>当直接在list中进行查找时上述代码执行了7.14800000191s，当去掉注释，使用字典使，上述代码执行了2.4960000515s，效率提高了大约1.9倍。因此当需要对数据进行频繁访问和查找的时候，dict比list具有更大的优势。</p>
-<h2>12. 生成器</h2>
+<h2 id="12">12. 生成器</h2>
 <p>要理解生成器，首先需要理解Python迭代的内部机制：Python中的迭代就是对可迭代对象实现了__iter__()方法和迭代器(iterator)实现了__next__()方法的一个操作过程。就是说，可迭代对象的__iter__()方法可以返回迭代器，迭代器通过调用next()方法获取其中的每一个值。</p>
 <ul>
 <li>
@@ -341,10 +299,8 @@ while循环时都会有对True的判断操作。
 <span class="code-line">            <span class="k">yield</span> <span class="n">x</span></span>
 <span class="code-line">        <span class="n">arr</span><span class="p">[</span><span class="n">pos</span><span class="p">],</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">arr</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span></span>
 </pre></div>
-
-
 <p>当生成器要一个数时，生成器会执行，直至出现yield语句，生成器返回yield参数，之后生成器停止继续执行。 当需要下一个数时，生成器从上次的状态开始执行，直至出现yield语句，返回参数，停止。如此反复。 </p>
-<h2>13. Python中有用的数据结构</h2>
+<h2 id="13-python">13. Python中有用的数据结构</h2>
 <ul>
 <li>Counter()<ul>
 <li>Counter 用于统计可hash对象出现的次数。并以降序排序输出。</li>
@@ -352,13 +308,11 @@ while循环时都会有对True的判断操作。
 </li>
 </ul>
 <div class="highlight"><pre><span class="code-line"><span class="kn">import</span> <span class="nn">collection</span></span>
-<span class="code-line"><span class="n">string</span> <span class="o">=</span> <span class="s">&quot;the zen of python&quot;</span></span>
+<span class="code-line"><span class="n">string</span> <span class="o">=</span> <span class="s">"the zen of python"</span></span>
 <span class="code-line"><span class="k">print</span> <span class="n">collections</span><span class="o">.</span><span class="n">Counter</span><span class="p">(</span><span class="n">string</span><span class="p">)</span></span>
 <span class="code-line"><span class="c">#output </span></span>
-<span class="code-line"><span class="n">Counter</span><span class="p">({</span><span class="s">&#39; &#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s">&#39;e&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&#39;h&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&#39;o&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&#39;n&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&#39;t&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&#39;f&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39;p&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39;y&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39;z&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span></span>
+<span class="code-line"><span class="n">Counter</span><span class="p">({</span><span class="s">' '</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s">'e'</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">'h'</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">'o'</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">'n'</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">'t'</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">'f'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">'p'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">'y'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">'z'</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span></span>
 </pre></div>
-
-
 <ul>
 <li>Deque<ul>
 <li>Deque支持线程安全，内存优化的append和pop操作，在队列两端的插入和删除操作都近乎O(1)的时间复杂度。而list在处理即改变列表长度又改变元素位置的操作，如insert(0,v),pop(0)的时间复杂度就基本为O(n)。</li>
