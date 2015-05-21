@@ -67,3 +67,20 @@
 .vg { color: #268bd2 } /* Name.Variable.Global */
 .vi { color: #268bd2 } /* Name.Variable.Instance */
 .il { color: #2aa198 } /* Literal.Number.Integer.Long */
+.highlight pre {
+    counter-reset: linecounter;
+    padding-left: 2em;
+}
+.highlight pre span.code-line {
+    counter-increment: linecounter;
+    padding-left: 1em;
+    text-indent: -1em;
+    display: inline-block;
+}
+.highlight pre span.code-line:before {
+    content: counter(linecounter);
+    padding-right: 1em;
+    display: inline-block;
+    color: grey;
+    text-align: right;
+}
