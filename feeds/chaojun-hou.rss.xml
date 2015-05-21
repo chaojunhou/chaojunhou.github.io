@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Write the Code</title><link>houcj.net/</link><description></description><atom:link href="houcj.net/feeds%5Cchaojun-hou.rss.xml" rel="self"></atom:link><lastBuildDate>Mon, 18 May 2015 14:53:00 +0800</lastBuildDate><item><title>二叉树</title><link>houcj.net/blog/2015/05/18/binary-tree/</link><description>&lt;hr /&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Write the Code</title><link>www.houcj.net/</link><description></description><atom:link href="www.houcj.net/feeds%5Cchaojun-hou.rss.xml" rel="self"></atom:link><lastBuildDate>Mon, 18 May 2015 14:53:00 +0800</lastBuildDate><item><title>二叉树</title><link>www.houcj.net/blog/2015/05/18/binary-tree/</link><description>&lt;hr /&gt;
 &lt;h3&gt;把二叉查找树保存到文件中&lt;/h3&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Describe an algorithm to save a Binary Search Tree (BST) to a file in terms of run-time and disk space complexity. 
@@ -207,7 +207,7 @@ Writing the tree to a file is called ‘serialization’ and reading back from t
 &lt;span class="code-line"&gt;  &lt;span class="n"&gt;treeToDoublyList&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;prev&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;head&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;  &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;head&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Mon, 18 May 2015 14:53:00 +0800</pubDate><guid>tag:,2015-05-18:houcj.net/blog/2015/05/18/binary-tree/</guid><category>算法</category></item><item><title>图论</title><link>houcj.net/blog/2015/05/13/graph/</link><description>&lt;hr /&gt;
+&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Mon, 18 May 2015 14:53:00 +0800</pubDate><guid>tag:,2015-05-18:www.houcj.net/blog/2015/05/18/binary-tree/</guid><category>算法</category></item><item><title>图论</title><link>www.houcj.net/blog/2015/05/13/graph/</link><description>&lt;hr /&gt;
 &lt;p&gt;&lt;strong&gt;和树的遍历类似，关于的图的遍历一般也有两种，深度优先和宽度优先。
 &lt;/strong&gt;&lt;/p&gt;
 &lt;h3&gt;课程安排 I&amp;amp;II&lt;/h3&gt;
@@ -311,7 +311,7 @@ DFS调用中，就会找到一个连通分支，直到遍历图中的所有节�
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h3&gt;&lt;/h3&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Wed, 13 May 2015 22:02:00 +0800</pubDate><guid>tag:,2015-05-13:houcj.net/blog/2015/05/13/graph/</guid><category>数据结构</category></item><item><title>Python中的垃圾回收机制</title><link>houcj.net/blog/2015/05/10/garbage-collection-in-python/</link><description>&lt;p&gt;&lt;strong&gt;内存管理&lt;/strong&gt;，对于Python这样的动态语言是必不可少的。通常的内存管理包括操作系统提供的虚拟内存，以及
+&lt;h3&gt;&lt;/h3&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Wed, 13 May 2015 22:02:00 +0800</pubDate><guid>tag:,2015-05-13:www.houcj.net/blog/2015/05/13/graph/</guid><category>数据结构</category></item><item><title>Python中的垃圾回收机制</title><link>www.houcj.net/blog/2015/05/10/garbage-collection-in-python/</link><description>&lt;p&gt;&lt;strong&gt;内存管理&lt;/strong&gt;，对于Python这样的动态语言是必不可少的。通常的内存管理包括操作系统提供的虚拟内存，以及
 垃圾回收机制。本文着重于Python中的垃圾回收机制。&lt;/p&gt;
 &lt;h2&gt;首先我们介绍一下的垃圾回收中通用的基本概念&lt;/h2&gt;
 &lt;h2&gt;垃圾回收&lt;/h2&gt;
@@ -508,7 +508,7 @@ DFS调用中，就会找到一个连通分支，直到遍历图中的所有节�
 &lt;h2&gt;总结：&lt;/h2&gt;
 &lt;p&gt;Python采用了最常用的引用计数来跟踪和回收垃圾。在引用计数的基础上，
 通过“标记-清除”解决容器对象可能产生的循环引用问题，
-通过“分代回收”以空间换时间的方法提高垃圾回收效率。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Sun, 10 May 2015 20:59:00 +0800</pubDate><guid>tag:,2015-05-10:houcj.net/blog/2015/05/10/garbage-collection-in-python/</guid><category>垃圾回收</category></item><item><title>编程语言中的基本概念</title><link>houcj.net/blog/2015/05/09/programming-language/</link><description>&lt;hr /&gt;
+通过“分代回收”以空间换时间的方法提高垃圾回收效率。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Sun, 10 May 2015 20:59:00 +0800</pubDate><guid>tag:,2015-05-10:www.houcj.net/blog/2015/05/10/garbage-collection-in-python/</guid><category>垃圾回收</category></item><item><title>编程语言中的基本概念</title><link>www.houcj.net/blog/2015/05/09/programming-language/</link><description>&lt;hr /&gt;
 &lt;blockquote&gt;
 &lt;p&gt;无论使用什么编程语言，生产一条基本语句所需要的工数几乎是一定的。&lt;/p&gt;
 &lt;p&gt;—弗雷德里克·布鲁克斯&lt;/p&gt;
@@ -574,7 +574,7 @@ DFS调用中，就会找到一个连通分支，直到遍历图中的所有节�
 事先准备一个特殊化的高速版本，在函数调用的开头先执行类型检查，当前提条件成立时直接运行
 高速版本，从而避免了在运行时伴随的大量的类型检查。&lt;/li&gt;
 &lt;li&gt;分代回收，见&lt;a href="http://www.houcj.net/blog/2015/05/10/garbage-collection-in-python/"&gt;垃圾回收&lt;/a&gt;。&lt;/li&gt;
-&lt;/ul&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Sat, 09 May 2015 00:00:00 +0800</pubDate><guid>tag:,2015-05-09:houcj.net/blog/2015/05/09/programming-language/</guid><category>编程语言</category></item><item><title>我的书单</title><link>houcj.net/blog/2015/05/08/my-booklist/</link><description>&lt;hr /&gt;
+&lt;/ul&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Sat, 09 May 2015 00:00:00 +0800</pubDate><guid>tag:,2015-05-09:www.houcj.net/blog/2015/05/09/programming-language/</guid><category>编程语言</category></item><item><title>我的书单</title><link>www.houcj.net/blog/2015/05/08/my-booklist/</link><description>&lt;hr /&gt;
 &lt;h2&gt;编程&amp;amp;技术&lt;/h2&gt;
 &lt;h3&gt;1. 系统架构&amp;amp;设计模式&lt;/h3&gt;
 &lt;hr /&gt;
@@ -738,7 +738,7 @@ DFS调用中，就会找到一个连通分支，直到遍历图中的所有节�
 &lt;p&gt;House of Cards [Done]&lt;/p&gt;
 &lt;p&gt;Hannibal [Done]&lt;/p&gt;
 &lt;p&gt;True Detective [Done]&lt;/p&gt;
-&lt;/blockquote&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Fri, 08 May 2015 13:50:00 +0800</pubDate><guid>tag:,2015-05-08:houcj.net/blog/2015/05/08/my-booklist/</guid><category>书单</category></item><item><title>德州扑克AI</title><link>houcj.net/blog/2015/05/07/huawei-related/</link><description>&lt;hr /&gt;
+&lt;/blockquote&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Fri, 08 May 2015 13:50:00 +0800</pubDate><guid>tag:,2015-05-08:www.houcj.net/blog/2015/05/08/my-booklist/</guid><category>书单</category></item><item><title>德州扑克AI</title><link>www.houcj.net/blog/2015/05/07/huawei-related/</link><description>&lt;hr /&gt;
 &lt;ul&gt;
 &lt;li&gt;解压缩文件：&lt;/li&gt;
 &lt;/ul&gt;
@@ -896,7 +896,7 @@ DFS调用中，就会找到一个连通分支，直到遍历图中的所有节�
 &lt;ul&gt;
 &lt;li&gt;使用TCP中的强制数据立即传送操作指令PUSH&lt;/li&gt;
 &lt;li&gt;接收方提高接收进程的优先级，或者将一个包中的数据按结构字段，人为控制接受方式。&lt;/li&gt;
-&lt;/ul&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Thu, 07 May 2015 09:06:00 +0800</pubDate><guid>tag:,2015-05-07:houcj.net/blog/2015/05/07/huawei-related/</guid><category>项目</category></item><item><title>反转链表</title><link>houcj.net/blog/2015/05/05/reverse-linked-list/</link><description>&lt;p&gt;首先介绍最简单的反转链表&lt;/p&gt;
+&lt;/ul&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Thu, 07 May 2015 09:06:00 +0800</pubDate><guid>tag:,2015-05-07:www.houcj.net/blog/2015/05/07/huawei-related/</guid><category>项目</category></item><item><title>反转链表</title><link>www.houcj.net/blog/2015/05/05/reverse-linked-list/</link><description>&lt;p&gt;首先介绍最简单的反转链表&lt;/p&gt;
 &lt;h3&gt;题目描述:&lt;/h3&gt;
 &lt;p&gt;Reverse a singly linked list.&lt;/p&gt;
 &lt;h3&gt;分析：&lt;/h3&gt;
@@ -1013,7 +1013,7 @@ return 1-&amp;gt;4-&amp;gt;3-&amp;gt;2-&amp;gt;5-&amp;gt;NULL&lt;/p&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;完整代码见&lt;a href="https://github.com/chaojunhou/LeetCode"&gt;Github&lt;/a&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Tue, 05 May 2015 09:06:00 +0800</pubDate><guid>tag:,2015-05-05:houcj.net/blog/2015/05/05/reverse-linked-list/</guid><category>算法</category><category>Python</category></item><item><title>素数筛选法</title><link>houcj.net/blog/2015/05/05/sifting-prime/</link><description>&lt;p&gt;&lt;strong&gt;题目描述&lt;/strong&gt;:
+&lt;p&gt;完整代码见&lt;a href="https://github.com/chaojunhou/LeetCode"&gt;Github&lt;/a&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Tue, 05 May 2015 09:06:00 +0800</pubDate><guid>tag:,2015-05-05:www.houcj.net/blog/2015/05/05/reverse-linked-list/</guid><category>算法</category><category>Python</category></item><item><title>素数筛选法</title><link>www.houcj.net/blog/2015/05/05/sifting-prime/</link><description>&lt;p&gt;&lt;strong&gt;题目描述&lt;/strong&gt;:
 Count the number of prime numbers less than a non-negative number, n&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;分析&lt;/strong&gt;：
 这里需要注意的是n是很大的整数，因此不能在循环内使用函数的调用来判断一个数是否为素数，否则会超时。可以使用bool数组来确定这个数是否为素数。下面介绍一种素数筛选法来解决这个问题。
@@ -1065,7 +1065,7 @@ Count the number of prime numbers less than a non-negative number, n&lt;/p&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;Python代码实现见&lt;a href="https://github.com/chaojunhou/LeetCode"&gt;Github&lt;/a&gt;，需要注意的是Python中的bool数组必须声明为[True]*n.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Tue, 05 May 2015 09:06:00 +0800</pubDate><guid>tag:,2015-05-05:houcj.net/blog/2015/05/05/sifting-prime/</guid><category>算法</category><category>Python</category><category>C</category></item><item><title>C程序中常见的与存储器有关的错误</title><link>houcj.net/blog/2015/05/04/usual-error-in-c/</link><description>&lt;ul&gt;
+&lt;p&gt;Python代码实现见&lt;a href="https://github.com/chaojunhou/LeetCode"&gt;Github&lt;/a&gt;，需要注意的是Python中的bool数组必须声明为[True]*n.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Tue, 05 May 2015 09:06:00 +0800</pubDate><guid>tag:,2015-05-05:www.houcj.net/blog/2015/05/05/sifting-prime/</guid><category>算法</category><category>Python</category><category>C</category></item><item><title>C程序中常见的与存储器有关的错误</title><link>www.houcj.net/blog/2015/05/04/usual-error-in-c/</link><description>&lt;ul&gt;
 &lt;li&gt;间接引用坏指针&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="n"&gt;scanf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;%d&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;val&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; &lt;span class="c1"&gt;//right&lt;/span&gt;&lt;/span&gt;
@@ -1371,7 +1371,7 @@ Count the number of prime numbers less than a non-negative number, n&lt;/p&gt;
 
 
 &lt;p&gt;通过*ptr = ‘T’，会改变内存中代码段（只读代码）“China”的第一个字母。
-这个操作是无效的，因此会造成seg-fault或者崩溃。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Mon, 04 May 2015 20:11:00 +0800</pubDate><guid>tag:,2015-05-04:houcj.net/blog/2015/05/04/usual-error-in-c/</guid><category>C</category></item><item><title>程序性能优化</title><link>houcj.net/blog/2015/05/01/optimizing-program-performance/</link><description>&lt;blockquote&gt;
+这个操作是无效的，因此会造成seg-fault或者崩溃。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Mon, 04 May 2015 20:11:00 +0800</pubDate><guid>tag:,2015-05-04:www.houcj.net/blog/2015/05/04/usual-error-in-c/</guid><category>C</category></item><item><title>程序性能优化</title><link>www.houcj.net/blog/2015/05/01/optimizing-program-performance/</link><description>&lt;blockquote&gt;
 &lt;p&gt;We should forget about small efficiencies, say about 97% of the time: premature optimization is the root of all evil. ~Donald Knuth&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;程序员必须再实现和维护程序的简单性与它的运行速度之间做出权衡。&lt;/p&gt;
@@ -1604,7 +1604,7 @@ Count the number of prime numbers less than a non-negative number, n&lt;/p&gt;
         "}); ";
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-&lt;/script&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Fri, 01 May 2015 19:15:00 +0800</pubDate><guid>tag:,2015-05-01:houcj.net/blog/2015/05/01/optimizing-program-performance/</guid><category>操作系统</category></item><item><title>24点游戏编程</title><link>houcj.net/blog/2015/04/25/cal24/</link><description>&lt;p&gt;&lt;a href="http://zh.wikipedia.org/wiki/24%E7%82%B9"&gt;24点游戏&lt;/a&gt;是一种使用扑克牌来进行的益智类游戏，游戏内容是：从一副扑克牌中抽去大小王剩下52张，任意抽取4张牌，把牌面上的数（A代表1）运用加、减、乘、除和括号进行运算得出24。每张牌都必须使用一次，但不能重复使用。在不同版本中，对J、Q、和K的处理有些差异。一个常见的版本是把J、Q、和K去除，或当成10；还有一个版本是把J表示11，Q表示12，K代表13。&lt;/p&gt;
+&lt;/script&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Fri, 01 May 2015 19:15:00 +0800</pubDate><guid>tag:,2015-05-01:www.houcj.net/blog/2015/05/01/optimizing-program-performance/</guid><category>操作系统</category></item><item><title>24点游戏编程</title><link>www.houcj.net/blog/2015/04/25/cal24/</link><description>&lt;p&gt;&lt;a href="http://zh.wikipedia.org/wiki/24%E7%82%B9"&gt;24点游戏&lt;/a&gt;是一种使用扑克牌来进行的益智类游戏，游戏内容是：从一副扑克牌中抽去大小王剩下52张，任意抽取4张牌，把牌面上的数（A代表1）运用加、减、乘、除和括号进行运算得出24。每张牌都必须使用一次，但不能重复使用。在不同版本中，对J、Q、和K的处理有些差异。一个常见的版本是把J、Q、和K去除，或当成10；还有一个版本是把J表示11，Q表示12，K代表13。&lt;/p&gt;
 &lt;p&gt;虽然大多数24点存在很多解法，有相当一部分数字组合只存在唯一的解法。这种组合往往较有难度，也较为有趣。这里总结一些常见的组合。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -1693,7 +1693,7 @@ Count the number of prime numbers less than a non-negative number, n&lt;/p&gt;
 
 
 &lt;p&gt;完整的代码见&lt;a href="https://github.com/chaojunhou/Cal24"&gt;Github&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;代码持续更新，该算法的核心就是穷举每种出现的可能，为了更好的实现，上面的代码对数字出现的顺序有一定的要求。不同的顺序得到的结果可能不一样。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Sat, 25 Apr 2015 19:21:00 +0800</pubDate><guid>tag:,2015-04-25:houcj.net/blog/2015/04/25/cal24/</guid><category>算法</category></item><item><title>深入理解计算机系统</title><link>houcj.net/blog/2015/04/15/csapp/</link><description>&lt;p&gt;操作系统内核是应用程序和硬件之间的媒介。它提供三个基本抽象：&lt;/p&gt;
+&lt;p&gt;代码持续更新，该算法的核心就是穷举每种出现的可能，为了更好的实现，上面的代码对数字出现的顺序有一定的要求。不同的顺序得到的结果可能不一样。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Sat, 25 Apr 2015 19:21:00 +0800</pubDate><guid>tag:,2015-04-25:www.houcj.net/blog/2015/04/25/cal24/</guid><category>算法</category></item><item><title>深入理解计算机系统</title><link>www.houcj.net/blog/2015/04/15/csapp/</link><description>&lt;p&gt;操作系统内核是应用程序和硬件之间的媒介。它提供三个基本抽象：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;文件是对I/O设备的抽象&lt;/li&gt;
 &lt;li&gt;虚拟存储器是对主存和磁盘的抽象&lt;/li&gt;
@@ -1843,7 +1843,7 @@ setjmp函数只被调用一次，但返回多次：一次是当第一次调用se
 &lt;p&gt;和一个线程相关的线程组成一个线程池，独立于其他线程创建的线程。主线程和其他线程的区别仅在于它总是进程第一个运行的线程。线程池主要的影响是，一个线程可以杀死它的任何对等线程，或者等待它的任何对等线程终止。&lt;/p&gt;
 &lt;p&gt;在任何一个时间点上，线程是可结合（joinable）或者是可分离的（detached）。
 - 可结合的，一个可结合的线程能够被其他线程回收其至于那和杀死。在回收之前，它的存储器资源是没有释放的
-- 可分离的，一个可分离的线程是不能别其他线程回收或杀死的。它的存储器资源在它终止时由系统自动释放。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Wed, 15 Apr 2015 10:55:00 +0800</pubDate><guid>tag:,2015-04-15:houcj.net/blog/2015/04/15/csapp/</guid><category>操作系统</category></item><item><title>人生苦短我用Python</title><link>houcj.net/blog/2015/04/01/life-is-short-use-python/</link><description>&lt;blockquote&gt;
+- 可分离的，一个可分离的线程是不能别其他线程回收或杀死的。它的存储器资源在它终止时由系统自动释放。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Wed, 15 Apr 2015 10:55:00 +0800</pubDate><guid>tag:,2015-04-15:www.houcj.net/blog/2015/04/15/csapp/</guid><category>操作系统</category></item><item><title>人生苦短我用Python</title><link>www.houcj.net/blog/2015/04/01/life-is-short-use-python/</link><description>&lt;blockquote&gt;
 &lt;p&gt;Programs must be written for people to read, and only incidentally for machines to execute.                                         &lt;br /&gt;
   —   Abelson &amp;amp; Sussman, Structure and Interpretation of Computer Programs &lt;/p&gt;
 &lt;/blockquote&gt;
@@ -2155,7 +2155,7 @@ while循环时都会有对True的判断操作。
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;/ul&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Wed, 01 Apr 2015 16:09:00 +0800</pubDate><guid>tag:,2015-04-01:houcj.net/blog/2015/04/01/life-is-short-use-python/</guid><category>Python</category></item><item><title>链接和预编译</title><link>houcj.net/blog/2015/03/27/link-and-preprocess/</link><description>&lt;h1&gt;链接&lt;/h1&gt;
+&lt;/ul&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Wed, 01 Apr 2015 16:09:00 +0800</pubDate><guid>tag:,2015-04-01:www.houcj.net/blog/2015/04/01/life-is-short-use-python/</guid><category>Python</category></item><item><title>链接和预编译</title><link>www.houcj.net/blog/2015/03/27/link-and-preprocess/</link><description>&lt;h1&gt;链接&lt;/h1&gt;
 &lt;p&gt;C++中允许重载方法，这些方法在源代码中有相同的名字，却有不同的函数列表。编译器讲每个唯一的方法和参数列表组合编码成一个对链接器来说唯一的名字。这个编码过程叫做mangling。&lt;/p&gt;
 &lt;p&gt;&lt;img src="/images/elf.png" class="img-responsive" alt="ELF" align=center /&gt;&lt;/p&gt;
 &lt;h2&gt;链接器如何解析多重定义的全局符号&lt;/h2&gt;
@@ -2293,7 +2293,7 @@ Unix链接器使用下面的规则来处理多重定义的符号：&lt;/p&gt;
 &lt;p&gt;弱类型定义语言：数据类型可以被忽略的语言。它与强类型定义语言相反, 一个变量可以赋不同数据类型的值。&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Python是动态的强类型语言，C是静态的弱类型语言&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Fri, 27 Mar 2015 23:07:00 +0800</pubDate><guid>tag:,2015-03-27:houcj.net/blog/2015/03/27/link-and-preprocess/</guid><category>C</category></item><item><title>The basic Knowledge in C</title><link>houcj.net/blog/2015/03/03/the-basic-knowledge-in-c/</link><description>&lt;h2&gt;C 语言中的运算规则&lt;/h2&gt;
+&lt;p&gt;Python是动态的强类型语言，C是静态的弱类型语言&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Fri, 27 Mar 2015 23:07:00 +0800</pubDate><guid>tag:,2015-03-27:www.houcj.net/blog/2015/03/27/link-and-preprocess/</guid><category>C</category></item><item><title>The basic Knowledge in C</title><link>www.houcj.net/blog/2015/03/03/the-basic-knowledge-in-c/</link><description>&lt;h2&gt;C 语言中的运算规则&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;C语言中每个token应该尽可能多的包含更多的字符。如果编译器的输入流截止到某个字符之前已经被分解成一个个的token，那么从该字符之后应尽可能的组成一个最长的字符串的token。除了字符串与字符串常量，符号的中间不能嵌有空白（空格符、制表符，换行符）。&lt;/li&gt;
 &lt;li&gt;C语言中符号之间的空白将被忽略，这些符号包括空格符，制表符，换行符号：&lt;/li&gt;
@@ -2460,7 +2460,7 @@ Unix链接器使用下面的规则来处理多重定义的符号：&lt;/p&gt;
 &lt;li&gt;如果我们事先知道对一个数据结构中的两个不同字段的使用是互斥的，那么将这两个字段声明为联合的一部分，而不是结构的一部分，以减少分配空间的总量。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;/ul&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Tue, 03 Mar 2015 23:07:00 +0800</pubDate><guid>tag:,2015-03-03:houcj.net/blog/2015/03/03/the-basic-knowledge-in-c/</guid><category>C</category></item><item><title>多线程</title><link>houcj.net/blog/2015/02/27/multi-thread/</link><description>&lt;h2&gt;线程安全&lt;/h2&gt;
+&lt;/ul&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Tue, 03 Mar 2015 23:07:00 +0800</pubDate><guid>tag:,2015-03-03:www.houcj.net/blog/2015/03/03/the-basic-knowledge-in-c/</guid><category>C</category></item><item><title>多线程</title><link>www.houcj.net/blog/2015/02/27/multi-thread/</link><description>&lt;h2&gt;线程安全&lt;/h2&gt;
 &lt;p&gt;一个函数被称为线程安全的，当且仅当被多个并发线程反复地调用时，它会产生一直产生正确的结果。&lt;/p&gt;
 &lt;h3&gt;四个线程不安全函数类&lt;/h3&gt;
 &lt;ul&gt;
@@ -2516,7 +2516,7 @@ Unix链接器使用下面的规则来处理多重定义的符号：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;调用线程不安全函数
   改进方法，lock-copy&lt;/li&gt;
-&lt;/ul&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Fri, 27 Feb 2015 00:00:00 +0800</pubDate><guid>tag:,2015-02-27:houcj.net/blog/2015/02/27/multi-thread/</guid><category>多线程</category></item><item><title>字符串匹配</title><link>houcj.net/blog/2014/03/21/kmp/</link><description>&lt;h3&gt;题目&lt;/h3&gt;
+&lt;/ul&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Fri, 27 Feb 2015 00:00:00 +0800</pubDate><guid>tag:,2015-02-27:www.houcj.net/blog/2015/02/27/multi-thread/</guid><category>多线程</category></item><item><title>字符串匹配</title><link>www.houcj.net/blog/2014/03/21/kmp/</link><description>&lt;h3&gt;题目&lt;/h3&gt;
 &lt;p&gt;Implement strStr() &lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Implement strStr().&lt;/p&gt;
@@ -2576,7 +2576,7 @@ or -1 if needle is not part of haystack.&lt;/p&gt;
 &lt;span class="code-line"&gt;            &lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="o"&gt;+=&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;        &lt;span class="n"&gt;prefix&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;prefix&lt;/span&gt; &lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Fri, 21 Mar 2014 00:00:00 +0800</pubDate><guid>tag:,2014-03-21:houcj.net/blog/2014/03/21/kmp/</guid><category>算法</category><category>Python</category></item><item><title>Mind trick</title><link>houcj.net/blog/2014/02/20/mind-trick/</link><description>&lt;h2&gt;一、斐波那契博弈&lt;/h2&gt;
+&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Fri, 21 Mar 2014 00:00:00 +0800</pubDate><guid>tag:,2014-03-21:www.houcj.net/blog/2014/03/21/kmp/</guid><category>算法</category><category>Python</category></item><item><title>Mind trick</title><link>www.houcj.net/blog/2014/02/20/mind-trick/</link><description>&lt;h2&gt;一、斐波那契博弈&lt;/h2&gt;
 &lt;h3&gt;题目&lt;/h3&gt;
 &lt;p&gt;有一堆个数为n(n&amp;gt;=2)的石子，游戏双方轮流取石子，规则如下：&lt;/p&gt;
 &lt;ul&gt;
@@ -2799,7 +2799,7 @@ or -1 if needle is not part of haystack.&lt;/p&gt;
         "}); ";
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-&lt;/script&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Thu, 20 Feb 2014 00:00:00 +0800</pubDate><guid>tag:,2014-02-20:houcj.net/blog/2014/02/20/mind-trick/</guid><category>智力</category></item><item><title>概率问题</title><link>houcj.net/blog/2014/02/18/equal-probability/</link><description>&lt;hr /&gt;
+&lt;/script&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Thu, 20 Feb 2014 00:00:00 +0800</pubDate><guid>tag:,2014-02-20:www.houcj.net/blog/2014/02/20/mind-trick/</guid><category>智力</category></item><item><title>概率问题</title><link>www.houcj.net/blog/2014/02/18/equal-probability/</link><description>&lt;hr /&gt;
 &lt;p&gt;&lt;fuck&gt;&lt;/p&gt;
 &lt;h3 id="_1"&gt;等概率：蓄水池问题&lt;/h3&gt;
 &lt;p&gt;要求从N个元素中随机的抽取k个元素，其中N无法确定。&lt;/p&gt;
@@ -2957,7 +2957,7 @@ P(B|A)=\frac{P(A|B)P(B)}{P(A)}=\frac{13}{49}\times\frac{1}{4}\div\frac{27}{196}=
         "}); ";
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-&lt;/script&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Tue, 18 Feb 2014 13:23:00 +0800</pubDate><guid>tag:,2014-02-18:houcj.net/blog/2014/02/18/equal-probability/</guid><category>算法</category><category>概率</category></item><item><title>有用的数据结构</title><link>houcj.net/blog/2014/02/13/trie-lru/</link><description>&lt;hr /&gt;
+&lt;/script&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Tue, 18 Feb 2014 13:23:00 +0800</pubDate><guid>tag:,2014-02-18:www.houcj.net/blog/2014/02/18/equal-probability/</guid><category>算法</category><category>概率</category></item><item><title>有用的数据结构</title><link>www.houcj.net/blog/2014/02/13/trie-lru/</link><description>&lt;hr /&gt;
 &lt;h2&gt;Trie (前缀树)&lt;/h2&gt;
 &lt;h3&gt;Implement Trie (Prefix Tree)&lt;/h3&gt;
 &lt;hr /&gt;
@@ -3051,4 +3051,4 @@ P(B|A)=\frac{P(A|B)P(B)}{P(A)}=\frac{13}{49}\times\frac{1}{4}\div\frac{27}{196}=
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;hr /&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Thu, 13 Feb 2014 00:00:00 +0800</pubDate><guid>tag:,2014-02-13:houcj.net/blog/2014/02/13/trie-lru/</guid><category>数据结构</category></item></channel></rss>
+&lt;hr /&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Thu, 13 Feb 2014 00:00:00 +0800</pubDate><guid>tag:,2014-02-13:www.houcj.net/blog/2014/02/13/trie-lru/</guid><category>数据结构</category></item></channel></rss>
