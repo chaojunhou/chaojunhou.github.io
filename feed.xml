@@ -1,10 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Write the Code</title><link>www.houcj.net/</link><description></description><atom:link href="www.houcj.net/feed.xml" rel="self"></atom:link><lastBuildDate>Thu, 21 May 2015 16:55:00 +0800</lastBuildDate><item><title>二叉树</title><link>www.houcj.net/blog/2015/05/21/cpp/</link><description>&lt;hr/&gt;
+&lt;h3 id="_1"&gt;列表初始化&lt;/h3&gt;
+&lt;p&gt;下面四条语句都可以：&lt;/p&gt;
+&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;1&lt;/span&gt;
+&lt;span class="code-line"&gt;2&lt;/span&gt;
+&lt;span class="code-line"&gt;3&lt;/span&gt;
+&lt;span class="code-line"&gt;4&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;};&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;i&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;};&lt;/span&gt;&lt;span class="mo"&gt;041&lt;/span&gt; &lt;span class="p"&gt;,.&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;ul&gt;
 &lt;li&gt;void * 是一种特殊的指针类型，可以用于存放任意对象的地址。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="const-constexpr"&gt;const 和 constexpr&lt;/h3&gt;
+&lt;ul&gt;
 &lt;li&gt;如果想在多个文件之间共享const对象，必须在变量的定义之前加extern关键字&lt;/li&gt;
-&lt;li&gt;&lt;/li&gt;
-&lt;/ul&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Thu, 21 May 2015 16:55:00 +0800</pubDate><guid>tag:,2015-05-21:www.houcj.net/blog/2015/05/21/cpp/</guid><category>编程</category><category>CPP</category></item><item><title>二叉树</title><link>www.houcj.net/blog/2015/05/18/binary-tree/</link><description>&lt;hr/&gt;
+&lt;li&gt;
+&lt;p&gt;常量表达式是指值不会在改变并且在编译过程就能得到计算结果的表达式。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;cpp
+const int max_files = 20; //是常量表达式
+const int sz = get_size(); //不是常量表达式，具体值在运行时才能得到&lt;/code&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;C++11 规定允许将变量声明为constexpr类型，以便由编译器来验证变量的值是否是一个常量
+表达式。声明为constexpr的变量一定是一个常量，而且必须用常量表达式初始化&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;code&gt;cpp
+const int *p = nullptr;       // p是一个指向整型常量的指针
+constexpr int *q = nullptr;   // q是一个指向整数的常量指针。&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id="_3"&gt;类型别名&lt;/h3&gt;
+&lt;p&gt;两种实现方式
+- typedef  &lt;br/&gt;
+- using
+&lt;code&gt;cpp
+using SI = Sales_item; // SI是Sales_item的别名&lt;/code&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;C++11引入auto类型说明符，用它就能让编译器替我们去分析表达式所属的类型
+C++11引入decltype类型说明符，它的作用是选择并返回操作数的数据类型。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;字面值类型：
+常量表达式的值需要在编译使就得到计算，因此对声明constexpr时用到的类型必须有所限制。因为这些类型一般都比较
+简单，值也容易得到。就把它们称为"字面值类型(literal type)"&lt;/p&gt;
+&lt;p&gt;一个constexpr指针的初始值必须是nullptr或者0，或者是存储于某个固定地址中的对象。&lt;/p&gt;
+&lt;h3 id="_2"&gt;类模版&lt;/h3&gt;
+&lt;p&gt;编译器根据模版创建类或函数的过程称为实例化，当使用模版时，需要指出编译器应把类或函数实例化成何种
+类型。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Thu, 21 May 2015 16:55:00 +0800</pubDate><guid>tag:,2015-05-21:www.houcj.net/blog/2015/05/21/cpp/</guid><category>编程</category><category>CPP</category></item><item><title>二叉树</title><link>www.houcj.net/blog/2015/05/18/binary-tree/</link><description>&lt;hr/&gt;
 &lt;h3 id="_1"&gt;把二叉查找树保存到文件中&lt;/h3&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Describe an algorithm to save a Binary Search Tree (BST) to a file in terms of run-time and disk space complexity. 
@@ -618,7 +661,7 @@ DFS调用中，就会找到一个连通分支，直到遍历图中的所有节�
 &lt;h3 id="_10"&gt;编程实践&lt;/h3&gt;
 &lt;hr/&gt;
 &lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;代码的未来 [30%]&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;代码的未来 [Done]&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;可读代码的艺术 [10%]&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;7周7语言 [10%]&lt;/p&gt;
 &lt;p&gt;代码大全 [0%]&lt;/p&gt;
