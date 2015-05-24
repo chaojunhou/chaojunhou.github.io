@@ -82,19 +82,12 @@
 <p>Implement strStr() </p>
 <blockquote>
 <p>Implement strStr().</p>
-<p>Returns the index of the first occurrence of needle in haystack, 
-or -1 if needle is not part of haystack.</p>
+<p>Returns the index of the first occurrence of needle in haystack, </p>
+<p>or -1 if needle is not part of haystack.</p>
 </blockquote>
-<p><strong> 分析 </strong></p>
 <h4 id="_2">暴力解法</h4>
 <p>在haystack中遍历，直到可以找到于needle相匹配的位置。O(nm)时间复杂度, O(1) 空间复杂度的暴力解法:</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="code-line">1</span>
-<span class="code-line">2</span>
-<span class="code-line">3</span>
-<span class="code-line">4</span>
-<span class="code-line">5</span>
-<span class="code-line">6</span>
-<span class="code-line">7</span></pre></div></td><td class="code"><div class="highlight"><pre><span class="code-line"><span class="k">def</span> <span class="nf">strStr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">haystack</span><span class="p">,</span> <span class="n">needle</span><span class="p">):</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="k">def</span> <span class="nf">strStr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">haystack</span><span class="p">,</span> <span class="n">needle</span><span class="p">):</span></span>
 <span class="code-line">    <span class="n">n</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">haystack</span><span class="p">)</span></span>
 <span class="code-line">    <span class="n">m</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">needle</span><span class="p">)</span></span>
 <span class="code-line">    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span></span>
@@ -102,7 +95,6 @@ or -1 if needle is not part of haystack.</p>
 <span class="code-line">            <span class="k">return</span> <span class="n">x</span></span>
 <span class="code-line">    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span> </span>
 </pre></div>
-</td></tr></table>
 <h4 id="kmp">KMP解法</h4>
 <p>匹配过程的时间复杂度为O(n)，预处理时间时间复杂度为O(m). O(m)的空间用来存储预处理数组。</p>
 <p><strong>KMP的核心就在于扫描字符串haystack，并更新可以匹配到needle的位置。</strong></p>
@@ -110,22 +102,7 @@ or -1 if needle is not part of haystack.</p>
 不匹配的时候让haystack向右移动，这里使用了一个预处理数组来
 确定haystack应该移动的位置：不匹配字符所在位置 - 不匹配字符对应的预处理数组中的值
 预处理数组在下面介绍。</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="code-line"> 1</span>
-<span class="code-line"> 2</span>
-<span class="code-line"> 3</span>
-<span class="code-line"> 4</span>
-<span class="code-line"> 5</span>
-<span class="code-line"> 6</span>
-<span class="code-line"> 7</span>
-<span class="code-line"> 8</span>
-<span class="code-line"> 9</span>
-<span class="code-line">10</span>
-<span class="code-line">11</span>
-<span class="code-line">12</span>
-<span class="code-line">13</span>
-<span class="code-line">14</span>
-<span class="code-line">15</span>
-<span class="code-line">16</span></pre></div></td><td class="code"><div class="highlight"><pre><span class="code-line"><span class="k">def</span> <span class="nf">strStr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">haystack</span><span class="p">,</span> <span class="n">needle</span><span class="p">):</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="k">def</span> <span class="nf">strStr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">haystack</span><span class="p">,</span> <span class="n">needle</span><span class="p">):</span></span>
 <span class="code-line">    <span class="n">n</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">haystack</span><span class="p">)</span></span>
 <span class="code-line">    <span class="n">m</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">needle</span><span class="p">)</span></span>
 <span class="code-line">    <span class="k">if</span> <span class="n">m</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span></span>
@@ -142,20 +119,9 @@ or -1 if needle is not part of haystack.</p>
 <span class="code-line">        <span class="c">#j = prefix[j] find more possible position for the next match</span></span>
 <span class="code-line">    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span></span>
 </pre></div>
-</td></tr></table>
 <p>计算某个字符对应的预处理的值，就是看这个字符之前的字符串中有多大长度的相同前缀后缀。
 具体算法如下。</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="code-line"> 1</span>
-<span class="code-line"> 2</span>
-<span class="code-line"> 3</span>
-<span class="code-line"> 4</span>
-<span class="code-line"> 5</span>
-<span class="code-line"> 6</span>
-<span class="code-line"> 7</span>
-<span class="code-line"> 8</span>
-<span class="code-line"> 9</span>
-<span class="code-line">10</span>
-<span class="code-line">11</span></pre></div></td><td class="code"><div class="highlight"><pre><span class="code-line"><span class="k">def</span> <span class="nf">compute_prefix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">P</span><span class="p">):</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="k">def</span> <span class="nf">compute_prefix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">P</span><span class="p">):</span></span>
 <span class="code-line">    <span class="n">m</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">P</span><span class="p">)</span></span>
 <span class="code-line">    <span class="n">prefix</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">)]</span></span>
 <span class="code-line">    <span class="n">j</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span></span>
@@ -167,7 +133,6 @@ or -1 if needle is not part of haystack.</p>
 <span class="code-line">        <span class="n">prefix</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">j</span></span>
 <span class="code-line">    <span class="k">return</span> <span class="n">prefix</span> </span>
 </pre></div>
-</td></tr></table>
 <h3 id="shortest-palindrome_1">应用:Shortest Palindrome</h3>
 <blockquote>
 <p>Given a string S, you are allowed to convert it to a palindrome by adding characters in front of it. Find and return the shortest palindrome you can find by performing this transformation.</p>
@@ -178,35 +143,9 @@ or -1 if needle is not part of haystack.</p>
 <p><strong>分析</strong></p>
 <p>我们知道回文的性质就是正反都相同。因此，我们以反转的字符串为母串，以原来的字符串为字串进行匹配。找到从源字符串
 开始的最长的公共字串，然后把公共字串后面的字符串insert到源字符串。这道题的trick是容易超时，因此可以使用
-kmp进行字符串的匹配。时间复杂度为O(n)的kmp字符串匹配长度，O(L)的字符串长度的空间复杂度。</p>
-<p>具体见下面的代码</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="code-line"> 1</span>
-<span class="code-line"> 2</span>
-<span class="code-line"> 3</span>
-<span class="code-line"> 4</span>
-<span class="code-line"> 5</span>
-<span class="code-line"> 6</span>
-<span class="code-line"> 7</span>
-<span class="code-line"> 8</span>
-<span class="code-line"> 9</span>
-<span class="code-line">10</span>
-<span class="code-line">11</span>
-<span class="code-line">12</span>
-<span class="code-line">13</span>
-<span class="code-line">14</span>
-<span class="code-line">15</span>
-<span class="code-line">16</span>
-<span class="code-line">17</span>
-<span class="code-line">18</span>
-<span class="code-line">19</span>
-<span class="code-line">20</span>
-<span class="code-line">21</span>
-<span class="code-line">22</span>
-<span class="code-line">23</span>
-<span class="code-line">24</span>
-<span class="code-line">25</span></pre></div></td><td class="code"><div class="highlight"><pre><span class="code-line"><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span></span>
-<span class="code-line">    <span class="c"># @param {string} s</span></span>
-<span class="code-line">    <span class="c"># @return {string}</span></span>
+kmp进行字符串的匹配。时间复杂度为O(n)的kmp字符串匹配长度，O(L)的字符串长度的空间复杂度。
+<strong>具体见下面的代码</strong></p>
+<div class="highlight"><pre><span class="code-line"><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span></span>
 <span class="code-line">    <span class="k">def</span> <span class="nf">shortestPalindrome</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span></span>
 <span class="code-line">        <span class="n">haystack</span> <span class="o">=</span> <span class="n">s</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></span>
 <span class="code-line">        <span class="n">m</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span></span>
@@ -217,7 +156,7 @@ kmp进行字符串的匹配。时间复杂度为O(n)的kmp字符串匹配长度�
 <span class="code-line">                <span class="n">j</span> <span class="o">=</span> <span class="n">prefix</span><span class="p">[</span><span class="n">j</span><span class="p">]</span></span>
 <span class="code-line">            <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">haystack</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span></span>
 <span class="code-line">                <span class="n">j</span> <span class="o">=</span> <span class="n">j</span><span class="o">+</span><span class="mi">1</span></span>
-<span class="code-line">        <span class="k">return</span> <span class="n">s</span><span class="p">[</span><span class="n">m</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="n">j</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">s</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">s</span><span class="p">[</span><span class="n">m</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="n">j</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">s</span> </span>
 <span class="code-line">    <span class="k">def</span> <span class="nf">compute_prefix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">P</span><span class="p">):</span></span>
 <span class="code-line">        <span class="n">m</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">P</span><span class="p">)</span></span>
 <span class="code-line">        <span class="n">prefix</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">)]</span></span>
@@ -228,9 +167,9 @@ kmp进行字符串的匹配。时间复杂度为O(n)的kmp字符串匹配长度�
 <span class="code-line">            <span class="k">if</span> <span class="n">P</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="n">P</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span></span>
 <span class="code-line">                <span class="n">j</span><span class="o">+=</span><span class="mi">1</span></span>
 <span class="code-line">            <span class="n">prefix</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">j</span></span>
-<span class="code-line">        <span class="k">return</span> <span class="n">prefix</span>    </span>
+<span class="code-line">        <span class="k">return</span> <span class="n">prefix</span></span>
 </pre></div>
-</td></tr></table>
+<p>其中 s[m-1:j:-1] 表示s中的字符串从j到最后一位的反转。</p>
 <section>
 <div class="accordion" id="accordion2">
     <div class="accordion-group">
