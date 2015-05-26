@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Write the Code</title><link>www.houcj.net/</link><description></description><atom:link href="www.houcj.net/feed.xml" rel="self"></atom:link><lastBuildDate>Sun, 24 May 2015 10:24:00 +0800</lastBuildDate><item><title>选择问题</title><link>www.houcj.net/blog/2015/05/24/select/</link><description>&lt;hr/&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Write the Code</title><link>www.houcj.net/</link><description></description><atom:link href="www.houcj.net/feed.xml" rel="self"></atom:link><lastBuildDate>Sun, 24 May 2015 10:24:00 +0800</lastBuildDate><item><title>选择算法</title><link>www.houcj.net/blog/2015/05/24/select/</link><description>&lt;hr/&gt;
 &lt;h2 id="_1"&gt;选择问题&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;输入：&lt;/strong&gt;一个包含n个元素的集合A和一个整数i， 1 \leq i \leq n
 &lt;strong&gt;输出：&lt;/strong&gt;元素x属于A，且A中恰好有i-1个元素小于（大于）它。&lt;/p&gt;
@@ -757,25 +757,32 @@ DFS调用中，就会找到一个连通分支，直到遍历图中的所有节�
 &lt;p&gt;&lt;strong&gt;黑天鹅：如何应对不可预知的未来 [0%]&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;从0到1开启商业与未来的秘密 [0%]&lt;/strong&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h2 id="6_1"&gt;6.美剧&amp;amp;英剧&lt;/h2&gt;
-&lt;hr/&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Black Books [Done]&lt;/p&gt;
-&lt;p&gt;Downton Abbey [Done]&lt;/p&gt;
-&lt;p&gt;The IT Crowd [Done]&lt;/p&gt;
-&lt;p&gt;Sherlock [Done] &lt;/p&gt;
-&lt;p&gt;Black Mirror [Done]&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;hr/&gt;
-&lt;blockquote&gt;
-&lt;p&gt;The Big Bong Thoery [Done]&lt;/p&gt;
-&lt;p&gt;Game of Thrones [Done]&lt;/p&gt;
-&lt;p&gt;Prison Break [Done]&lt;/p&gt;
-&lt;p&gt;Breaking Bad [Done]&lt;/p&gt;
-&lt;p&gt;House of Cards [Done]&lt;/p&gt;
-&lt;p&gt;Hannibal [Done]&lt;/p&gt;
-&lt;p&gt;True Detective [Done]&lt;/p&gt;
-&lt;/blockquote&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Fri, 08 May 2015 13:50:00 +0800</pubDate><guid>tag:,2015-05-08:www.houcj.net/blog/2015/05/08/my-booklist/</guid><category>书单</category></item><item><title>德州扑克AI</title><link>www.houcj.net/blog/2015/05/07/huawei-related/</link><description>&lt;hr/&gt;
+&lt;!-- ## 6.美剧&amp;英剧 ##
+
+----------&gt; Black Books [Done]
+
+&amp;gt; Downton Abbey [Done]
+
+&amp;gt; The IT Crowd [Done]
+
+&amp;gt; Sherlock [Done] 
+
+&amp;gt; Black Mirror [Done]
+***
+&amp;gt; The Big Bong Thoery [Done]
+
+&amp;gt; Game of Thrones [Done]
+
+&amp;gt; Prison Break [Done]
+
+&amp;gt; Breaking Bad [Done]
+
+&amp;gt; House of Cards [Done]
+
+&amp;gt; Hannibal [Done]
+
+&amp;gt;True Detective [Done]
+--&amp;gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Fri, 08 May 2015 13:50:00 +0800</pubDate><guid>tag:,2015-05-08:www.houcj.net/blog/2015/05/08/my-booklist/</guid><category>书单</category></item><item><title>德州扑克AI</title><link>www.houcj.net/blog/2015/05/07/huawei-related/</link><description>&lt;hr/&gt;
 &lt;ul&gt;
 &lt;li&gt;解压缩文件：&lt;/li&gt;
 &lt;/ul&gt;
