@@ -151,7 +151,7 @@ t[i][j] =
 }
 &lt;/script&gt;</summary><category term="dp"></category></entry><entry><title>选择算法</title><link href="www.houcj.net/blog/2015/05/24/select/" rel="alternate"></link><updated>2015-05-24T10:24:00+08:00</updated><author><name>ChaoJun Hou</name></author><id>tag:,2015-05-24:www.houcj.net/blog/2015/05/24/select/</id><summary type="html">&lt;hr/&gt;
 &lt;h2 id="_1"&gt;选择问题&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;输入：&lt;/strong&gt;一个包含n个元素的集合A和一个整数i， 1 \leq i \leq n
+&lt;p&gt;&lt;strong&gt;输入：&lt;/strong&gt;一个包含n个元素的集合A和一个整数i， 1 &amp;le; i &amp;le;    n
 &lt;strong&gt;输出：&lt;/strong&gt;元素x属于A，且A中恰好有i-1个元素小于（大于）它。&lt;/p&gt;
 &lt;h3 id="k"&gt;第k大元素&lt;/h3&gt;
 &lt;blockquote&gt;
