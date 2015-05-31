@@ -73,7 +73,7 @@
     <div class="span2 table-of-content">
         <nav>
         <h4>Contents</h4>
-        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="选择算法">选择算法</a><ul><li><a class="toc-href" href="#_1" title="选择问题">选择问题</a><ul><li><a class="toc-href" href="#k" title="第k大元素">第k大元素</a><ul><li><a class="toc-href" href="#_2" title="分析">分析</a></li><li><a class="toc-href" href="#python-code" title="Python Code">Python Code</a></li></ul></li><li><a class="toc-href" href="#_4" title="两个排序数组的中的中位数">两个排序数组的中的中位数</a><ul><li><a class="toc-href" href="#_5" title="分析">分析</a></li><li><a class="toc-href" href="#python-code_1" title="Python Code">Python Code</a></li></ul></li></ul></li></ul></li></ul></div></body></html>
+        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="选择算法">选择算法</a><ul><li><a class="toc-href" href="#_1" title="选择问题">选择问题</a><ul><li><a class="toc-href" href="#find-minimum-in-rotated-sorted-array" title="Find Minimum in Rotated Sorted Array">Find Minimum in Rotated Sorted Array</a><ul><li><a class="toc-href" href="#_2" title="分析">分析</a></li><li><a class="toc-href" href="#python-code" title="Python Code">Python Code</a></li><li><a class="toc-href" href="#_3" title="递归版本">递归版本</a></li><li><a class="toc-href" href="#_4" title="迭代版本">迭代版本</a></li></ul></li><li><a class="toc-href" href="#k_1" title="第k大元素">第k大元素</a><ul><li><a class="toc-href" href="#_5" title="分析">分析</a></li><li><a class="toc-href" href="#python-code_1" title="Python Code">Python Code</a></li></ul></li><li><a class="toc-href" href="#_7" title="两个排序数组的中的中位数">两个排序数组的中的中位数</a><ul><li><a class="toc-href" href="#_8" title="分析">分析</a></li><li><a class="toc-href" href="#python-code_2" title="Python Code">Python Code</a></li></ul></li></ul></li></ul></li></ul></div></body></html>
         </nav>
     </div>
     <div class="span8 article-content">
@@ -82,7 +82,50 @@
 <h2 id="_1">选择问题</h2>
 <p><strong>输入：</strong>一个包含n个元素的集合A和一个整数i， 1 &le; i &le;    n
 <strong>输出：</strong>元素x属于A，且A中恰好有i-1个元素小于（大于）它。</p>
-<h3 id="k">第k大元素</h3>
+<h3 id="find-minimum-in-rotated-sorted-array">Find Minimum in Rotated Sorted Array</h3>
+<blockquote>
+<p>Suppose a sorted array is rotated at some pivot unknown to you beforehand.</p>
+<p>(i.e., 0 1 2 4 5 6 7 might become 4 5 6 7 0 1 2).</p>
+<p>Find the minimum element.</p>
+<p>You may assume no duplicate exists in the array.</p>
+</blockquote>
+<h4 id="_2">分析</h4>
+<p>我们知道，旋转后的左右部分都是有序的，若中间元素小于右边的元素，则最小值一定在
+左边的集中，否则就在右边的集合中。</p>
+<h4 id="python-code">Python Code</h4>
+<h4 id="_3">递归版本</h4>
+<div class="highlight"><pre><span class="code-line"><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span></span>
+<span class="code-line">    <span class="c"># @param num, a list of integer</span></span>
+<span class="code-line">    <span class="c"># @return an integer</span></span>
+<span class="code-line">    <span class="k">def</span> <span class="nf">findMin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">):</span></span>
+<span class="code-line">        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">num</span><span class="p">)</span></span>
+<span class="code-line">        <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span></span>
+<span class="code-line">        <span class="k">while</span> <span class="n">left</span> <span class="o">&lt;</span> <span class="n">right</span> <span class="ow">and</span> <span class="n">num</span><span class="p">[</span><span class="n">left</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">num</span> <span class="p">[</span><span class="n">right</span><span class="p">]</span> <span class="p">:</span></span>
+<span class="code-line">            <span class="n">mid</span> <span class="o">=</span> <span class="n">left</span> <span class="o">+</span> <span class="p">(</span><span class="n">right</span><span class="o">-</span><span class="n">left</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span></span>
+<span class="code-line">            <span class="k">if</span> <span class="n">num</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">num</span><span class="p">[</span><span class="n">right</span><span class="p">]:</span></span>
+<span class="code-line">                <span class="n">right</span>  <span class="o">=</span> <span class="n">mid</span></span>
+<span class="code-line">            <span class="k">else</span><span class="p">:</span></span>
+<span class="code-line">                <span class="n">left</span> <span class="o">=</span> <span class="n">mid</span><span class="o">+</span><span class="mi">1</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">num</span><span class="p">[</span><span class="n">left</span><span class="p">]</span></span>
+</pre></div>
+<h4 id="_4">迭代版本</h4>
+<div class="highlight"><pre><span class="code-line"><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span></span>
+<span class="code-line">    <span class="c"># @param num, a list of integer</span></span>
+<span class="code-line">    <span class="c"># @return an integer</span></span>
+<span class="code-line">    <span class="k">def</span> <span class="nf">findMin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">):</span></span>
+<span class="code-line">        <span class="n">length</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">num</span><span class="p">)</span></span>
+<span class="code-line">        <span class="k">if</span> <span class="n">length</span><span class="o">&lt;</span><span class="mi">4</span><span class="p">:</span></span>
+<span class="code-line">            <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="n">num</span><span class="p">)</span></span>
+<span class="code-line">        <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">length</span><span class="o">-</span><span class="mi">1</span></span>
+<span class="code-line">        <span class="k">while</span> <span class="n">left</span> <span class="o">&lt;</span> <span class="n">right</span> <span class="ow">and</span> <span class="n">num</span><span class="p">[</span><span class="n">left</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">num</span> <span class="p">[</span><span class="n">right</span><span class="p">]:</span></span>
+<span class="code-line">            <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">right</span> <span class="o">-</span> <span class="n">left</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="n">left</span></span>
+<span class="code-line">            <span class="k">if</span> <span class="n">num</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">num</span><span class="p">[</span><span class="n">right</span><span class="p">]:</span></span>
+<span class="code-line">                <span class="n">left</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span></span>
+<span class="code-line">            <span class="k">else</span><span class="p">:</span></span>
+<span class="code-line">                <span class="n">right</span> <span class="o">=</span> <span class="n">mid</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">num</span><span class="p">[</span><span class="n">left</span><span class="p">]</span></span>
+</pre></div>
+<h3 id="k_1">第k大元素</h3>
 <blockquote>
 <p>Find the kth largest element in an unsorted array. Note that it is the kth largest element in the sorted order, not the kth distinct element.</p>
 <p>For example,
@@ -90,13 +133,15 @@ Given [3,2,1,5,6,4] and k = 2, return 5.</p>
 <p>Note: 
 You may assume k is always valid, 1 &le; k &le; array's length.</p>
 </blockquote>
-<h4 id="_2">分析</h4>
-<p>这里使用一个期望为O（n）的算法， 空间复杂度为O(lgn)的算法。
-- 随机从集合中选出一个元素，使用和快排类似的partion算法，找到这个元素在集合中的新位置index
-- 由于是第k大，因此比较<strong>n-index-1</strong>与<strong>k</strong>的大小。如果相等则即为找到的元素
-- 如果n-index-1 &lt; n-k，递归处理左半部分,其中k = k - (n-index-1)
-- 否则递归处理右半部分。</p>
-<h4 id="python-code">Python Code</h4>
+<h4 id="_5">分析</h4>
+<p>这里使用一个期望为O（n）的算法， 空间复杂度为O(lgn)的算法。</p>
+<ul>
+<li>随机从集合中选出一个元素，使用和快排类似的partion算法，找到这个元素在集合中的新位置index</li>
+<li>由于是第k大，因此比较<strong>n-index-1</strong>与<strong>k</strong>的大小。如果相等则即为找到的元素</li>
+<li>如果n-index-1 &lt; n-k，递归处理左半部分,其中k = k - (n-index-1)</li>
+<li>否则递归处理右半部分。</li>
+</ul>
+<h4 id="python-code_1">Python Code</h4>
 <div class="highlight"><pre><span class="code-line"><span class="kn">import</span> <span class="nn">random</span></span>
 <span class="code-line"><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span></span>
 <span class="code-line">    <span class="k">def</span> <span class="nf">findKthLargest</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nums</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span></span>
@@ -121,15 +166,15 @@ You may assume k is always valid, 1 &le; k &le; array's length.</p>
 <span class="code-line">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">findKthLargest</span><span class="p">(</span><span class="n">nums</span><span class="p">[:</span><span class="n">n</span><span class="o">-</span><span class="n">cnt</span><span class="p">],</span><span class="n">k</span><span class="o">-</span><span class="n">cnt</span><span class="p">)</span></span>
 </pre></div>
 <p><strong>下面的例子是findK应用的推广</strong></p>
-<h3 id="_4">两个排序数组的中的中位数</h3>
+<h3 id="_7">两个排序数组的中的中位数</h3>
 <blockquote>
 <p>There are two sorted arrays nums1 and nums2 of size m and n respectively. Find the median of the two sorted arrays. 
 The overall run time complexity should be O(log (m+n)).</p>
 </blockquote>
-<h4 id="_5">分析</h4>
+<h4 id="_8">分析</h4>
 <p>由于数组已经是排序的，因此使用上面的findK算法，每次都可以确定的缩小一半的查找范围。同时，如果两个数组长度
 之和为偶数，中位数为连个中间数的平均数，如果为奇数，则中位数即为中间数。</p>
-<h4 id="python-code_1">Python Code</h4>
+<h4 id="python-code_2">Python Code</h4>
 <div class="highlight"><pre><span class="code-line"><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span></span>
 <span class="code-line">    <span class="c"># @return a float</span></span>
 <span class="code-line">    <span class="k">def</span> <span class="nf">findMedianSortedArrays</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">):</span></span>
