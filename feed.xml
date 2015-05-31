@@ -67,7 +67,31 @@ merge,如果最后的元素还有剩余就全部append到result中.&lt;/p&gt;
 &lt;span class="code-line"&gt;            &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;res&lt;/span&gt; &lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
-&lt;h2 id="_6"&gt;二分查找&lt;/h2&gt;
+&lt;h3 id="first-missing-positive_1"&gt;First Missing Positive&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Given an unsorted integer array, find the first missing positive integer.&lt;/p&gt;
+&lt;p&gt;For example,
+Given [1,2,0] return 3,
+and [3,4,-1,1] return 2.&lt;/p&gt;
+&lt;p&gt;Your algorithm should run in O(n) time and uses constant space.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id="_4"&gt;分析&lt;/h4&gt;
+&lt;p&gt;这里只需要把正确的位置放上正确的元素即可。如把4放在A[3]的位置&lt;/p&gt;
+&lt;h4 id="python-code_1"&gt;Python Code&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Solution&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="c"&gt;# @param A, a list of integers&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="c"&gt;# @return an integer&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;firstMissingPositive&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;        &lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;        &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;            &lt;span class="k"&gt;while&lt;/span&gt;  &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="ow"&gt;and&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;=&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;  &lt;span class="ow"&gt;and&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;                &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;        &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;            &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;!=&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;                &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id="_7"&gt;二分查找&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;条件：&lt;/strong&gt;有序数组
 &lt;strong&gt;原理：&lt;/strong&gt;查找过程从数组的中间元素开始，&lt;/p&gt;
 &lt;ul&gt;
@@ -84,11 +108,11 @@ merge,如果最后的元素还有剩余就全部append到result中.&lt;/p&gt;
 &lt;p&gt;You are given a target value to search. If found in the array return its index, otherwise return -1.&lt;/p&gt;
 &lt;p&gt;You may assume no duplicate exists in the array.&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h4 id="_7"&gt;分析&lt;/h4&gt;
+&lt;h4 id="_8"&gt;分析&lt;/h4&gt;
 &lt;p&gt;虽然这个数组不是完全有序的，但是每次的左半部分或者右半部分都是
 有序的，这样我们使用二分查找，每次都可以去掉一半的不符合条件的值。
 同时注意边界条件。&lt;/p&gt;
-&lt;h4 id="python-code_1"&gt;Python Code&lt;/h4&gt;
+&lt;h4 id="python-code_2"&gt;Python Code&lt;/h4&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Solution&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;    &lt;span class="c"&gt;# @param A, a list of integers&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;    &lt;span class="c"&gt;# @param target, an integer to be searched&lt;/span&gt;&lt;/span&gt;
@@ -127,11 +151,11 @@ merge,如果最后的元素还有剩余就全部append到result中.&lt;/p&gt;
 &lt;p&gt;Input: numbers={2, 7, 11, 15}, target=9
 Output: index1=1, index2=2&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h4 id="_8"&gt;分析&lt;/h4&gt;
+&lt;h4 id="_9"&gt;分析&lt;/h4&gt;
 &lt;p&gt;可以使用字典存储该元素以及它所对应的下标，那么如果两个元素的和满足target。
 就可以直接根据他们的值线性时间取出他们的下标，时间复杂度为 O(n)。
 可能需要遍历表中的所有元素。&lt;/p&gt;
-&lt;h4 id="python-code_2"&gt;Python Code&lt;/h4&gt;
+&lt;h4 id="python-code_3"&gt;Python Code&lt;/h4&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Solution&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;    &lt;span class="c"&gt;# @return a tuple, (index1, index2)&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;twoSum&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;num&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;target&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;&lt;/span&gt;

@@ -73,7 +73,7 @@
     <div class="span2 table-of-content">
         <nav>
         <h4>Contents</h4>
-        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="查找算法">查找算法</a><ul><li><a class="toc-href" href="#_1" title="查找算法">查找算法</a><ul><li><a class="toc-href" href="#_2" title="顺序查找">顺序查找</a><ul><li><a class="toc-href" href="#insert-interval" title="Insert Interval">Insert Interval</a></li><li><a class="toc-href" href="#_3" title="分析">分析</a><ul><li><a class="toc-href" href="#python-code" title="Python Code">Python Code</a></li></ul></li></ul></li><li><a class="toc-href" href="#_6" title="二分查找">二分查找</a><ul><li><a class="toc-href" href="#search-in-rotated-sorted-array" title="Search in Rotated Sorted Array">Search in Rotated Sorted Array</a><ul><li><a class="toc-href" href="#_7" title="分析">分析</a></li><li><a class="toc-href" href="#python-code_1" title="Python Code">Python Code</a></li></ul></li></ul></li><li><a class="toc-href" href="#hash_2" title="Hash表查找">Hash表查找</a><ul><li><a class="toc-href" href="#two-sum" title="Two Sum">Two Sum</a><ul><li><a class="toc-href" href="#_8" title="分析">分析</a></li><li><a class="toc-href" href="#python-code_2" title="Python Code">Python Code</a></li></ul></li></ul></li></ul></li></ul></li></ul></div></body></html>
+        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="查找算法">查找算法</a><ul><li><a class="toc-href" href="#_1" title="查找算法">查找算法</a><ul><li><a class="toc-href" href="#_2" title="顺序查找">顺序查找</a><ul><li><a class="toc-href" href="#insert-interval" title="Insert Interval">Insert Interval</a></li><li><a class="toc-href" href="#_3" title="分析">分析</a><ul><li><a class="toc-href" href="#python-code" title="Python Code">Python Code</a></li></ul></li><li><a class="toc-href" href="#first-missing-positive_1" title="First Missing Positive">First Missing Positive</a><ul><li><a class="toc-href" href="#_4" title="分析">分析</a></li><li><a class="toc-href" href="#python-code_1" title="Python Code">Python Code</a></li></ul></li></ul></li><li><a class="toc-href" href="#_7" title="二分查找">二分查找</a><ul><li><a class="toc-href" href="#search-in-rotated-sorted-array" title="Search in Rotated Sorted Array">Search in Rotated Sorted Array</a><ul><li><a class="toc-href" href="#_8" title="分析">分析</a></li><li><a class="toc-href" href="#python-code_2" title="Python Code">Python Code</a></li></ul></li></ul></li><li><a class="toc-href" href="#hash_2" title="Hash表查找">Hash表查找</a><ul><li><a class="toc-href" href="#two-sum" title="Two Sum">Two Sum</a><ul><li><a class="toc-href" href="#_9" title="分析">分析</a></li><li><a class="toc-href" href="#python-code_3" title="Python Code">Python Code</a></li></ul></li></ul></li></ul></li></ul></li></ul></div></body></html>
         </nav>
     </div>
     <div class="span8 article-content">
@@ -124,7 +124,31 @@ merge,如果最后的元素还有剩余就全部append到result中.</p>
 <span class="code-line">            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span></span>
 <span class="code-line">        <span class="k">return</span> <span class="n">res</span> </span>
 </pre></div>
-<h2 id="_6">二分查找</h2>
+<h3 id="first-missing-positive_1">First Missing Positive</h3>
+<blockquote>
+<p>Given an unsorted integer array, find the first missing positive integer.</p>
+<p>For example,
+Given [1,2,0] return 3,
+and [3,4,-1,1] return 2.</p>
+<p>Your algorithm should run in O(n) time and uses constant space.</p>
+</blockquote>
+<h4 id="_4">分析</h4>
+<p>这里只需要把正确的位置放上正确的元素即可。如把4放在A[3]的位置</p>
+<h4 id="python-code_1">Python Code</h4>
+<div class="highlight"><pre><span class="code-line"><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span></span>
+<span class="code-line">    <span class="c"># @param A, a list of integers</span></span>
+<span class="code-line">    <span class="c"># @return an integer</span></span>
+<span class="code-line">    <span class="k">def</span> <span class="nf">firstMissingPositive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">A</span><span class="p">):</span></span>
+<span class="code-line">        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">)</span></span>
+<span class="code-line">        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span></span>
+<span class="code-line">            <span class="k">while</span>  <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span> <span class="ow">and</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&lt;=</span> <span class="n">n</span>  <span class="ow">and</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">A</span><span class="p">[</span><span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="p">:</span></span>
+<span class="code-line">                <span class="n">A</span><span class="p">[</span><span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">A</span><span class="p">[</span><span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></span>
+<span class="code-line">        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span></span>
+<span class="code-line">            <span class="k">if</span> <span class="n">A</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">!=</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span></span>
+<span class="code-line">                <span class="k">return</span> <span class="n">x</span><span class="o">+</span><span class="mi">1</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span></span>
+</pre></div>
+<h2 id="_7">二分查找</h2>
 <p><strong>条件：</strong>有序数组
 <strong>原理：</strong>查找过程从数组的中间元素开始，</p>
 <ul>
@@ -141,11 +165,11 @@ merge,如果最后的元素还有剩余就全部append到result中.</p>
 <p>You are given a target value to search. If found in the array return its index, otherwise return -1.</p>
 <p>You may assume no duplicate exists in the array.</p>
 </blockquote>
-<h4 id="_7">分析</h4>
+<h4 id="_8">分析</h4>
 <p>虽然这个数组不是完全有序的，但是每次的左半部分或者右半部分都是
 有序的，这样我们使用二分查找，每次都可以去掉一半的不符合条件的值。
 同时注意边界条件。</p>
-<h4 id="python-code_1">Python Code</h4>
+<h4 id="python-code_2">Python Code</h4>
 <div class="highlight"><pre><span class="code-line"><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span></span>
 <span class="code-line">    <span class="c"># @param A, a list of integers</span></span>
 <span class="code-line">    <span class="c"># @param target, an integer to be searched</span></span>
@@ -184,11 +208,11 @@ merge,如果最后的元素还有剩余就全部append到result中.</p>
 <p>Input: numbers={2, 7, 11, 15}, target=9
 Output: index1=1, index2=2</p>
 </blockquote>
-<h4 id="_8">分析</h4>
+<h4 id="_9">分析</h4>
 <p>可以使用字典存储该元素以及它所对应的下标，那么如果两个元素的和满足target。
 就可以直接根据他们的值线性时间取出他们的下标，时间复杂度为 O(n)。
 可能需要遍历表中的所有元素。</p>
-<h4 id="python-code_2">Python Code</h4>
+<h4 id="python-code_3">Python Code</h4>
 <div class="highlight"><pre><span class="code-line"><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span></span>
 <span class="code-line">    <span class="c"># @return a tuple, (index1, index2)</span></span>
 <span class="code-line">    <span class="k">def</span> <span class="nf">twoSum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span></span>
