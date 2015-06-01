@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="utf-8"> 
+        <meta name="google-site-verification" content="fdZTDVFyX3hKovPIzn1tgPixk_wysBXaPN8YQw1P8Jw" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="ChaoJun Hou" />
+        <meta name="copyright" content="ChaoJun Hou" />
+
+<meta name="keywords" content="算法, 计算机科学, " />
+        <title>排序算法  · Change the World| Write the Code
+</title>
+        <link href="http://cdn-images.mailchimp.com/embedcode/slim-081711.css" rel="stylesheet" type="text/css">
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="../../../../../theme/css/style.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="../../../../../theme/css/solarizedlight.css" media="screen">
+        <link rel="shortcut icon" href="../../../../../theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="apple-touch-icon" href="../../../../../theme/images/apple-touch-icon.png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="../../../../../theme/images/apple-touch-icon-57x57.png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="../../../../../theme/images/apple-touch-icon-72x72.png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="../../../../../theme/images/apple-touch-icon-114x114.png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="../../../../../theme/images/apple-touch-icon-144x144.png" />
+        <link rel="icon" href="../../../../../theme/images/apple-touch-icon-144x144.png" />
+        <link href="www.houcj.net/feed.xml" type="application/rss+xml" rel="alternate" title="Write the Code - Full RSS Feed" />
+    <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '61957498']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+    </script>
+    </head>
+    <body>
+        <div id="content-sans-footer">
+        <div class="navbar navbar-static-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../../../../"><span class=site-name>Write the Code</span></a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav pull-right top-menu">
+                            <li ><a href="../../../../..">Home</a></li>
+                            <li ><a href="../../../../../pages/About.html">About</a></li>
+                            <li ><a href="../../../../../random.html">Pick One!</a></li>
+                            <li ><a href="../../../../../categories.html">分类</a></li>
+                            <li ><a href="../../../../../tags.html">标签</a></li>
+                            <li ><a href="../../../../../archives.html">归档</a></li>
+                            <li><form class="navbar-search" action="../../../../../search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span1"></div>
+                <div class="span10">
+<article>
+<div class="row-fluid">
+    <header class="page_header span10 offset2">
+    <h1><a href="../../../../../blog/2015/05/31/sort1/"> 排序算法  </a></h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+    <div class="span2 table-of-content">
+        <nav>
+        <h4>Contents</h4>
+        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="排序算法">排序算法</a><ul><li><a class="toc-href" href="#_1" title="排序算法">排序算法</a><ul><li><a class="toc-href" href="#_2" title="归并排序">归并排序</a><ul><li><a class="toc-href" href="#sort-list" title="Sort List">Sort List</a><ul><li><a class="toc-href" href="#_3" title="分析">分析</a></li><li><a class="toc-href" href="#python-code" title="Python Code">Python Code</a></li></ul></li></ul></li><li><a class="toc-href" href="#_6" title="快速排序">快速排序</a><ul><li><a class="toc-href" href="#largest-number" title="Largest Number">Largest Number</a><ul><li><a class="toc-href" href="#_7" title="分析">分析</a></li><li><a class="toc-href" href="#python-code_1" title="Python Code">Python Code</a></li></ul></li></ul></li><li><a class="toc-href" href="#_10" title="堆排序">堆排序</a><ul><li><a class="toc-href" href="#merge-k-sorted-lists" title="Merge k Sorted Lists">Merge k Sorted Lists</a><ul><li><a class="toc-href" href="#_11" title="分析">分析</a></li><li><a class="toc-href" href="#python-code_2" title="Python Code">Python Code</a></li></ul></li></ul></li><li><a class="toc-href" href="#_14" title="基数排序">基数排序</a><ul><li><a class="toc-href" href="#maximum-gap" title="Maximum Gap">Maximum Gap</a><ul><li><a class="toc-href" href="#_15" title="分析">分析</a></li><li><a class="toc-href" href="#python-code_3" title="Python Code">Python Code</a></li></ul></li></ul></li><li><a class="toc-href" href="#_18" title="桶排序">桶排序</a></li><li><a class="toc-href" href="#_19" title="计数排序">计数排序</a></li></ul></li></ul></li></ul></div></body></html>
+        </nav>
+    </div>
+    <div class="span8 article-content">
+
+            <hr/>
+<h1 id="_1">排序算法</h1>
+<h2 id="_2">归并排序</h2>
+<p>归并排序是分治模式的典型代表. 所谓的分治模式就是将原问题分解为几个
+规模较小但类似于原问题的子问题, 递归地求解这些子问题,然后再合并这些子问题的
+解来建立原问题的解.
+<img align="center" alt="divide and conquer" class="img-responsive" src="/images/divide.png"/></p>
+<h3 id="sort-list">Sort List</h3>
+<blockquote>
+<p>Sort a linked list in O(n log n) time using constant space complexity.</p>
+</blockquote>
+<h4 id="_3">分析</h4>
+<p>链表的查找需要遍历整个链表,因为应该使用尽可能少的查找操作.这里使用归并排序的算法.
+首先找到链表的中点,把链表递归的分成左右两部分,然后对左右两部分进行归并操作.</p>
+<h4 id="python-code">Python Code</h4>
+<div class="highlight"><pre><span class="code-line"><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span></span>
+<span class="code-line">    <span class="c"># @param head, a ListNode</span></span>
+<span class="code-line">    <span class="c"># @return a ListNode</span></span>
+<span class="code-line">    <span class="k">def</span> <span class="nf">sortList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">head</span><span class="p">):</span></span>
+<span class="code-line">        <span class="k">if</span> <span class="ow">not</span> <span class="n">head</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">head</span><span class="o">.</span><span class="n">next</span><span class="p">:</span></span>
+<span class="code-line">            <span class="k">return</span> <span class="n">head</span></span>
+<span class="code-line">        <span class="n">slow</span><span class="o">=</span><span class="n">head</span></span>
+<span class="code-line">        <span class="n">fast</span><span class="o">=</span><span class="n">head</span></span>
+<span class="code-line">        <span class="k">while</span> <span class="n">fast</span><span class="o">.</span><span class="n">next</span> <span class="ow">and</span> <span class="n">fast</span><span class="o">.</span><span class="n">next</span><span class="o">.</span><span class="n">next</span><span class="p">:</span></span>
+<span class="code-line">            <span class="n">slow</span><span class="o">=</span><span class="n">slow</span><span class="o">.</span><span class="n">next</span></span>
+<span class="code-line">            <span class="n">fast</span><span class="o">=</span><span class="n">fast</span><span class="o">.</span><span class="n">next</span><span class="o">.</span><span class="n">next</span></span>
+<span class="code-line">        <span class="n">head1</span><span class="o">=</span><span class="n">head</span></span>
+<span class="code-line">        <span class="n">head2</span><span class="o">=</span><span class="n">slow</span><span class="o">.</span><span class="n">next</span></span>
+<span class="code-line">        <span class="n">slow</span><span class="o">.</span><span class="n">next</span><span class="o">=</span><span class="bp">None</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sortList</span><span class="p">(</span><span class="n">head1</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">sortList</span><span class="p">(</span><span class="n">head2</span><span class="p">))</span></span>
+<span class="code-line">    <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">head1</span><span class="p">,</span><span class="n">head2</span><span class="p">):</span></span>
+<span class="code-line">        <span class="k">if</span> <span class="n">head1</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span></span>
+<span class="code-line">            <span class="k">return</span> <span class="n">head2</span></span>
+<span class="code-line">        <span class="k">if</span> <span class="n">head2</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span></span>
+<span class="code-line">            <span class="k">return</span> <span class="n">head2</span></span>
+<span class="code-line">        <span class="n">dummy</span><span class="o">=</span><span class="n">ListNode</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span></span>
+<span class="code-line">        <span class="n">pre</span><span class="o">=</span><span class="n">dummy</span></span>
+<span class="code-line">        <span class="k">while</span> <span class="n">head1</span> <span class="ow">and</span> <span class="n">head2</span><span class="p">:</span></span>
+<span class="code-line">            <span class="k">if</span> <span class="n">head1</span><span class="o">.</span><span class="n">val</span><span class="o">&lt;</span><span class="n">head2</span><span class="o">.</span><span class="n">val</span><span class="p">:</span></span>
+<span class="code-line">                <span class="n">pre</span><span class="o">.</span><span class="n">next</span><span class="o">=</span><span class="n">head1</span></span>
+<span class="code-line">                <span class="n">head1</span><span class="o">=</span><span class="n">head1</span><span class="o">.</span><span class="n">next</span></span>
+<span class="code-line">            <span class="k">else</span><span class="p">:</span></span>
+<span class="code-line">                <span class="n">pre</span><span class="o">.</span><span class="n">next</span><span class="o">=</span><span class="n">head2</span></span>
+<span class="code-line">                <span class="n">head2</span><span class="o">=</span><span class="n">head2</span><span class="o">.</span><span class="n">next</span></span>
+<span class="code-line">            <span class="n">pre</span><span class="o">=</span><span class="n">pre</span><span class="o">.</span><span class="n">next</span></span>
+<span class="code-line">        <span class="k">if</span> <span class="n">head1</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span></span>
+<span class="code-line">            <span class="n">pre</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">head2</span></span>
+<span class="code-line">        <span class="k">if</span> <span class="n">head2</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span></span>
+<span class="code-line">            <span class="n">pre</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">head1</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">dummy</span><span class="o">.</span><span class="n">next</span> </span>
+</pre></div>
+<p><strong>同时归并排序有很好的并行性</strong></p>
+<div class="highlight"><pre><span class="code-line"><span class="k">def</span> <span class="nf">mergesort</span><span class="s">'(A, lo, hi):</span></span>
+<span class="code-line">    <span class="k">if</span> <span class="n">lo</span><span class="o">+</span><span class="mi">1</span> <span class="o">&lt;</span> <span class="n">hi</span><span class="p">:</span> <span class="c"># two or more elements</span></span>
+<span class="code-line">        <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">lo</span> <span class="o">+</span> <span class="n">hi</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span></span>
+<span class="code-line">        <span class="n">fork</span> <span class="n">mergesort</span><span class="s">'(A, lo, mid)</span></span>
+<span class="code-line">        <span class="n">mergesort</span><span class="s">'(A, mid, hi)</span></span>
+<span class="code-line">        <span class="n">join</span></span>
+<span class="code-line">        <span class="n">merge</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">lo</span><span class="p">,</span> <span class="n">mid</span><span class="p">,</span> <span class="n">hi</span><span class="p">)</span></span>
+</pre></div>
+<h2 id="_6">快速排序</h2>
+<p>快速排序也是使用了分治的思想. 下面是对一个典型的子数组A[lo..hi]的三步分治过程:</p>
+<ul>
+<li><strong>分解:</strong> 数组A[lo..hi]被划分为左右两个子数组A[lo..q-1], A[q+1..hi],使得左边数组的每个
+元素都小于等于A[q],而右边数组的每个元素都大于等于A[q].其中,计算下标q也是划分过程的一部分.</li>
+<li><strong>解决:</strong> 通过递归调用快速排序,对左右两个子数组进行排序</li>
+<li><strong>合并</strong> 因为子数组都是原地排序的,所以不需要合并操作:数组A[lo..hi]已经有序.</li>
+</ul>
+<h3 id="largest-number">Largest Number</h3>
+<blockquote>
+<p>Given a list of non negative integers, arrange them such that they form the largest number.</p>
+<p>For example, given [3, 30, 34, 5, 9], the largest formed number is 9534330.</p>
+<p>Note: The result may be very large, so you need to return a string instead of an integer.</p>
+</blockquote>
+<h4 id="_7">分析</h4>
+<p>将这两个数字，作为一个整体，进行比较。然后一次排序, 就可以得到结果.这里使用快速排序.
+给定例子：3,30,34</p>
+<ul>
+<li>
+<p>比较3和30，实际上就是比较330和303哪个大</p>
+</li>
+<li>
+<p>比较3和34，实际上就是比较334和343哪个大</p>
+</li>
+<li>
+<p>比较30和34，实际上就是比较3034和3430哪个大</p>
+</li>
+</ul>
+<p>那我们对快排程序做一下变化，当两个数字a和b进行比较时，比较的是ab和ba两个数字的大小即可。</p>
+<h4 id="python-code_1">Python Code</h4>
+<div class="highlight"><pre><span class="code-line"><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span></span>
+<span class="code-line">    <span class="c"># @param num, a list of integers</span></span>
+<span class="code-line">    <span class="c"># @return a string</span></span>
+<span class="code-line">    <span class="k">def</span> <span class="nf">largestNumber</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">):</span></span>
+<span class="code-line">        <span class="k">def</span> <span class="nf">quickSort</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">):</span></span>
+<span class="code-line">            <span class="k">def</span> <span class="nf">partition</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">):</span></span>
+<span class="code-line">                <span class="n">x</span> <span class="o">=</span> <span class="n">num</span><span class="p">[</span><span class="n">high</span><span class="p">]</span></span>
+<span class="code-line">                <span class="n">i</span> <span class="o">=</span> <span class="n">low</span> <span class="o">-</span><span class="mi">1</span></span>
+<span class="code-line">                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">):</span></span>
+<span class="code-line">                    <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">num</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">num</span><span class="p">[</span><span class="n">j</span><span class="p">]):</span></span>
+<span class="code-line">                        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span></span>
+<span class="code-line">                        <span class="n">num</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">num</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">num</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">num</span><span class="p">[</span><span class="n">i</span><span class="p">]</span></span>
+<span class="code-line">                <span class="n">num</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">num</span><span class="p">[</span><span class="n">high</span><span class="p">]</span> <span class="o">=</span> <span class="n">num</span><span class="p">[</span><span class="n">high</span><span class="p">],</span> <span class="n">num</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span></span>
+<span class="code-line">                <span class="k">return</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span>                </span>
+<span class="code-line">            <span class="k">if</span> <span class="n">low</span> <span class="o">&lt;</span> <span class="n">high</span><span class="p">:</span></span>
+<span class="code-line">                <span class="n">q</span> <span class="o">=</span> <span class="n">partition</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">)</span></span>
+<span class="code-line">                <span class="n">quickSort</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">q</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span></span>
+<span class="code-line">                <span class="n">quickSort</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">q</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">high</span><span class="p">)</span></span>
+<span class="code-line">        <span class="n">quickSort</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">num</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span></span>
+<span class="code-line">        <span class="n">st</span><span class="o">=</span><span class="s">''</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">element</span><span class="p">)</span> <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">num</span><span class="p">)</span></span>
+<span class="code-line">        <span class="k">if</span> <span class="n">st</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="s">'0'</span><span class="p">:</span></span>
+<span class="code-line">            <span class="k">return</span> <span class="s">'0'</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">st</span></span>
+</pre></div>
+<h2 id="_10">堆排序</h2>
+<h3 id="merge-k-sorted-lists">Merge k Sorted Lists</h3>
+<blockquote>
+<p>Merge k sorted linked lists and return it as one sorted list. Analyze and describe its complexity.</p>
+</blockquote>
+<h4 id="_11">分析</h4>
+<p>可以使用大小为k的小顶堆,小顶堆初始化为各个链表中的首元素(最小值).当从小顶堆
+中取出一个元素的时候,就把这个元素所在链表对应的下一个元素加入到
+小顶堆中,知道堆为空.</p>
+<h4 id="python-code_2">Python Code</h4>
+<div class="highlight"><pre><span class="code-line">        <span class="n">heap</span><span class="o">=</span><span class="p">[]</span></span>
+<span class="code-line">        <span class="n">dummy</span><span class="o">=</span><span class="n">ListNode</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span></span>
+<span class="code-line">        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">lists</span><span class="p">:</span></span>
+<span class="code-line">            <span class="k">if</span> <span class="n">node</span><span class="p">:</span></span>
+<span class="code-line">                <span class="n">heap</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">node</span><span class="o">.</span><span class="n">val</span><span class="p">,</span><span class="n">node</span><span class="p">))</span></span>
+<span class="code-line">        <span class="n">heapq</span><span class="o">.</span><span class="n">heapify</span><span class="p">(</span><span class="n">heap</span><span class="p">)</span></span>
+<span class="code-line">        <span class="n">head</span><span class="o">=</span><span class="n">dummy</span></span>
+<span class="code-line">        <span class="k">while</span> <span class="n">heap</span><span class="p">:</span></span>
+<span class="code-line">            <span class="n">tmp</span><span class="o">=</span><span class="n">heapq</span><span class="o">.</span><span class="n">heappop</span><span class="p">(</span><span class="n">heap</span><span class="p">)</span></span>
+<span class="code-line">            <span class="n">head</span><span class="o">.</span><span class="n">next</span><span class="o">=</span><span class="n">ListNode</span><span class="p">(</span><span class="n">tmp</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></span>
+<span class="code-line">            <span class="n">head</span><span class="o">=</span><span class="n">head</span><span class="o">.</span><span class="n">next</span></span>
+<span class="code-line">            <span class="k">if</span> <span class="n">tmp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">next</span><span class="p">:</span></span>
+<span class="code-line">                <span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="n">heap</span><span class="p">,(</span><span class="n">tmp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">next</span><span class="o">.</span><span class="n">val</span><span class="p">,</span><span class="n">tmp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">next</span><span class="p">))</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">dummy</span><span class="o">.</span><span class="n">next</span></span>
+</pre></div>
+<hr/>
+<p>上面介绍的是基于比较的排序算法。
+可以证明基于比较排序算法的下限为O(NlogN)的。
+简单证明如下：
+N个数有N!个可能的排列情况，也就是说基于比较的排序算法的判定树有N!个叶子结点，比较次数至少为log(N!)=O(NlogN)(斯特林公式)。
+下面介绍的非基于比较的线性排序，如计数排序，桶排序，和在此基础上的基数排序，则可以突破O(NlogN)时间下限。
+但要注意的是，非基于比较的排序算法的使用都是有条件限制的，例如元素的大小限制，相反，基于比较的排序则没有这种限制(在一定范围内)</p>
+<h2 id="_14">基数排序</h2>
+<p>基数排序（Radix sort）是一种非比较型整数排序算法，其原理是将整数按位数切割成不同的数字，然后按每个位数分别比较。
+<strong>实现方法：</strong>将所有待比较数值（正整数）统一为同样的数位长度，
+数位较短的数前面补零。然后，从最低位开始，依次进行一次排序。
+这样从最低位排序一直到最高位排序完成以后，数列就变成一个有序序列。</p>
+<h3 id="maximum-gap">Maximum Gap</h3>
+<h4 id="_15">分析</h4>
+<p>使用基数排序，由于是整数因此以2为底的基数排序即可。每次提取整数的第i位放到0
+后者1的桶中。</p>
+<h4 id="python-code_3">Python Code</h4>
+<div class="highlight"><pre><span class="code-line"><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span></span>
+<span class="code-line">    <span class="c"># @param num, a list of integer</span></span>
+<span class="code-line">    <span class="c"># @return an integer</span></span>
+<span class="code-line">    <span class="k">def</span> <span class="nf">maximumGap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">):</span></span>
+<span class="code-line">        <span class="n">length</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">num</span><span class="p">)</span></span>
+<span class="code-line">        <span class="k">if</span> <span class="n">length</span><span class="o">&lt;</span><span class="mi">2</span><span class="p">:</span></span>
+<span class="code-line">            <span class="k">return</span> <span class="mi">0</span></span>
+<span class="code-line">        <span class="n">num</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">radixSort1</span><span class="p">(</span><span class="n">num</span><span class="p">)</span></span>
+<span class="code-line">        <span class="n">res</span><span class="o">=</span><span class="mi">0</span></span>
+<span class="code-line">        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">length</span><span class="p">):</span></span>
+<span class="code-line">            <span class="k">if</span> <span class="n">res</span> <span class="o">&lt;</span> <span class="n">num</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">num</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span></span>
+<span class="code-line">                <span class="n">res</span> <span class="o">=</span> <span class="n">num</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">num</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">res</span></span>
+<span class="code-line">    <span class="k">def</span> <span class="nf">radixSort1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">num</span><span class="p">):</span></span>
+<span class="code-line">        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">31</span><span class="p">):</span></span>
+<span class="code-line">            <span class="n">bucket</span> <span class="o">=</span><span class="p">[[]</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">)]</span></span>
+<span class="code-line"></span>
+<span class="code-line">            <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">num</span><span class="p">:</span></span>
+<span class="code-line">                <span class="k">if</span> <span class="p">(</span><span class="n">val</span> <span class="o">&gt;&gt;</span> <span class="n">i</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="code-line">                    <span class="n">bucket</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val</span><span class="p">)</span></span>
+<span class="code-line">                <span class="k">else</span><span class="p">:</span></span>
+<span class="code-line">                    <span class="n">bucket</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>  </span>
+<span class="code-line">            <span class="n">num</span><span class="o">=</span><span class="p">[</span><span class="n">val</span> <span class="k">for</span> <span class="n">lst</span> <span class="ow">in</span> <span class="n">bucket</span> <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">]</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">num</span></span>
+</pre></div>
+<h2 id="_18">桶排序</h2>
+<p>桶排序假设输入数据服从均匀分布，平均时间复杂度为O（n）。桶排序将区间划分为n个大小的子区间，
+称为桶。然后先讲桶中的数进行排序，然后遍历每个桶，按照次序依次把各个桶中的元素列出来即可。</p>
+<div class="highlight"><pre><span class="code-line"><span class="k">def</span> <span class="nf">BUCKET_SORT</span><span class="p">(</span><span class="n">A</span><span class="p">):</span></span>
+<span class="code-line">    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">B</span> <span class="o">=</span> <span class="p">[[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>    </span>
+<span class="code-line">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span></span>
+<span class="code-line">        <span class="n">B</span><span class="p">[</span><span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="mi">10</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">])</span></span>
+<span class="code-line">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span></span>
+<span class="code-line">        <span class="n">B</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span></span>
+<span class="code-line">    <span class="n">res</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="code-line">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span></span>
+<span class="code-line">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">B</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="code-line">            <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">B</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span></span>
+<span class="code-line">                <span class="k">if</span> <span class="n">val</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span></span>
+<span class="code-line">                    <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val</span><span class="p">)</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="n">res</span></span>
+</pre></div>
+<h2 id="_19">计数排序</h2>
+<p>计数排序假设n个输入元素中的每一个都是o到k区间的一个整数,其中k为某个整数.当k=O(n)时
+运行时间为O(n).
+计数排序的基本思想是:对每一个输入元素x,确定小于x的元素的个数.利用这一信息,就可以直接把x
+放到它在输出数组中的位置上了.
+<strong>计数排序是稳定的</strong></p>
+<div class="highlight"><pre><span class="code-line"><span class="k">def</span> <span class="nf">counting_sort</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span></span>
+<span class="code-line">    <span class="n">B</span><span class="p">,</span> <span class="n">C</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">),</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>  <span class="c"># 包括0和k，长度k+1</span></span>
+<span class="code-line">    <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">A</span><span class="p">:</span></span>
+<span class="code-line">        <span class="n">C</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span></span>
+<span class="code-line">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>  <span class="c"># 1 to k</span></span>
+<span class="code-line">        <span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></span>
+<span class="code-line">    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)):</span></span>
+<span class="code-line">        <span class="c"># 这里要注意索引从0开始的，所以要-1</span></span>
+<span class="code-line">        <span class="n">B</span><span class="p">[</span><span class="n">C</span><span class="p">[</span><span class="n">A</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">j</span><span class="p">]</span></span>
+<span class="code-line">        <span class="n">C</span><span class="p">[</span><span class="n">A</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span> <span class="o">-=</span> <span class="mi">1</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="n">B</span></span>
+</pre></div>
+<section>
+<div class="accordion" id="accordion2">
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle disqus-comment-count" data-toggle="collapse" data-parent="#accordion2"
+                href="../../../../../blog/2015/05/31/sort1/#disqus_thread">
+                Comments
+            </a>
+        </div>
+        <div id="disqus_thread" class="accordion-body collapse">
+            <div class="accordion-inner">
+                <div class="comments">
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'houcj';
+
+
+    (function() {
+         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+            <aside>
+            <hr/>
+            <nav>
+            <ul class="articles_timeline">
+ 
+                <li class="previous_article">« <a href="../../../../../blog/2015/05/28/find-a-solution/" title="Previous: How to find a solution">How to find a solution</a></li>
+            </ul>
+            </nav>
+            </aside>
+        </div>
+        <section>
+        <div class="span2" style="float:right;font-size:0.9em;">
+ 
+            <h4>Published</h4>
+            <time pubdate="pubdate" datetime="2015-05-31T20:24:00+08:00">May 31, 2015</time>
+            <h4>Category</h4>
+            <a class="category-link" href="/categories.html#计算机科学-ref">计算机科学</a> 
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article"> 
+                <li><a href="/tags.html#算法-ref">算法
+                    <span>13</span>
+</a></li>
+            </ul>
+            <h4>Blogroll</h4>
+            <ul ><a class="category-link" href="http://www.rudy-yuan.net">Rudy-yuan</a></ul>
+            <ul ><a class="category-link" href="http://www.wengweitao.com">WWT</a></ul>
+            <ul ><a class="category-link" href="http://hult.tiddlyspot.com">HULT</a></ul>
+    
+        </div>
+        </section>
+</div>
+</article>
+                </div>
+                <div class="span1"></div>
+            </div>
+        </div>
+    </div>
+        
+            <script src="http://code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+<script type="text/javascript">
+    var disqus_shortname = 'houcj';
+
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+    </script>
+        <script  language="javascript" type="text/javascript">
+            function uncollapse() {
+                var hash_str = window.location.hash;
+                if (window.location.hash.match(/^#comment-\d+$/))
+                {
+                    var hash_str = '#disqus_thread';
+                }
+                $(hash_str).collapse({
+                    toggle: true
+                    })
+            }
+        </script>
+
+        <script type="text/javascript" language="JavaScript">
+            uncollapse(); 
+        </script>
+    </body>
+      <!-- Baidu Button BEGIN -->
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"6","bdPos":"right","bdTop":"250"},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+ <!-- Baidu Button END -->
+  </body>
+
+  <!-- hitwebcounter Code START -->
+
+<img src="http://hitwebcounter.com/counter/counter.php?page=6046616&style=0005&nbdigits=5&type=ip&initCount=0" title="" Alt=""   border="0" style="float:left">  
+
+</html>
