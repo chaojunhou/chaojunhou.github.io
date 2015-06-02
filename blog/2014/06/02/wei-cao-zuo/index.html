@@ -85,7 +85,7 @@
 <div class="highlight"><pre><span class="code-line"><span class="kt">boolean</span> <span class="nf">getBit</span><span class="o">(</span><span class="kt">int</span> <span class="n">num</span><span class="o">,</span> <span class="kt">int</span> <span class="n">i</span><span class="o">){</span></span>
 <span class="code-line">    <span class="k">return</span> <span class="o">((</span><span class="n">num</span> <span class="o">&amp;</span> <span class="o">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="o">))</span> <span class="o">!=</span> <span class="mi">0</span><span class="o">);</span></span>
 <span class="code-line">    <span class="cm">/*another solution*/</span></span>
-<span class="code-line">    <span class="c1">//return  ((num &gt;&gt; i) &amp; 1);    </span></span>
+<span class="code-line">    <span class="k">return</span>  <span class="o">((</span><span class="n">num</span> <span class="o">&gt;&gt;</span> <span class="n">i</span><span class="o">)</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="o">);</span>    </span>
 <span class="code-line"><span class="o">}</span></span>
 </pre></div>
 <h3 id="numibit1">将num第i位的bit值置为1</h3>
@@ -199,7 +199,7 @@ Your algorithm should have a linear runtime complexity. Could you implement it w
  
                 <li class="previous_article">« <a href="../../../../../blog/2014/03/21/kmp/" title="Previous: 字符串匹配">字符串匹配</a></li>
  
-                <li class="next_article"><a href="../../../../../blog/2015/02/27/multi-thread/" title="Next: 多线程">多线程</a> »</li>
+                <li class="next_article"><a href="../../../../../blog/2014/09/06/markdown/" title="Next: Introduction to Markdown">Introduction to Markdown</a> »</li>
             </ul>
             </nav>
             </aside>

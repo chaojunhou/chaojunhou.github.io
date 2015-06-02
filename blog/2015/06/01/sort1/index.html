@@ -7,8 +7,8 @@
         <meta name="author" content="ChaoJun Hou" />
         <meta name="copyright" content="ChaoJun Hou" />
 
-<meta name="keywords" content="多线程, 编程, " />
-        <title>多线程  · Change the World| Write the Code
+<meta name="keywords" content="算法, 计算机科学, " />
+        <title>排序算法  · Change the World| Write the Code
 </title>
         <link href="http://cdn-images.mailchimp.com/embedcode/slim-081711.css" rel="stylesheet" type="text/css">
         <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
@@ -65,7 +65,7 @@
 <article>
 <div class="row-fluid">
     <header class="page_header span10 offset2">
-    <h1><a href="../../../../../blog/2015/02/27/multi-thread/"> 多线程  </a></h1>
+    <h1><a href="../../../../../blog/2015/06/01/sort1/"> 排序算法  </a></h1>
     </header>
 </div>
 
@@ -73,68 +73,47 @@
     <div class="span2 table-of-content">
         <nav>
         <h4>Contents</h4>
-        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="多线程">多线程</a><ul><li><a class="toc-href" href="#_1" title="线程安全">线程安全</a><ul><li><a class="toc-href" href="#_2" title="四个线程不安全函数类">四个线程不安全函数类</a></li></ul></li></ul></li></ul></div></body></html>
+        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="排序算法">排序算法</a><ul><li><a class="toc-href" href="#_1" title="有序字典">有序字典</a><ul><li><a class="toc-href" href="#contains-duplicate-iii" title="Contains Duplicate III">Contains Duplicate III</a><ul><li><a class="toc-href" href="#_2" title="分析">分析</a></li><li><a class="toc-href" href="#python-code" title="Python Code">Python Code</a></li></ul></li></ul></li></ul></li></ul></div></body></html>
         </nav>
     </div>
     <div class="span8 article-content">
 
-            <h2 id="_1">线程安全</h2>
-<p>一个函数被称为线程安全的，当且仅当被多个并发线程反复地调用时，它会产生一直产生正确的结果。</p>
-<h3 id="_2">四个线程不安全函数类</h3>
-<ul>
-<li>不保护共享变量的函数</li>
-</ul>
-<p>对一个未受保护的全局计数器变量加1.
-  改进：利用像P和V操作这样的同步操作来保护共享的变量。  <br/>
-  优点，在调用程序中不需要做任何修改
-  缺点，同步操作讲减慢程序的执行时间</p>
-<ul>
-<li>保护跨越多个调用的状态的函数</li>
-</ul>
-<div class="highlight"><pre><span class="code-line"><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">next</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span></span>
-<span class="code-line"><span class="kt">int</span> <span class="nf">rand</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span></span>
-<span class="code-line"><span class="p">{</span></span>
-<span class="code-line">    <span class="n">next</span> <span class="o">=</span> <span class="n">next</span><span class="o">*</span><span class="mi">1102515245</span> <span class="o">+</span> <span class="mi">12345</span><span class="p">;</span></span>
-<span class="code-line">    <span class="k">return</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">)(</span><span class="n">next</span><span class="o">/</span><span class="mi">65536</span><span class="p">)</span><span class="o">%</span><span class="mi">32768</span><span class="p">;</span></span>
-<span class="code-line"><span class="p">}</span> </span>
-<span class="code-line"></span>
-<span class="code-line"><span class="kt">void</span> <span class="nf">srand</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">seed</span><span class="p">)</span></span>
-<span class="code-line"><span class="p">{</span></span>
-<span class="code-line">    <span class="n">next</span> <span class="o">=</span> <span class="n">seed</span><span class="p">;</span></span>
-<span class="code-line"><span class="p">}</span></span>
+            <hr/>
+<h1 id="_1">有序字典</h1>
+<h3 id="contains-duplicate-iii">Contains Duplicate III</h3>
+<blockquote>
+<p>Given an array of integers, find out whether there are two distinct indices i and j in the array such that the difference between nums[i] and nums[j] is at most t and the difference between i and j is at most k.</p>
+</blockquote>
+<h4 id="_2">分析</h4>
+<p>使用大小为k的有序字典，这里使用有序字典是为了防止改变元素的相对次序，这样每次搜索的
+时候只需要在这个字典里查找即可，而字典的查找是可以在常数时间内完成的。因此时间复杂度为
+O（n）。这里有个trick就是设置key = val/t, 这样可以保证每次搜索只需查找
+key附近的值是否符合条件即可。</p>
+<h4 id="python-code">Python Code</h4>
+<div class="highlight"><pre><span class="code-line"><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span></span>
+<span class="code-line">    <span class="c"># @param {integer[]} nums</span></span>
+<span class="code-line">    <span class="c"># @param {integer} k</span></span>
+<span class="code-line">    <span class="c"># @param {integer} t</span></span>
+<span class="code-line">    <span class="c"># @return {boolean}</span></span>
+<span class="code-line">    <span class="k">def</span> <span class="nf">containsNearbyAlmostDuplicate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nums</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span></span>
+<span class="code-line">        <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span></span>
+<span class="code-line">            <span class="k">return</span> <span class="bp">False</span></span>
+<span class="code-line">        <span class="n">dic</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">()</span>          </span>
+<span class="code-line">        <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">nums</span><span class="p">:</span></span>
+<span class="code-line">            <span class="n">key</span>  <span class="o">=</span> <span class="n">val</span> <span class="o">/</span> <span class="n">t</span> <span class="k">if</span> <span class="n">t</span> <span class="k">else</span> <span class="n">val</span></span>
+<span class="code-line">            <span class="k">if</span> <span class="n">dic</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">dic</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">dic</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="n">val</span><span class="p">)</span><span class="o">&lt;=</span> <span class="n">t</span><span class="p">))</span> <span class="ow">or</span>  <span class="p">(</span><span class="n">dic</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">dic</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="n">val</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">t</span><span class="p">)):</span></span>
+<span class="code-line">                <span class="k">return</span> <span class="bp">True</span></span>
+<span class="code-line">            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">dic</span><span class="p">)</span> <span class="o">==</span> <span class="n">k</span><span class="p">:</span></span>
+<span class="code-line">                <span class="n">dic</span><span class="o">.</span><span class="n">popitem</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span></span>
+<span class="code-line">            <span class="n">dic</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="bp">False</span></span>
 </pre></div>
-<p>改进方法重写，使得它不再使用任何static数据，而是依靠调用者在参数中传递状态信息。</p>
-<div class="highlight"><pre><span class="code-line"><span class="kt">int</span> <span class="nf">rand_r</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="o">*</span><span class="n">nextp</span><span class="p">)</span></span>
-<span class="code-line"><span class="p">{</span></span>
-<span class="code-line">    <span class="o">*</span><span class="n">nextp</span> <span class="o">=</span> <span class="o">*</span><span class="n">nextp</span><span class="o">*</span><span class="mi">1102515245</span> <span class="o">+</span> <span class="mi">12345</span><span class="p">;</span></span>
-<span class="code-line">    <span class="k">return</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">)(</span><span class="n">next</span><span class="o">/</span><span class="mi">65536</span><span class="p">)</span><span class="o">%</span><span class="mi">32768</span><span class="p">;</span></span>
-<span class="code-line"><span class="p">}</span> </span>
-</pre></div>
-<p>缺点，被迫修改调用程序中的代码。</p>
-<ul>
-<li>返回指向静态变量的指针的函数。
-  改进方法，加锁-拷贝（lock-copy）技术。基本思想是将线程不安全函数与互斥锁联系起来。在每一个调用位置，对互斥锁解锁，调用线程不安全函数，讲函数返回的结果拷贝到一个私有的存储器位置，然后对互斥锁解锁。</li>
-</ul>
-<div class="highlight"><pre><span class="code-line"><span class="kt">char</span> <span class="o">*</span><span class="nf">ctime_ts</span><span class="p">(</span><span class="k">const</span> <span class="kt">time_t</span> <span class="o">*</span><span class="n">timep</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">privatep</span><span class="p">)</span></span>
-<span class="code-line"><span class="p">{</span></span>
-<span class="code-line">    <span class="kt">char</span> <span class="o">*</span><span class="n">sharedp</span><span class="p">;</span></span>
-<span class="code-line">    <span class="n">P</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutext</span><span class="p">);</span></span>
-<span class="code-line">    <span class="n">sharedp</span> <span class="o">=</span> <span class="n">ctime</span><span class="p">(</span><span class="n">timep</span><span class="p">);</span></span>
-<span class="code-line">    <span class="n">strcpy</span><span class="p">(</span><span class="n">privatep</span><span class="p">,</span> <span class="n">sharedp</span><span class="p">);</span></span>
-<span class="code-line">    <span class="n">V</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span></span>
-<span class="code-line">    <span class="k">return</span> <span class="n">privatep</span><span class="p">;</span></span>
-<span class="code-line"><span class="p">}</span></span>
-</pre></div>
-<ul>
-<li>调用线程不安全函数
-  改进方法，lock-copy</li>
-</ul>
 <section>
 <div class="accordion" id="accordion2">
     <div class="accordion-group">
         <div class="accordion-heading">
             <a class="accordion-toggle disqus-comment-count" data-toggle="collapse" data-parent="#accordion2"
-                href="../../../../../blog/2015/02/27/multi-thread/#disqus_thread">
+                href="../../../../../blog/2015/06/01/sort1/#disqus_thread">
                 Comments
             </a>
         </div>
@@ -164,9 +143,7 @@
             <nav>
             <ul class="articles_timeline">
  
-                <li class="previous_article">« <a href="../../../../../blog/2014/09/06/markdown/" title="Previous: Introduction to Markdown">Introduction to Markdown</a></li>
- 
-                <li class="next_article"><a href="../../../../../blog/2015/03/03/the-basic-knowledge-in-c/" title="Next: The basic Knowledge in C">The basic Knowledge in C</a> »</li>
+                <li class="previous_article">« <a href="../../../../../blog/2015/05/31/sort1/" title="Previous: 排序算法">排序算法</a></li>
             </ul>
             </nav>
             </aside>
@@ -175,13 +152,13 @@
         <div class="span2" style="float:right;font-size:0.9em;">
  
             <h4>Published</h4>
-            <time pubdate="pubdate" datetime="2015-02-27T00:00:00+08:00">Feb 27, 2015</time>
+            <time pubdate="pubdate" datetime="2015-06-01T21:07:00+08:00">Jun 1, 2015</time>
             <h4>Category</h4>
-            <a class="category-link" href="/categories.html#编程-ref">编程</a> 
+            <a class="category-link" href="/categories.html#计算机科学-ref">计算机科学</a> 
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article"> 
-                <li><a href="/tags.html#多线程-ref">多线程
-                    <span>1</span>
+                <li><a href="/tags.html#算法-ref">算法
+                    <span>14</span>
 </a></li>
             </ul>
             <h4>Blogroll</h4>
