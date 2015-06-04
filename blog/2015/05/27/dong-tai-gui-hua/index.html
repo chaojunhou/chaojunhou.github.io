@@ -73,7 +73,7 @@
     <div class="span2 table-of-content">
         <nav>
         <h4>Contents</h4>
-        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="动态规划">动态规划</a><ul><li><a class="toc-href" href="#unique-binary-search-trees" title="Unique Binary Search Trees">Unique Binary Search Trees</a><ul><li><a class="toc-href" href="#_1" title="分析">分析</a></li><li><a class="toc-href" href="#python-code" title="Python Code">Python Code</a></li></ul></li><li><a class="toc-href" href="#house-robber-ii_1" title="House Robber II">House Robber II</a><ul><li><a class="toc-href" href="#_2" title="分析">分析</a></li><li><a class="toc-href" href="#python-code_1" title="Python Code">Python Code</a></li></ul></li><li><a class="toc-href" href="#edit-distance_1" title="Edit Distance">Edit Distance</a><ul><li><a class="toc-href" href="#_3" title="分析">分析</a></li><li><a class="toc-href" href="#python-code_2" title="Python Code">Python Code</a></li></ul></li></ul></li></ul></div></body></html>
+        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="动态规划">动态规划</a><ul><li><a class="toc-href" href="#unique-binary-search-trees" title="Unique Binary Search Trees">Unique Binary Search Trees</a><ul><li><a class="toc-href" href="#_1" title="分析">分析</a></li><li><a class="toc-href" href="#python-code" title="Python Code">Python Code</a></li></ul></li><li><a class="toc-href" href="#house-robber-ii_1" title="House Robber II">House Robber II</a><ul><li><a class="toc-href" href="#_2" title="分析">分析</a></li><li><a class="toc-href" href="#python-code_1" title="Python Code">Python Code</a></li></ul></li><li><a class="toc-href" href="#edit-distance_1" title="Edit Distance">Edit Distance</a><ul><li><a class="toc-href" href="#_3" title="分析">分析</a></li><li><a class="toc-href" href="#python-code_2" title="Python Code">Python Code</a></li></ul></li><li><a class="toc-href" href="#maximal-square_1" title="Maximal Square">Maximal Square</a><ul><li><a class="toc-href" href="#_4" title="分析">分析</a></li><li><a class="toc-href" href="#python-code_3" title="Python Code">Python Code</a></li></ul></li></ul></li></ul></div></body></html>
         </nav>
     </div>
     <div class="span8 article-content">
@@ -165,7 +165,7 @@ c) Replace a character</p>
 dp[i][j]表示word1的从最后一个字符到第i单词与word2从最后一个字符到第j个字符所需要的
 最少的编辑距离。</p>
 <div class="math">\begin{equation*}
-dp[i][j] = min(dp[i+1][j]+1, dp[i+1][j], dp[i+1][j+1]+t[i][j])
+dp[i][j] = min(dp[i+1][j]+1, dp[i][j+1]+1, dp[i+1][j+1]+t[i][j])
 \end{equation*}</div>
 <div class="math">\begin{equation*}
 t[i][j] = 
@@ -190,6 +190,53 @@ t[i][j] =
 <span class="code-line">                <span class="n">tmp</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">word1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">word2</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="k">else</span> <span class="mi">1</span></span>
 <span class="code-line">                <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="n">tmp</span><span class="p">)</span> </span>
 <span class="code-line">        <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">n</span><span class="p">][</span><span class="n">m</span><span class="p">]</span></span>
+</pre></div>
+<h3 id="maximal-square_1">Maximal Square</h3>
+<blockquote>
+<p>Given a 2D binary matrix filled with 0's and 1's, find the largest square containing all 1's and return its area.</p>
+<p>For example, given the following matrix:
+</p>
+</blockquote>
+<div class="highlight"><pre><span class="code-line">1 0 1 0 0</span>
+<span class="code-line">1 0 1 1 1</span>
+<span class="code-line">1 1 1 1 1</span>
+<span class="code-line">1 0 0 1 0</span>
+</pre></div>
+<blockquote>
+<p>Return 4.</p>
+</blockquote>
+<h4 id="_4">分析</h4>
+<p>定义状态：dp[i][j]表示在第i行第j列时，最大的square size，我们知道
+一个正方形的size，就可以很容易求它的面积。这里采用自定向下的动态规划。</p>
+<ul>
+<li>当matrix里的元素为0时，dp[i][j]为0，因为这时候不能形成一个全为1的正方形。</li>
+<li>当matrix里的元素为1时，很容易得到下面的递推方程。
+<div class="math">\begin{equation*}
+dp[i][j] = min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1])+1
+\end{equation*}</div>
+</li>
+<li>dp[i][j]在第一行，以及第一列时与matrix中的元素保持一致。</li>
+</ul>
+<h4 id="python-code_3">Python Code</h4>
+<div class="highlight"><pre><span class="code-line"><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span></span>
+<span class="code-line">    <span class="c"># @param {character[][]} matrix</span></span>
+<span class="code-line">    <span class="c"># @return {integer}</span></span>
+<span class="code-line">    <span class="k">def</span> <span class="nf">maximalSquare</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">matrix</span><span class="p">):</span></span>
+<span class="code-line">        <span class="n">m</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span></span>
+<span class="code-line">        <span class="k">if</span> <span class="ow">not</span> <span class="n">m</span><span class="p">:</span></span>
+<span class="code-line">            <span class="k">return</span> <span class="mi">0</span></span>
+<span class="code-line">        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></span>
+<span class="code-line">        <span class="n">maxSize</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="code-line">        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span></span>
+<span class="code-line">            <span class="k">if</span> <span class="n">matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="s">'1'</span><span class="p">:</span></span>
+<span class="code-line">                <span class="n">maxSize</span> <span class="o">=</span> <span class="mi">1</span> </span>
+<span class="code-line">        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">m</span><span class="p">):</span></span>
+<span class="code-line">            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">):</span></span>
+<span class="code-line">                <span class="k">if</span> <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="s">'1'</span><span class="p">:</span></span>
+<span class="code-line">                    <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">],</span> <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span><span class="o">+</span><span class="mi">1</span></span>
+<span class="code-line">                    <span class="k">if</span> <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">maxSize</span><span class="p">:</span></span>
+<span class="code-line">                        <span class="n">maxSize</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">maxSize</span><span class="o">*</span><span class="n">maxSize</span>  </span>
 </pre></div>
 <script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var align = "center",
