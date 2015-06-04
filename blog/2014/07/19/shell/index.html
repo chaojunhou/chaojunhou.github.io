@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="utf-8"> 
+        <meta name="google-site-verification" content="fdZTDVFyX3hKovPIzn1tgPixk_wysBXaPN8YQw1P8Jw" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="ChaoJun Hou" />
+        <meta name="copyright" content="ChaoJun Hou" />
+
+<meta name="keywords" content="Shell, 编程, " />
+        <title>Introduction to Shell  · Change the World| Write the Code
+</title>
+        <link href="http://cdn-images.mailchimp.com/embedcode/slim-081711.css" rel="stylesheet" type="text/css">
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="../../../../../theme/css/style.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="../../../../../theme/css/solarizedlight.css" media="screen">
+        <link rel="shortcut icon" href="../../../../../theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="apple-touch-icon" href="../../../../../theme/images/apple-touch-icon.png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="../../../../../theme/images/apple-touch-icon-57x57.png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="../../../../../theme/images/apple-touch-icon-72x72.png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="../../../../../theme/images/apple-touch-icon-114x114.png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="../../../../../theme/images/apple-touch-icon-144x144.png" />
+        <link rel="icon" href="../../../../../theme/images/apple-touch-icon-144x144.png" />
+        <link href="www.houcj.net/feed.xml" type="application/rss+xml" rel="alternate" title="Write the Code - Full RSS Feed" />
+    <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '61957498']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+    </script>
+    </head>
+    <body>
+        <div id="content-sans-footer">
+        <div class="navbar navbar-static-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../../../../"><span class=site-name>Write the Code</span></a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav pull-right top-menu">
+                            <li ><a href="../../../../..">Home</a></li>
+                            <li ><a href="../../../../../pages/About.html">About</a></li>
+                            <li ><a href="../../../../../random.html">Pick One!</a></li>
+                            <li ><a href="../../../../../categories.html">分类</a></li>
+                            <li ><a href="../../../../../tags.html">标签</a></li>
+                            <li ><a href="../../../../../archives.html">归档</a></li>
+                            <li><form class="navbar-search" action="../../../../../search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span1"></div>
+                <div class="span10">
+<article>
+<div class="row-fluid">
+    <header class="page_header span10 offset2">
+    <h1><a href="../../../../../blog/2014/07/19/shell/"> Introduction to Shell  </a></h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+    <div class="span2 table-of-content">
+        <nav>
+        <h4>Contents</h4>
+        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="Introduction to Shell">Introduction to Shell</a><ul><li><a class="toc-href" href="#awk" title="AWK">AWK</a><ul><li><a class="toc-href" href="#_1" title="基本语法">基本语法</a></li><li><a class="toc-href" href="#_2" title="内置变量">内置变量</a></li><li><a class="toc-href" href="#_3" title="指定分隔符">指定分隔符</a></li><li><a class="toc-href" href="#_4" title="字符串匹配">字符串匹配</a></li><li><a class="toc-href" href="#_5" title="字符串连接操作">字符串连接操作</a></li><li><a class="toc-href" href="#_6" title="用户自定义函数">用户自定义函数</a></li></ul></li><li><a class="toc-href" href="#sed_1" title="sed">sed</a><ul><li><a class="toc-href" href="#sed-editing-commands" title="Sed editing Commands">Sed editing Commands</a><ul><li><a class="toc-href" href="#_7" title="原地替换">原地替换</a></li><li><a class="toc-href" href="#_8" title="使用圆括号匹配">使用圆括号匹配</a></li><li><a class="toc-href" href="#aic" title="a编辑命令i编辑命名c编辑命令">a编辑命令i编辑命名c编辑命令</a></li><li><a class="toc-href" href="#d" title="d编辑命令">d编辑命令</a></li><li><a class="toc-href" href="#p" title="p编辑命令">p编辑命令</a></li></ul></li><li><a class="toc-href" href="#sed-options_1" title="sed options">sed options</a><ul><li><a class="toc-href" href="#sed-f" title="sed -f">sed -f</a></li><li><a class="toc-href" href="#sed-n" title="sed -n">sed -n</a></li><li><a class="toc-href" href="#sed-e" title="sed -e">sed -e</a></li><li><a class="toc-href" href="#sed-r" title="sed -r">sed -r</a></li></ul></li><li><a class="toc-href" href="#sed-hold-space_1" title="sed Hold Space">sed Hold Space</a></li></ul></li><li><a class="toc-href" href="#tail-head_1" title="tail &amp; head">tail &amp; head</a><ul><li><a class="toc-href" href="#tail-head-options" title="tail &amp; head options">tail &amp; head options</a></li></ul></li><li><a class="toc-href" href="#wc_1" title="wc">wc</a><ul><li><a class="toc-href" href="#_9" title="用法">用法</a></li></ul></li><li><a class="toc-href" href="#sort_1" title="sort">sort</a><ul><li><a class="toc-href" href="#_10" title="用法">用法</a></li></ul></li><li><a class="toc-href" href="#cut_1" title="cut">cut</a><ul><li><a class="toc-href" href="#_11" title="用法">用法</a></li></ul></li><li><a class="toc-href" href="#tr_1" title="tr">tr</a><ul><li><a class="toc-href" href="#tr_2" title="tr 语法">tr 语法</a></li></ul></li><li><a class="toc-href" href="#cut_3" title="cut">cut</a></li><li><a class="toc-href" href="#grep" title="grep">grep</a><ul><li><a class="toc-href" href="#grep-options" title="grep options">grep options</a></li></ul></li></ul></li></ul></div></body></html>
+        </nav>
+    </div>
+    <div class="span8 article-content">
+
+            <hr/>
+<h2 id="awk">AWK</h2>
+<blockquote>
+<p>AWK is a language for processing text files. A file is treated as a sequence of records, 
+and by default each line is a record. Each line is broken up into a sequence of fields, 
+so we can think of the first word in a line as the first field, the second word as the second field, and so on. 
+An AWK program is of a sequence of pattern-action statements. AWK reads the input a line at a time. 
+A line is scanned for each pattern in the program, and for each pattern that matches, the associated action is executed</p>
+<p>&mdash;  Alfred V. Aho</p>
+</blockquote>
+<h3 id="_1">基本语法</h3>
+<div class="highlight"><pre><span class="code-line">condition '{action}'</span>
+</pre></div>
+<p>其中单引号中被大括号括起来的就是awk语句。只能用单引号</p>
+<div class="highlight"><pre><span class="code-line">awk <span class="s1">'{print $10 }'</span> file.txt</span>
+</pre></div>
+<h3 id="_2">内置变量</h3>
+<div class="highlight"><pre><span class="code-line"><span class="n">NR</span><span class="o">:</span> <span class="n">Keeps</span> <span class="n">a</span> <span class="n">current</span> <span class="n">count</span> <span class="n">of</span> <span class="n">the</span> <span class="n">number</span> <span class="n">of</span> <span class="n">input</span> <span class="n">records</span><span class="o">.</span></span>
+<span class="code-line"><span class="n">NF</span><span class="o">:</span> <span class="n">Keeps</span> <span class="n">a</span> <span class="n">count</span> <span class="n">of</span> <span class="n">the</span> <span class="n">number</span> <span class="n">of</span> <span class="n">fields</span> <span class="k">in</span> <span class="n">an</span> <span class="n">input</span> <span class="n">record</span><span class="o">.</span> <span class="n">The</span> <span class="n">last</span> <span class="n">field</span> <span class="k">in</span> <span class="n">the</span> <span class="n">input</span> <span class="n">record</span> <span class="n">can</span> <span class="n">be</span> <span class="n">designated</span> <span class="n">by</span> <span class="n">$NF</span><span class="o">.</span></span>
+<span class="code-line"><span class="n">FILENAME</span><span class="o">:</span> <span class="n">Contains</span> <span class="n">the</span> <span class="n">name</span> <span class="n">of</span> <span class="n">the</span> <span class="n">current</span> <span class="n">input</span><span class="o">-</span><span class="n">file</span><span class="o">.</span></span>
+<span class="code-line"><span class="n">FS</span><span class="o">:</span> <span class="n">Contains</span> <span class="n">the</span> <span class="s2">"field separator"</span> <span class="n">character</span> <span class="n">used</span> <span class="n">to</span> <span class="n">divide</span> <span class="n">fields</span> <span class="n">on</span> <span class="n">the</span> <span class="n">input</span> <span class="n">record</span><span class="o">.</span> <span class="n">The</span> <span class="k">default</span><span class="o">,</span> <span class="s2">"white space"</span><span class="o">,</span> <span class="n">includes</span> <span class="n">any</span> <span class="n">space</span> <span class="n">and</span> <span class="n">tab</span> <span class="n">characters</span><span class="o">.</span> <span class="n">FS</span> <span class="n">can</span> <span class="n">be</span> <span class="n">reassigned</span> <span class="n">to</span> <span class="n">another</span> <span class="n">character</span> <span class="n">to</span> <span class="n">change</span> <span class="n">the</span> <span class="n">field</span> <span class="n">separator</span><span class="o">.</span></span>
+<span class="code-line"><span class="n">RS</span><span class="o">:</span>  <span class="err">输出字段分隔符，</span> <span class="err">默认为换行符。</span></span>
+<span class="code-line"><span class="n">OFS</span><span class="o">:</span> <span class="err">输出字段分隔符，</span> <span class="err">默认是空格符。</span></span>
+<span class="code-line"><span class="n">ORS</span><span class="o">:</span> <span class="err">输出字段分隔符，</span> <span class="err">默认是换行符。</span></span>
+<span class="code-line"><span class="n">$n</span><span class="err">表示第</span><span class="n">n</span><span class="err">列，</span> <span class="n">$0</span><span class="err">表示整行</span></span>
+<span class="code-line"><span class="n">OFMT</span><span class="o">:</span> <span class="n">Stores</span> <span class="n">the</span> <span class="n">format</span> <span class="k">for</span> <span class="n">numeric</span> <span class="n">output</span><span class="o">.</span> <span class="n">The</span> <span class="k">default</span> <span class="n">format</span> <span class="k">is</span> <span class="s2">"%.6g"</span><span class="o">.</span></span>
+</pre></div>
+<h3 id="_3">指定分隔符</h3>
+<div class="highlight"><pre><span class="code-line">awk <span class="s1">'BEGIN{FS='</span>:<span class="s1">'} {print $0}'</span> file.txt</span>
+</pre></div>
+<p>等价于</p>
+<div class="highlight"><pre><span class="code-line">awk -F: <span class="s1">'{print $0}'</span> file.txt</span>
+</pre></div>
+<p>如果有多个分隔符，可以</p>
+<div class="highlight"><pre><span class="code-line">awk -F<span class="s1">'[;:,]'</span></span>
+</pre></div>
+<p>使用OFS参数就可以改变输出分割符。</p>
+<div class="highlight"><pre><span class="code-line">awk -F: <span class="s1">'{print $0}'</span> <span class="nv">OFS</span><span class="o">=</span> <span class="s2">"\t"</span> file.txt</span>
+</pre></div>
+<h3 id="_4">字符串匹配</h3>
+<p><strong>有效的电话号码</strong></p>
+<div class="highlight"><pre><span class="code-line">awk <span class="s1">'/^([0-9]{3}-|\([0-9]{3}\) )[0-9]{3}-[0-9]{4}$/'</span> file.txt</span>
+</pre></div>
+<p>//中是匹配的pattern，遵循正则表达式的语法。</p>
+<h3 id="_5">字符串连接操作</h3>
+<ul>
+<li>awk字符串转数字</li>
+</ul>
+<div class="highlight"><pre><span class="code-line">awk <span class="s1">'BEGIN{a="1";b="2";print (a+b+3);}'</span> </span>
+<span class="code-line"><span class="c"># output is 6</span></span>
+</pre></div>
+<p><strong>+</strong>连接运算自动把字符串转为整数类型</p>
+<ul>
+<li>awk字符串连接</li>
+</ul>
+<div class="highlight"><pre><span class="code-line">awk <span class="s1">'BEGIN{a="a";b="b";c=a""b;print c}'</span></span>
+</pre></div>
+<p>将变量与""连接起来即可。</p>
+<h3 id="_6">用户自定义函数</h3>
+<p><strong>计算单词的频率</strong></p>
+<div class="highlight"><pre><span class="code-line">BEGIN <span class="o">{</span></span>
+<span class="code-line">    <span class="nv">FS</span><span class="o">=</span><span class="s2">"[^a-zA-Z]+"</span></span>
+<span class="code-line"><span class="o">}</span></span>
+<span class="code-line"><span class="o">{</span></span>
+<span class="code-line">    <span class="k">for</span> <span class="o">(</span><span class="nv">i</span><span class="o">=</span>1<span class="p">;</span> i&lt;<span class="o">=</span>NF<span class="p">;</span> i++<span class="o">)</span></span>
+<span class="code-line">          words<span class="o">[</span>tolower<span class="o">(</span><span class="nv">$i</span><span class="o">)]</span>++</span>
+<span class="code-line"><span class="o">}</span></span>
+<span class="code-line">END <span class="o">{</span></span>
+<span class="code-line">    <span class="k">for</span> <span class="o">(</span>i in words<span class="o">)</span></span>
+<span class="code-line">         print i, words<span class="o">[</span>i<span class="o">]</span></span>
+<span class="code-line"><span class="o">}</span></span>
+</pre></div>
+<ul>
+<li>BEGIN｛执行之前的语句｝</li>
+<li>｛处理每一行要执行的语句｝</li>
+<li>END｛处理完所有的行后要执行的语句｝</li>
+</ul>
+<h2 id="sed_1">sed</h2>
+<p>sed是用来解析和转换文本文件的简单的编程语言，尤其擅长
+替代操作。</p>
+<h3 id="sed-editing-commands">Sed editing Commands</h3>
+<p>这些编辑命令和vim编辑器的比较类似</p>
+<div class="highlight"><pre><span class="code-line">sed <span class="s1">'m,ns/regexp/replacement/g'</span> inputFileName &gt; outputFileName</span>
+<span class="code-line"><span class="c"># 如果是特殊字符,需要使用"\"进行转义，如果特殊字符里包含单引号，需要使用双引号</span></span>
+<span class="code-line">sed <span class="s2">"m,ns/regexp/replacement/g"</span> inputFileName &gt; outputFileName </span>
+<span class="code-line"></span>
+<span class="code-line">sed <span class="s1">'m,ns/regexp/replacement/mg'</span> inputFileName &gt; outputFileName </span>
+<span class="code-line"><span class="c"># only replace the replacment from the mth.</span></span>
+</pre></div>
+<p>m,n分别代表第m，n行的文本。<em>s</em> 代表替换操作，<em>g</em>代表是全局替换。
+特别地</p>
+<div class="highlight"><pre><span class="code-line">sed <span class="s1">'s/^/repalcement/g'</span> inputFileName <span class="c"># add the replacment charater to the front</span></span>
+<span class="code-line">sed <span class="s1">'s/$/repalcement/g'</span> inputFileName <span class="c"># add teh replacment charater to the end</span></span>
+</pre></div>
+<h4 id="_7">原地替换</h4>
+<div class="highlight"><pre><span class="code-line">sed -i <span class="s1">'s/regexp/replacement/g'</span> inputFileName </span>
+</pre></div>
+<h4 id="_8">使用圆括号匹配</h4>
+<p>使用圆括号括起来的正则表达式所匹配的字符串可以当成变量来使用，sed 使用的是\1\2...</p>
+<div class="highlight"><pre><span class="code-line">sed <span class="s1">'s/the line in the file \(pattern1\), and \(pattern2\)/\1:\2/g'</span></span>
+</pre></div>
+<h4 id="aic">a编辑命令i编辑命名c编辑命令</h4>
+<ul>
+<li>a命令：append text below current line</li>
+</ul>
+<div class="highlight"><pre><span class="code-line">sed <span class="s1">'na appendString'</span> filename</span>
+<span class="code-line"><span class="c"># na 表示在第n行以后进行append，如果n超过filename的行数，就不进行任何操作</span></span>
+<span class="code-line"></span>
+<span class="code-line"></span>
+<span class="code-line">sed <span class="s1">'/pattern/a appendString'</span> filename</span>
+<span class="code-line"><span class="c"># 在匹配到pattern以后就append一行</span></span>
+</pre></div>
+<ul>
+<li>i命令：insert text above current line
+具体操作同a命令</li>
+<li>c命令：change text in the current line with new text
+具体操作同a命令</li>
+</ul>
+<h4 id="d">d编辑命令</h4>
+<p>删除匹配行</p>
+<div class="highlight"><pre><span class="code-line">sed <span class="s1">'^,$,d'</span> filename</span>
+<span class="code-line"><span class="c"># 删除文件的内的所有行</span></span>
+</pre></div>
+<h4 id="p">p编辑命令</h4>
+<p>打印命令，单独使用会打印两遍处理的和sed -n 配合使用相当于grep命令</p>
+<div class="highlight"><pre><span class="code-line">sed -n <span class="s1">'1,/pattern/p'</span> filename</span>
+<span class="code-line"><span class="c"># 从第一行打印到匹配fish成功的那一行</span></span>
+</pre></div>
+<h3 id="sed-options_1">sed options</h3>
+<h4 id="sed-f">sed -f</h4>
+<p>当有大量的sed命令时，可以把这些sed命令放到一个文件中（每条命令都需要
+单独成行）,可以然后使用下面的命令</p>
+<div class="highlight"><pre><span class="code-line">sed -f sedscript  filename</span>
+<span class="code-line"><span class="c"># or the long version</span></span>
+<span class="code-line">sed -file<span class="o">=</span>sedscript filename</span>
+</pre></div>
+<h4 id="sed-n">sed -n</h4>
+<p>Silent mode，suppresses automatic printing of lines，
+即只打印匹配pattern的行。</p>
+<h4 id="sed-e">sed -e</h4>
+<p>当有多个匹配的时候，可以使用下面的命令</p>
+<div class="highlight"><pre><span class="code-line">sed -e <span class="s1">'s/regexp1/replacement1/g'</span> -e <span class="s1">'s/regexp2/replacement2/g'</span> inputFileName</span>
+</pre></div>
+<h4 id="sed-r">sed -r</h4>
+<p>支持扩展的正则表达式</p>
+<div class="highlight"><pre><span class="code-line">sed -n -r <span class="s1">'/regex/p'</span> filename</span>
+<span class="code-line"><span class="c"># 匹配file里所有符合regex的文件行</span></span>
+</pre></div>
+<h3 id="sed-hold-space_1">sed Hold Space</h3>
+<p>上面的命令几乎都遵循这样的格式</p>
+<div class="highlight"><pre><span class="code-line">[address[,address]][!]{cmd}</span>
+</pre></div>
+<p>其中<em>！</em>表示匹配成功后是否执行。
+同时，如果cmd有多个，可以用分号分开，用大括号括起来作为嵌套命令。</p>
+<div class="highlight"><pre><span class="code-line">sed <span class="s1">'m,n {/pattern1/{/pattern2/d}}'</span> filename</span>
+<span class="code-line"><span class="c"># 对第m行到n行，先匹配pattern1，在匹配pattern2，然后执行d删除命令</span></span>
+</pre></div>
+<p>下面具体介绍 Hold space</p>
+<div class="highlight"><pre><span class="code-line">h H : copy/append pattern space to hold space.</span>
+<span class="code-line">g G : copy/append hold space to pattern space.</span>
+<span class="code-line">n N : Read/append the next line of input into the pattern sapce. </span>
+</pre></div>
+<p>当sed逐行读取文件的时候，这些 已经被读取的文件行就放到pattern
+buffer（pattern space）里。Pattern buffer相当于一个缓存，当你
+用sed进行输出的时候，它会输出pattern buffer的内容。</p>
+<p>Hold buffer/hold space 相当于一个长久的存储。一般情况我们
+不会直接处理hold buffer的内容，当需要处理的时候我就会把hold buffer的
+内容copy到pattern buffer里进行处理.</p>
+<div class="highlight"><pre><span class="code-line">sed -n <span class="s1">'1!G;h;$p'</span></span>
+<span class="code-line"><span class="c"># 和tac的功能一样，print the file in reverse</span></span>
+</pre></div>
+<h2 id="tail-head_1">tail &amp; head</h2>
+<p>head:print the first part of a file</p>
+<p>tail:print the last part of a file</p>
+<h3 id="tail-head-options">tail &amp; head options</h3>
+<div class="highlight"><pre><span class="code-line">head|tail -q : 隐藏文件名</span>
+<span class="code-line">head|tail -v : 显示文件名</span>
+<span class="code-line">head|tail -c &lt;m&gt; : 显示字节数</span>
+<span class="code-line">head|tail -n &lt;m&gt; : 显示行数 </span>
+</pre></div>
+<h2 id="wc_1">wc</h2>
+<p>wc 是用来读取标准输入输出文件中的行数，单词数目。如果有多个文件时
+单个文件和综合的统计都会输出。</p>
+<h3 id="_9">用法</h3>
+<ul>
+<li>wc -l <filename> print the line count (note that if the last line does not have \n, it will not be counted)</filename></li>
+<li>wc -c <filename> print the byte count</filename></li>
+<li>wc -m <filename> print the character count</filename></li>
+<li>wc -L <filename> print the length of longest line</filename></li>
+<li>wc -w <filename> print the word count</filename></li>
+</ul>
+<h2 id="sort_1">sort</h2>
+<p>sort对文本文件的line进行排序</p>
+<h3 id="_10">用法</h3>
+<ul>
+<li>sort -n <filename> The -n option makes the program sort according to numerical value</filename></li>
+<li>sort -k <filename> The -k option makes the program sort using the k column of data</filename></li>
+<li>sort -r <fielname> The -r option just reverses the order of the sort</fielname></li>
+<li>sort -u <filename> The -u option with -c, check for strict ordering; without -c, output only the first of an equal run </filename></li>
+</ul>
+<h2 id="cut_1">cut</h2>
+<p>cut是用于获取文件的line中的指定部分。</p>
+<h3 id="_11">用法</h3>
+<ul>
+<li>cut -c <filename> 以charactor为单位</filename></li>
+<li>cut -b <filename> 以byte为单位</filename></li>
+<li>cut -d ":" <filename> 指定分隔符，默认为tab</filename></li>
+<li>cut -n  Used in combination with -b suppresses splits of multi-byte characters</li>
+<li>cut -fn <filename> 截取第n个section </filename></li>
+</ul>
+<h2 id="tr_1">tr</h2>
+<p>tr (translate) or delete character</p>
+<h4 id="tr_2">tr 语法</h4>
+<p>tr [-cds] [string1 [string]]</p>
+<div class="highlight"><pre><span class="code-line">tr -c : complement the set of characters in string1 with</span>
+<span class="code-line">        respect to the universe of characters whose ASCII codes</span>
+<span class="code-line">        are 01 through 0377</span>
+<span class="code-line">tr -d : delete all input characters in string1</span>
+<span class="code-line">tr -s : squeeze all strings of repeated </span>
+</pre></div>
+<h2 id="cut_3">cut</h2>
+<p>cut 别用来提取文件行中的特定部分。</p>
+<ul>
+<li>cut -f : specifies a filed list, separated by a delimiter</li>
+<li>cut -s : bypasses lines which contain no field delimiters when -f is specified, unless otherwise indicated.</li>
+</ul>
+<h2 id="grep">grep</h2>
+<p>grep (Globel search a Regular Expression and Printing out the line)是一种强大
+的文本搜索工具，它使用正则表达式搜索文本，并把匹配的line打印出来。</p>
+<h3 id="grep-options">grep options</h3>
+<ul>
+<li>grep -r : 递归搜索</li>
+<li>grep -v : 反向选取，只显示不符合pattern的行</li>
+<li>grep -o : 只显示被模式匹配到的字符串，而不是整个行</li>
+<li>grep -i : 匹配时不区分大小写</li>
+<li>grep -E : 使用扩展的正则表达式</li>
+</ul>
+<section>
+<div class="accordion" id="accordion2">
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle disqus-comment-count" data-toggle="collapse" data-parent="#accordion2"
+                href="../../../../../blog/2014/07/19/shell/#disqus_thread">
+                Comments
+            </a>
+        </div>
+        <div id="disqus_thread" class="accordion-body collapse">
+            <div class="accordion-inner">
+                <div class="comments">
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'houcj';
+
+
+    (function() {
+         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+            <aside>
+            <hr/>
+            <nav>
+            <ul class="articles_timeline">
+ 
+                <li class="previous_article">« <a href="../../../../../blog/2014/06/02/wei-cao-zuo/" title="Previous: 位操作">位操作</a></li>
+ 
+                <li class="next_article"><a href="../../../../../blog/2014/09/06/markdown/" title="Next: Introduction to Markdown">Introduction to Markdown</a> »</li>
+            </ul>
+            </nav>
+            </aside>
+        </div>
+        <section>
+        <div class="span2" style="float:right;font-size:0.9em;">
+ 
+            <h4>Published</h4>
+            <time pubdate="pubdate" datetime="2014-07-19T21:13:00+08:00">Jul 19, 2014</time>
+            <h4>Category</h4>
+            <a class="category-link" href="/categories.html#编程-ref">编程</a> 
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article"> 
+                <li><a href="/tags.html#Shell-ref">Shell
+                    <span>1</span>
+</a></li>
+            </ul>
+            <h4>Blogroll</h4>
+            <ul ><a class="category-link" href="http://www.rudy-yuan.net">Rudy-yuan</a></ul>
+            <ul ><a class="category-link" href="http://www.wengweitao.com">WWT</a></ul>
+            <ul ><a class="category-link" href="http://hult.tiddlyspot.com">HULT</a></ul>
+    
+        </div>
+        </section>
+</div>
+</article>
+                </div>
+                <div class="span1"></div>
+            </div>
+        </div>
+    </div>
+        
+            <script src="http://code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+<script type="text/javascript">
+    var disqus_shortname = 'houcj';
+
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+    </script>
+        <script  language="javascript" type="text/javascript">
+            function uncollapse() {
+                var hash_str = window.location.hash;
+                if (window.location.hash.match(/^#comment-\d+$/))
+                {
+                    var hash_str = '#disqus_thread';
+                }
+                $(hash_str).collapse({
+                    toggle: true
+                    })
+            }
+        </script>
+
+        <script type="text/javascript" language="JavaScript">
+            uncollapse(); 
+        </script>
+    </body>
+      <!-- Baidu Button BEGIN -->
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"6","bdPos":"right","bdTop":"250"},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+ <!-- Baidu Button END -->
+  </body>
+
+  <!-- hitwebcounter Code START -->
+
+<img src="http://hitwebcounter.com/counter/counter.php?page=6046616&style=0005&nbdigits=5&type=ip&initCount=0" title="" Alt=""   border="0" style="float:left">  
+
+</html>
