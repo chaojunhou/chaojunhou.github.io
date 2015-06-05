@@ -73,7 +73,7 @@
     <div class="span2 table-of-content">
         <nav>
         <h4>Contents</h4>
-        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="二叉树">二叉树</a><ul><li><a class="toc-href" href="#_1" title="把二叉查找树保存到文件中">把二叉查找树保存到文件中</a></li><li><a class="toc-href" href="#serializationdeserialization-of-a-binary-tree" title="Serialization|Deserialization of a Binary Tree">Serialization|Deserialization of a Binary Tree</a></li><li><a class="toc-href" href="#printing-a-binary-tree-in-level-order" title="Printing a Binary Tree in Level Order">Printing a Binary Tree in Level Order</a><ul><li><a class="toc-href" href="#bfs" title="BFS">BFS</a></li><li><a class="toc-href" href="#dfs" title="DFS">DFS</a></li></ul></li><li><a class="toc-href" href="#convert-sorted-list-to-balanced-binary-search-tree-bst_1" title="Convert Sorted List to Balanced Binary Search Tree (BST)">Convert Sorted List to Balanced Binary Search Tree (BST)</a></li><li><a class="toc-href" href="#convert-binary-search-tree-bst-to-sorted-doubly-linked-list" title="Convert Binary Search Tree (BST) to Sorted Doubly-Linked List">Convert Binary Search Tree (BST) to Sorted Doubly-Linked List</a></li></ul></li></ul></div></body></html>
+        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="二叉树">二叉树</a><ul><li><a class="toc-href" href="#_1" title="把二叉查找树保存到文件中">把二叉查找树保存到文件中</a></li><li><a class="toc-href" href="#serializationdeserialization-of-a-binary-tree" title="Serialization|Deserialization of a Binary Tree">Serialization|Deserialization of a Binary Tree</a></li><li><a class="toc-href" href="#printing-a-binary-tree-in-level-order" title="Printing a Binary Tree in Level Order">Printing a Binary Tree in Level Order</a><ul><li><a class="toc-href" href="#bfs" title="BFS">BFS</a></li><li><a class="toc-href" href="#dfs" title="DFS">DFS</a></li></ul></li><li><a class="toc-href" href="#morris_1" title="Morris二叉树遍历算法">Morris二叉树遍历算法</a><ul><li><a class="toc-href" href="#_2" title="原理">原理</a></li><li><a class="toc-href" href="#_3" title="中序遍历">中序遍历</a></li><li><a class="toc-href" href="#python-code" title="Python Code">Python Code</a></li><li><a class="toc-href" href="#_4" title="后序遍历">后序遍历</a></li></ul></li><li><a class="toc-href" href="#convert-sorted-list-to-balanced-binary-search-tree-bst_1" title="Convert Sorted List to Balanced Binary Search Tree (BST)">Convert Sorted List to Balanced Binary Search Tree (BST)</a></li><li><a class="toc-href" href="#convert-binary-search-tree-bst-to-sorted-doubly-linked-list" title="Convert Binary Search Tree (BST) to Sorted Doubly-Linked List">Convert Binary Search Tree (BST) to Sorted Doubly-Linked List</a></li></ul></li></ul></div></body></html>
         </nav>
     </div>
     <div class="span8 article-content">
@@ -210,6 +210,50 @@ Writing the tree to a file is called &lsquo;serialization&rsquo; and reading bac
 <span class="code-line">            <span class="n">dfs</span><span class="p">(</span><span class="n">root</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span></span>
 <span class="code-line">        <span class="k">return</span> <span class="n">res</span></span>
 </pre></div>
+<hr/>
+<h3 id="morris_1">Morris二叉树遍历算法</h3>
+<p>对于二叉树的遍历，可以使用递归或者堆栈，但morris遍历，使用
+无堆栈，O（1）空间进行二叉树遍历。</p>
+<h4 id="_2">原理</h4>
+<p>利用所有叶子节点的右指针，指向其后继节点，形成一个环，在第二次遍历到这个节点时，
+由于左子树已经遍历完了，则访问该节点。</p>
+<h4 id="_3">中序遍历</h4>
+<div class="highlight"><pre><span class="code-line">算法伪码：</span>
+<span class="code-line">1. Initialize current as root </span>
+<span class="code-line">2. While current is not NULL</span>
+<span class="code-line">   If current does not have left child</span>
+<span class="code-line">      a) Print current&rsquo;s data</span>
+<span class="code-line">      b) Go to the right, i.e., current = current-&gt;right</span>
+<span class="code-line">   Else</span>
+<span class="code-line">      a) Make current as right child of the rightmost node in current's left subtree</span>
+<span class="code-line">      b) Go to this left child, i.e., current = current-&gt;left</span>
+</pre></div>
+<h4 id="python-code">Python Code</h4>
+<div class="highlight"><pre><span class="code-line">    <span class="k">def</span> <span class="nf">morris_inorder</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">):</span></span>
+<span class="code-line">        <span class="n">res</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="code-line">        <span class="n">p</span> <span class="o">=</span> <span class="n">root</span></span>
+<span class="code-line">        <span class="k">while</span> <span class="n">p</span><span class="p">:</span></span>
+<span class="code-line">            <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">left</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span></span>
+<span class="code-line">                <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">val</span><span class="p">)</span></span>
+<span class="code-line">                <span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">right</span></span>
+<span class="code-line">            <span class="k">else</span><span class="p">:</span></span>
+<span class="code-line">                <span class="n">tmp</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">left</span></span>
+<span class="code-line">                <span class="k">while</span> <span class="n">tmp</span><span class="o">.</span><span class="n">right</span> <span class="ow">and</span> <span class="n">tmp</span><span class="o">.</span><span class="n">right</span> <span class="o">!=</span> <span class="n">p</span><span class="p">:</span></span>
+<span class="code-line">                    <span class="n">tmp</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">.</span><span class="n">right</span></span>
+<span class="code-line">                <span class="k">if</span>  <span class="n">tmp</span><span class="o">.</span><span class="n">right</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span></span>
+<span class="code-line">                    <span class="n">tmp</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">p</span></span>
+<span class="code-line">                    <span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">left</span></span>
+<span class="code-line">                <span class="k">else</span><span class="p">:</span></span>
+<span class="code-line">                    <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">val</span><span class="p">)</span></span>
+<span class="code-line">                    <span class="n">tmp</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="bp">None</span></span>
+<span class="code-line">                    <span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">right</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">res</span></span>
+</pre></div>
+<p><strong>Morris的前序遍历和中序遍历比较类似，只不过在前驱节点为空的时候，直接输出当前的节点</strong></p>
+<h4 id="_4">后序遍历</h4>
+<p>后序遍历比较复杂，需要建立一个临时节点dump，令其左孩子为root，并且需要一个倒序输出某两个节点
+之间路径的各个节点的自过程。</p>
+<p><strong>具体实现和测试代码见<a href="https://github.com/chaojunhou/Morris">Github</a></strong></p>
 <hr/>
 <h3 id="convert-sorted-list-to-balanced-binary-search-tree-bst_1">Convert Sorted List to Balanced Binary Search Tree (BST)</h3>
 <blockquote>
