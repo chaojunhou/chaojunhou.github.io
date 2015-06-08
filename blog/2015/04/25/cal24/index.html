@@ -2,16 +2,28 @@
 <html lang="en-US">
     <head>
         <meta charset="utf-8"> 
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="google-site-verification" content="fdZTDVFyX3hKovPIzn1tgPixk_wysBXaPN8YQw1P8Jw" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="author" content="ChaoJun Hou" />
         <meta name="copyright" content="ChaoJun Hou" />
 
 <meta name="keywords" content="算法, 编程, " />
+
+<meta property="og:title" content="24点游戏编程 "/>
+<meta property="og:url" content="../../../../../blog/2015/04/25/cal24/" />
+<meta property="og:description" content="24点游戏是一种使用扑克牌来进行的益智类游戏，游戏内容是：从一副扑克牌中抽去大小王剩下52张，任意抽取4张牌，把牌面上的数（A代表1）运用加、减、乘、除和括号进行运算得出24。每张牌都必须使用一次，但不能重复使用。在不同版本中，对J、Q、和K的处理有些差异。一个常见的版本是把J、Q、和K去除，或当成10；还有一个版本是把J表示11，Q表示12，K代表13。 虽然大多数24点存在很多解法，有相当一部分数字组合只存在唯一的解法。这种组合往往较有难度，也较为有趣。这里总结一些常见的组合。 分数运算 虽然给出4个数字都是整数，中间步骤中有时会出现分数。这种4个数字的组合往往较有难度。一个经典的例子是1，5，5，5，其解答为5 × (5 − 1 ÷ 5) = 24；另外 一个例子是3，3，8，8，其解答为8 ÷ (3 - 8 ..." />
+<meta property="og:site_name" content="Write the Code" />
+<meta property="og:article:author" content="ChaoJun Hou" />
+<meta property="og:article:published_time" content="2015-04-25T19:21:00+08:00" />
+<meta name="twitter:title" content="24点游戏编程 ">
+<meta name="twitter:description" content="24点游戏是一种使用扑克牌来进行的益智类游戏，游戏内容是：从一副扑克牌中抽去大小王剩下52张，任意抽取4张牌，把牌面上的数（A代表1）运用加、减、乘、除和括号进行运算得出24。每张牌都必须使用一次，但不能重复使用。在不同版本中，对J、Q、和K的处理有些差异。一个常见的版本是把J、Q、和K去除，或当成10；还有一个版本是把J表示11，Q表示12，K代表13。 虽然大多数24点存在很多解法，有相当一部分数字组合只存在唯一的解法。这种组合往往较有难度，也较为有趣。这里总结一些常见的组合。 分数运算 虽然给出4个数字都是整数，中间步骤中有时会出现分数。这种4个数字的组合往往较有难度。一个经典的例子是1，5，5，5，其解答为5 × (5 − 1 ÷ 5) = 24；另外 一个例子是3，3，8，8，其解答为8 ÷ (3 - 8 ...">
+
         <title>24点游戏编程  · Change the World| Write the Code
 </title>
-        <link href="http://cdn-images.mailchimp.com/embedcode/slim-081711.css" rel="stylesheet" type="text/css">
-        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+       
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="../../../../../theme/css/style.css" media="screen">
         <link rel="stylesheet" type="text/css" href="../../../../../theme/css/solarizedlight.css" media="screen">
         <link rel="shortcut icon" href="../../../../../theme/images/favicon.ico" type="image/x-icon" />
@@ -22,16 +34,15 @@
         <link rel="apple-touch-icon" sizes="144x144" href="../../../../../theme/images/apple-touch-icon-144x144.png" />
         <link rel="icon" href="../../../../../theme/images/apple-touch-icon-144x144.png" />
         <link href="www.houcj.net/feed.xml" type="application/rss+xml" rel="alternate" title="Write the Code - Full RSS Feed" />
-    <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', '61957498']);
-    _gaq.push(['_trackPageview']);
-    (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-    </script>
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', '61957498', 'auto');
+    ga('send', 'pageview');
+</script>
+
     </head>
     <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -47,7 +58,7 @@
         <div id="content-sans-footer">
         <div class="navbar navbar-static-top">
             <div class="navbar-inner">
-                <div class="container">
+                <div class="container-fluid">
                     <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -200,16 +211,26 @@
     </div>
 </div>
 </section>
-            <aside>
+            
+
             <hr/>
-            <nav>
-            <ul class="articles_timeline">
- 
-                <li class="previous_article">« <a href="../../../../../blog/2015/04/15/csapp/" title="Previous: 深入理解计算机系统">深入理解计算机系统</a></li>
- 
-                <li class="next_article"><a href="../../../../../blog/2015/05/01/optimizing-program-performance/" title="Next: 程序性能优化">程序性能优化</a> »</li>
-            </ul>
-            </nav>
+<section>
+    <h2>Related Posts</h2>
+<ul class="related-posts-list">
+<li><a href="../../../../../blog/2013/12/22/string-related/" title="字符串相关">字符串相关</a></li>
+<li><a href="../../../../../blog/2014/02/18/equal-probability/" title="概率问题">概率问题</a></li>
+<li><a href="../../../../../blog/2014/06/02/wei-cao-zuo/" title="位操作">位操作</a></li>
+<li><a href="../../../../../blog/2015/05/05/sifting-prime/" title="素数筛选法">素数筛选法</a></li>
+<li><a href="../../../../../blog/2015/05/05/reverse-linked-list/" title="反转链表">反转链表</a></li>
+<li><a href="../../../../../blog/2015/05/18/binary-tree/" title="二叉树">二叉树</a></li>
+<li><a href="../../../../../blog/2015/05/24/select/" title="选择算法">选择算法</a></li>
+<li><a href="../../../../../blog/2015/05/28/search/" title="查找算法">查找算法</a></li>
+<li><a href="../../../../../blog/2015/05/28/find-a-solution/" title="How to find a solution">How to find a solution</a></li>
+<li><a href="../../../../../blog/2015/05/31/sort1/" title="排序算法">排序算法</a></li>
+</ul>
+<hr />
+</section>
+
             </aside>
         </div>
         <section>
@@ -225,11 +246,18 @@
                     <span>13</span>
 </a></li>
             </ul>
-            <h4>Blogroll</h4>
-            <ul ><a class="category-link" href="http://www.rudy-yuan.net">Rudy-yuan</a></ul>
+<h4>Contact</h4>
+    <a href="https://twitter.com/chaojunhou" title="My Twitter Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-twitter sidebar-social-links"></i></a>
+    <a href="https://www.tumblr.com/blog/houcj" title="My Tumblr Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-tumblr sidebar-social-links"></i></a>
+    <a href="https://github.com/chaojunhou" title="My Github Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-github sidebar-social-links"></i></a>
+            <h4>Blogroll></h4>
+			<ul ><a class="category-link" href="http://www.rudy-yuan.net">Rudy-yuan</a></ul>
             <ul ><a class="category-link" href="http://www.wengweitao.com">WWT</a></ul>
             <ul ><a class="category-link" href="http://hult.tiddlyspot.com">HULT</a></ul>
-    
+       
         </div>
         </section>
 </div>
@@ -238,6 +266,7 @@
                 <div class="span1"></div>
             </div>
         </div>
+        <div id="push"></div>
     </div>
         
             <script src="http://code.jquery.com/jquery.min.js"></script>

@@ -2,16 +2,28 @@
 <html lang="en-US">
     <head>
         <meta charset="utf-8"> 
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="google-site-verification" content="fdZTDVFyX3hKovPIzn1tgPixk_wysBXaPN8YQw1P8Jw" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="author" content="ChaoJun Hou" />
         <meta name="copyright" content="ChaoJun Hou" />
 
 <meta name="keywords" content="算法, 概率, 计算机科学, " />
+
+<meta property="og:title" content="概率问题 "/>
+<meta property="og:url" content="../../../../../blog/2014/02/18/equal-probability/" />
+<meta property="og:description" content="等概率：蓄水池问题 要求从N个元素中随机的抽取k个元素，其中N无法确定。 这种应用的场景一般是数据流的情况下，由于数据只能被读取一次，而且数据量很大，并不能全部保存，因此数据量N是无法在抽样开始时确定的；但又要保持随机性，于是有了这个问题。所以搜索网站有时候会问这样的问题。 这里的核心问题就是“随机”，怎么才能是随机的抽取元素呢？我们设想，买彩票的时候，由于所有彩票的中奖概率都是一样的，所以我们才是“随机的”买彩票。那么要使抽取数据也随机，必须使每一个数据被抽样出来的概率都一样。 分析： 由于N无法确定，数据只能读取一次，并且要求随机，就是每个元素抽出的概率一样，都是k/N。 解法一：最小k个指纹 找到一个哈希函数能产生随机数，同时用一个k个元素的堆用来保存最小的k个元素。那么过一遍所有的元素，计算每个的哈希值，通过堆来选择k个元素。 解法二：数学计算 先选中前k个， 从第k+1个元素到最后一个元素为止， 以1/i (i=k+1, k+2,...,N ..." />
+<meta property="og:site_name" content="Write the Code" />
+<meta property="og:article:author" content="ChaoJun Hou" />
+<meta property="og:article:published_time" content="2014-02-18T13:23:00+08:00" />
+<meta name="twitter:title" content="概率问题 ">
+<meta name="twitter:description" content="等概率：蓄水池问题 要求从N个元素中随机的抽取k个元素，其中N无法确定。 这种应用的场景一般是数据流的情况下，由于数据只能被读取一次，而且数据量很大，并不能全部保存，因此数据量N是无法在抽样开始时确定的；但又要保持随机性，于是有了这个问题。所以搜索网站有时候会问这样的问题。 这里的核心问题就是“随机”，怎么才能是随机的抽取元素呢？我们设想，买彩票的时候，由于所有彩票的中奖概率都是一样的，所以我们才是“随机的”买彩票。那么要使抽取数据也随机，必须使每一个数据被抽样出来的概率都一样。 分析： 由于N无法确定，数据只能读取一次，并且要求随机，就是每个元素抽出的概率一样，都是k/N。 解法一：最小k个指纹 找到一个哈希函数能产生随机数，同时用一个k个元素的堆用来保存最小的k个元素。那么过一遍所有的元素，计算每个的哈希值，通过堆来选择k个元素。 解法二：数学计算 先选中前k个， 从第k+1个元素到最后一个元素为止， 以1/i (i=k+1, k+2,...,N ...">
+
         <title>概率问题  · Change the World| Write the Code
 </title>
-        <link href="http://cdn-images.mailchimp.com/embedcode/slim-081711.css" rel="stylesheet" type="text/css">
-        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+       
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="../../../../../theme/css/style.css" media="screen">
         <link rel="stylesheet" type="text/css" href="../../../../../theme/css/solarizedlight.css" media="screen">
         <link rel="shortcut icon" href="../../../../../theme/images/favicon.ico" type="image/x-icon" />
@@ -22,16 +34,15 @@
         <link rel="apple-touch-icon" sizes="144x144" href="../../../../../theme/images/apple-touch-icon-144x144.png" />
         <link rel="icon" href="../../../../../theme/images/apple-touch-icon-144x144.png" />
         <link href="www.houcj.net/feed.xml" type="application/rss+xml" rel="alternate" title="Write the Code - Full RSS Feed" />
-    <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', '61957498']);
-    _gaq.push(['_trackPageview']);
-    (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-    </script>
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', '61957498', 'auto');
+    ga('send', 'pageview');
+</script>
+
     </head>
     <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -47,7 +58,7 @@
         <div id="content-sans-footer">
         <div class="navbar navbar-static-top">
             <div class="navbar-inner">
-                <div class="container">
+                <div class="container-fluid">
                     <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -269,16 +280,26 @@ P(B|A)=\frac{P(A|B)P(B)}{P(A)}=\frac{13}{49}\times\frac{1}{4}\div\frac{27}{196}=
     </div>
 </div>
 </section>
-            <aside>
+            
+
             <hr/>
-            <nav>
-            <ul class="articles_timeline">
- 
-                <li class="previous_article">« <a href="../../../../../blog/2014/02/13/trie-lru/" title="Previous: Trie-LRU">Trie-LRU</a></li>
- 
-                <li class="next_article"><a href="../../../../../blog/2014/02/20/mind-trick/" title="Next: Mind trick">Mind trick</a> »</li>
-            </ul>
-            </nav>
+<section>
+    <h2>Related Posts</h2>
+<ul class="related-posts-list">
+<li><a href="../../../../../blog/2013/12/22/string-related/" title="字符串相关">字符串相关</a></li>
+<li><a href="../../../../../blog/2014/06/02/wei-cao-zuo/" title="位操作">位操作</a></li>
+<li><a href="../../../../../blog/2015/04/25/cal24/" title="24点游戏编程">24点游戏编程</a></li>
+<li><a href="../../../../../blog/2015/05/05/sifting-prime/" title="素数筛选法">素数筛选法</a></li>
+<li><a href="../../../../../blog/2015/05/05/reverse-linked-list/" title="反转链表">反转链表</a></li>
+<li><a href="../../../../../blog/2015/05/18/binary-tree/" title="二叉树">二叉树</a></li>
+<li><a href="../../../../../blog/2015/05/24/select/" title="选择算法">选择算法</a></li>
+<li><a href="../../../../../blog/2015/05/28/search/" title="查找算法">查找算法</a></li>
+<li><a href="../../../../../blog/2015/05/28/find-a-solution/" title="How to find a solution">How to find a solution</a></li>
+<li><a href="../../../../../blog/2015/05/31/sort1/" title="排序算法">排序算法</a></li>
+</ul>
+<hr />
+</section>
+
             </aside>
         </div>
         <section>
@@ -297,11 +318,18 @@ P(B|A)=\frac{P(A|B)P(B)}{P(A)}=\frac{13}{49}\times\frac{1}{4}\div\frac{27}{196}=
                     <span>13</span>
 </a></li>
             </ul>
-            <h4>Blogroll</h4>
-            <ul ><a class="category-link" href="http://www.rudy-yuan.net">Rudy-yuan</a></ul>
+<h4>Contact</h4>
+    <a href="https://twitter.com/chaojunhou" title="My Twitter Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-twitter sidebar-social-links"></i></a>
+    <a href="https://www.tumblr.com/blog/houcj" title="My Tumblr Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-tumblr sidebar-social-links"></i></a>
+    <a href="https://github.com/chaojunhou" title="My Github Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-github sidebar-social-links"></i></a>
+            <h4>Blogroll></h4>
+			<ul ><a class="category-link" href="http://www.rudy-yuan.net">Rudy-yuan</a></ul>
             <ul ><a class="category-link" href="http://www.wengweitao.com">WWT</a></ul>
             <ul ><a class="category-link" href="http://hult.tiddlyspot.com">HULT</a></ul>
-    
+       
         </div>
         </section>
 </div>
@@ -310,6 +338,7 @@ P(B|A)=\frac{P(A|B)P(B)}{P(A)}=\frac{13}{49}\times\frac{1}{4}\div\frac{27}{196}=
                 <div class="span1"></div>
             </div>
         </div>
+        <div id="push"></div>
     </div>
         
             <script src="http://code.jquery.com/jquery.min.js"></script>

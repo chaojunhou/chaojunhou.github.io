@@ -355,6 +355,20 @@ and [3,4,-1,1] return 2.&lt;/p&gt;
 &lt;span class="code-line"&gt;                    &lt;span class="n"&gt;l&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;mid&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;下面是常见的二分查找的Algorithm puzzle exapmles：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Given A a sorted array find out how many times does x occur in A.&lt;/p&gt;
+&lt;p&gt;Given a real number x, find out its cubic root.&lt;/p&gt;
+&lt;p&gt;Given A a sorted array with distinct numbers, find out an i such that A[i] == i.&lt;/p&gt;
+&lt;p&gt;Given the +,-,*,/,sqrt operations and a real number x find an algorithm to get log_2_x.&lt;/p&gt;
+&lt;p&gt;Given an array of distinct numbers A such that A[0] &amp;gt; A[1] and A[n-1] &amp;gt; A[n-2] find out a local minimum (find out an i such that A[i-1] &amp;gt; A[i] &amp;lt; A[i + 1]).&lt;/p&gt;
+&lt;p&gt;Let A be a sorted array with distinct elements. A is rotated k positions to the right (k is unknown). Find out k.&lt;/p&gt;
+&lt;p&gt;Let A be a sorted array with distinct elements. A is rotated k positions to the right (k is unknown). Find out if A contains a number x.&lt;/p&gt;
+&lt;p&gt;Given two sorted arrays of length n and m, find out the kth element of their sorted union.&lt;/p&gt;
+&lt;p&gt;Given A, an array comprised of an increasing sequence of numbers followed immediately by a decreasing one. Determine if a given number x is in the array.&lt;/p&gt;
+&lt;p&gt;Given an array of N distinct int values in ascending order, determine whether a given integer is in the array. You may use only additions and subtractions and a constant amount of extra memory.&lt;/p&gt;
+&lt;p&gt;Player A chooses a secret number n. Player B can guess a number x and A replies how does x compare to n (equal, larger, smaller). What's an efficient strategy for B to guess n.&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h2 id="hash_2"&gt;Hash表查找&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;条件：&lt;/strong&gt;先创建哈希表
 &lt;strong&gt;原理：&lt;/strong&gt;根据key value进行查找，通过hash函数定位数据元素。
@@ -1285,7 +1299,7 @@ DFS调用中，就会找到一个连通分支，直到遍历图中的所有节�
 &lt;h3 id="1"&gt;1. 系统架构&amp;amp;设计模式&lt;/h3&gt;
 &lt;hr/&gt;
 &lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;大型网站技术架构 [0%]&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;大型网站技术架构 [Done]&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;设计模式可重用面向对象软件的基础 [10%]&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;HeadFirst 设计模式 [0%]&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;构建高性能的web站点 [0%]&lt;/p&gt;
@@ -1426,30 +1440,4 @@ DFS调用中，就会找到一个连通分支，直到遍历图中的所有节�
 &lt;p&gt;学习之道 [0%]&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;黑天鹅：如何应对不可预知的未来 [0%]&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;从0到1开启商业与未来的秘密 [0%]&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;!-- ## 6.美剧&amp;英剧 ##
-
-----------&gt; Black Books [Done]
-
-&amp;gt; Downton Abbey [Done]
-
-&amp;gt; The IT Crowd [Done]
-
-&amp;gt; Sherlock [Done] 
-
-&amp;gt; Black Mirror [Done]
-***
-&amp;gt; The Big Bong Thoery [Done]
-
-&amp;gt; Game of Thrones [Done]
-
-&amp;gt; Prison Break [Done]
-
-&amp;gt; Breaking Bad [Done]
-
-&amp;gt; House of Cards [Done]
-
-&amp;gt; Hannibal [Done]
-
-&amp;gt;True Detective [Done]
---&amp;gt;</summary><category term="书单"></category></entry></feed>
+&lt;/blockquote&gt;</summary><category term="书单"></category></entry></feed>

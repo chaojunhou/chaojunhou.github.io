@@ -2,16 +2,28 @@
 <html lang="en-US">
     <head>
         <meta charset="utf-8"> 
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="google-site-verification" content="fdZTDVFyX3hKovPIzn1tgPixk_wysBXaPN8YQw1P8Jw" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="author" content="ChaoJun Hou" />
         <meta name="copyright" content="ChaoJun Hou" />
 
 <meta name="keywords" content="操作系统, 计算机科学, " />
+
+<meta property="og:title" content="程序性能优化 "/>
+<meta property="og:url" content="../../../../../blog/2015/05/01/optimizing-program-performance/" />
+<meta property="og:description" content="We should forget about small efficiencies, say about 97% of the time: premature optimization is the root of all evil. ~Donald Knuth 程序员必须再实现和维护程序的简单性与它的运行速度之间做出权衡。 优化编译器的能力和局限性 编译器必须很小心地对程序只使用安全的优化。程序中有两个妨碍优化的因素。 - 存储器别名使用 void add1 (int *xp, int *yp) { *xp += *yp; *xp += *yp; } void add2 (int *xp, int *yp) { *xp += 2 * *yp; } 编译器并不会把第一个函数优化成第二个函数，因为如果考虑到 xp 等于 ..." />
+<meta property="og:site_name" content="Write the Code" />
+<meta property="og:article:author" content="ChaoJun Hou" />
+<meta property="og:article:published_time" content="2015-05-01T19:15:00+08:00" />
+<meta name="twitter:title" content="程序性能优化 ">
+<meta name="twitter:description" content="We should forget about small efficiencies, say about 97% of the time: premature optimization is the root of all evil. ~Donald Knuth 程序员必须再实现和维护程序的简单性与它的运行速度之间做出权衡。 优化编译器的能力和局限性 编译器必须很小心地对程序只使用安全的优化。程序中有两个妨碍优化的因素。 - 存储器别名使用 void add1 (int *xp, int *yp) { *xp += *yp; *xp += *yp; } void add2 (int *xp, int *yp) { *xp += 2 * *yp; } 编译器并不会把第一个函数优化成第二个函数，因为如果考虑到 xp 等于 ...">
+
         <title>程序性能优化  · Change the World| Write the Code
 </title>
-        <link href="http://cdn-images.mailchimp.com/embedcode/slim-081711.css" rel="stylesheet" type="text/css">
-        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+       
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="../../../../../theme/css/style.css" media="screen">
         <link rel="stylesheet" type="text/css" href="../../../../../theme/css/solarizedlight.css" media="screen">
         <link rel="shortcut icon" href="../../../../../theme/images/favicon.ico" type="image/x-icon" />
@@ -22,16 +34,15 @@
         <link rel="apple-touch-icon" sizes="144x144" href="../../../../../theme/images/apple-touch-icon-144x144.png" />
         <link rel="icon" href="../../../../../theme/images/apple-touch-icon-144x144.png" />
         <link href="www.houcj.net/feed.xml" type="application/rss+xml" rel="alternate" title="Write the Code - Full RSS Feed" />
-    <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', '61957498']);
-    _gaq.push(['_trackPageview']);
-    (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-    </script>
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', '61957498', 'auto');
+    ga('send', 'pageview');
+</script>
+
     </head>
     <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -47,7 +58,7 @@
         <div id="content-sans-footer">
         <div class="navbar navbar-static-top">
             <div class="navbar-inner">
-                <div class="container">
+                <div class="container-fluid">
                     <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -330,16 +341,17 @@
     </div>
 </div>
 </section>
-            <aside>
+            
+
             <hr/>
-            <nav>
-            <ul class="articles_timeline">
- 
-                <li class="previous_article">« <a href="../../../../../blog/2015/04/25/cal24/" title="Previous: 24点游戏编程">24点游戏编程</a></li>
- 
-                <li class="next_article"><a href="../../../../../blog/2015/05/04/usual-error-in-c/" title="Next: C程序中常见的与存储器有关的错误">C程序中常见的与存储器有关的错误</a> »</li>
-            </ul>
-            </nav>
+<section>
+    <h2>Related Posts</h2>
+<ul class="related-posts-list">
+<li><a href="../../../../../blog/2015/04/15/csapp/" title="深入理解计算机系统">深入理解计算机系统</a></li>
+</ul>
+<hr />
+</section>
+
             </aside>
         </div>
         <section>
@@ -355,11 +367,18 @@
                     <span>2</span>
 </a></li>
             </ul>
-            <h4>Blogroll</h4>
-            <ul ><a class="category-link" href="http://www.rudy-yuan.net">Rudy-yuan</a></ul>
+<h4>Contact</h4>
+    <a href="https://twitter.com/chaojunhou" title="My Twitter Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-twitter sidebar-social-links"></i></a>
+    <a href="https://www.tumblr.com/blog/houcj" title="My Tumblr Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-tumblr sidebar-social-links"></i></a>
+    <a href="https://github.com/chaojunhou" title="My Github Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-github sidebar-social-links"></i></a>
+            <h4>Blogroll></h4>
+			<ul ><a class="category-link" href="http://www.rudy-yuan.net">Rudy-yuan</a></ul>
             <ul ><a class="category-link" href="http://www.wengweitao.com">WWT</a></ul>
             <ul ><a class="category-link" href="http://hult.tiddlyspot.com">HULT</a></ul>
-    
+       
         </div>
         </section>
 </div>
@@ -368,6 +387,7 @@
                 <div class="span1"></div>
             </div>
         </div>
+        <div id="push"></div>
     </div>
         
             <script src="http://code.jquery.com/jquery.min.js"></script>

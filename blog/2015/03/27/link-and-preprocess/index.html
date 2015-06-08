@@ -2,16 +2,28 @@
 <html lang="en-US">
     <head>
         <meta charset="utf-8"> 
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="google-site-verification" content="fdZTDVFyX3hKovPIzn1tgPixk_wysBXaPN8YQw1P8Jw" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="author" content="ChaoJun Hou" />
         <meta name="copyright" content="ChaoJun Hou" />
 
 <meta name="keywords" content="C, 编程, " />
+
+<meta property="og:title" content="链接和预编译 "/>
+<meta property="og:url" content="../../../../../blog/2015/03/27/link-and-preprocess/" />
+<meta property="og:description" content="链接 C++中允许重载方法，这些方法在源代码中有相同的名字，却有不同的函数列表。编译器讲每个唯一的方法和参数列表组合编码成一个对链接器来说唯一的名字。这个编码过程叫做mangling。 链接器如何解析多重定义的全局符号 函数和已初始化的全局变量是强符号，未初始化的全局变量是弱符号。 Unix链接器使用下面的规则来处理多重定义的符号： 不允许有多个强符号。 如果有一个强符号和一个弱符号，那么选择强符号 如果有多个弱符号，那么从这些弱符号中任意选择一个 在命令行中，如果定义一个符号的库出现在引用这个符号的目标文件之前，那么引用就不能被解析，连接会失败 加载器（loader）将可执行目标文件的代码和数据从磁盘拷到内存中，然后跳转到程序的第一条指令或入口点来运行程序。这个将程序拷贝到内存并运行的过程叫做加载。 无论我们在存储器中的何处加载一个目标模块，数据段总是分配成紧随代码段后面。因此，代码段中任何指令和数据段中任何一个变量之间的距离都是一个运行时常量，和代码段和数据段的绝对的存储位置无关 链接器的两个主要任务是符号解析和重定位 符号解析讲姆讲目标文件中的每个全局符号都绑定到一个唯一的定义 重定位确定每个符号的最终在内存中的位置，并修改对那些目标的引用。 链接器 分别编译：即若干个源程序可以在不同的时候单独进行编译，然后在恰当的时候将它们整合到一起。但是，链接器一般是与C编译器分离的。 链接器通常把由编译器或汇编器生成的若干个目标模块整合成一个被称为载入模块或可执行文件的实体，该实体能够被操作系统直接执行。 链接器通常把目标模块看成是由一组外部对象组成。每个外部对象代表机器内存中的某个部分，并通过一个外部名称来识别。 exit函数和return函数的主要区别是： exit用于在程序运行的过程中随时结束程序，exit的参数返回给操作系统 ..." />
+<meta property="og:site_name" content="Write the Code" />
+<meta property="og:article:author" content="ChaoJun Hou" />
+<meta property="og:article:published_time" content="2015-03-27T23:07:00+08:00" />
+<meta name="twitter:title" content="链接和预编译 ">
+<meta name="twitter:description" content="链接 C++中允许重载方法，这些方法在源代码中有相同的名字，却有不同的函数列表。编译器讲每个唯一的方法和参数列表组合编码成一个对链接器来说唯一的名字。这个编码过程叫做mangling。 链接器如何解析多重定义的全局符号 函数和已初始化的全局变量是强符号，未初始化的全局变量是弱符号。 Unix链接器使用下面的规则来处理多重定义的符号： 不允许有多个强符号。 如果有一个强符号和一个弱符号，那么选择强符号 如果有多个弱符号，那么从这些弱符号中任意选择一个 在命令行中，如果定义一个符号的库出现在引用这个符号的目标文件之前，那么引用就不能被解析，连接会失败 加载器（loader）将可执行目标文件的代码和数据从磁盘拷到内存中，然后跳转到程序的第一条指令或入口点来运行程序。这个将程序拷贝到内存并运行的过程叫做加载。 无论我们在存储器中的何处加载一个目标模块，数据段总是分配成紧随代码段后面。因此，代码段中任何指令和数据段中任何一个变量之间的距离都是一个运行时常量，和代码段和数据段的绝对的存储位置无关 链接器的两个主要任务是符号解析和重定位 符号解析讲姆讲目标文件中的每个全局符号都绑定到一个唯一的定义 重定位确定每个符号的最终在内存中的位置，并修改对那些目标的引用。 链接器 分别编译：即若干个源程序可以在不同的时候单独进行编译，然后在恰当的时候将它们整合到一起。但是，链接器一般是与C编译器分离的。 链接器通常把由编译器或汇编器生成的若干个目标模块整合成一个被称为载入模块或可执行文件的实体，该实体能够被操作系统直接执行。 链接器通常把目标模块看成是由一组外部对象组成。每个外部对象代表机器内存中的某个部分，并通过一个外部名称来识别。 exit函数和return函数的主要区别是： exit用于在程序运行的过程中随时结束程序，exit的参数返回给操作系统 ...">
+
         <title>链接和预编译  · Change the World| Write the Code
 </title>
-        <link href="http://cdn-images.mailchimp.com/embedcode/slim-081711.css" rel="stylesheet" type="text/css">
-        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+       
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="../../../../../theme/css/style.css" media="screen">
         <link rel="stylesheet" type="text/css" href="../../../../../theme/css/solarizedlight.css" media="screen">
         <link rel="shortcut icon" href="../../../../../theme/images/favicon.ico" type="image/x-icon" />
@@ -22,16 +34,15 @@
         <link rel="apple-touch-icon" sizes="144x144" href="../../../../../theme/images/apple-touch-icon-144x144.png" />
         <link rel="icon" href="../../../../../theme/images/apple-touch-icon-144x144.png" />
         <link href="www.houcj.net/feed.xml" type="application/rss+xml" rel="alternate" title="Write the Code - Full RSS Feed" />
-    <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', '61957498']);
-    _gaq.push(['_trackPageview']);
-    (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-    </script>
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', '61957498', 'auto');
+    ga('send', 'pageview');
+</script>
+
     </head>
     <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -47,7 +58,7 @@
         <div id="content-sans-footer">
         <div class="navbar navbar-static-top">
             <div class="navbar-inner">
-                <div class="container">
+                <div class="container-fluid">
                     <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -243,16 +254,20 @@ Unix链接器使用下面的规则来处理多重定义的符号：</p>
     </div>
 </div>
 </section>
-            <aside>
+            
+
             <hr/>
-            <nav>
-            <ul class="articles_timeline">
- 
-                <li class="previous_article">« <a href="../../../../../blog/2015/03/03/the-basic-knowledge-in-c/" title="Previous: The basic Knowledge in C">The basic Knowledge in C</a></li>
- 
-                <li class="next_article"><a href="../../../../../blog/2015/04/01/life-is-short-use-python/" title="Next: 人生苦短我用Python">人生苦短我用Python</a> »</li>
-            </ul>
-            </nav>
+<section>
+    <h2>Related Posts</h2>
+<ul class="related-posts-list">
+<li><a href="../../../../../blog/2013/12/03/thanks-for-the-memory/" title="Thanks for the memory">Thanks for the memory</a></li>
+<li><a href="../../../../../blog/2015/03/03/the-basic-knowledge-in-c/" title="The basic Knowledge in C">The basic Knowledge in C</a></li>
+<li><a href="../../../../../blog/2015/05/04/usual-error-in-c/" title="C程序中常见的与存储器有关的错误">C程序中常见的与存储器有关的错误</a></li>
+<li><a href="../../../../../blog/2015/05/05/sifting-prime/" title="素数筛选法">素数筛选法</a></li>
+</ul>
+<hr />
+</section>
+
             </aside>
         </div>
         <section>
@@ -268,11 +283,18 @@ Unix链接器使用下面的规则来处理多重定义的符号：</p>
                     <span>5</span>
 </a></li>
             </ul>
-            <h4>Blogroll</h4>
-            <ul ><a class="category-link" href="http://www.rudy-yuan.net">Rudy-yuan</a></ul>
+<h4>Contact</h4>
+    <a href="https://twitter.com/chaojunhou" title="My Twitter Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-twitter sidebar-social-links"></i></a>
+    <a href="https://www.tumblr.com/blog/houcj" title="My Tumblr Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-tumblr sidebar-social-links"></i></a>
+    <a href="https://github.com/chaojunhou" title="My Github Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-github sidebar-social-links"></i></a>
+            <h4>Blogroll></h4>
+			<ul ><a class="category-link" href="http://www.rudy-yuan.net">Rudy-yuan</a></ul>
             <ul ><a class="category-link" href="http://www.wengweitao.com">WWT</a></ul>
             <ul ><a class="category-link" href="http://hult.tiddlyspot.com">HULT</a></ul>
-    
+       
         </div>
         </section>
 </div>
@@ -281,6 +303,7 @@ Unix链接器使用下面的规则来处理多重定义的符号：</p>
                 <div class="span1"></div>
             </div>
         </div>
+        <div id="push"></div>
     </div>
         
             <script src="http://code.jquery.com/jquery.min.js"></script>
