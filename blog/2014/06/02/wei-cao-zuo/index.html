@@ -19,7 +19,7 @@
 <meta name="twitter:title" content="位操作 ">
 <meta name="twitter:description" content="常见位操作：获取、设置、清除位数据 获取num第i位的bit值 将1左移i位，从而得到形如00100000的值，然后将这个值与val执行and操作，从而将 第i位之外的所有位清零。 boolean getBit(int num, int i){ return ((num &amp; (1 &lt;&lt; i)) != 0); /*another solution*/ return ((num &gt;&gt; i) &amp; 1); } 将num第i位的bit值置为1 同获取操作类似，只是把and操作变为or操作即可。 int setBit(int num, int i){ return num | (1 &lt;&lt; i); } 将num第i位bit值置为0 同setBit相反，首先需要将1左移i位后取反，变为形如11011111的 掩码，让该掩码与num进行and操作即可。 int clearBit(int num ...">
 
-        <title>位操作  · Change the World| Write the Code
+        <title>位操作  · Change the World | Write the Code
 </title>
        
         <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
@@ -219,15 +219,15 @@ Your algorithm should have a linear runtime complexity. Could you implement it w
 <section>
     <h2>Related Posts</h2>
 <ul class="related-posts-list">
-<li><a href="../../../../../blog/2013/12/22/hui-su-yu-fen-zhi-xian-jie/" title="回溯与分支限界">回溯与分支限界</a></li>
+<li><a href="../../../../../blog/2013/12/22/string-related/" title="字符串相关">字符串相关</a></li>
 <li><a href="../../../../../blog/2014/02/18/equal-probability/" title="概率问题">概率问题</a></li>
 <li><a href="../../../../../blog/2014/03/21/kmp/" title="字符串匹配">字符串匹配</a></li>
 <li><a href="../../../../../blog/2015/04/25/cal24/" title="24点游戏编程">24点游戏编程</a></li>
-<li><a href="../../../../../blog/2015/05/05/sifting-prime/" title="素数筛选法">素数筛选法</a></li>
 <li><a href="../../../../../blog/2015/05/05/reverse-linked-list/" title="反转链表">反转链表</a></li>
 <li><a href="../../../../../blog/2015/05/18/binary-tree/" title="二叉树">二叉树</a></li>
 <li><a href="../../../../../blog/2015/05/24/select/" title="选择算法">选择算法</a></li>
 <li><a href="../../../../../blog/2015/05/28/search/" title="查找算法">查找算法</a></li>
+<li><a href="../../../../../blog/2015/05/28/find-a-solution/" title="How to find a solution">How to find a solution</a></li>
 <li><a href="../../../../../blog/2015/05/31/sort1/" title="排序算法">排序算法</a></li>
 </ul>
 <hr />

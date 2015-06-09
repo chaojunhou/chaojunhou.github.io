@@ -19,7 +19,7 @@
 <meta name="twitter:title" content="C程序中常见的与存储器有关的错误 ">
 <meta name="twitter:description" content="间接引用坏指针 scanf(&#34;%d&#34;, &amp;val); //right scanf(&#34;%d&#34;, val); //wrong，会把val的内容当成地址读进去 读未初始化的存储器 虽然bss存储器位置总是被加载器初始化为零，但对于堆存储器不是这样的。在堆中初始化的元素的值是不确定的 允许栈缓冲区溢出 如果一个程序不检查输入串的大小就写如栈中的目标缓冲区，那么这个程序就会有缓冲区溢出错误。 void bufoverflow() { char buf[64]; gets(buf); //stack buffer flow return; // should use fgest to limit the input size } 假设指针和他们指向的对象是相同大小 int **makeArray(int n, int m) { int i; int **A = (int **)malloc(n ...">
 
-        <title>C程序中常见的与存储器有关的错误  · Change the World| Write the Code
+        <title>C程序中常见的与存储器有关的错误  · Change the World | Write the Code
 </title>
        
         <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">

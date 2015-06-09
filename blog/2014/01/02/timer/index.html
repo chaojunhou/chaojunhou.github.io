@@ -19,7 +19,7 @@
 <meta name="twitter:title" content="TCP中的七种定时器 ">
 <meta name="twitter:description" content="TCP为每个连接建立了七个定时器。下面讲按照这些定时器在一条连接生存期内出现的次序依次进行介绍。 Connection establishment Timer(​连接建立定时器) 为了防止client端一直等待服务器端的情况发生。 在Client发送SYN报文段建立新的链接时，该定时器启动，如果在75s内没有收到响应，连接建立将会终止。确定连接的有效建立。 Retransmission Timer(重传定时器) 重传定时器在TCP发送数据时设定。在该定时器超时，而没有收到另外一端的ACK的时候，将重传数据。重传定时器的值是动态计算的，取决于该连接RTT的值和被重传的次数。 Delayed ACK Timer(延迟ACK定时器)定时器在200ms 延迟ACK定时器负责在该终端（end）收到一个数据包时，无需马上发出ACK进行确认，而是等待200ms内，有数据要在该连接上发送，延迟的ACK响应就可随着数据一起发送回另一个终端。这种方式也被成为捎带确认。 Persist Timer（持续定时器） 持续定时器在收到连接另一端的发送通告窗口为零时，阻止该端继续发送数据时设定。因此当该端有数据要发送时， 但连接的另一端的通告窗口为零时，持续定时器就会启动，超时后向连接另一端发送1字节的数据，来判断另一方的接收窗口是否打开。被称为零窗口探测。持续定时器的值是动态计算的，取决于往返时间，时间在5s到60s之间取值。 Keep alive ...">
 
-        <title>TCP中的七种定时器  · Change the World| Write the Code
+        <title>TCP中的七种定时器  · Change the World | Write the Code
 </title>
        
         <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">

@@ -5,37 +5,44 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>www.houcj.net/</loc>
-<lastmod>2015-06-08T19:55:37-00:00</lastmod>
+<lastmod>2015-06-09T21:03:11-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>www.houcj.net/archives.html</loc>
-<lastmod>2015-06-08T19:55:37-00:00</lastmod>
+<lastmod>2015-06-09T21:03:11-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>www.houcj.net/tags.html</loc>
-<lastmod>2015-06-08T19:55:37-00:00</lastmod>
+<lastmod>2015-06-09T21:03:11-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>www.houcj.net/categories.html</loc>
-<lastmod>2015-06-08T19:55:37-00:00</lastmod>
+<lastmod>2015-06-09T21:03:11-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>www.houcj.net/pages/About.html</loc>
-<lastmod>2015-06-08T19:55:37-00:00</lastmod>
+<lastmod>2015-06-09T21:03:11-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.3</priority>
+</url>
+
+<url>
+<loc>www.houcj.net/blog/2015/06/09/confused-concepts/</loc>
+<lastmod>2015-06-09T09:22:00+08:00</lastmod>
+<changefreq>monthly</changefreq>
+<priority>0.7</priority>
 </url>
 
 <url>
@@ -285,7 +292,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>www.houcj.net/category/bian-cheng.html</loc>
-<lastmod>2015-05-27T00:00:00+08:06</lastmod>
+<lastmod>2015-06-09T09:22:00+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -293,6 +300,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>www.houcj.net/category/ji-suan-ji-ke-xue.html</loc>
 <lastmod>2015-05-31T20:24:00+08:06</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>www.houcj.net/tag/gai-nian.html</loc>
+<lastmod>2015-06-09T09:22:00+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -425,7 +439,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>www.houcj.net/author/chaojun-hou.html</loc>
-<lastmod>2015-05-31T20:24:00+08:06</lastmod>
+<lastmod>2015-06-09T09:22:00+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
