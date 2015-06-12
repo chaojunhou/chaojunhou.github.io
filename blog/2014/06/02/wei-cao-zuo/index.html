@@ -94,7 +94,7 @@
     <div class="span2 table-of-content">
         <nav>
         <h4>Contents</h4>
-        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="位操作">位操作</a><ul><li><a class="toc-href" href="#numibit" title="获取num第i位的bit值">获取num第i位的bit值</a></li><li><a class="toc-href" href="#numibit1" title="将num第i位的bit值置为1">将num第i位的bit值置为1</a></li><li><a class="toc-href" href="#numibit0" title="将num第i位bit值置为0">将num第i位bit值置为0</a></li><li><a class="toc-href" href="#single-number-ii" title="Single Number II">Single Number II</a><ul><li><a class="toc-href" href="#_1" title="分析">分析</a></li><li><a class="toc-href" href="#python-code" title="Python Code">Python Code</a></li></ul></li><li><a class="toc-href" href="#bitwise-and-of-numbers-range_1" title="Bitwise AND of Numbers Range">Bitwise AND of Numbers Range</a><ul><li><a class="toc-href" href="#_2" title="分析">分析</a></li><li><a class="toc-href" href="#python-code_1" title="Python Code">Python Code</a></li></ul></li></ul></li></ul></div></body></html>
+        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="位操作">位操作</a><ul><li><a class="toc-href" href="#numibit" title="获取num第i位的bit值">获取num第i位的bit值</a></li><li><a class="toc-href" href="#numibit1" title="将num第i位的bit值置为1">将num第i位的bit值置为1</a></li><li><a class="toc-href" href="#numibit0" title="将num第i位bit值置为0">将num第i位bit值置为0</a></li><li><a class="toc-href" href="#single-number-ii" title="Single Number II">Single Number II</a><ul><li><a class="toc-href" href="#_1" title="分析">分析</a></li><li><a class="toc-href" href="#python-code" title="Python Code">Python Code</a></li></ul></li><li><a class="toc-href" href="#bitwise-and-of-numbers-range_1" title="Bitwise AND of Numbers Range">Bitwise AND of Numbers Range</a><ul><li><a class="toc-href" href="#_2" title="分析">分析</a></li><li><a class="toc-href" href="#python-code_1" title="Python Code">Python Code</a></li></ul></li><li><a class="toc-href" href="#some-tricks_1" title="Some Tricks">Some Tricks</a><ul><li><a class="toc-href" href="#n1" title="n中包含1的数量">n中包含1的数量</a></li><li><a class="toc-href" href="#x2n" title="判断X是否是2的N次方">判断X是否是2的N次方</a></li><li><a class="toc-href" href="#xy" title="求x和y的平均值">求x和y的平均值</a></li><li><a class="toc-href" href="#_3" title="求和不使用加减法">求和不使用加减法</a></li></ul></li></ul></li></ul></div></body></html>
         </nav>
     </div>
     <div class="span8 article-content">
@@ -183,6 +183,58 @@ Your algorithm should have a linear runtime complexity. Could you implement it w
 <span class="code-line">            <span class="n">res</span> <span class="o">=</span> <span class="n">res</span><span class="o">&amp;</span><span class="n">i</span></span>
 <span class="code-line">        <span class="k">return</span> <span class="n">res</span>  </span>
 </pre></div>
+<h3 id="some-tricks_1">Some Tricks</h3>
+<h4 id="n1">n中包含1的数量</h4>
+<div class="highlight"><pre><span class="code-line">    <span class="kt">int</span> <span class="nf">hammingWeight</span><span class="p">(</span><span class="kt">uint32_t</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">        <span class="kt">int</span> <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line">        <span class="k">while</span><span class="p">(</span><span class="n">n</span><span class="p">)</span></span>
+<span class="code-line">        <span class="p">{</span></span>
+<span class="code-line">            <span class="n">ans</span><span class="o">++</span><span class="p">;</span></span>
+<span class="code-line">            <span class="n">n</span> <span class="o">=</span> <span class="n">n</span><span class="o">&amp;</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span></span>
+<span class="code-line">        <span class="p">}</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">ans</span><span class="p">;</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+</pre></div>
+<h4 id="x2n">判断X是否是2的N次方</h4>
+<div class="highlight"><pre><span class="code-line"><span class="kt">bool</span> <span class="nf">f</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="o">!</span><span class="p">(</span><span class="n">x</span><span class="o">&amp;</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">));</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+<h4 id="xy">求x和y的平均值</h4>
+<div class="highlight"><pre><span class="code-line"><span class="kt">int</span> <span class="nf">f</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="p">(</span><span class="n">x</span><span class="o">&amp;</span><span class="n">y</span><span class="p">)</span> <span class="o">+</span> <span class="p">((</span><span class="n">x</span><span class="o">^</span><span class="n">y</span><span class="p">)</span><span class="o">&gt;&gt;</span><span class="mi">1</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+<p>x&amp;y 是取相同的位进行与操作，这个结果是x和y相同位的一半，x^y
+是取x和y的不同位，右移相当于除于2.</p>
+<h4 id="_3">求和不使用加减法</h4>
+<div class="highlight"><pre><span class="code-line"><span class="c1">// 迭代版本</span></span>
+<span class="code-line"><span class="kt">int</span> <span class="nf">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="kt">int</span> <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">while</span> <span class="p">(</span><span class="n">b</span><span class="p">)</span></span>
+<span class="code-line">    <span class="p">{</span></span>
+<span class="code-line">        <span class="n">ans</span> <span class="o">=</span> <span class="n">a</span><span class="o">^</span><span class="n">b</span><span class="p">;</span></span>
+<span class="code-line">        <span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span><span class="o">&amp;</span><span class="n">b</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">;</span></span>
+<span class="code-line">        <span class="n">a</span> <span class="o">=</span> <span class="n">ans</span><span class="p">;</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="n">ans</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span> </span>
+<span class="code-line"><span class="c1">// 递归版本</span></span>
+<span class="code-line"><span class="kt">int</span> <span class="nf">add1</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span></span>
+<span class="code-line">    <span class="p">{</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">a</span><span class="p">;</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="kt">int</span> <span class="n">ans</span> <span class="o">=</span> <span class="n">a</span><span class="o">^</span><span class="n">b</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span><span class="o">&amp;</span><span class="n">b</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="n">add1</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span><span class="n">b</span><span class="p">);</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
 <section>
 <div class="accordion" id="accordion2">
     <div class="accordion-group">
@@ -220,10 +272,10 @@ Your algorithm should have a linear runtime complexity. Could you implement it w
     <h2>Related Posts</h2>
 <ul class="related-posts-list">
 <li><a href="../../../../../blog/2013/12/22/string-related/" title="字符串相关">字符串相关</a></li>
-<li><a href="../../../../../blog/2014/02/18/equal-probability/" title="概率问题">概率问题</a></li>
-<li><a href="../../../../../blog/2014/03/21/kmp/" title="字符串匹配">字符串匹配</a></li>
+<li><a href="../../../../../blog/2013/12/22/hui-su-yu-fen-zhi-xian-jie/" title="回溯与分支限界">回溯与分支限界</a></li>
 <li><a href="../../../../../blog/2015/04/25/cal24/" title="24点游戏编程">24点游戏编程</a></li>
 <li><a href="../../../../../blog/2015/05/05/reverse-linked-list/" title="反转链表">反转链表</a></li>
+<li><a href="../../../../../blog/2015/05/05/sifting-prime/" title="素数筛选法">素数筛选法</a></li>
 <li><a href="../../../../../blog/2015/05/18/binary-tree/" title="二叉树">二叉树</a></li>
 <li><a href="../../../../../blog/2015/05/24/select/" title="选择算法">选择算法</a></li>
 <li><a href="../../../../../blog/2015/05/28/search/" title="查找算法">查找算法</a></li>

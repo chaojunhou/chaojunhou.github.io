@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Write the Code</title><link href="www.houcj.net/" rel="alternate"></link><link href="www.houcj.net/feeds%5Cchaojun-hou.atom.xml" rel="self"></link><id>www.houcj.net/</id><updated>2015-06-09T09:22:00+08:00</updated><entry><title>some confused concepts</title><link href="www.houcj.net/blog/2015/06/09/confused-concepts/" rel="alternate"></link><updated>2015-06-09T09:22:00+08:00</updated><author><name>ChaoJun Hou</name></author><id>tag:,2015-06-09:www.houcj.net/blog/2015/06/09/confused-concepts/</id><summary type="html">&lt;hr/&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Write the Code</title><link href="www.houcj.net/" rel="alternate"></link><link href="www.houcj.net/feeds%5Cchaojun-hou.atom.xml" rel="self"></link><id>www.houcj.net/</id><updated>2015-06-09T09:22:00+08:00</updated><entry><title>Some confused concepts</title><link href="www.houcj.net/blog/2015/06/09/confused-concepts/" rel="alternate"></link><updated>2015-06-09T09:22:00+08:00</updated><author><name>ChaoJun Hou</name></author><id>tag:,2015-06-09:www.houcj.net/blog/2015/06/09/confused-concepts/</id><summary type="html">&lt;hr/&gt;
 &lt;h3 id="_1"&gt;进程、线程、协程&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;
@@ -11,7 +11,12 @@
 &lt;li&gt;
 &lt;p&gt;协程和线程一样共享堆，不共享栈，协程由程序员在协程的代码里显示调度。基本上相当与用户空间下进行线程调度。&lt;/p&gt;
 &lt;/li&gt;
-&lt;/ol&gt;</summary><category term="概念"></category></entry><entry><title>排序算法</title><link href="www.houcj.net/blog/2015/05/31/sort1/" rel="alternate"></link><updated>2015-05-31T20:24:00+08:00</updated><author><name>ChaoJun Hou</name></author><id>tag:,2015-05-31:www.houcj.net/blog/2015/05/31/sort1/</id><summary type="html">&lt;hr/&gt;
+&lt;/ol&gt;
+&lt;h3 id="const"&gt;Const&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;顶层const表示指针本身是个常量&lt;/li&gt;
+&lt;li&gt;底层const表示指针所指的对象是个常量&lt;/li&gt;
+&lt;/ul&gt;</summary><category term="概念"></category></entry><entry><title>排序算法</title><link href="www.houcj.net/blog/2015/05/31/sort1/" rel="alternate"></link><updated>2015-05-31T20:24:00+08:00</updated><author><name>ChaoJun Hou</name></author><id>tag:,2015-05-31:www.houcj.net/blog/2015/05/31/sort1/</id><summary type="html">&lt;hr/&gt;
 &lt;h1 id="_1"&gt;排序算法&lt;/h1&gt;
 &lt;h2 id="_2"&gt;归并排序&lt;/h2&gt;
 &lt;p&gt;归并排序是分治模式的典型代表. 所谓的分治模式就是将原问题分解为几个

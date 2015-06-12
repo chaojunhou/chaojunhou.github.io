@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Write the Code</title><link>www.houcj.net/</link><description></description><atom:link href="www.houcj.net/feeds%5Cchaojun-hou.rss.xml" rel="self"></atom:link><lastBuildDate>Tue, 09 Jun 2015 09:22:00 +0800</lastBuildDate><item><title>some confused concepts</title><link>www.houcj.net/blog/2015/06/09/confused-concepts/</link><description>&lt;hr/&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Write the Code</title><link>www.houcj.net/</link><description></description><atom:link href="www.houcj.net/feeds%5Cchaojun-hou.rss.xml" rel="self"></atom:link><lastBuildDate>Tue, 09 Jun 2015 09:22:00 +0800</lastBuildDate><item><title>Some confused concepts</title><link>www.houcj.net/blog/2015/06/09/confused-concepts/</link><description>&lt;hr/&gt;
 &lt;h3 id="_1"&gt;进程、线程、协程&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;
@@ -11,7 +11,12 @@
 &lt;li&gt;
 &lt;p&gt;协程和线程一样共享堆，不共享栈，协程由程序员在协程的代码里显示调度。基本上相当与用户空间下进行线程调度。&lt;/p&gt;
 &lt;/li&gt;
-&lt;/ol&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Tue, 09 Jun 2015 09:22:00 +0800</pubDate><guid>tag:,2015-06-09:www.houcj.net/blog/2015/06/09/confused-concepts/</guid><category>概念</category></item><item><title>排序算法</title><link>www.houcj.net/blog/2015/05/31/sort1/</link><description>&lt;hr/&gt;
+&lt;/ol&gt;
+&lt;h3 id="const"&gt;Const&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;顶层const表示指针本身是个常量&lt;/li&gt;
+&lt;li&gt;底层const表示指针所指的对象是个常量&lt;/li&gt;
+&lt;/ul&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Tue, 09 Jun 2015 09:22:00 +0800</pubDate><guid>tag:,2015-06-09:www.houcj.net/blog/2015/06/09/confused-concepts/</guid><category>概念</category></item><item><title>排序算法</title><link>www.houcj.net/blog/2015/05/31/sort1/</link><description>&lt;hr/&gt;
 &lt;h1 id="_1"&gt;排序算法&lt;/h1&gt;
 &lt;h2 id="_2"&gt;归并排序&lt;/h2&gt;
 &lt;p&gt;归并排序是分治模式的典型代表. 所谓的分治模式就是将原问题分解为几个

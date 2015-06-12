@@ -10,16 +10,16 @@
 
 <meta name="keywords" content="概念, 编程, " />
 
-<meta property="og:title" content="some confused concepts "/>
+<meta property="og:title" content="Some confused concepts "/>
 <meta property="og:url" content="../../../../../blog/2015/06/09/confused-concepts/" />
-<meta property="og:description" content="进程、线程、协程 进程拥有自己独立的堆和栈，既不共享堆，亦不共享栈，进程由操作系统调度。 线程拥有自己独立的栈和共享的堆，共享堆，不共享栈，线程亦由操作系统调度(标准线程是的)。 协程和线程一样共享堆，不共享栈，协程由程序员在协程的代码里显示调度。基本上相当与用户空间下进行线程调度。" />
+<meta property="og:description" content="进程、线程、协程 进程拥有自己独立的堆和栈，既不共享堆，亦不共享栈，进程由操作系统调度。 线程拥有自己独立的栈和共享的堆，共享堆，不共享栈，线程亦由操作系统调度(标准线程是的)。 协程和线程一样共享堆，不共享栈，协程由程序员在协程的代码里显示调度。基本上相当与用户空间下进行线程调度。 Const 顶层const表示指针本身是个常量 底层const表示指针所指的对象是个常量" />
 <meta property="og:site_name" content="Write the Code" />
 <meta property="og:article:author" content="ChaoJun Hou" />
 <meta property="og:article:published_time" content="2015-06-09T09:22:00+08:00" />
-<meta name="twitter:title" content="some confused concepts ">
-<meta name="twitter:description" content="进程、线程、协程 进程拥有自己独立的堆和栈，既不共享堆，亦不共享栈，进程由操作系统调度。 线程拥有自己独立的栈和共享的堆，共享堆，不共享栈，线程亦由操作系统调度(标准线程是的)。 协程和线程一样共享堆，不共享栈，协程由程序员在协程的代码里显示调度。基本上相当与用户空间下进行线程调度。">
+<meta name="twitter:title" content="Some confused concepts ">
+<meta name="twitter:description" content="进程、线程、协程 进程拥有自己独立的堆和栈，既不共享堆，亦不共享栈，进程由操作系统调度。 线程拥有自己独立的栈和共享的堆，共享堆，不共享栈，线程亦由操作系统调度(标准线程是的)。 协程和线程一样共享堆，不共享栈，协程由程序员在协程的代码里显示调度。基本上相当与用户空间下进行线程调度。 Const 顶层const表示指针本身是个常量 底层const表示指针所指的对象是个常量">
 
-        <title>some confused concepts  · Change the World | Write the Code
+        <title>Some confused concepts  · Change the World | Write the Code
 </title>
        
         <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
@@ -86,7 +86,7 @@
 <article>
 <div class="row-fluid">
     <header class="page_header span10 offset2">
-    <h1><a href="../../../../../blog/2015/06/09/confused-concepts/"> some confused concepts  </a></h1>
+    <h1><a href="../../../../../blog/2015/06/09/confused-concepts/"> Some confused concepts  </a></h1>
     </header>
 </div>
 
@@ -94,7 +94,7 @@
     <div class="span2 table-of-content">
         <nav>
         <h4>Contents</h4>
-        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="some confused concepts">some confused concepts</a><ul><li><a class="toc-href" href="#_1" title="进程、线程、协程">进程、线程、协程</a></li></ul></li></ul></div></body></html>
+        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="Some confused concepts">Some confused concepts</a><ul><li><a class="toc-href" href="#_1" title="进程、线程、协程">进程、线程、协程</a></li><li><a class="toc-href" href="#const" title="Const">Const</a></li></ul></li></ul></div></body></html>
         </nav>
     </div>
     <div class="span8 article-content">
@@ -112,6 +112,11 @@
 <p>协程和线程一样共享堆，不共享栈，协程由程序员在协程的代码里显示调度。基本上相当与用户空间下进行线程调度。</p>
 </li>
 </ol>
+<h3 id="const">Const</h3>
+<ul>
+<li>顶层const表示指针本身是个常量</li>
+<li>底层const表示指针所指的对象是个常量</li>
+</ul>
 <section>
 <div class="accordion" id="accordion2">
     <div class="accordion-group">

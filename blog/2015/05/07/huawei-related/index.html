@@ -139,10 +139,7 @@
 <strong>TIME_WAIT</strong>的过程：</li>
 </ul>
 <div class="highlight"><pre><span class="code-line"><span class="kt">bool</span> <span class="n">bDontLinger</span> <span class="o">=</span> <span class="n">FALSE</span><span class="p">;</span> </span>
-<span class="code-line"><span class="n">setsockopt</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">SOL_SOCKET</span><span class="p">,</span> <span class="n">SO_DONTLINGER</span><span class="p">,</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span> <span class="n">bDontLinger</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">bool</span></span>
-<span class="code-line"></span>
-<span class="code-line"><span class="o">----------</span></span>
-<span class="code-line"><span class="p">));</span></span>
+<span class="code-line"><span class="n">setsockopt</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">SOL_SOCKET</span><span class="p">,</span> <span class="n">SO_DONTLINGER</span><span class="p">,</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span> <span class="n">bDontLinger</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">bool</span><span class="p">));</span></span>
 </pre></div>
 <ul>
 <li>在send()，recv()过程中有时由于网络状况等原因，发收不能预期进行，而设置收发时限：</li>
@@ -190,7 +187,7 @@
 作用，在阻塞的函数调用中作用不大)</li>
 </ul>
 <div class="highlight"><pre><span class="code-line"><span class="kt">bool</span> <span class="n">bConditionalAccept</span><span class="o">=</span><span class="n">TRUE</span><span class="p">;</span></span>
-<span class="code-line"><span class="n">setsockopt</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">SOL_SOCKET</span><span class="p">,</span> <span class="n">SO_CONDITIONAL_ACCEPT</span><span class="p">,</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span> <span class="n">bConditionalAccept</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">BOOL</span><span class="p">));</span></span>
+<span class="code-line"><span class="n">setsockopt</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">SOL_SOCKET</span><span class="p">,</span> <span class="n">SO_CONDITIONAL_ACCEPT</span><span class="p">,</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span> <span class="n">bConditionalAccept</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">bool</span><span class="p">));</span></span>
 </pre></div>
 <ul>
 <li>如果在发送数据的过程中(send()没有完成，还有数据没发送)而调用了closesocket()，以前我们
@@ -216,7 +213,7 @@
 具体协议，以及出错的代码都可以记录下来）</li>
 </ul>
 <div class="highlight"><pre><span class="code-line"><span class="kt">bool</span> <span class="n">bDebug</span><span class="o">=</span><span class="n">TRUE</span><span class="p">;</span></span>
-<span class="code-line"><span class="n">setsockopt</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">SOL_SOCKET</span><span class="p">,</span> <span class="n">SO_DEBUG</span><span class="p">,</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span> <span class="n">bDebug</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">BOOL</span><span class="p">));</span></span>
+<span class="code-line"><span class="n">setsockopt</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">SOL_SOCKET</span><span class="p">,</span> <span class="n">SO_DEBUG</span><span class="p">,</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span> <span class="n">bDebug</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">bool</span><span class="p">));</span></span>
 </pre></div>
 <hr/>
 <h3 id="_1">粘包</h3>
