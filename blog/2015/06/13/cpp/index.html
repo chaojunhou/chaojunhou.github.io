@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="utf-8"> 
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="google-site-verification" content="fdZTDVFyX3hKovPIzn1tgPixk_wysBXaPN8YQw1P8Jw" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="ChaoJun Hou" />
+        <meta name="copyright" content="ChaoJun Hou" />
+
+<meta name="keywords" content="CPP, 编程, " />
+
+<meta property="og:title" content="The basic Knowledge in Cpp "/>
+<meta property="og:url" content="../../../../../blog/2015/06/13/cpp/" />
+<meta property="og:description" content="进程、线程、协程 进程拥有自己独立的堆和栈，既不共享堆，亦不共享栈，进程由操作系统调度。 线程拥有自己独立的栈和共享的堆，共享堆，不共享栈，线程亦由操作系统调度(标准线程是的)。 协程和线程一样共享堆，不共享栈，协程由程序员在协程的代码里显示调度。基本上相当与用户空间下进行线程调度。 Const 顶层const表示指针本身是个常量 底层const表示指针所指的对象是个常量 string::size_type &amp; size_t size_t size_t是sizeof操作符的结果返回类型，它在头文件中的typedef为 unsigned int 类型。该类型保证实现所建立的最大对象的字节大小。 string::size_type string::size_type是一个无符号类型的值，而且能够存放下任何string对象的大小。所有 用于存放string类的size函数返回值的变量，都应该是string::size_type 类型的。 实参入栈顺序 int b = 0; cout&lt;&lt; b &lt;&lt; b++ &lt;&lt; endl; // 输出10，b++先使用b然后再加加 ..." />
+<meta property="og:site_name" content="Write the Code" />
+<meta property="og:article:author" content="ChaoJun Hou" />
+<meta property="og:article:published_time" content="2015-06-13T16:55:00+08:00" />
+<meta name="twitter:title" content="The basic Knowledge in Cpp ">
+<meta name="twitter:description" content="进程、线程、协程 进程拥有自己独立的堆和栈，既不共享堆，亦不共享栈，进程由操作系统调度。 线程拥有自己独立的栈和共享的堆，共享堆，不共享栈，线程亦由操作系统调度(标准线程是的)。 协程和线程一样共享堆，不共享栈，协程由程序员在协程的代码里显示调度。基本上相当与用户空间下进行线程调度。 Const 顶层const表示指针本身是个常量 底层const表示指针所指的对象是个常量 string::size_type &amp; size_t size_t size_t是sizeof操作符的结果返回类型，它在头文件中的typedef为 unsigned int 类型。该类型保证实现所建立的最大对象的字节大小。 string::size_type string::size_type是一个无符号类型的值，而且能够存放下任何string对象的大小。所有 用于存放string类的size函数返回值的变量，都应该是string::size_type 类型的。 实参入栈顺序 int b = 0; cout&lt;&lt; b &lt;&lt; b++ &lt;&lt; endl; // 输出10，b++先使用b然后再加加 ...">
+
+        <title>The basic Knowledge in Cpp  · Change the World | Write the Code
+</title>
+       
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="../../../../../theme/css/style.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="../../../../../theme/css/solarizedlight.css" media="screen">
+        <link rel="shortcut icon" href="../../../../../theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="apple-touch-icon" href="../../../../../theme/images/apple-touch-icon.png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="../../../../../theme/images/apple-touch-icon-57x57.png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="../../../../../theme/images/apple-touch-icon-72x72.png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="../../../../../theme/images/apple-touch-icon-114x114.png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="../../../../../theme/images/apple-touch-icon-144x144.png" />
+        <link rel="icon" href="../../../../../theme/images/apple-touch-icon-144x144.png" />
+        <link href="www.houcj.net/feed.xml" type="application/rss+xml" rel="alternate" title="Write the Code - Full RSS Feed" />
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', '61957498', 'auto');
+    ga('send', 'pageview');
+</script>
+
+    </head>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-61957498-1', 'auto');
+  ga('send', 'pageview');
+
+	</script>
+    <body>
+        <div id="content-sans-footer">
+        <div class="navbar navbar-static-top">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../../../../"><span class=site-name>Write the Code</span></a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav pull-right top-menu">
+                            <li ><a href="../../../../..">Home</a></li>
+                            <li ><a href="../../../../../pages/About.html">About</a></li>
+                            <li ><a href="../../../../../random.html">Pick One!</a></li>
+                            <li ><a href="../../../../../categories.html">分类</a></li>
+                            <li ><a href="../../../../../tags.html">标签</a></li>
+                            <li ><a href="../../../../../archives.html">归档</a></li>
+                            <li><form class="navbar-search" action="../../../../../search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span1"></div>
+                <div class="span10">
+<article>
+<div class="row-fluid">
+    <header class="page_header span10 offset2">
+    <h1><a href="../../../../../blog/2015/06/13/cpp/"> The basic Knowledge in Cpp  </a></h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+    <div class="span2 table-of-content">
+        <nav>
+        <h4>Contents</h4>
+        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="The basic Knowledge in Cpp">The basic Knowledge in Cpp</a><ul><li><a class="toc-href" href="#_1" title="进程、线程、协程">进程、线程、协程</a></li><li><a class="toc-href" href="#const" title="Const">Const</a></li><li><a class="toc-href" href="#stringsize_type-size_t" title="string::size_type &amp; size_t">string::size_type &amp; size_t</a></li><li><a class="toc-href" href="#_2" title="实参入栈顺序">实参入栈顺序</a></li><li><a class="toc-href" href="#_3" title="使用尾置返回类型">使用尾置返回类型</a></li><li><a class="toc-href" href="#_4" title="列表初始化">列表初始化</a></li><li><a class="toc-href" href="#const-constexpr" title="const 和 constexpr">const 和 constexpr</a></li><li><a class="toc-href" href="#_5" title="类型别名">类型别名</a></li><li><a class="toc-href" href="#_6" title="类模版">类模版</a></li><li><a class="toc-href" href="#constexpr" title="内联函数和constexpr函数">内联函数和constexpr函数</a></li><li><a class="toc-href" href="#_7" title="函数指针">函数指针</a></li><li><a class="toc-href" href="#const_1" title="const">const</a></li><li><a class="toc-href" href="#_9" title="类">类</a><ul><li><a class="toc-href" href="#_10" title="构造函数">构造函数</a><ul><li><a class="toc-href" href="#_11" title="默认构造函数">默认构造函数</a></li></ul></li><li><a class="toc-href" href="#_13" title="类类型">类类型</a></li><li><a class="toc-href" href="#_14" title="友元">友元</a></li><li><a class="toc-href" href="#_15" title="成员初始化顺序">成员初始化顺序</a></li><li><a class="toc-href" href="#_16" title="静态成员">静态成员</a></li><li><a class="toc-href" href="#_17" title="谓词">谓词</a></li><li><a class="toc-href" href="#emplace" title="使用emplace操作">使用emplace操作</a></li><li><a class="toc-href" href="#adaptor" title="适配器（adaptor）">适配器（adaptor）</a></li></ul></li></ul></li></ul></div></body></html>
+        </nav>
+    </div>
+    <div class="span8 article-content">
+
+            <hr/>
+<h3 id="_1">进程、线程、协程</h3>
+<ol>
+<li>
+<p>进程拥有自己独立的堆和栈，既不共享堆，亦不共享栈，进程由操作系统调度。</p>
+</li>
+<li>
+<p>线程拥有自己独立的栈和共享的堆，共享堆，不共享栈，线程亦由操作系统调度(标准线程是的)。</p>
+</li>
+<li>
+<p>协程和线程一样共享堆，不共享栈，协程由程序员在协程的代码里显示调度。基本上相当与用户空间下进行线程调度。</p>
+</li>
+</ol>
+<h3 id="const">Const</h3>
+<ul>
+<li>顶层const表示指针本身是个常量</li>
+<li>底层const表示指针所指的对象是个常量</li>
+</ul>
+<h3 id="stringsize_type-size_t">string::size_type &amp; size_t</h3>
+<ol>
+<li>
+<p><strong>size_t</strong>
+size_t是sizeof操作符的结果返回类型，它在头文件中的typedef为
+unsigned int 类型。该类型保证实现所建立的最大对象的字节大小。</p>
+</li>
+<li>
+<p><strong>string::size_type</strong></p>
+</li>
+</ol>
+<p>string::size_type是一个无符号类型的值，而且能够存放下任何string对象的大小。所有
+用于存放string类的size函数返回值的变量，都应该是string::size_type
+类型的。</p>
+<h3 id="_2">实参入栈顺序</h3>
+<div class="highlight"><pre><span class="code-line"><span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line"><span class="n">cout</span><span class="o">&lt;&lt;</span> <span class="n">b</span> <span class="o">&lt;&lt;</span> <span class="n">b</span><span class="o">++</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="c1">// 输出10，b++先使用b然后再加加</span></span>
+<span class="code-line"><span class="n">cout</span><span class="o">&lt;&lt;</span> <span class="o">++</span><span class="n">b</span><span class="o">&lt;&lt;</span><span class="n">b</span><span class="o">++&lt;&lt;++</span><span class="n">b</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span> <span class="c1">// 输出5351</span></span>
+</pre></div>
+<p>在处理printf或者cout时，压栈顺序为从右向左，对于a++的结果，是有ebp寻址函数栈
+空间来记录中间结果的，在最后给printf压栈的时候，再从栈中把中间结果取出来；而对于
+++a的结果，则直接压寄存器变量，寄存器经过了所有的自增操作。</p>
+<h3 id="_3">使用尾置返回类型</h3>
+<p>任何函数的定义都可以使用尾置（trailing return type）返回，尾置返回类型跟在
+形参列表后面并以一个-&gt;符号开头，同时为了表示函数真正的返回类型跟在形参列表之后，
+可以在返回类型出现的地方放置一个auto：</p>
+<div class="highlight"><pre><span class="code-line"><span class="k">auto</span> <span class="n">func</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">int</span><span class="p">(</span><span class="o">*</span><span class="p">)[</span><span class="mi">10</span><span class="p">];</span></span>
+</pre></div>
+<p>func返回一个函数指针，该指针指向一个含有10个整数的数组。</p>
+<div class="highlight"><pre><span class="code-line"><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">::</span><span class="n">size_type</span> <span class="n">pos</span><span class="p">;</span> <span class="c1">// why string::size_type</span></span>
+</pre></div>
+<blockquote>
+<p>The std::string type defines size_type to be the name of the appropriate type for holding the number of characters in a string. Whenever we need a local variable to contain the size of a string, we should use std::string::size_type as the type of that variable.</p>
+<p>The reason that we have given cols a type of std::string::size_type is to ensure that cols is capable of containing the number of characters in greeting, no matter how large that number might be. We could simply have said that cols has type int, and indeed, doing so would probably work. However, the value of cols depends on the size of the input to our program, and we have no control over how long that input might be. It is conceivable that someone might give our program a string so long that an int is insufficient to contain its length.</p>
+</blockquote>
+<h3 id="_4">列表初始化</h3>
+<p>下面四条语句都可以：</p>
+<div class="highlight"><pre><span class="code-line"><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line"><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span></span>
+<span class="code-line"><span class="kt">int</span> <span class="nf">i</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span></span>
+<span class="code-line"><span class="kt">int</span> <span class="n">i</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span></span>
+</pre></div>
+<ul>
+<li>void * 是一种特殊的指针类型，可以用于存放任意对象的地址。</li>
+</ul>
+<h3 id="const-constexpr">const 和 constexpr</h3>
+<ul>
+<li>如果想在多个文件之间共享const对象，必须在变量的定义之前加extern关键字</li>
+<li>常量表达式是指值不会在改变并且在编译过程就能得到计算结果的表达式。</li>
+</ul>
+<div class="highlight"><pre><span class="code-line"><span class="k">const</span> <span class="kt">int</span> <span class="n">max_files</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span> <span class="c1">//是常量表达式</span></span>
+<span class="code-line"><span class="k">const</span> <span class="kt">int</span> <span class="n">sz</span> <span class="o">=</span> <span class="n">get_size</span><span class="p">();</span> <span class="c1">//不是常量表达式，具体值在运行时才能得到</span></span>
+</pre></div>
+<blockquote>
+<p>C++11 规定允许将变量声明为constexpr类型，以便由编译器来验证变量的值是否是一个常量
+表达式。声明为constexpr的变量一定是一个常量，而且必须用常量表达式初始化</p>
+</blockquote>
+<div class="highlight"><pre><span class="code-line"><span class="k">const</span> <span class="kt">int</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>       <span class="c1">// p是一个指向整型常量的指针</span></span>
+<span class="code-line"><span class="k">constexpr</span> <span class="kt">int</span> <span class="o">*</span><span class="n">q</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>   <span class="c1">// q是一个指向整数的常量指针。</span></span>
+</pre></div>
+<h3 id="_5">类型别名</h3>
+<p>两种实现方式
+- typedef  <br/>
+- using</p>
+<div class="highlight"><pre><span class="code-line">    <span class="k">using</span> <span class="n">SI</span> <span class="o">=</span> <span class="n">Sales_item</span><span class="p">;</span> <span class="c1">// SI是Sales_item的别名 </span></span>
+</pre></div>
+<blockquote>
+<p>C++11引入auto类型说明符，用它就能让编译器替我们去分析表达式所属的类型
+C++11引入decltype类型说明符，它的作用是选择并返回操作数的数据类型。</p>
+</blockquote>
+<p>字面值类型：
+常量表达式的值需要在编译使就得到计算，因此对声明constexpr时用到的类型必须有所限制。因为这些类型一般都比较
+简单，值也容易得到。就把它们称为"字面值类型(literal type)"</p>
+<p>一个constexpr指针的初始值必须是nullptr或者0，或者是存储于某个固定地址中的对象。</p>
+<h3 id="_6">类模版</h3>
+<p>编译器根据模版创建类或函数的过程称为实例化，当使用模版时，需要指出编译器应把类或函数实例化成何种
+类型。</p>
+<h3 id="constexpr">内联函数和constexpr函数</h3>
+<p>将函数指定为内联函数，通常就是将它在每个调用节点上内联地展开。</p>
+<p>constexpr函数是指用于常量表达式的函数，同时要求函数的返回类型及所有形参的类型
+都是字面值类型，而且函数体中必须有且只有一条return语句。</p>
+<div class="highlight"><pre><span class="code-line"><span class="k">constexpr</span> <span class="kt">int</span> <span class="nf">new_sz</span><span class="p">()</span> <span class="p">{</span><span class="k">return</span> <span class="mi">42</span><span class="p">;}</span></span>
+<span class="code-line"><span class="k">constexpr</span> <span class="kt">int</span> <span class="n">foo</span> <span class="o">=</span> <span class="n">new_sz</span><span class="p">();</span><span class="c1">// foo是一个常量表达式</span></span>
+</pre></div>
+<p>对于某个给定的内联或者constexpr函数来说，它的多个定义必须完全一致，因此内联函数和
+constexpr函数通常定义在头文件中。</p>
+<h3 id="_7">函数指针</h3>
+<p>函数指针指向的是函数而非对象，函数的类型由它的返回类型和形参类型共同决定，与函数名无关。</p>
+<h3 id="const_1">const</h3>
+<p>在成员函数后面加const表示，这个函数是只读函数，不会改变类的数据成员。</p>
+<div class="highlight"><pre><span class="code-line"><span class="k">class</span> <span class="nc">Point</span><span class="p">{</span></span>
+<span class="code-line">    <span class="kt">int</span> <span class="n">xVal</span><span class="p">,</span> <span class="n">yVal</span><span class="p">;</span></span>
+<span class="code-line"><span class="k">public</span><span class="o">:</span></span>
+<span class="code-line">    <span class="kt">int</span> <span class="n">GetY</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">};</span></span>
+<span class="code-line"><span class="c1">//关键字const必须用同样的方式重复出现在函数实现里，否则编译会把它们看成不同的函数</span></span>
+<span class="code-line"><span class="kt">int</span> <span class="n">Point</span><span class="o">::</span><span class="n">GetY</span><span class="p">()</span><span class="k">const</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="n">yVal</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+<p>如果把const放在函数声明前就意味着函数的返回值是常量。同时在const成员函数中，用mutable修饰
+成员变量名后，就可以修改类的成员变量。</p>
+<p>在C中const是外部链接，它总是占用内存，而且它的名字是全局符，
+C编译器不能把const看成一个编译器期间的常量，而在C++默认const是内部连接的，它
+在编译期间就会确定值。</p>
+<h2 id="_9">类</h2>
+<p>类是C++语言中最基本的特性，它允许我们为自己的应用定义新类型，从而使得程序更加简洁。类有
+两项基本功能：一是数据抽象，即定义数据成员和函数成员的能力。二是封装，即保护类的成员不被随意
+访问的能力。</p>
+<h3 id="_10">构造函数</h3>
+<p>构造函数的任务是初始化对象的数据成员，无论何时只要类的对象被创建，就会执行构造函数。</p>
+<p>构造函数不能被声明成const的，当我们创建类的const对象时，直到构造函数完成初始化过程，对象才能
+真正取得其常量属性，因此，构造函数在const对象的构造过程中可以向其写值。</p>
+<h4 id="_11">默认构造函数</h4>
+<p>如果我们的类没有显式地定义构造函数，那么编译器就会为我们隐式地定义一个默认构造函数，
+默认构造函数无需任何实参。</p>
+<p>如果类包含有内置类型或者复合类型的成员，则只有当这些成员都被赋予了类内的初始值时，
+这个类才适合于使用合成的构造函数</p>
+<h3 id="_13">类类型</h3>
+<div class="highlight"><pre><span class="code-line"><span class="k">struct</span> <span class="n">First</span><span class="p">{</span></span>
+<span class="code-line">    <span class="kt">int</span> <span class="n">memi</span><span class="p">;</span></span>
+<span class="code-line">    <span class="kt">int</span> <span class="nf">geMem</span><span class="p">();</span></span>
+<span class="code-line"><span class="p">};</span></span>
+<span class="code-line"><span class="k">struct</span> <span class="n">Second</span><span class="p">{</span></span>
+<span class="code-line">    <span class="kt">int</span> <span class="n">memi</span><span class="p">;</span></span>
+<span class="code-line">    <span class="kt">int</span> <span class="nf">getMem</span><span class="p">();</span></span>
+<span class="code-line"><span class="p">};</span></span>
+<span class="code-line"><span class="n">First</span> <span class="n">obj</span><span class="p">;</span></span>
+<span class="code-line"><span class="n">Second</span> <span class="n">obj2</span> <span class="o">=</span> <span class="n">obj1</span><span class="p">;</span> <span class="c1">//错误，obj1和obj2类型不同</span></span>
+</pre></div>
+<p>即使两个类的成员列表完全一致，它们也是不同的类型，对于一个类来说，它的成员
+和其他任何类的成员都不是一回事。</p>
+<h3 id="_14">友元</h3>
+<p>友元关系不存在传递性，每个类独立的负责自己的友元类或者友元函数。当第一个名字第一次
+出现在一个友元声明中，我们隐式地假定该名字当前作用域是可见的，即使我们仅仅是用友元的类
+的成员调用友元函数，它也必须是被显式的声明过。</p>
+<h3 id="_15">成员初始化顺序</h3>
+<div class="highlight"><pre><span class="code-line"><span class="k">class</span> <span class="nc">test</span> <span class="p">{</span></span>
+<span class="code-line"><span class="k">public</span><span class="o">:</span></span>
+<span class="code-line">    <span class="n">test</span><span class="p">(</span><span class="kt">int</span> <span class="n">val</span><span class="p">)</span> <span class="o">:</span><span class="n">j</span><span class="p">(</span><span class="n">val</span><span class="p">),</span> <span class="n">i</span><span class="p">(</span><span class="n">j</span><span class="p">){}</span> <span class="c1">// i先初始化</span></span>
+<span class="code-line"><span class="k">private</span><span class="o">:</span></span>
+<span class="code-line">    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span></span>
+<span class="code-line">    <span class="kt">int</span> <span class="n">j</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">};</span></span>
+</pre></div>
+<p>构造函数的初始化值的顺序和成员声明的顺序保持一致，同时尽量避免使用某些成员初始化其他成员。</p>
+<h3 id="_16">静态成员</h3>
+<p>和类的所有成员一样，当我们指向类外部的静态成员时，必须指明成员所属的类名，static关键字则只
+出现在类内部的声明语句中。</p>
+<p>静态数据成员可以是不完全类型，非静态数据成员必须是完全类型才能使用。静态数据成员的类型可以是
+它所属的类类型，而非静态数据成员则只能声明成它所属类的指针。</p>
+<h3 id="_17">谓词</h3>
+<p>谓词是一个可调用的表达式，其返回结果是一个能用做条件的值。标准库使用两种谓词：一元
+谓词（只接受单一参数）和二元谓词（它们有两个参数）。</p>
+<h3 id="emplace">使用emplace操作</h3>
+<p>当调用push或insert成员函数时，我们将元素类型的对象传递给它们，
+这些对象被拷贝到容器中。而当我们调用一个emplace成员函数时，则是将参数
+传递给元素类型的构造函数。emplace成员使用这些参数在容器管理的内存空间中直接
+构造元素。</p>
+<h3 id="adaptor">适配器（adaptor）</h3>
+<p>容器、迭代器、和函数都有适配器。本质上，一个适配器是一种机制，能使某种事物的行为
+看起来想另外一种事物一样。一个容器适配器接受一种已有的容器类型，使其看起来像一种
+不同的类型。</p>
+<section>
+<div class="accordion" id="accordion2">
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle disqus-comment-count" data-toggle="collapse" data-parent="#accordion2"
+                href="../../../../../blog/2015/06/13/cpp/#disqus_thread">
+                Comments
+            </a>
+        </div>
+        <div id="disqus_thread" class="accordion-body collapse">
+            <div class="accordion-inner">
+                <div class="comments">
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'houcj';
+
+
+    (function() {
+         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+            
+
+            <hr/>
+
+            </aside>
+        </div>
+        <section>
+        <div class="span2" style="float:right;font-size:0.9em;">
+ 
+            <h4>Published</h4>
+            <time pubdate="pubdate" datetime="2015-06-13T16:55:00+08:00">Jun 13, 2015</time>
+            <h4>Category</h4>
+            <a class="category-link" href="/categories.html#编程-ref">编程</a> 
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article"> 
+                <li><a href="/tags.html#CPP-ref">CPP
+                    <span>1</span>
+</a></li>
+            </ul>
+<h4>Contact</h4>
+    <a href="https://twitter.com/chaojunhou" title="My Twitter Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-twitter sidebar-social-links"></i></a>
+    <a href="https://www.tumblr.com/blog/houcj" title="My Tumblr Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-tumblr sidebar-social-links"></i></a>
+    <a href="https://github.com/chaojunhou" title="My Github Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-github sidebar-social-links"></i></a>
+            <h4>Blogroll</h4>
+			<ul ><a class="category-link" href="http://www.rudy-yuan.net">Rudy-yuan</a></ul>
+            <ul ><a class="category-link" href="http://www.wengweitao.com">WWT</a></ul>
+            <ul ><a class="category-link" href="http://hult.tiddlyspot.com">HULT</a></ul>
+       
+        </div>
+        </section>
+</div>
+</article>
+                </div>
+                <div class="span1"></div>
+            </div>
+        </div>
+        <div id="push"></div>
+    </div>
+        
+            <script src="http://code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+<script type="text/javascript">
+    var disqus_shortname = 'houcj';
+
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+    </script>
+        <script  language="javascript" type="text/javascript">
+            function uncollapse() {
+                var hash_str = window.location.hash;
+                if (window.location.hash.match(/^#comment-\d+$/))
+                {
+                    var hash_str = '#disqus_thread';
+                }
+                $(hash_str).collapse({
+                    toggle: true
+                    })
+            }
+        </script>
+
+        <script type="text/javascript" language="JavaScript">
+            uncollapse(); 
+        </script>
+    </body>
+      <!-- Baidu Button BEGIN 
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"6","bdPos":"right","bdTop":"250"},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+ <!-- Baidu Button END -->
+  </body>
+
+  <!-- hitwebcounter Code START -->
+
+<img src="http://hitwebcounter.com/counter/counter.php?page=6046616&style=0005&nbdigits=5&type=ip&initCount=0" title="" Alt=""   border="0" style="float:left">  
+
+</html>

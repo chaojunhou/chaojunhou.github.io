@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Write the Code</title><link>www.houcj.net/</link><description></description><atom:link href="www.houcj.net/feeds%5Cchaojun-hou.rss.xml" rel="self"></atom:link><lastBuildDate>Tue, 09 Jun 2015 09:22:00 +0800</lastBuildDate><item><title>Some confused concepts</title><link>www.houcj.net/blog/2015/06/09/confused-concepts/</link><description>&lt;hr/&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Write the Code</title><link>www.houcj.net/</link><description></description><atom:link href="www.houcj.net/feeds%5Cchaojun-hou.rss.xml" rel="self"></atom:link><lastBuildDate>Sat, 13 Jun 2015 16:55:00 +0800</lastBuildDate><item><title>The basic Knowledge in Cpp</title><link>www.houcj.net/blog/2015/06/13/cpp/</link><description>&lt;hr/&gt;
 &lt;h3 id="_1"&gt;进程、线程、协程&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;
@@ -16,7 +16,171 @@
 &lt;ul&gt;
 &lt;li&gt;顶层const表示指针本身是个常量&lt;/li&gt;
 &lt;li&gt;底层const表示指针所指的对象是个常量&lt;/li&gt;
-&lt;/ul&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Tue, 09 Jun 2015 09:22:00 +0800</pubDate><guid>tag:,2015-06-09:www.houcj.net/blog/2015/06/09/confused-concepts/</guid><category>概念</category></item><item><title>排序算法</title><link>www.houcj.net/blog/2015/05/31/sort1/</link><description>&lt;hr/&gt;
+&lt;/ul&gt;
+&lt;h3 id="stringsize_type-size_t"&gt;string::size_type &amp;amp; size_t&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;size_t&lt;/strong&gt;
+size_t是sizeof操作符的结果返回类型，它在头文件中的typedef为
+unsigned int 类型。该类型保证实现所建立的最大对象的字节大小。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;string::size_type&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;string::size_type是一个无符号类型的值，而且能够存放下任何string对象的大小。所有
+用于存放string类的size函数返回值的变量，都应该是string::size_type
+类型的。&lt;/p&gt;
+&lt;h3 id="_2"&gt;实参入栈顺序&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;cout&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;endl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// 输出10，b++先使用b然后再加加&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;cout&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="o"&gt;++&amp;lt;&amp;lt;++&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;endl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// 输出5351&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;在处理printf或者cout时，压栈顺序为从右向左，对于a++的结果，是有ebp寻址函数栈
+空间来记录中间结果的，在最后给printf压栈的时候，再从栈中把中间结果取出来；而对于
+++a的结果，则直接压寄存器变量，寄存器经过了所有的自增操作。&lt;/p&gt;
+&lt;h3 id="_3"&gt;使用尾置返回类型&lt;/h3&gt;
+&lt;p&gt;任何函数的定义都可以使用尾置（trailing return type）返回，尾置返回类型跟在
+形参列表后面并以一个-&amp;gt;符号开头，同时为了表示函数真正的返回类型跟在形参列表之后，
+可以在返回类型出现的地方放置一个auto：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="k"&gt;auto&lt;/span&gt; &lt;span class="n"&gt;func&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)[&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;func返回一个函数指针，该指针指向一个含有10个整数的数组。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;string&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;size_type&lt;/span&gt; &lt;span class="n"&gt;pos&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// why string::size_type&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The std::string type defines size_type to be the name of the appropriate type for holding the number of characters in a string. Whenever we need a local variable to contain the size of a string, we should use std::string::size_type as the type of that variable.&lt;/p&gt;
+&lt;p&gt;The reason that we have given cols a type of std::string::size_type is to ensure that cols is capable of containing the number of characters in greeting, no matter how large that number might be. We could simply have said that cols has type int, and indeed, doing so would probably work. However, the value of cols depends on the size of the input to our program, and we have no control over how long that input might be. It is conceivable that someone might give our program a string so long that an int is insufficient to contain its length.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id="_4"&gt;列表初始化&lt;/h3&gt;
+&lt;p&gt;下面四条语句都可以：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;};&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;i&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;};&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;void * 是一种特殊的指针类型，可以用于存放任意对象的地址。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="const-constexpr"&gt;const 和 constexpr&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;如果想在多个文件之间共享const对象，必须在变量的定义之前加extern关键字&lt;/li&gt;
+&lt;li&gt;常量表达式是指值不会在改变并且在编译过程就能得到计算结果的表达式。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;max_files&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;20&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;//是常量表达式&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;sz&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;get_size&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt; &lt;span class="c1"&gt;//不是常量表达式，具体值在运行时才能得到&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;blockquote&gt;
+&lt;p&gt;C++11 规定允许将变量声明为constexpr类型，以便由编译器来验证变量的值是否是一个常量
+表达式。声明为constexpr的变量一定是一个常量，而且必须用常量表达式初始化&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;nullptr&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;       &lt;span class="c1"&gt;// p是一个指向整型常量的指针&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="k"&gt;constexpr&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;q&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;nullptr&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;   &lt;span class="c1"&gt;// q是一个指向整数的常量指针。&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id="_5"&gt;类型别名&lt;/h3&gt;
+&lt;p&gt;两种实现方式
+- typedef  &lt;br/&gt;
+- using&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;    &lt;span class="k"&gt;using&lt;/span&gt; &lt;span class="n"&gt;SI&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Sales_item&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// SI是Sales_item的别名 &lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;blockquote&gt;
+&lt;p&gt;C++11引入auto类型说明符，用它就能让编译器替我们去分析表达式所属的类型
+C++11引入decltype类型说明符，它的作用是选择并返回操作数的数据类型。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;字面值类型：
+常量表达式的值需要在编译使就得到计算，因此对声明constexpr时用到的类型必须有所限制。因为这些类型一般都比较
+简单，值也容易得到。就把它们称为"字面值类型(literal type)"&lt;/p&gt;
+&lt;p&gt;一个constexpr指针的初始值必须是nullptr或者0，或者是存储于某个固定地址中的对象。&lt;/p&gt;
+&lt;h3 id="_6"&gt;类模版&lt;/h3&gt;
+&lt;p&gt;编译器根据模版创建类或函数的过程称为实例化，当使用模版时，需要指出编译器应把类或函数实例化成何种
+类型。&lt;/p&gt;
+&lt;h3 id="constexpr"&gt;内联函数和constexpr函数&lt;/h3&gt;
+&lt;p&gt;将函数指定为内联函数，通常就是将它在每个调用节点上内联地展开。&lt;/p&gt;
+&lt;p&gt;constexpr函数是指用于常量表达式的函数，同时要求函数的返回类型及所有形参的类型
+都是字面值类型，而且函数体中必须有且只有一条return语句。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="k"&gt;constexpr&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;new_sz&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;42&lt;/span&gt;&lt;span class="p"&gt;;}&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="k"&gt;constexpr&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;foo&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;new_sz&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;&lt;span class="c1"&gt;// foo是一个常量表达式&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;对于某个给定的内联或者constexpr函数来说，它的多个定义必须完全一致，因此内联函数和
+constexpr函数通常定义在头文件中。&lt;/p&gt;
+&lt;h3 id="_7"&gt;函数指针&lt;/h3&gt;
+&lt;p&gt;函数指针指向的是函数而非对象，函数的类型由它的返回类型和形参类型共同决定，与函数名无关。&lt;/p&gt;
+&lt;h3 id="const_1"&gt;const&lt;/h3&gt;
+&lt;p&gt;在成员函数后面加const表示，这个函数是只读函数，不会改变类的数据成员。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Point&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;xVal&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;yVal&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;GetY&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="p"&gt;};&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="c1"&gt;//关键字const必须用同样的方式重复出现在函数实现里，否则编译会把它们看成不同的函数&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;Point&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;GetY&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;yVal&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;如果把const放在函数声明前就意味着函数的返回值是常量。同时在const成员函数中，用mutable修饰
+成员变量名后，就可以修改类的成员变量。&lt;/p&gt;
+&lt;p&gt;在C中const是外部链接，它总是占用内存，而且它的名字是全局符，
+C编译器不能把const看成一个编译器期间的常量，而在C++默认const是内部连接的，它
+在编译期间就会确定值。&lt;/p&gt;
+&lt;h2 id="_9"&gt;类&lt;/h2&gt;
+&lt;p&gt;类是C++语言中最基本的特性，它允许我们为自己的应用定义新类型，从而使得程序更加简洁。类有
+两项基本功能：一是数据抽象，即定义数据成员和函数成员的能力。二是封装，即保护类的成员不被随意
+访问的能力。&lt;/p&gt;
+&lt;h3 id="_10"&gt;构造函数&lt;/h3&gt;
+&lt;p&gt;构造函数的任务是初始化对象的数据成员，无论何时只要类的对象被创建，就会执行构造函数。&lt;/p&gt;
+&lt;p&gt;构造函数不能被声明成const的，当我们创建类的const对象时，直到构造函数完成初始化过程，对象才能
+真正取得其常量属性，因此，构造函数在const对象的构造过程中可以向其写值。&lt;/p&gt;
+&lt;h4 id="_11"&gt;默认构造函数&lt;/h4&gt;
+&lt;p&gt;如果我们的类没有显式地定义构造函数，那么编译器就会为我们隐式地定义一个默认构造函数，
+默认构造函数无需任何实参。&lt;/p&gt;
+&lt;p&gt;如果类包含有内置类型或者复合类型的成员，则只有当这些成员都被赋予了类内的初始值时，
+这个类才适合于使用合成的构造函数&lt;/p&gt;
+&lt;h3 id="_13"&gt;类类型&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;First&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;memi&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;geMem&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="p"&gt;};&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;Second&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;memi&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;getMem&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="p"&gt;};&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;First&lt;/span&gt; &lt;span class="n"&gt;obj&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;Second&lt;/span&gt; &lt;span class="n"&gt;obj2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;obj1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;//错误，obj1和obj2类型不同&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;即使两个类的成员列表完全一致，它们也是不同的类型，对于一个类来说，它的成员
+和其他任何类的成员都不是一回事。&lt;/p&gt;
+&lt;h3 id="_14"&gt;友元&lt;/h3&gt;
+&lt;p&gt;友元关系不存在传递性，每个类独立的负责自己的友元类或者友元函数。当第一个名字第一次
+出现在一个友元声明中，我们隐式地假定该名字当前作用域是可见的，即使我们仅仅是用友元的类
+的成员调用友元函数，它也必须是被显式的声明过。&lt;/p&gt;
+&lt;h3 id="_15"&gt;成员初始化顺序&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;test&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;val&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;val&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;){}&lt;/span&gt; &lt;span class="c1"&gt;// i先初始化&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="k"&gt;private&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="p"&gt;};&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;构造函数的初始化值的顺序和成员声明的顺序保持一致，同时尽量避免使用某些成员初始化其他成员。&lt;/p&gt;
+&lt;h3 id="_16"&gt;静态成员&lt;/h3&gt;
+&lt;p&gt;和类的所有成员一样，当我们指向类外部的静态成员时，必须指明成员所属的类名，static关键字则只
+出现在类内部的声明语句中。&lt;/p&gt;
+&lt;p&gt;静态数据成员可以是不完全类型，非静态数据成员必须是完全类型才能使用。静态数据成员的类型可以是
+它所属的类类型，而非静态数据成员则只能声明成它所属类的指针。&lt;/p&gt;
+&lt;h3 id="_17"&gt;谓词&lt;/h3&gt;
+&lt;p&gt;谓词是一个可调用的表达式，其返回结果是一个能用做条件的值。标准库使用两种谓词：一元
+谓词（只接受单一参数）和二元谓词（它们有两个参数）。&lt;/p&gt;
+&lt;h3 id="emplace"&gt;使用emplace操作&lt;/h3&gt;
+&lt;p&gt;当调用push或insert成员函数时，我们将元素类型的对象传递给它们，
+这些对象被拷贝到容器中。而当我们调用一个emplace成员函数时，则是将参数
+传递给元素类型的构造函数。emplace成员使用这些参数在容器管理的内存空间中直接
+构造元素。&lt;/p&gt;
+&lt;h3 id="adaptor"&gt;适配器（adaptor）&lt;/h3&gt;
+&lt;p&gt;容器、迭代器、和函数都有适配器。本质上，一个适配器是一种机制，能使某种事物的行为
+看起来想另外一种事物一样。一个容器适配器接受一种已有的容器类型，使其看起来像一种
+不同的类型。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Sat, 13 Jun 2015 16:55:00 +0800</pubDate><guid>tag:,2015-06-13:www.houcj.net/blog/2015/06/13/cpp/</guid><category>CPP</category></item><item><title>排序算法</title><link>www.houcj.net/blog/2015/05/31/sort1/</link><description>&lt;hr/&gt;
 &lt;h1 id="_1"&gt;排序算法&lt;/h1&gt;
 &lt;h2 id="_2"&gt;归并排序&lt;/h2&gt;
 &lt;p&gt;归并排序是分治模式的典型代表. 所谓的分治模式就是将原问题分解为几个
