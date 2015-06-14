@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Write the Code</title><link>www.houcj.net/</link><description></description><atom:link href="www.houcj.net/feeds%5Cchaojun-hou.rss.xml" rel="self"></atom:link><lastBuildDate>Sat, 13 Jun 2015 16:55:00 +0800</lastBuildDate><item><title>The basic Knowledge in Cpp</title><link>www.houcj.net/blog/2015/06/13/cpp/</link><description>&lt;hr/&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Write the Code</title><link>www.houcj.net/</link><description></description><atom:link href="www.houcj.net/feeds%5Cchaojun-hou.rss.xml" rel="self"></atom:link><lastBuildDate>Sat, 13 Jun 2015 16:55:00 +0800</lastBuildDate><item><title>The basic Knowledge in CPP</title><link>www.houcj.net/blog/2015/06/13/cpp/</link><description>&lt;hr/&gt;
 &lt;h3 id="_1"&gt;进程、线程、协程&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;
@@ -11,6 +11,14 @@
 &lt;li&gt;
 &lt;p&gt;协程和线程一样共享堆，不共享栈，协程由程序员在协程的代码里显示调度。基本上相当与用户空间下进行线程调度。&lt;/p&gt;
 &lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id="_2"&gt;静态内存、栈内存、堆内存&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;静态内存用来保存局部static对象、类static数据成员以及定义在任何函数之外的变量&lt;/li&gt;
+&lt;li&gt;栈内存用来保存定义在函数内的非static对象。分配在静态内存或者栈内存中的对象由编译器自动
+创建和销毁。对于栈对象仅在其定义的程序块运行时才存在，static对象在使用之前分配，在程序
+结束时销毁。&lt;/li&gt;
+&lt;li&gt;程序用堆来存储动态分配的对象，动态对象的生存周期由程序来控制。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h3 id="const"&gt;Const&lt;/h3&gt;
 &lt;ul&gt;
@@ -31,7 +39,7 @@ unsigned int 类型。该类型保证实现所建立的最大对象的字节大�
 &lt;p&gt;string::size_type是一个无符号类型的值，而且能够存放下任何string对象的大小。所有
 用于存放string类的size函数返回值的变量，都应该是string::size_type
 类型的。&lt;/p&gt;
-&lt;h3 id="_2"&gt;实参入栈顺序&lt;/h3&gt;
+&lt;h3 id="_3"&gt;实参入栈顺序&lt;/h3&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;&lt;span class="n"&gt;cout&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;endl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// 输出10，b++先使用b然后再加加&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;&lt;span class="n"&gt;cout&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="o"&gt;++&amp;lt;&amp;lt;++&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;endl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// 输出5351&lt;/span&gt;&lt;/span&gt;
@@ -39,7 +47,13 @@ unsigned int 类型。该类型保证实现所建立的最大对象的字节大�
 &lt;p&gt;在处理printf或者cout时，压栈顺序为从右向左，对于a++的结果，是有ebp寻址函数栈
 空间来记录中间结果的，在最后给printf压栈的时候，再从栈中把中间结果取出来；而对于
 ++a的结果，则直接压寄存器变量，寄存器经过了所有的自增操作。&lt;/p&gt;
-&lt;h3 id="_3"&gt;使用尾置返回类型&lt;/h3&gt;
+&lt;h3 id="_4"&gt;尾置迭代器&lt;/h3&gt;
+&lt;p&gt;迭代器的end成员负责返回指向容器尾元素的下一位置的迭代器，该迭代器表示容器的不存在的尾后
+元素，作为处理完容器所有元素的标记。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;[]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;7&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;9&lt;/span&gt;&lt;span class="p"&gt;};&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;&lt;span class="c1"&gt;// 指向arr尾元素的下一个位置的指针，相当于哨兵的作用。&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id="_5"&gt;使用尾置返回类型&lt;/h3&gt;
 &lt;p&gt;任何函数的定义都可以使用尾置（trailing return type）返回，尾置返回类型跟在
 形参列表后面并以一个-&amp;gt;符号开头，同时为了表示函数真正的返回类型跟在形参列表之后，
 可以在返回类型出现的地方放置一个auto：&lt;/p&gt;
@@ -52,7 +66,7 @@ unsigned int 类型。该类型保证实现所建立的最大对象的字节大�
 &lt;p&gt;The std::string type defines size_type to be the name of the appropriate type for holding the number of characters in a string. Whenever we need a local variable to contain the size of a string, we should use std::string::size_type as the type of that variable.&lt;/p&gt;
 &lt;p&gt;The reason that we have given cols a type of std::string::size_type is to ensure that cols is capable of containing the number of characters in greeting, no matter how large that number might be. We could simply have said that cols has type int, and indeed, doing so would probably work. However, the value of cols depends on the size of the input to our program, and we have no control over how long that input might be. It is conceivable that someone might give our program a string so long that an int is insufficient to contain its length.&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h3 id="_4"&gt;列表初始化&lt;/h3&gt;
+&lt;h3 id="_6"&gt;列表初始化&lt;/h3&gt;
 &lt;p&gt;下面四条语句都可以：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;};&lt;/span&gt;&lt;/span&gt;
@@ -77,7 +91,7 @@ unsigned int 类型。该类型保证实现所建立的最大对象的字节大�
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;nullptr&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;       &lt;span class="c1"&gt;// p是一个指向整型常量的指针&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;&lt;span class="k"&gt;constexpr&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;q&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;nullptr&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;   &lt;span class="c1"&gt;// q是一个指向整数的常量指针。&lt;/span&gt;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
-&lt;h3 id="_5"&gt;类型别名&lt;/h3&gt;
+&lt;h3 id="_7"&gt;类型别名&lt;/h3&gt;
 &lt;p&gt;两种实现方式
 - typedef  &lt;br/&gt;
 - using&lt;/p&gt;
@@ -91,7 +105,7 @@ C++11引入decltype类型说明符，它的作用是选择并返回操作数的�
 常量表达式的值需要在编译使就得到计算，因此对声明constexpr时用到的类型必须有所限制。因为这些类型一般都比较
 简单，值也容易得到。就把它们称为"字面值类型(literal type)"&lt;/p&gt;
 &lt;p&gt;一个constexpr指针的初始值必须是nullptr或者0，或者是存储于某个固定地址中的对象。&lt;/p&gt;
-&lt;h3 id="_6"&gt;类模版&lt;/h3&gt;
+&lt;h3 id="_8"&gt;类模版&lt;/h3&gt;
 &lt;p&gt;编译器根据模版创建类或函数的过程称为实例化，当使用模版时，需要指出编译器应把类或函数实例化成何种
 类型。&lt;/p&gt;
 &lt;h3 id="constexpr"&gt;内联函数和constexpr函数&lt;/h3&gt;
@@ -103,7 +117,7 @@ C++11引入decltype类型说明符，它的作用是选择并返回操作数的�
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;对于某个给定的内联或者constexpr函数来说，它的多个定义必须完全一致，因此内联函数和
 constexpr函数通常定义在头文件中。&lt;/p&gt;
-&lt;h3 id="_7"&gt;函数指针&lt;/h3&gt;
+&lt;h3 id="_9"&gt;函数指针&lt;/h3&gt;
 &lt;p&gt;函数指针指向的是函数而非对象，函数的类型由它的返回类型和形参类型共同决定，与函数名无关。&lt;/p&gt;
 &lt;h3 id="const_1"&gt;const&lt;/h3&gt;
 &lt;p&gt;在成员函数后面加const表示，这个函数是只读函数，不会改变类的数据成员。&lt;/p&gt;
@@ -123,20 +137,20 @@ constexpr函数通常定义在头文件中。&lt;/p&gt;
 &lt;p&gt;在C中const是外部链接，它总是占用内存，而且它的名字是全局符，
 C编译器不能把const看成一个编译器期间的常量，而在C++默认const是内部连接的，它
 在编译期间就会确定值。&lt;/p&gt;
-&lt;h2 id="_9"&gt;类&lt;/h2&gt;
+&lt;h2 id="_11"&gt;类&lt;/h2&gt;
 &lt;p&gt;类是C++语言中最基本的特性，它允许我们为自己的应用定义新类型，从而使得程序更加简洁。类有
 两项基本功能：一是数据抽象，即定义数据成员和函数成员的能力。二是封装，即保护类的成员不被随意
 访问的能力。&lt;/p&gt;
-&lt;h3 id="_10"&gt;构造函数&lt;/h3&gt;
+&lt;h3 id="_12"&gt;构造函数&lt;/h3&gt;
 &lt;p&gt;构造函数的任务是初始化对象的数据成员，无论何时只要类的对象被创建，就会执行构造函数。&lt;/p&gt;
 &lt;p&gt;构造函数不能被声明成const的，当我们创建类的const对象时，直到构造函数完成初始化过程，对象才能
 真正取得其常量属性，因此，构造函数在const对象的构造过程中可以向其写值。&lt;/p&gt;
-&lt;h4 id="_11"&gt;默认构造函数&lt;/h4&gt;
+&lt;h4 id="_13"&gt;默认构造函数&lt;/h4&gt;
 &lt;p&gt;如果我们的类没有显式地定义构造函数，那么编译器就会为我们隐式地定义一个默认构造函数，
 默认构造函数无需任何实参。&lt;/p&gt;
 &lt;p&gt;如果类包含有内置类型或者复合类型的成员，则只有当这些成员都被赋予了类内的初始值时，
 这个类才适合于使用合成的构造函数&lt;/p&gt;
-&lt;h3 id="_13"&gt;类类型&lt;/h3&gt;
+&lt;h3 id="_15"&gt;类类型&lt;/h3&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;First&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;memi&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;geMem&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;&lt;/span&gt;
@@ -150,11 +164,11 @@ C编译器不能把const看成一个编译器期间的常量，而在C++默认co
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;即使两个类的成员列表完全一致，它们也是不同的类型，对于一个类来说，它的成员
 和其他任何类的成员都不是一回事。&lt;/p&gt;
-&lt;h3 id="_14"&gt;友元&lt;/h3&gt;
+&lt;h3 id="_16"&gt;友元&lt;/h3&gt;
 &lt;p&gt;友元关系不存在传递性，每个类独立的负责自己的友元类或者友元函数。当第一个名字第一次
 出现在一个友元声明中，我们隐式地假定该名字当前作用域是可见的，即使我们仅仅是用友元的类
 的成员调用友元函数，它也必须是被显式的声明过。&lt;/p&gt;
-&lt;h3 id="_15"&gt;成员初始化顺序&lt;/h3&gt;
+&lt;h3 id="_17"&gt;成员初始化顺序&lt;/h3&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;test&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;&lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;    &lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;val&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;val&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;){}&lt;/span&gt; &lt;span class="c1"&gt;// i先初始化&lt;/span&gt;&lt;/span&gt;
@@ -164,12 +178,12 @@ C编译器不能把const看成一个编译器期间的常量，而在C++默认co
 &lt;span class="code-line"&gt;&lt;span class="p"&gt;};&lt;/span&gt;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;构造函数的初始化值的顺序和成员声明的顺序保持一致，同时尽量避免使用某些成员初始化其他成员。&lt;/p&gt;
-&lt;h3 id="_16"&gt;静态成员&lt;/h3&gt;
+&lt;h3 id="_18"&gt;静态成员&lt;/h3&gt;
 &lt;p&gt;和类的所有成员一样，当我们指向类外部的静态成员时，必须指明成员所属的类名，static关键字则只
 出现在类内部的声明语句中。&lt;/p&gt;
 &lt;p&gt;静态数据成员可以是不完全类型，非静态数据成员必须是完全类型才能使用。静态数据成员的类型可以是
 它所属的类类型，而非静态数据成员则只能声明成它所属类的指针。&lt;/p&gt;
-&lt;h3 id="_17"&gt;谓词&lt;/h3&gt;
+&lt;h3 id="_19"&gt;谓词&lt;/h3&gt;
 &lt;p&gt;谓词是一个可调用的表达式，其返回结果是一个能用做条件的值。标准库使用两种谓词：一元
 谓词（只接受单一参数）和二元谓词（它们有两个参数）。&lt;/p&gt;
 &lt;h3 id="emplace"&gt;使用emplace操作&lt;/h3&gt;
@@ -180,7 +194,83 @@ C编译器不能把const看成一个编译器期间的常量，而在C++默认co
 &lt;h3 id="adaptor"&gt;适配器（adaptor）&lt;/h3&gt;
 &lt;p&gt;容器、迭代器、和函数都有适配器。本质上，一个适配器是一种机制，能使某种事物的行为
 看起来想另外一种事物一样。一个容器适配器接受一种已有的容器类型，使其看起来像一种
-不同的类型。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Sat, 13 Jun 2015 16:55:00 +0800</pubDate><guid>tag:,2015-06-13:www.houcj.net/blog/2015/06/13/cpp/</guid><category>CPP</category></item><item><title>排序算法</title><link>www.houcj.net/blog/2015/05/31/sort1/</link><description>&lt;hr/&gt;
+不同的类型。&lt;/p&gt;
+&lt;h3 id="_20"&gt;动态内存&lt;/h3&gt;
+&lt;p&gt;程序使用动态内存出于以下三种原因：
+1. 程序不知道自己需要使用多少对象
+2. 程序不知道所需对象的准确类型
+3. 程序需要多个对象间共享数据。&lt;/p&gt;
+&lt;h3 id="new-delete"&gt;new &amp;amp; delete&lt;/h3&gt;
+&lt;p&gt;在自由空间分配的内存是无名的，因此&lt;strong&gt;new&lt;/strong&gt;无法为其分配的对象命名，而是返回一个指向该对象
+的指针：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;pi&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="err"&gt;（&lt;/span&gt;&lt;span class="mi"&gt;1024&lt;/span&gt;&lt;span class="err"&gt;）&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;  &lt;span class="c1"&gt;//pi 指向的对象的值为1024&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;vector&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;pv&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;7&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;9&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="c1"&gt;// 列表初始化&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;我们传递给delete的指针必须指向动态分配的内存，或者是一个空指针。释放一块并非new分配的内存，或者
+将相同的指针值释放多次，其行为都是未定义的。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;pci&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1024&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="k"&gt;delete&lt;/span&gt; &lt;span class="n"&gt;pci&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;当我们delete一个指针后，指针值就变为无效了，但在很多机器上指针仍保存着已经释放的动态内存的地址，这时候
+指针就会变成悬空指针，即，指向一块曾经保存数据对象但现在已经无效（delete）的的内存的指针。解放方法是：在指针
+即将离开其作用域之前释放掉它所&lt;strong&gt;关联&lt;/strong&gt;的内存。如果需要保存指针可以在delete之后将nullptr赋予指针。&lt;/p&gt;
+&lt;h3 id="shared_ptr"&gt;shared_ptr&lt;/h3&gt;
+&lt;p&gt;智能指针也是模块，我们创建一个智能指针时，必须提供指针可以指向的类型。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="n"&gt;shared_ptr&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;Foo&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;factory&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;T&lt;/span&gt; &lt;span class="n"&gt;arg&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="c1"&gt;// shared_ptr 负责释放内存&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;make_shared&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;Foo&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;arg&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;use_factory&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;T&lt;/span&gt; &lt;span class="n"&gt;arg&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="n"&gt;shared_ptr&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;Foo&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;factory&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;arg&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="c1"&gt;// 使用p，p离开作用域，它指向的内存会被自动释放掉&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;智能指针与动态数组&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="c1"&gt;// 为了使用shared_ptr必须提供一个删除器&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;shared_ptr&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;sp&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;],[](&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="k"&gt;delete&lt;/span&gt;&lt;span class="p"&gt;[]&lt;/span&gt; &lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="p"&gt;;});&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="c1"&gt;// shared_ptr未定义下标运算符，并且不支持指针的算术运算&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;size_t&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sp&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// 使用get获取一个内置指针&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;sp&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;reset&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="c1"&gt;//使用lambda释放数组，它使用delete[]&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id="unique_ptr-weak_ptr"&gt;unique_ptr &amp;amp; weak_ptr&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;unique_ptr拥有它所指指向的对象。与shared_ptr不同，某个时刻只能有一个unique_ptr指向
+一个给定的对象。当unique_ptr对象被销毁时，它所指向的对象也被销毁。&lt;/li&gt;
+&lt;li&gt;weak_ptr是一种不控制所指向对象生存期的智能指针，它指向一个shared_ptr管理的对象。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id="_21"&gt;释放动态数组&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="k"&gt;typedef&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;arrT&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;42&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;&lt;span class="c1"&gt;// arrT 是一个42个int的数组的类型别名&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;arrT&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// 分配一个42个int的数组，p指向第一个元素&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="k"&gt;delete&lt;/span&gt; &lt;span class="p"&gt;[]&lt;/span&gt; &lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;    &lt;span class="c1"&gt;// 方括号是必须的，因为被分配的是一个数组&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id="_22"&gt;析构函数&lt;/h3&gt;
+&lt;p&gt;在一个析构函数中，首先执行函数体（析构函数体被不直接销毁成员），然后销毁成员，成员按初始化顺序的逆序销毁。通常析构函数释放
+对象在生存期分配的所有资源。隐式销毁一个内置指针类型的成员不会delete它所指向的对象。与普通指针不同
+，智能指针是类类型，所以有析构函数，智能指针成员在析构阶段会被自动销毁。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;自动调用析构函数的情况&lt;/strong&gt;
+- 变量在离开其作用域时被销毁
+- 当一个对象被销毁时，其成员被销毁
+- 容器被销毁时，其元素被销毁
+- 对于动态分配的对象，当对指向它的指针应用delete运算符时被销毁
+- 对于临时对象，当创建它的完整表达式结束时被销毁&lt;/p&gt;
+&lt;h3 id="_23"&gt;删除的函数&lt;/h3&gt;
+&lt;p&gt;我们可以通过将拷贝构造函数和拷贝赋值运算符定义为删除的函数（deleted
+ function）来阻止拷贝。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;NoCopy&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="n"&gt;NoCopy&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;default&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// 使用合成的默认构造函数&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="n"&gt;NoCopy&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;NoCopy&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;delete&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// 阻止拷贝&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="n"&gt;NoCopy&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="k"&gt;operator&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;NoCopy&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;delete&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="c1"&gt;// 阻止拷贝&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="n"&gt;NoCopy&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;default&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;//使用合成析构函数&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="err"&gt;｝&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;如果有一个类有数据成员不能默认构造、拷贝、复制或销毁，则对应
+的成员函数将被定义为删除的。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Sat, 13 Jun 2015 16:55:00 +0800</pubDate><guid>tag:,2015-06-13:www.houcj.net/blog/2015/06/13/cpp/</guid><category>CPP</category></item><item><title>排序算法</title><link>www.houcj.net/blog/2015/05/31/sort1/</link><description>&lt;hr/&gt;
 &lt;h1 id="_1"&gt;排序算法&lt;/h1&gt;
 &lt;h2 id="_2"&gt;归并排序&lt;/h2&gt;
 &lt;p&gt;归并排序是分治模式的典型代表. 所谓的分治模式就是将原问题分解为几个

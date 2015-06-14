@@ -10,16 +10,16 @@
 
 <meta name="keywords" content="CPP, 编程, " />
 
-<meta property="og:title" content="The basic Knowledge in Cpp "/>
+<meta property="og:title" content="The basic Knowledge in CPP "/>
 <meta property="og:url" content="../../../../../blog/2015/06/13/cpp/" />
-<meta property="og:description" content="进程、线程、协程 进程拥有自己独立的堆和栈，既不共享堆，亦不共享栈，进程由操作系统调度。 线程拥有自己独立的栈和共享的堆，共享堆，不共享栈，线程亦由操作系统调度(标准线程是的)。 协程和线程一样共享堆，不共享栈，协程由程序员在协程的代码里显示调度。基本上相当与用户空间下进行线程调度。 Const 顶层const表示指针本身是个常量 底层const表示指针所指的对象是个常量 string::size_type &amp; size_t size_t size_t是sizeof操作符的结果返回类型，它在头文件中的typedef为 unsigned int 类型。该类型保证实现所建立的最大对象的字节大小。 string::size_type string::size_type是一个无符号类型的值，而且能够存放下任何string对象的大小。所有 用于存放string类的size函数返回值的变量，都应该是string::size_type 类型的。 实参入栈顺序 int b = 0; cout&lt;&lt; b &lt;&lt; b++ &lt;&lt; endl; // 输出10，b++先使用b然后再加加 ..." />
+<meta property="og:description" content="进程、线程、协程 进程拥有自己独立的堆和栈，既不共享堆，亦不共享栈，进程由操作系统调度。 线程拥有自己独立的栈和共享的堆，共享堆，不共享栈，线程亦由操作系统调度(标准线程是的)。 协程和线程一样共享堆，不共享栈，协程由程序员在协程的代码里显示调度。基本上相当与用户空间下进行线程调度。 静态内存、栈内存、堆内存 静态内存用来保存局部static对象、类static数据成员以及定义在任何函数之外的变量 栈内存用来保存定义在函数内的非static对象。分配在静态内存或者栈内存中的对象由编译器自动 创建和销毁。对于栈对象仅在其定义的程序块运行时才存在，static对象在使用之前分配，在程序 结束时销毁。 程序用堆来存储动态分配的对象，动态对象的生存周期由程序来控制。 Const 顶层const表示指针本身是个常量 底层const表示指针所指的对象是个常量 string::size_type &amp; size_t size_t size_t是sizeof操作符的结果返回类型，它在头文件中的typedef为 unsigned int 类型。该类型保证实现所建立的最大对象的字节大小。 string::size_type string::size_type是一个无符号类型的值，而且能够存放下任何string对象的大小。所有 用于存放string类的size函数返回值的变量 ..." />
 <meta property="og:site_name" content="Write the Code" />
 <meta property="og:article:author" content="ChaoJun Hou" />
 <meta property="og:article:published_time" content="2015-06-13T16:55:00+08:00" />
-<meta name="twitter:title" content="The basic Knowledge in Cpp ">
-<meta name="twitter:description" content="进程、线程、协程 进程拥有自己独立的堆和栈，既不共享堆，亦不共享栈，进程由操作系统调度。 线程拥有自己独立的栈和共享的堆，共享堆，不共享栈，线程亦由操作系统调度(标准线程是的)。 协程和线程一样共享堆，不共享栈，协程由程序员在协程的代码里显示调度。基本上相当与用户空间下进行线程调度。 Const 顶层const表示指针本身是个常量 底层const表示指针所指的对象是个常量 string::size_type &amp; size_t size_t size_t是sizeof操作符的结果返回类型，它在头文件中的typedef为 unsigned int 类型。该类型保证实现所建立的最大对象的字节大小。 string::size_type string::size_type是一个无符号类型的值，而且能够存放下任何string对象的大小。所有 用于存放string类的size函数返回值的变量，都应该是string::size_type 类型的。 实参入栈顺序 int b = 0; cout&lt;&lt; b &lt;&lt; b++ &lt;&lt; endl; // 输出10，b++先使用b然后再加加 ...">
+<meta name="twitter:title" content="The basic Knowledge in CPP ">
+<meta name="twitter:description" content="进程、线程、协程 进程拥有自己独立的堆和栈，既不共享堆，亦不共享栈，进程由操作系统调度。 线程拥有自己独立的栈和共享的堆，共享堆，不共享栈，线程亦由操作系统调度(标准线程是的)。 协程和线程一样共享堆，不共享栈，协程由程序员在协程的代码里显示调度。基本上相当与用户空间下进行线程调度。 静态内存、栈内存、堆内存 静态内存用来保存局部static对象、类static数据成员以及定义在任何函数之外的变量 栈内存用来保存定义在函数内的非static对象。分配在静态内存或者栈内存中的对象由编译器自动 创建和销毁。对于栈对象仅在其定义的程序块运行时才存在，static对象在使用之前分配，在程序 结束时销毁。 程序用堆来存储动态分配的对象，动态对象的生存周期由程序来控制。 Const 顶层const表示指针本身是个常量 底层const表示指针所指的对象是个常量 string::size_type &amp; size_t size_t size_t是sizeof操作符的结果返回类型，它在头文件中的typedef为 unsigned int 类型。该类型保证实现所建立的最大对象的字节大小。 string::size_type string::size_type是一个无符号类型的值，而且能够存放下任何string对象的大小。所有 用于存放string类的size函数返回值的变量 ...">
 
-        <title>The basic Knowledge in Cpp  · Change the World | Write the Code
+        <title>The basic Knowledge in CPP  · Change the World | Write the Code
 </title>
        
         <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
@@ -86,7 +86,7 @@
 <article>
 <div class="row-fluid">
     <header class="page_header span10 offset2">
-    <h1><a href="../../../../../blog/2015/06/13/cpp/"> The basic Knowledge in Cpp  </a></h1>
+    <h1><a href="../../../../../blog/2015/06/13/cpp/"> The basic Knowledge in CPP  </a></h1>
     </header>
 </div>
 
@@ -94,7 +94,7 @@
     <div class="span2 table-of-content">
         <nav>
         <h4>Contents</h4>
-        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="The basic Knowledge in Cpp">The basic Knowledge in Cpp</a><ul><li><a class="toc-href" href="#_1" title="进程、线程、协程">进程、线程、协程</a></li><li><a class="toc-href" href="#const" title="Const">Const</a></li><li><a class="toc-href" href="#stringsize_type-size_t" title="string::size_type &amp; size_t">string::size_type &amp; size_t</a></li><li><a class="toc-href" href="#_2" title="实参入栈顺序">实参入栈顺序</a></li><li><a class="toc-href" href="#_3" title="使用尾置返回类型">使用尾置返回类型</a></li><li><a class="toc-href" href="#_4" title="列表初始化">列表初始化</a></li><li><a class="toc-href" href="#const-constexpr" title="const 和 constexpr">const 和 constexpr</a></li><li><a class="toc-href" href="#_5" title="类型别名">类型别名</a></li><li><a class="toc-href" href="#_6" title="类模版">类模版</a></li><li><a class="toc-href" href="#constexpr" title="内联函数和constexpr函数">内联函数和constexpr函数</a></li><li><a class="toc-href" href="#_7" title="函数指针">函数指针</a></li><li><a class="toc-href" href="#const_1" title="const">const</a></li><li><a class="toc-href" href="#_9" title="类">类</a><ul><li><a class="toc-href" href="#_10" title="构造函数">构造函数</a><ul><li><a class="toc-href" href="#_11" title="默认构造函数">默认构造函数</a></li></ul></li><li><a class="toc-href" href="#_13" title="类类型">类类型</a></li><li><a class="toc-href" href="#_14" title="友元">友元</a></li><li><a class="toc-href" href="#_15" title="成员初始化顺序">成员初始化顺序</a></li><li><a class="toc-href" href="#_16" title="静态成员">静态成员</a></li><li><a class="toc-href" href="#_17" title="谓词">谓词</a></li><li><a class="toc-href" href="#emplace" title="使用emplace操作">使用emplace操作</a></li><li><a class="toc-href" href="#adaptor" title="适配器（adaptor）">适配器（adaptor）</a></li></ul></li></ul></li></ul></div></body></html>
+        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="The basic Knowledge in CPP">The basic Knowledge in CPP</a><ul><li><a class="toc-href" href="#_1" title="进程、线程、协程">进程、线程、协程</a></li><li><a class="toc-href" href="#_2" title="静态内存、栈内存、堆内存">静态内存、栈内存、堆内存</a></li><li><a class="toc-href" href="#const" title="Const">Const</a></li><li><a class="toc-href" href="#stringsize_type-size_t" title="string::size_type &amp; size_t">string::size_type &amp; size_t</a></li><li><a class="toc-href" href="#_3" title="实参入栈顺序">实参入栈顺序</a></li><li><a class="toc-href" href="#_4" title="尾置迭代器">尾置迭代器</a></li><li><a class="toc-href" href="#_5" title="使用尾置返回类型">使用尾置返回类型</a></li><li><a class="toc-href" href="#_6" title="列表初始化">列表初始化</a></li><li><a class="toc-href" href="#const-constexpr" title="const 和 constexpr">const 和 constexpr</a></li><li><a class="toc-href" href="#_7" title="类型别名">类型别名</a></li><li><a class="toc-href" href="#_8" title="类模版">类模版</a></li><li><a class="toc-href" href="#constexpr" title="内联函数和constexpr函数">内联函数和constexpr函数</a></li><li><a class="toc-href" href="#_9" title="函数指针">函数指针</a></li><li><a class="toc-href" href="#const_1" title="const">const</a></li><li><a class="toc-href" href="#_11" title="类">类</a><ul><li><a class="toc-href" href="#_12" title="构造函数">构造函数</a><ul><li><a class="toc-href" href="#_13" title="默认构造函数">默认构造函数</a></li></ul></li><li><a class="toc-href" href="#_15" title="类类型">类类型</a></li><li><a class="toc-href" href="#_16" title="友元">友元</a></li><li><a class="toc-href" href="#_17" title="成员初始化顺序">成员初始化顺序</a></li><li><a class="toc-href" href="#_18" title="静态成员">静态成员</a></li><li><a class="toc-href" href="#_19" title="谓词">谓词</a></li><li><a class="toc-href" href="#emplace" title="使用emplace操作">使用emplace操作</a></li><li><a class="toc-href" href="#adaptor" title="适配器（adaptor）">适配器（adaptor）</a></li><li><a class="toc-href" href="#_20" title="动态内存">动态内存</a></li><li><a class="toc-href" href="#new-delete" title="new &amp; delete">new &amp; delete</a></li><li><a class="toc-href" href="#shared_ptr" title="shared_ptr">shared_ptr</a></li><li><a class="toc-href" href="#unique_ptr-weak_ptr" title="unique_ptr &amp; weak_ptr">unique_ptr &amp; weak_ptr</a></li><li><a class="toc-href" href="#_21" title="释放动态数组">释放动态数组</a></li><li><a class="toc-href" href="#_22" title="析构函数">析构函数</a></li><li><a class="toc-href" href="#_23" title="删除的函数">删除的函数</a></li></ul></li></ul></li></ul></div></body></html>
         </nav>
     </div>
     <div class="span8 article-content">
@@ -111,6 +111,14 @@
 <li>
 <p>协程和线程一样共享堆，不共享栈，协程由程序员在协程的代码里显示调度。基本上相当与用户空间下进行线程调度。</p>
 </li>
+</ol>
+<h3 id="_2">静态内存、栈内存、堆内存</h3>
+<ol>
+<li>静态内存用来保存局部static对象、类static数据成员以及定义在任何函数之外的变量</li>
+<li>栈内存用来保存定义在函数内的非static对象。分配在静态内存或者栈内存中的对象由编译器自动
+创建和销毁。对于栈对象仅在其定义的程序块运行时才存在，static对象在使用之前分配，在程序
+结束时销毁。</li>
+<li>程序用堆来存储动态分配的对象，动态对象的生存周期由程序来控制。</li>
 </ol>
 <h3 id="const">Const</h3>
 <ul>
@@ -131,7 +139,7 @@ unsigned int 类型。该类型保证实现所建立的最大对象的字节大�
 <p>string::size_type是一个无符号类型的值，而且能够存放下任何string对象的大小。所有
 用于存放string类的size函数返回值的变量，都应该是string::size_type
 类型的。</p>
-<h3 id="_2">实参入栈顺序</h3>
+<h3 id="_3">实参入栈顺序</h3>
 <div class="highlight"><pre><span class="code-line"><span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
 <span class="code-line"><span class="n">cout</span><span class="o">&lt;&lt;</span> <span class="n">b</span> <span class="o">&lt;&lt;</span> <span class="n">b</span><span class="o">++</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="c1">// 输出10，b++先使用b然后再加加</span></span>
 <span class="code-line"><span class="n">cout</span><span class="o">&lt;&lt;</span> <span class="o">++</span><span class="n">b</span><span class="o">&lt;&lt;</span><span class="n">b</span><span class="o">++&lt;&lt;++</span><span class="n">b</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span> <span class="c1">// 输出5351</span></span>
@@ -139,7 +147,13 @@ unsigned int 类型。该类型保证实现所建立的最大对象的字节大�
 <p>在处理printf或者cout时，压栈顺序为从右向左，对于a++的结果，是有ebp寻址函数栈
 空间来记录中间结果的，在最后给printf压栈的时候，再从栈中把中间结果取出来；而对于
 ++a的结果，则直接压寄存器变量，寄存器经过了所有的自增操作。</p>
-<h3 id="_3">使用尾置返回类型</h3>
+<h3 id="_4">尾置迭代器</h3>
+<p>迭代器的end成员负责返回指向容器尾元素的下一位置的迭代器，该迭代器表示容器的不存在的尾后
+元素，作为处理完容器所有元素的标记。</p>
+<div class="highlight"><pre><span class="code-line"><span class="kt">int</span> <span class="n">arr</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">};</span></span>
+<span class="code-line"><span class="kt">int</span> <span class="o">*</span><span class="n">e</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">arr</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span><span class="c1">// 指向arr尾元素的下一个位置的指针，相当于哨兵的作用。</span></span>
+</pre></div>
+<h3 id="_5">使用尾置返回类型</h3>
 <p>任何函数的定义都可以使用尾置（trailing return type）返回，尾置返回类型跟在
 形参列表后面并以一个-&gt;符号开头，同时为了表示函数真正的返回类型跟在形参列表之后，
 可以在返回类型出现的地方放置一个auto：</p>
@@ -152,7 +166,7 @@ unsigned int 类型。该类型保证实现所建立的最大对象的字节大�
 <p>The std::string type defines size_type to be the name of the appropriate type for holding the number of characters in a string. Whenever we need a local variable to contain the size of a string, we should use std::string::size_type as the type of that variable.</p>
 <p>The reason that we have given cols a type of std::string::size_type is to ensure that cols is capable of containing the number of characters in greeting, no matter how large that number might be. We could simply have said that cols has type int, and indeed, doing so would probably work. However, the value of cols depends on the size of the input to our program, and we have no control over how long that input might be. It is conceivable that someone might give our program a string so long that an int is insufficient to contain its length.</p>
 </blockquote>
-<h3 id="_4">列表初始化</h3>
+<h3 id="_6">列表初始化</h3>
 <p>下面四条语句都可以：</p>
 <div class="highlight"><pre><span class="code-line"><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
 <span class="code-line"><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span></span>
@@ -177,7 +191,7 @@ unsigned int 类型。该类型保证实现所建立的最大对象的字节大�
 <div class="highlight"><pre><span class="code-line"><span class="k">const</span> <span class="kt">int</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>       <span class="c1">// p是一个指向整型常量的指针</span></span>
 <span class="code-line"><span class="k">constexpr</span> <span class="kt">int</span> <span class="o">*</span><span class="n">q</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>   <span class="c1">// q是一个指向整数的常量指针。</span></span>
 </pre></div>
-<h3 id="_5">类型别名</h3>
+<h3 id="_7">类型别名</h3>
 <p>两种实现方式
 - typedef  <br/>
 - using</p>
@@ -191,7 +205,7 @@ C++11引入decltype类型说明符，它的作用是选择并返回操作数的�
 常量表达式的值需要在编译使就得到计算，因此对声明constexpr时用到的类型必须有所限制。因为这些类型一般都比较
 简单，值也容易得到。就把它们称为"字面值类型(literal type)"</p>
 <p>一个constexpr指针的初始值必须是nullptr或者0，或者是存储于某个固定地址中的对象。</p>
-<h3 id="_6">类模版</h3>
+<h3 id="_8">类模版</h3>
 <p>编译器根据模版创建类或函数的过程称为实例化，当使用模版时，需要指出编译器应把类或函数实例化成何种
 类型。</p>
 <h3 id="constexpr">内联函数和constexpr函数</h3>
@@ -203,7 +217,7 @@ C++11引入decltype类型说明符，它的作用是选择并返回操作数的�
 </pre></div>
 <p>对于某个给定的内联或者constexpr函数来说，它的多个定义必须完全一致，因此内联函数和
 constexpr函数通常定义在头文件中。</p>
-<h3 id="_7">函数指针</h3>
+<h3 id="_9">函数指针</h3>
 <p>函数指针指向的是函数而非对象，函数的类型由它的返回类型和形参类型共同决定，与函数名无关。</p>
 <h3 id="const_1">const</h3>
 <p>在成员函数后面加const表示，这个函数是只读函数，不会改变类的数据成员。</p>
@@ -223,20 +237,20 @@ constexpr函数通常定义在头文件中。</p>
 <p>在C中const是外部链接，它总是占用内存，而且它的名字是全局符，
 C编译器不能把const看成一个编译器期间的常量，而在C++默认const是内部连接的，它
 在编译期间就会确定值。</p>
-<h2 id="_9">类</h2>
+<h2 id="_11">类</h2>
 <p>类是C++语言中最基本的特性，它允许我们为自己的应用定义新类型，从而使得程序更加简洁。类有
 两项基本功能：一是数据抽象，即定义数据成员和函数成员的能力。二是封装，即保护类的成员不被随意
 访问的能力。</p>
-<h3 id="_10">构造函数</h3>
+<h3 id="_12">构造函数</h3>
 <p>构造函数的任务是初始化对象的数据成员，无论何时只要类的对象被创建，就会执行构造函数。</p>
 <p>构造函数不能被声明成const的，当我们创建类的const对象时，直到构造函数完成初始化过程，对象才能
 真正取得其常量属性，因此，构造函数在const对象的构造过程中可以向其写值。</p>
-<h4 id="_11">默认构造函数</h4>
+<h4 id="_13">默认构造函数</h4>
 <p>如果我们的类没有显式地定义构造函数，那么编译器就会为我们隐式地定义一个默认构造函数，
 默认构造函数无需任何实参。</p>
 <p>如果类包含有内置类型或者复合类型的成员，则只有当这些成员都被赋予了类内的初始值时，
 这个类才适合于使用合成的构造函数</p>
-<h3 id="_13">类类型</h3>
+<h3 id="_15">类类型</h3>
 <div class="highlight"><pre><span class="code-line"><span class="k">struct</span> <span class="n">First</span><span class="p">{</span></span>
 <span class="code-line">    <span class="kt">int</span> <span class="n">memi</span><span class="p">;</span></span>
 <span class="code-line">    <span class="kt">int</span> <span class="nf">geMem</span><span class="p">();</span></span>
@@ -250,11 +264,11 @@ C编译器不能把const看成一个编译器期间的常量，而在C++默认co
 </pre></div>
 <p>即使两个类的成员列表完全一致，它们也是不同的类型，对于一个类来说，它的成员
 和其他任何类的成员都不是一回事。</p>
-<h3 id="_14">友元</h3>
+<h3 id="_16">友元</h3>
 <p>友元关系不存在传递性，每个类独立的负责自己的友元类或者友元函数。当第一个名字第一次
 出现在一个友元声明中，我们隐式地假定该名字当前作用域是可见的，即使我们仅仅是用友元的类
 的成员调用友元函数，它也必须是被显式的声明过。</p>
-<h3 id="_15">成员初始化顺序</h3>
+<h3 id="_17">成员初始化顺序</h3>
 <div class="highlight"><pre><span class="code-line"><span class="k">class</span> <span class="nc">test</span> <span class="p">{</span></span>
 <span class="code-line"><span class="k">public</span><span class="o">:</span></span>
 <span class="code-line">    <span class="n">test</span><span class="p">(</span><span class="kt">int</span> <span class="n">val</span><span class="p">)</span> <span class="o">:</span><span class="n">j</span><span class="p">(</span><span class="n">val</span><span class="p">),</span> <span class="n">i</span><span class="p">(</span><span class="n">j</span><span class="p">){}</span> <span class="c1">// i先初始化</span></span>
@@ -264,12 +278,12 @@ C编译器不能把const看成一个编译器期间的常量，而在C++默认co
 <span class="code-line"><span class="p">};</span></span>
 </pre></div>
 <p>构造函数的初始化值的顺序和成员声明的顺序保持一致，同时尽量避免使用某些成员初始化其他成员。</p>
-<h3 id="_16">静态成员</h3>
+<h3 id="_18">静态成员</h3>
 <p>和类的所有成员一样，当我们指向类外部的静态成员时，必须指明成员所属的类名，static关键字则只
 出现在类内部的声明语句中。</p>
 <p>静态数据成员可以是不完全类型，非静态数据成员必须是完全类型才能使用。静态数据成员的类型可以是
 它所属的类类型，而非静态数据成员则只能声明成它所属类的指针。</p>
-<h3 id="_17">谓词</h3>
+<h3 id="_19">谓词</h3>
 <p>谓词是一个可调用的表达式，其返回结果是一个能用做条件的值。标准库使用两种谓词：一元
 谓词（只接受单一参数）和二元谓词（它们有两个参数）。</p>
 <h3 id="emplace">使用emplace操作</h3>
@@ -281,6 +295,82 @@ C编译器不能把const看成一个编译器期间的常量，而在C++默认co
 <p>容器、迭代器、和函数都有适配器。本质上，一个适配器是一种机制，能使某种事物的行为
 看起来想另外一种事物一样。一个容器适配器接受一种已有的容器类型，使其看起来像一种
 不同的类型。</p>
+<h3 id="_20">动态内存</h3>
+<p>程序使用动态内存出于以下三种原因：
+1. 程序不知道自己需要使用多少对象
+2. 程序不知道所需对象的准确类型
+3. 程序需要多个对象间共享数据。</p>
+<h3 id="new-delete">new &amp; delete</h3>
+<p>在自由空间分配的内存是无名的，因此<strong>new</strong>无法为其分配的对象命名，而是返回一个指向该对象
+的指针：</p>
+<div class="highlight"><pre><span class="code-line"><span class="kt">int</span> <span class="o">*</span><span class="n">pi</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="err">（</span><span class="mi">1024</span><span class="err">）</span><span class="p">;</span>  <span class="c1">//pi 指向的对象的值为1024</span></span>
+<span class="code-line"><span class="n">vector</span> <span class="o">*</span><span class="n">pv</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">}</span><span class="c1">// 列表初始化</span></span>
+</pre></div>
+<p>我们传递给delete的指针必须指向动态分配的内存，或者是一个空指针。释放一块并非new分配的内存，或者
+将相同的指针值释放多次，其行为都是未定义的。</p>
+<div class="highlight"><pre><span class="code-line"><span class="k">const</span> <span class="kt">int</span> <span class="o">*</span><span class="n">pci</span> <span class="o">=</span> <span class="k">new</span> <span class="k">const</span> <span class="kt">int</span><span class="p">(</span><span class="mi">1024</span><span class="p">);</span></span>
+<span class="code-line"><span class="k">delete</span> <span class="n">pci</span><span class="p">;</span></span>
+</pre></div>
+<p>当我们delete一个指针后，指针值就变为无效了，但在很多机器上指针仍保存着已经释放的动态内存的地址，这时候
+指针就会变成悬空指针，即，指向一块曾经保存数据对象但现在已经无效（delete）的的内存的指针。解放方法是：在指针
+即将离开其作用域之前释放掉它所<strong>关联</strong>的内存。如果需要保存指针可以在delete之后将nullptr赋予指针。</p>
+<h3 id="shared_ptr">shared_ptr</h3>
+<p>智能指针也是模块，我们创建一个智能指针时，必须提供指针可以指向的类型。</p>
+<div class="highlight"><pre><span class="code-line"><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Foo</span><span class="o">&gt;</span> <span class="n">factory</span> <span class="p">(</span><span class="n">T</span> <span class="n">arg</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="c1">// shared_ptr 负责释放内存</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="n">make_shared</span><span class="o">&lt;</span><span class="n">Foo</span><span class="o">&gt;</span> <span class="p">(</span><span class="n">arg</span><span class="p">);</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kt">void</span> <span class="n">use_factory</span><span class="p">(</span><span class="n">T</span> <span class="n">arg</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Foo</span><span class="o">&gt;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">factory</span><span class="p">(</span><span class="n">arg</span><span class="p">);</span></span>
+<span class="code-line">    <span class="c1">// 使用p，p离开作用域，它指向的内存会被自动释放掉</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+<p><strong>智能指针与动态数组</strong></p>
+<div class="highlight"><pre><span class="code-line"><span class="c1">// 为了使用shared_ptr必须提供一个删除器</span></span>
+<span class="code-line"><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">sp</span><span class="p">(</span><span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="mi">10</span><span class="p">],[](</span><span class="kt">int</span> <span class="o">*</span><span class="n">p</span><span class="p">)</span> <span class="p">{</span><span class="k">delete</span><span class="p">[]</span> <span class="n">p</span><span class="p">;});</span></span>
+<span class="code-line"><span class="c1">// shared_ptr未定义下标运算符，并且不支持指针的算术运算</span></span>
+<span class="code-line"><span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">!=</span> <span class="mi">10</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="o">*</span><span class="p">(</span><span class="n">sp</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span> <span class="c1">// 使用get获取一个内置指针</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"><span class="n">sp</span><span class="p">.</span><span class="n">reset</span><span class="p">()</span><span class="c1">//使用lambda释放数组，它使用delete[]</span></span>
+</pre></div>
+<h3 id="unique_ptr-weak_ptr">unique_ptr &amp; weak_ptr</h3>
+<ol>
+<li>unique_ptr拥有它所指指向的对象。与shared_ptr不同，某个时刻只能有一个unique_ptr指向
+一个给定的对象。当unique_ptr对象被销毁时，它所指向的对象也被销毁。</li>
+<li>weak_ptr是一种不控制所指向对象生存期的智能指针，它指向一个shared_ptr管理的对象。</li>
+</ol>
+<h3 id="_21">释放动态数组</h3>
+<div class="highlight"><pre><span class="code-line"><span class="k">typedef</span> <span class="kt">int</span> <span class="n">arrT</span><span class="p">[</span><span class="mi">42</span><span class="p">];</span><span class="c1">// arrT 是一个42个int的数组的类型别名</span></span>
+<span class="code-line"><span class="kt">int</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="n">arrT</span><span class="p">;</span> <span class="c1">// 分配一个42个int的数组，p指向第一个元素</span></span>
+<span class="code-line"><span class="k">delete</span> <span class="p">[]</span> <span class="n">p</span><span class="p">;</span>    <span class="c1">// 方括号是必须的，因为被分配的是一个数组</span></span>
+</pre></div>
+<h3 id="_22">析构函数</h3>
+<p>在一个析构函数中，首先执行函数体（析构函数体被不直接销毁成员），然后销毁成员，成员按初始化顺序的逆序销毁。通常析构函数释放
+对象在生存期分配的所有资源。隐式销毁一个内置指针类型的成员不会delete它所指向的对象。与普通指针不同
+，智能指针是类类型，所以有析构函数，智能指针成员在析构阶段会被自动销毁。</p>
+<p><strong>自动调用析构函数的情况</strong>
+- 变量在离开其作用域时被销毁
+- 当一个对象被销毁时，其成员被销毁
+- 容器被销毁时，其元素被销毁
+- 对于动态分配的对象，当对指向它的指针应用delete运算符时被销毁
+- 对于临时对象，当创建它的完整表达式结束时被销毁</p>
+<h3 id="_23">删除的函数</h3>
+<p>我们可以通过将拷贝构造函数和拷贝赋值运算符定义为删除的函数（deleted
+ function）来阻止拷贝。</p>
+<div class="highlight"><pre><span class="code-line"><span class="k">struct</span> <span class="n">NoCopy</span><span class="p">{</span></span>
+<span class="code-line">    <span class="n">NoCopy</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span> <span class="c1">// 使用合成的默认构造函数</span></span>
+<span class="code-line">    <span class="n">NoCopy</span><span class="p">(</span><span class="k">const</span> <span class="n">NoCopy</span><span class="o">&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span> <span class="c1">// 阻止拷贝</span></span>
+<span class="code-line">    <span class="n">NoCopy</span> <span class="o">&amp;</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span> <span class="n">NoCopy</span><span class="o">&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span><span class="c1">// 阻止拷贝</span></span>
+<span class="code-line">    <span class="o">~</span><span class="n">NoCopy</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span> <span class="c1">//使用合成析构函数</span></span>
+<span class="code-line"><span class="err">｝</span></span>
+</pre></div>
+<p>如果有一个类有数据成员不能默认构造、拷贝、复制或销毁，则对应
+的成员函数将被定义为删除的。</p>
 <section>
 <div class="accordion" id="accordion2">
     <div class="accordion-group">
