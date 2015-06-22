@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="utf-8"> 
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="google-site-verification" content="fdZTDVFyX3hKovPIzn1tgPixk_wysBXaPN8YQw1P8Jw" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="ChaoJun Hou" />
+        <meta name="copyright" content="ChaoJun Hou" />
+
+<meta name="keywords" content="SICP, 计算机科学, " />
+
+<meta property="og:title" content="SICP "/>
+<meta property="og:url" content="../../../../../blog/2015/06/19/sicp/" />
+<meta property="og:description" content="构造过程抽象 在程序设计中，需要处理两类要素：数据和过程。数据是一种我们希望去操作的东西， 过程就是有关操作这些数据的规则的描述。 复合过程 数和算术运算是基本的数据和过程 组合式的嵌套提供了一种组织起多个操作的方法 定义是一种受限的抽象手段，它为名字关联相应的值。 用高阶函数做抽象 一般而言程序设计语言总会对计算元素的可能使用方式强加上某些限制。带有 最少限制的元素被称为第一级的状态。第一级元素的权利包括： - 可以用变量命名 - 可以提供给过程参数 - 可以由过程作为结果返回 - 可以包含在数据结构中 Lisp把过程作为第一级状态，带来强大的表达功能。可以使用过程构造参数， 用lambda构造过程，同时过程也可以作为一般性的方法或者返回值。 构造数据抽象 定义过程的能力使我们有可能在更高的概念层次上处理计算机工作一样，能够构造 符合数据的能力，也将使我们得以在比语言提供的基本数据对象更高的概念 层次上，处理与数据有关的各种问题。 将程序中处理数据对象的表示部分，与处理对象的使用的部分相互隔离的技术形成了 一种称为数据抽象的强有力的设计方法学. 在处理符合数据中的一个关键性思想是闭包的概念---也就是说，用于组合 数据对象的黏合剂不但能用于组合基本的数据对象，同样也可以用于复合的数据对象。 另一关键思想是，复合数据对象能够称为以混合与匹配的方式组合程序模块的方便界面。 数据抽象的基本思想，就是设法构造出一些使用符合数据对象的程序，使它们就像在抽象数据 上操作一样。 map是一种很重要的结构，不仅因为它代表了一种公共模式，而且因为它建立起了 一种处理表的高层抽象。通过map强调的是从元 ..." />
+<meta property="og:site_name" content="Write the Code" />
+<meta property="og:article:author" content="ChaoJun Hou" />
+<meta property="og:article:published_time" content="2015-06-19T15:25:00+08:00" />
+<meta name="twitter:title" content="SICP ">
+<meta name="twitter:description" content="构造过程抽象 在程序设计中，需要处理两类要素：数据和过程。数据是一种我们希望去操作的东西， 过程就是有关操作这些数据的规则的描述。 复合过程 数和算术运算是基本的数据和过程 组合式的嵌套提供了一种组织起多个操作的方法 定义是一种受限的抽象手段，它为名字关联相应的值。 用高阶函数做抽象 一般而言程序设计语言总会对计算元素的可能使用方式强加上某些限制。带有 最少限制的元素被称为第一级的状态。第一级元素的权利包括： - 可以用变量命名 - 可以提供给过程参数 - 可以由过程作为结果返回 - 可以包含在数据结构中 Lisp把过程作为第一级状态，带来强大的表达功能。可以使用过程构造参数， 用lambda构造过程，同时过程也可以作为一般性的方法或者返回值。 构造数据抽象 定义过程的能力使我们有可能在更高的概念层次上处理计算机工作一样，能够构造 符合数据的能力，也将使我们得以在比语言提供的基本数据对象更高的概念 层次上，处理与数据有关的各种问题。 将程序中处理数据对象的表示部分，与处理对象的使用的部分相互隔离的技术形成了 一种称为数据抽象的强有力的设计方法学. 在处理符合数据中的一个关键性思想是闭包的概念---也就是说，用于组合 数据对象的黏合剂不但能用于组合基本的数据对象，同样也可以用于复合的数据对象。 另一关键思想是，复合数据对象能够称为以混合与匹配的方式组合程序模块的方便界面。 数据抽象的基本思想，就是设法构造出一些使用符合数据对象的程序，使它们就像在抽象数据 上操作一样。 map是一种很重要的结构，不仅因为它代表了一种公共模式，而且因为它建立起了 一种处理表的高层抽象。通过map强调的是从元 ...">
+
+        <title>SICP  · Change the World | Write the Code
+</title>
+       
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="../../../../../theme/css/style.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="../../../../../theme/css/solarizedlight.css" media="screen">
+        <link rel="shortcut icon" href="../../../../../theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="apple-touch-icon" href="../../../../../theme/images/apple-touch-icon.png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="../../../../../theme/images/apple-touch-icon-57x57.png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="../../../../../theme/images/apple-touch-icon-72x72.png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="../../../../../theme/images/apple-touch-icon-114x114.png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="../../../../../theme/images/apple-touch-icon-144x144.png" />
+        <link rel="icon" href="../../../../../theme/images/apple-touch-icon-144x144.png" />
+        <link href="www.houcj.net/feed.xml" type="application/rss+xml" rel="alternate" title="Write the Code - Full RSS Feed" />
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', '61957498', 'auto');
+    ga('send', 'pageview');
+</script>
+
+    </head>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-61957498-1', 'auto');
+  ga('send', 'pageview');
+
+	</script>
+    <body>
+        <div id="content-sans-footer">
+        <div class="navbar navbar-static-top">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../../../../"><span class=site-name>Write the Code</span></a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav pull-right top-menu">
+                            <li ><a href="../../../../..">Home</a></li>
+                            <li ><a href="../../../../../pages/About.html">About</a></li>
+                            <li ><a href="../../../../../random.html">Pick One!</a></li>
+                            <li ><a href="../../../../../categories.html">分类</a></li>
+                            <li ><a href="../../../../../tags.html">标签</a></li>
+                            <li ><a href="../../../../../archives.html">归档</a></li>
+                            <li><form class="navbar-search" action="../../../../../search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span1"></div>
+                <div class="span10">
+<article>
+<div class="row-fluid">
+    <header class="page_header span10 offset2">
+    <h1><a href="../../../../../blog/2015/06/19/sicp/"> SICP  </a></h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+    <div class="span2 table-of-content">
+        <nav>
+        <h4>Contents</h4>
+        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="SICP">SICP</a><ul><li><a class="toc-href" href="#_1" title="构造过程抽象">构造过程抽象</a><ul><li><a class="toc-href" href="#_2" title="复合过程">复合过程</a></li><li><a class="toc-href" href="#_3" title="用高阶函数做抽象">用高阶函数做抽象</a></li></ul></li><li><a class="toc-href" href="#_5" title="构造数据抽象">构造数据抽象</a><ul><li><a class="toc-href" href="#_6" title="模块化、对象和状态">模块化、对象和状态</a></li></ul></li><li><a class="toc-href" href="#scheme_1" title="附录：Scheme">附录：Scheme</a><ul><li><a class="toc-href" href="#list" title="List">List</a></li><li><a class="toc-href" href="#_7" title="表达式">表达式</a></li><li><a class="toc-href" href="#_8" title="语法糖">语法糖</a></li><li><a class="toc-href" href="#let" title="let 表达式和赋值">let 表达式和赋值</a></li><li><a class="toc-href" href="#define-set" title="用define 和 set! 赋值">用define 和 set! 赋值</a></li><li><a class="toc-href" href="#lambda" title="lambda">lambda</a></li><li><a class="toc-href" href="#if" title="if 表达式">if 表达式</a></li><li><a class="toc-href" href="#cond" title="cond 表达式">cond 表达式</a></li><li><a class="toc-href" href="#map" title="map 表达式">map 表达式</a></li><li><a class="toc-href" href="#ps" title="PS:">PS:</a><ul><li><a class="toc-href" href="#_9" title="过程和定义">过程和定义</a></li><li><a class="toc-href" href="#_10" title="注释">注释</a></li></ul></li><li><a class="toc-href" href="#python_1" title="Python 闭包">Python 闭包</a></li></ul></li></ul></li></ul></div></body></html>
+        </nav>
+    </div>
+    <div class="span8 article-content">
+
+            <hr/>
+<h2 id="_1">构造过程抽象</h2>
+<p>在程序设计中，需要处理两类要素：数据和过程。数据是一种我们希望去操作的东西，
+过程就是有关操作这些数据的规则的描述。</p>
+<h3 id="_2">复合过程</h3>
+<ul>
+<li>数和算术运算是基本的数据和过程</li>
+<li>组合式的嵌套提供了一种组织起多个操作的方法</li>
+<li>定义是一种受限的抽象手段，它为名字关联相应的值。</li>
+</ul>
+<h3 id="_3">用高阶函数做抽象</h3>
+<p>一般而言程序设计语言总会对计算元素的可能使用方式强加上某些限制。带有
+最少限制的元素被称为第一级的状态。第一级元素的权利包括：
+- 可以用变量命名
+- 可以提供给过程参数
+- 可以由过程作为结果返回
+- 可以包含在数据结构中</p>
+<p>Lisp把过程作为第一级状态，带来强大的表达功能。可以使用过程构造参数，
+用lambda构造过程，同时过程也可以作为一般性的方法或者返回值。 </p>
+<h2 id="_5">构造数据抽象</h2>
+<p>定义过程的能力使我们有可能在更高的概念层次上处理计算机工作一样，能够构造
+符合数据的能力，也将使我们得以在比语言提供的基本数据对象更高的概念
+层次上，处理与数据有关的各种问题。</p>
+<p>将程序中处理数据对象的表示部分，与处理对象的使用的部分相互隔离的技术形成了
+一种称为数据抽象的强有力的设计方法学.</p>
+<p>在处理符合数据中的一个关键性思想是闭包的概念---也就是说，用于组合
+数据对象的黏合剂不但能用于组合基本的数据对象，同样也可以用于复合的数据对象。
+另一关键思想是，复合数据对象能够称为以混合与匹配的方式组合程序模块的方便界面。</p>
+<p>数据抽象的基本思想，就是设法构造出一些使用符合数据对象的程序，使它们就像在抽象数据
+上操作一样。</p>
+<p>map是一种很重要的结构，不仅因为它代表了一种公共模式，而且因为它建立起了
+一种处理表的高层抽象。通过map强调的是从元 素表到另一个结果表的缩放变换。从作用上看，map
+帮我们建立起了一层抽象屏障，将实现表变换的过程实现与如何提取表中元素以及
+组合结果的细节隔离开。</p>
+<h3 id="_6">模块化、对象和状态</h3>
+<p>对于系统结构的两种非常不同的世界观。第一种策略将注意力集中在对象上，将一个大型系统看成一批对象，
+它们的行为可能随着时间的进展而不断变化。另一种组织策略将注意力集中在流过系统的
+信息流上。</p>
+<p>只要我们不使用赋值，以同样的参数对同一过程的两次求值一定产生同样的结果，因此就可以认为
+过程是在计算数学函数。不用任何赋值的程序设计称为函数式程序设计。</p>
+<p>一个环境就是框架的一个序列，每个框架里包含着一些约束的表格，这些约束将一些变量名字
+关联于对应的值。每个框架还包含着一个指针，指向这一框架的外围环境。如果由于当前讨论的目的，
+将相应的框架看作是全局的，那么它将没有外围环境。一个变量相对于某个特定环境的值，也就是在
+这一环境中，包含着该变量的第一个框架里这个变量的约束值。如果在序列中并不存在
+这一变量的约束，那么我们就说这个变量在该特定环境中是无约束的。</p>
+<p><strong>过程应用的环境模型</strong>
+- 将一个过程对象应用于实际参数，将构造出一个新框架，其中将过程的形式参数约束到调用时的
+的实际参数，而后在构造起的这一新环境的上下文中求值过程体。这个新框架的外围环境
+就是作为被应用的那个过程对象的一部分的环境
+- 相对于一个给定环境求值一个lambda表达式，将创建起一个过程对象，这个过程对象是一个
+序对，由该lambda表达式的正文和一个指向环境的指针组成。这一指针指向的就是创建这个过程对象
+时的环境。 </p>
+<p><strong>以局部过程定义作为程序模块化的有用技术中的两个关键性质：</strong> 
+- 局部过程的名字不会与包含它们的过程之外的名字互相干扰，这是因为这些局部过程名都是
+在该过程运行时创建的框架里面的约束的，而不是在全局环境里约束的。
+- 局部过程只需要将包含着它们的过程的形参作为自由变量，就可以访问该过程的实际参数。这时
+是因为对于局部过程体的求值所在的环境是外围过程求值所在环境的下属。</p>
+<p>我们可以将世界模拟为一个相互分离的、受时间约束的，具有状态的相互交流的对象，或者
+可以将它模拟为单一的、无时间也无状态的统一体。</p>
+<h2 id="scheme_1">附录：<strong>Scheme</strong></h2>
+<p>Scheme语法极其简洁，支持S（symbol）表达式，可以减少词法解析的时间。Scheme程序中充满了
+一对对嵌套的小括号，这些嵌套的符号体现了最基本的数学思想----递归。下面的表格是Scheme语法的基本
+结构.</p>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="right">Procedures</th>
+<th align="center">Data</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Primitive elements</td>
+<td align="right">+,-,*,/,&lt;,=,&gt;</td>
+<td align="center">数字，字符，字符串，布尔值，列表，函数</td>
+</tr>
+<tr>
+<td align="left">Means of combination</td>
+<td align="right">()composition,COND,IF</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left">Means of abstraction</td>
+<td align="right">Define</td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+<h3 id="list">List</h3>
+<table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">操作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">car</td>
+<td align="center">取表的第一个元素</td>
+</tr>
+<tr>
+<td align="center">cdr</td>
+<td align="center">表在取car后的其余部分，对于正常表，其结果是一个表，对非正常表，结果可能是一个元素</td>
+</tr>
+<tr>
+<td align="center">cons</td>
+<td align="center">构造表，如果第二个参数是表，则将第一个参数作为整体放在第二个参数的表中</td>
+</tr>
+<tr>
+<td align="center">List</td>
+<td align="center">构造表，将各个参数做为整体放在一个表中</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">appnd</span> <span class="nv">list1</span> <span class="nv">list2</span><span class="p">)</span> </span>
+<span class="code-line">            <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">null? </span><span class="nv">list1</span><span class="p">)</span></span>
+<span class="code-line">                <span class="nv">list2</span></span>
+<span class="code-line">        <span class="p">(</span> <span class="nv">cons</span> <span class="p">(</span><span class="nb">car </span><span class="nv">list1</span><span class="p">)</span> <span class="p">(</span><span class="nf">appnd</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">list1</span><span class="p">)</span> <span class="nv">list2</span><span class="p">))))</span></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="nv">one-two</span> <span class="p">(</span><span class="nb">list </span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span><span class="p">))</span></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="nv">odds</span> <span class="p">(</span><span class="nb">list </span><span class="mi">1</span> <span class="mi">3</span> <span class="mi">5</span> <span class="mi">7</span><span class="p">))</span></span>
+<span class="code-line"><span class="p">(</span><span class="nf">appnd</span> <span class="nv">odds</span> <span class="nv">one-two</span><span class="p">)</span> <span class="c1">;return (1 3 5 7 1 2 3 4)</span></span>
+</pre></div>
+<h3 id="_7">表达式</h3>
+<table>
+<thead>
+<tr>
+<th>Scheme</th>
+<th>C</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(+ 2 3 4)</td>
+<td>(2 + 3 + 4)</td>
+</tr>
+<tr>
+<td>(&lt; low x high)</td>
+<td>((low &lt; x) &amp;&amp; (x &lt; high))</td>
+</tr>
+<tr>
+<td>(f x y)</td>
+<td>f(x, y)</td>
+</tr>
+<tr>
+<td>(define (sq x) (* x x))</td>
+<td retrun="retrun" x_x_="x*x;">int sq(int) </td>
+</tr>
+<tr>
+<td>#t</td>
+<td>true</td>
+</tr>
+<tr>
+<td>#\c</td>
+<td>'c'</td>
+</tr>
+<tr>
+<td>"abc"</td>
+<td>"abc"</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_8">语法糖</h3>
+<table>
+<thead>
+<tr>
+<th align="left">语法糖形式</th>
+<th align="left">解释器中形式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">(define (sq x) (* x x))</td>
+<td align="left">(define sq (lambda (x) (* x x)))</td>
+</tr>
+<tr>
+<td align="left">'(+ 2 3)</td>
+<td align="left">(quote (+ 2 3))</td>
+</tr>
+<tr>
+<td align="left">if 表达式</td>
+<td align="left">cond 表达式</td>
+</tr>
+</tbody>
+</table>
+<h3 id="let">let 表达式和赋值</h3>
+<p>语法：(let ((var1 val1)...) exp1 exp2...)</p>
+<p>说明：let表达式的赋值只在表达式内部有效</p>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">let </span><span class="p">((</span><span class="nf">f</span> <span class="nv">+</span><span class="p">))</span></span>
+<span class="code-line">  <span class="p">(</span><span class="nf">f</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">))</span>  <span class="c1">; return 5 </span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="p">(</span><span class="k">let </span><span class="p">((</span><span class="nf">f</span> <span class="nv">+</span><span class="p">)</span> <span class="p">(</span><span class="nf">x</span> <span class="mi">2</span><span class="p">))</span></span>
+<span class="code-line">  <span class="p">(</span><span class="nf">f</span> <span class="nv">x</span> <span class="mi">3</span><span class="p">))</span>  <span class="c1">; return 5 </span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="p">(</span><span class="k">let </span><span class="p">((</span><span class="nf">f</span> <span class="nv">+</span><span class="p">)</span> <span class="p">(</span><span class="nf">x</span> <span class="mi">2</span><span class="p">)</span> <span class="p">(</span><span class="nf">y</span> <span class="mi">3</span><span class="p">))</span></span>
+<span class="code-line">  <span class="p">(</span><span class="nf">f</span> <span class="nv">x</span> <span class="nv">y</span><span class="p">))</span>  <span class="c1">; return 5 </span></span>
+</pre></div>
+<h3 id="define-set">用define 和 set! 赋值</h3>
+<p>语法：(define var exp), (set! var exp)</p>
+<p>说明：define和 set! 表达式的赋值在全局有效。define 和 set! 的区别是define既能赋值又能定义变量，而set!只能对已经定义的变量赋值</p>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="nv">a</span> <span class="mi">1</span><span class="p">)</span>     </span>
+<span class="code-line"><span class="nv">a</span>               <span class="c1">; return 1</span></span>
+<span class="code-line"><span class="p">(</span><span class="k">set! </span><span class="nv">a</span> <span class="mi">2</span><span class="p">)</span></span>
+<span class="code-line"><span class="nv">a</span>               <span class="c1">; return 2</span></span>
+<span class="code-line"><span class="p">(</span><span class="k">let </span><span class="p">((</span><span class="nf">a</span> <span class="mi">3</span><span class="p">))</span> <span class="nv">a</span><span class="p">)</span>         <span class="c1">; return 3</span></span>
+<span class="code-line"><span class="nv">a</span>               <span class="c1">; return 2</span></span>
+<span class="code-line"><span class="p">(</span><span class="k">let </span><span class="p">((</span><span class="nf">a</span> <span class="mi">3</span><span class="p">))</span> <span class="p">(</span><span class="k">set! </span><span class="nv">a</span> <span class="mi">4</span><span class="p">)</span> <span class="nv">a</span><span class="p">)</span>  <span class="c1">; return 4</span></span>
+<span class="code-line"><span class="nv">a</span>               <span class="c1">; return 2</span></span>
+<span class="code-line"><span class="p">(</span><span class="k">let </span><span class="p">((</span><span class="nf">a</span> <span class="mi">3</span><span class="p">))</span> <span class="p">(</span><span class="k">define </span><span class="nv">a</span> <span class="mi">5</span><span class="p">)</span> <span class="nv">a</span><span class="p">)</span>    <span class="c1">; return 5</span></span>
+<span class="code-line"><span class="nv">a</span>               <span class="c1">; return 2</span></span>
+<span class="code-line"><span class="p">(</span><span class="k">set! </span><span class="nv">b</span> <span class="mi">1</span><span class="p">)</span>          <span class="c1">; 错误，b尚未定义</span></span>
+</pre></div>
+<h3 id="lambda">lambda</h3>
+<p>语法：(lambda (var ...) exp1 exp2 ...)</p>
+<p>说明：lambda 表达式用于定义函数。var ... 是参数，exp1 exp2 ...是函数的执行 部分。通常需要结合局部定义 let 或者全局定义表达式 define，再进行函数调用。</p>
+<div class="highlight"><pre><span class="code-line"><span class="p">((</span><span class="k">lambda </span><span class="p">(</span><span class="nf">x</span><span class="p">)</span> <span class="p">(</span><span class="nb">+ </span><span class="nv">x</span> <span class="nv">x</span><span class="p">))</span> <span class="p">(</span><span class="nb">* </span><span class="mi">3</span> <span class="mi">4</span><span class="p">))</span>  <span class="c1">; return 24</span></span>
+</pre></div>
+<h3 id="if">if 表达式</h3>
+<p>语法：(if test consequent alternative)</p>
+<p>说明：如果test表达式为真，返回 consequent，否则返回 alternative。</p>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nb">abs </span><span class="nv">n</span><span class="p">)</span></span>
+<span class="code-line">    <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&lt; </span><span class="nv">n</span> <span class="mi">0</span><span class="p">)</span></span>
+<span class="code-line">        <span class="p">(</span><span class="nb">- </span><span class="mi">0</span> <span class="nv">n</span><span class="p">)</span></span>
+<span class="code-line">        <span class="nv">n</span><span class="p">))</span> </span>
+</pre></div>
+<h3 id="cond">cond 表达式</h3>
+<p>语法：(cond (test exp) ... (else exp))</p>
+<p>说明：多路分支判断表达式，类似于C语言的 "if ... else if ... else"。</p>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="nv">abs</span></span>
+<span class="code-line">  <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">n</span><span class="p">)</span></span>
+<span class="code-line">    <span class="p">(</span><span class="nf">cond</span></span>
+<span class="code-line">      <span class="p">((</span><span class="nb">= </span><span class="nv">n</span> <span class="mi">0</span><span class="p">)</span> <span class="mi">0</span><span class="p">)</span></span>
+<span class="code-line">      <span class="p">((</span><span class="nb">&lt; </span><span class="nv">n</span> <span class="mi">0</span><span class="p">)</span> <span class="p">(</span><span class="nb">- </span><span class="mi">0</span> <span class="nv">n</span><span class="p">))</span></span>
+<span class="code-line">      <span class="p">(</span><span class="k">else </span><span class="nv">n</span><span class="p">))))</span> </span>
+</pre></div>
+<h3 id="map">map 表达式</h3>
+<p>语法：(map procedure list1 list2 ...)</p>
+<p>说明：列表 list1 list2 ... 必须具有同样的长度；过程 procedure 接受的参数个数同列表的个数，各个列表中对应的变量分别作为过程 procedure 的参数被执行， 将每次的运算结果以列表形式返回。</p>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="nb">map </span><span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">x</span> <span class="nv">y</span><span class="p">)</span> <span class="p">(</span><span class="nb">+ </span><span class="nv">x</span> <span class="p">(</span><span class="nb">* </span><span class="mi">2</span> <span class="nv">y</span><span class="p">)))</span></span>
+<span class="code-line">   <span class="p">(</span><span class="nb">list </span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">)</span></span>
+<span class="code-line">   <span class="p">(</span><span class="nb">list </span><span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span><span class="p">)</span></span>
+<span class="code-line">   <span class="p">)</span> <span class="c1">; return (9 12 15)</span></span>
+</pre></div>
+<h3 id="ps"><strong>PS:</strong></h3>
+<h4 id="_9">过程和定义</h4>
+<p><strong>()</strong>在Scheme中表示一个过程</p>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="nv">A</span>   <span class="p">(</span><span class="nb">* </span><span class="mi">2</span> <span class="mi">3</span><span class="p">))</span></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">D</span><span class="p">)</span> <span class="p">(</span><span class="nb">* </span><span class="mi">2</span> <span class="mi">4</span><span class="p">))</span></span>
+</pre></div>
+<p>粗浅理解，带括号的表示一个过程，相当于C语言中的函数， 不带参数是一个符号表示，
+相当于C语言中的宏。</p>
+<h4 id="_10">注释</h4>
+<p>使用分号进行注释</p>
+<div class="highlight"><pre><span class="code-line"><span class="c1">;(list 1 2 3)</span></span>
+</pre></div>
+<h3 id="python_1">Python 闭包</h3>
+<blockquote>
+<p>Objects are data with methods attached, closures are functions with data attached.</p>
+</blockquote>
+<p>闭包就是一个函数可以引用限定范围内的另一个函数中的变量。</p>
+<div class="highlight"><pre><span class="code-line"><span class="k">def</span> <span class="nf">make_counter</span><span class="p">(</span><span class="n">x</span><span class="p">):</span></span>
+<span class="code-line">    <span class="n">constant</span> <span class="o">=</span> <span class="n">x</span></span>
+<span class="code-line">    <span class="k">def</span> <span class="nf">counter</span><span class="p">(</span><span class="n">y</span><span class="p">):</span> <span class="c"># counter() is a closure</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">y</span> <span class="o">+</span> <span class="n">constant</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="n">counter</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="n">c1</span> <span class="o">=</span> <span class="n">make_counter</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span></span>
+<span class="code-line"><span class="n">c2</span> <span class="o">=</span> <span class="n">make_counter</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span></span>
+<span class="code-line"><span class="k">print</span> <span class="p">(</span><span class="n">c1</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">c1</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">c2</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">c2</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span></span>
+</pre></div>
+<p>Python 闭包最重要的限制是你无法对outer-scoper赋值，就是说闭包是只读的</p>
+<div class="highlight"><pre><span class="code-line"><span class="k">def</span> <span class="nf">outer</span><span class="p">(</span><span class="n">x</span><span class="p">):</span></span>
+<span class="code-line">    <span class="k">def</span> <span class="nf">inner_reads</span><span class="p">():</span></span>
+<span class="code-line">         <span class="c"># Will return outer's 'x'.</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">x</span></span>
+<span class="code-line">    <span class="k">def</span> <span class="nf">inner_writes</span><span class="p">(</span><span class="n">y</span><span class="p">):</span></span>
+<span class="code-line">         <span class="c"># Will assign to a local 'x', not the outer 'x'</span></span>
+<span class="code-line">        <span class="n">x</span> <span class="o">=</span> <span class="n">y</span></span>
+<span class="code-line">    <span class="k">def</span> <span class="nf">inner_error</span><span class="p">(</span><span class="n">y</span><span class="p">):</span> </span>
+<span class="code-line">         <span class="c"># Will produce an error: 'x' is local because of the assignment,</span></span>
+<span class="code-line">         <span class="c"># but we use it before it is assigned to.</span></span>
+<span class="code-line">        <span class="n">tmp</span> <span class="o">=</span> <span class="n">x</span></span>
+<span class="code-line">        <span class="n">x</span> <span class="o">=</span> <span class="n">y</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">tmp</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="n">inner_reads</span><span class="p">,</span> <span class="n">inner_writes</span><span class="p">,</span> <span class="n">inner_error</span></span>
+</pre></div>
+<p>如果想这段代码正常运行，需要使用一个可变的容器类型</p>
+<div class="highlight"><pre><span class="code-line"><span class="k">def</span> <span class="nf">outer</span><span class="p">(</span><span class="n">x</span><span class="p">):</span></span>
+<span class="code-line">    <span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span></span>
+<span class="code-line">    <span class="k">def</span> <span class="nf">inner_reads</span><span class="p">():</span></span>
+<span class="code-line">         <span class="c"># Will return outer's x's first (and only) element.</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></span>
+<span class="code-line">    <span class="k">def</span> <span class="nf">inner_writes</span><span class="p">(</span><span class="n">y</span><span class="p">):</span></span>
+<span class="code-line">        <span class="c"># Will look up outer's x, then mutate it.      </span></span>
+<span class="code-line">        <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span></span>
+<span class="code-line">    <span class="k">def</span> <span class="nf">inner_error</span><span class="p">(</span><span class="n">y</span><span class="p">):</span></span>
+<span class="code-line">         <span class="c"># Will now work, because 'x' is not assigned to, just referenced.</span></span>
+<span class="code-line">        <span class="n">tmp</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></span>
+<span class="code-line">        <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">tmp</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="n">inner_reads</span><span class="p">,</span> <span class="n">inner_writes</span><span class="p">,</span> <span class="n">inner_error</span> </span>
+</pre></div>
+<section>
+<div class="accordion" id="accordion2">
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle disqus-comment-count" data-toggle="collapse" data-parent="#accordion2"
+                href="../../../../../blog/2015/06/19/sicp/#disqus_thread">
+                Comments
+            </a>
+        </div>
+        <div id="disqus_thread" class="accordion-body collapse">
+            <div class="accordion-inner">
+                <div class="comments">
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'houcj';
+
+
+    (function() {
+         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+            
+
+            <hr/>
+
+            </aside>
+        </div>
+        <section>
+        <div class="span2" style="float:right;font-size:0.9em;">
+ 
+            <h4>Published</h4>
+            <time pubdate="pubdate" datetime="2015-06-19T15:25:00+08:00">Jun 19, 2015</time>
+            <h4>Category</h4>
+            <a class="category-link" href="/categories.html#计算机科学-ref">计算机科学</a> 
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article"> 
+                <li><a href="/tags.html#SICP-ref">SICP
+                    <span>1</span>
+</a></li>
+            </ul>
+<h4>Contact</h4>
+    <a href="https://twitter.com/chaojunhou" title="My Twitter Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-twitter sidebar-social-links"></i></a>
+    <a href="https://www.tumblr.com/blog/houcj" title="My Tumblr Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-tumblr sidebar-social-links"></i></a>
+    <a href="https://github.com/chaojunhou" title="My Github Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-github sidebar-social-links"></i></a>
+            <h4>Blogroll</h4>
+			<ul ><a class="category-link" href="http://www.rudy-yuan.net">Rudy-yuan</a></ul>
+            <ul ><a class="category-link" href="http://www.wengweitao.com">WWT</a></ul>
+            <ul ><a class="category-link" href="http://hult.tiddlyspot.com">HULT</a></ul>
+       
+        </div>
+        </section>
+</div>
+</article>
+                </div>
+                <div class="span1"></div>
+            </div>
+        </div>
+        <div id="push"></div>
+    </div>
+        
+            <script src="http://code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+<script type="text/javascript">
+    var disqus_shortname = 'houcj';
+
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+    </script>
+        <script  language="javascript" type="text/javascript">
+            function uncollapse() {
+                var hash_str = window.location.hash;
+                if (window.location.hash.match(/^#comment-\d+$/))
+                {
+                    var hash_str = '#disqus_thread';
+                }
+                $(hash_str).collapse({
+                    toggle: true
+                    })
+            }
+        </script>
+
+        <script type="text/javascript" language="JavaScript">
+            uncollapse(); 
+        </script>
+    </body>
+      <!-- Baidu Button BEGIN 
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"6","bdPos":"right","bdTop":"250"},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+ <!-- Baidu Button END -->
+  </body>
+
+  <!-- hitwebcounter Code START -->
+
+<img src="http://hitwebcounter.com/counter/counter.php?page=6046616&style=0005&nbdigits=5&type=ip&initCount=0" title="" Alt=""   border="0" style="float:left">  
+
+</html>
