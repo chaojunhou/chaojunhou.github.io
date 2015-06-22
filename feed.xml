@@ -46,7 +46,7 @@
 &lt;span class="code-line"&gt;        &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;tmp&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;inner_reads&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;inner_writes&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;inner_error&lt;/span&gt; &lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Mon, 22 Jun 2015 20:41:00 +0800</pubDate><guid>tag:,2015-06-22:www.houcj.net/blog/2015/06/22/python-closure/</guid><category>Python</category></item><item><title>SICP</title><link>www.houcj.net/blog/2015/06/19/sicp/</link><description>&lt;hr/&gt;
+&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Mon, 22 Jun 2015 20:41:00 +0800</pubDate><guid>tag:,2015-06-22:www.houcj.net/blog/2015/06/22/python-closure/</guid><category>Python</category></item><item><title>SICP and Scheme</title><link>www.houcj.net/blog/2015/06/19/sicp/</link><description>&lt;hr/&gt;
 &lt;h2 id="_1"&gt;构造过程抽象&lt;/h2&gt;
 &lt;p&gt;在程序设计中，需要处理两类要素：数据和过程。数据是一种我们希望去操作的东西，
 过程就是有关操作这些数据的规则的描述。&lt;/p&gt;

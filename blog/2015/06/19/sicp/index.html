@@ -10,16 +10,16 @@
 
 <meta name="keywords" content="SICP, 计算机科学, " />
 
-<meta property="og:title" content="SICP "/>
+<meta property="og:title" content="SICP and Scheme "/>
 <meta property="og:url" content="../../../../../blog/2015/06/19/sicp/" />
 <meta property="og:description" content="构造过程抽象 在程序设计中，需要处理两类要素：数据和过程。数据是一种我们希望去操作的东西， 过程就是有关操作这些数据的规则的描述。 复合过程 数和算术运算是基本的数据和过程 组合式的嵌套提供了一种组织起多个操作的方法 定义是一种受限的抽象手段，它为名字关联相应的值。 用高阶函数做抽象 一般而言程序设计语言总会对计算元素的可能使用方式强加上某些限制。带有 最少限制的元素被称为第一级的状态。第一级元素的权利包括： - 可以用变量命名 - 可以提供给过程参数 - 可以由过程作为结果返回 - 可以包含在数据结构中 Lisp把过程作为第一级状态，带来强大的表达功能。可以使用过程构造参数， 用lambda构造过程，同时过程也可以作为一般性的方法或者返回值。 构造数据抽象 定义过程的能力使我们有可能在更高的概念层次上处理计算机工作一样，能够构造 符合数据的能力，也将使我们得以在比语言提供的基本数据对象更高的概念 层次上，处理与数据有关的各种问题。 将程序中处理数据对象的表示部分，与处理对象的使用的部分相互隔离的技术形成了 一种称为数据抽象的强有力的设计方法学. 在处理符合数据中的一个关键性思想是闭包的概念---也就是说，用于组合 数据对象的黏合剂不但能用于组合基本的数据对象，同样也可以用于复合的数据对象。 另一关键思想是，复合数据对象能够称为以混合与匹配的方式组合程序模块的方便界面。 数据抽象的基本思想，就是设法构造出一些使用符合数据对象的程序，使它们就像在抽象数据 上操作一样。 map是一种很重要的结构，不仅因为它代表了一种公共模式，而且因为它建立起了 一种处理表的高层抽象。通过map强调的是从元 ..." />
 <meta property="og:site_name" content="Write the Code" />
 <meta property="og:article:author" content="ChaoJun Hou" />
 <meta property="og:article:published_time" content="2015-06-19T15:25:00+08:00" />
-<meta name="twitter:title" content="SICP ">
+<meta name="twitter:title" content="SICP and Scheme ">
 <meta name="twitter:description" content="构造过程抽象 在程序设计中，需要处理两类要素：数据和过程。数据是一种我们希望去操作的东西， 过程就是有关操作这些数据的规则的描述。 复合过程 数和算术运算是基本的数据和过程 组合式的嵌套提供了一种组织起多个操作的方法 定义是一种受限的抽象手段，它为名字关联相应的值。 用高阶函数做抽象 一般而言程序设计语言总会对计算元素的可能使用方式强加上某些限制。带有 最少限制的元素被称为第一级的状态。第一级元素的权利包括： - 可以用变量命名 - 可以提供给过程参数 - 可以由过程作为结果返回 - 可以包含在数据结构中 Lisp把过程作为第一级状态，带来强大的表达功能。可以使用过程构造参数， 用lambda构造过程，同时过程也可以作为一般性的方法或者返回值。 构造数据抽象 定义过程的能力使我们有可能在更高的概念层次上处理计算机工作一样，能够构造 符合数据的能力，也将使我们得以在比语言提供的基本数据对象更高的概念 层次上，处理与数据有关的各种问题。 将程序中处理数据对象的表示部分，与处理对象的使用的部分相互隔离的技术形成了 一种称为数据抽象的强有力的设计方法学. 在处理符合数据中的一个关键性思想是闭包的概念---也就是说，用于组合 数据对象的黏合剂不但能用于组合基本的数据对象，同样也可以用于复合的数据对象。 另一关键思想是，复合数据对象能够称为以混合与匹配的方式组合程序模块的方便界面。 数据抽象的基本思想，就是设法构造出一些使用符合数据对象的程序，使它们就像在抽象数据 上操作一样。 map是一种很重要的结构，不仅因为它代表了一种公共模式，而且因为它建立起了 一种处理表的高层抽象。通过map强调的是从元 ...">
 
-        <title>SICP  · Change the World | Write the Code
+        <title>SICP and Scheme  · Change the World | Write the Code
 </title>
        
         <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
@@ -86,7 +86,7 @@
 <article>
 <div class="row-fluid">
     <header class="page_header span10 offset2">
-    <h1><a href="../../../../../blog/2015/06/19/sicp/"> SICP  </a></h1>
+    <h1><a href="../../../../../blog/2015/06/19/sicp/"> SICP and Scheme  </a></h1>
     </header>
 </div>
 
@@ -94,7 +94,7 @@
     <div class="span2 table-of-content">
         <nav>
         <h4>Contents</h4>
-        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="SICP">SICP</a><ul><li><a class="toc-href" href="#_1" title="构造过程抽象">构造过程抽象</a><ul><li><a class="toc-href" href="#_2" title="复合过程">复合过程</a></li><li><a class="toc-href" href="#_3" title="用高阶函数做抽象">用高阶函数做抽象</a></li></ul></li><li><a class="toc-href" href="#_5" title="构造数据抽象">构造数据抽象</a><ul><li><a class="toc-href" href="#_6" title="模块化、对象和状态">模块化、对象和状态</a></li></ul></li><li><a class="toc-href" href="#scheme_1" title="附录：Scheme">附录：Scheme</a><ul><li><a class="toc-href" href="#list" title="List">List</a></li><li><a class="toc-href" href="#_7" title="表达式">表达式</a></li><li><a class="toc-href" href="#_8" title="语法糖">语法糖</a></li><li><a class="toc-href" href="#let" title="let 表达式和赋值">let 表达式和赋值</a></li><li><a class="toc-href" href="#define-set" title="用define 和 set! 赋值">用define 和 set! 赋值</a></li><li><a class="toc-href" href="#lambda" title="lambda">lambda</a></li><li><a class="toc-href" href="#if" title="if 表达式">if 表达式</a></li><li><a class="toc-href" href="#cond" title="cond 表达式">cond 表达式</a></li><li><a class="toc-href" href="#map" title="map 表达式">map 表达式</a></li><li><a class="toc-href" href="#ps" title="PS:">PS:</a><ul><li><a class="toc-href" href="#_9" title="过程和定义">过程和定义</a></li><li><a class="toc-href" href="#_10" title="注释">注释</a></li></ul></li><li><a class="toc-href" href="#python_1" title="Python 闭包">Python 闭包</a></li></ul></li></ul></li></ul></div></body></html>
+        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="SICP and Scheme">SICP and Scheme</a><ul><li><a class="toc-href" href="#_1" title="构造过程抽象">构造过程抽象</a><ul><li><a class="toc-href" href="#_2" title="复合过程">复合过程</a></li><li><a class="toc-href" href="#_3" title="用高阶函数做抽象">用高阶函数做抽象</a></li></ul></li><li><a class="toc-href" href="#_5" title="构造数据抽象">构造数据抽象</a><ul><li><a class="toc-href" href="#_6" title="模块化、对象和状态">模块化、对象和状态</a></li></ul></li><li><a class="toc-href" href="#scheme_1" title="附录：Scheme">附录：Scheme</a><ul><li><a class="toc-href" href="#list" title="List">List</a></li><li><a class="toc-href" href="#_7" title="表达式">表达式</a></li><li><a class="toc-href" href="#_8" title="语法糖">语法糖</a></li><li><a class="toc-href" href="#let" title="let 表达式和赋值">let 表达式和赋值</a></li><li><a class="toc-href" href="#define-set" title="用define 和 set! 赋值">用define 和 set! 赋值</a></li><li><a class="toc-href" href="#lambda" title="lambda">lambda</a></li><li><a class="toc-href" href="#if" title="if 表达式">if 表达式</a></li><li><a class="toc-href" href="#cond" title="cond 表达式">cond 表达式</a></li><li><a class="toc-href" href="#map" title="map 表达式">map 表达式</a></li><li><a class="toc-href" href="#ps" title="PS:">PS:</a><ul><li><a class="toc-href" href="#_9" title="过程和定义">过程和定义</a></li><li><a class="toc-href" href="#_10" title="注释">注释</a></li></ul></li><li><a class="toc-href" href="#python_1" title="Python 闭包">Python 闭包</a></li></ul></li></ul></li></ul></div></body></html>
         </nav>
     </div>
     <div class="span8 article-content">
