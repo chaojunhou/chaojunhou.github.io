@@ -94,7 +94,7 @@
     <div class="span2 table-of-content">
         <nav>
         <h4>Contents</h4>
-        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="SICP and Scheme">SICP and Scheme</a><ul><li><a class="toc-href" href="#_1" title="构造过程抽象">构造过程抽象</a><ul><li><a class="toc-href" href="#_2" title="复合过程">复合过程</a></li><li><a class="toc-href" href="#_3" title="用高阶函数做抽象">用高阶函数做抽象</a></li></ul></li><li><a class="toc-href" href="#_5" title="构造数据抽象">构造数据抽象</a><ul><li><a class="toc-href" href="#_6" title="模块化、对象和状态">模块化、对象和状态</a></li></ul></li><li><a class="toc-href" href="#scheme_1" title="附录：Scheme">附录：Scheme</a><ul><li><a class="toc-href" href="#list" title="List">List</a></li><li><a class="toc-href" href="#_7" title="表达式">表达式</a></li><li><a class="toc-href" href="#_8" title="语法糖">语法糖</a></li><li><a class="toc-href" href="#let" title="let 表达式和赋值">let 表达式和赋值</a></li><li><a class="toc-href" href="#define-set" title="用define 和 set! 赋值">用define 和 set! 赋值</a></li><li><a class="toc-href" href="#lambda" title="lambda">lambda</a></li><li><a class="toc-href" href="#if" title="if 表达式">if 表达式</a></li><li><a class="toc-href" href="#cond" title="cond 表达式">cond 表达式</a></li><li><a class="toc-href" href="#map" title="map 表达式">map 表达式</a></li><li><a class="toc-href" href="#ps" title="PS:">PS:</a><ul><li><a class="toc-href" href="#_9" title="过程和定义">过程和定义</a></li><li><a class="toc-href" href="#_10" title="注释">注释</a></li></ul></li><li><a class="toc-href" href="#python_1" title="Python 闭包">Python 闭包</a></li></ul></li></ul></li></ul></div></body></html>
+        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="SICP and Scheme">SICP and Scheme</a><ul><li><a class="toc-href" href="#_1" title="构造过程抽象">构造过程抽象</a><ul><li><a class="toc-href" href="#_2" title="复合过程">复合过程</a></li><li><a class="toc-href" href="#_3" title="用高阶函数做抽象">用高阶函数做抽象</a></li></ul></li><li><a class="toc-href" href="#_5" title="构造数据抽象">构造数据抽象</a><ul><li><a class="toc-href" href="#_6" title="模块化、对象和状态">模块化、对象和状态</a></li></ul></li><li><a class="toc-href" href="#scheme_1" title="附录：Scheme">附录：Scheme</a><ul><li><a class="toc-href" href="#list" title="List">List</a></li><li><a class="toc-href" href="#_7" title="表达式">表达式</a></li><li><a class="toc-href" href="#_8" title="语法糖">语法糖</a></li><li><a class="toc-href" href="#let" title="let 表达式和赋值">let 表达式和赋值</a></li><li><a class="toc-href" href="#define-set" title="用define 和 set! 赋值">用define 和 set! 赋值</a></li><li><a class="toc-href" href="#lambda" title="lambda">lambda</a></li><li><a class="toc-href" href="#if" title="if 表达式">if 表达式</a></li><li><a class="toc-href" href="#cond" title="cond 表达式">cond 表达式</a></li><li><a class="toc-href" href="#map" title="map 表达式">map 表达式</a></li><li><a class="toc-href" href="#ps" title="PS:">PS:</a><ul><li><a class="toc-href" href="#_9" title="过程和定义">过程和定义</a></li><li><a class="toc-href" href="#_10" title="注释">注释</a></li></ul></li></ul></li></ul></li></ul></div></body></html>
         </nav>
     </div>
     <div class="span8 article-content">
@@ -354,53 +354,6 @@
 <h4 id="_10">注释</h4>
 <p>使用分号进行注释</p>
 <div class="highlight"><pre><span class="code-line"><span class="c1">;(list 1 2 3)</span></span>
-</pre></div>
-<h3 id="python_1">Python 闭包</h3>
-<blockquote>
-<p>Objects are data with methods attached, closures are functions with data attached.</p>
-</blockquote>
-<p>闭包就是一个函数可以引用限定范围内的另一个函数中的变量。</p>
-<div class="highlight"><pre><span class="code-line"><span class="k">def</span> <span class="nf">make_counter</span><span class="p">(</span><span class="n">x</span><span class="p">):</span></span>
-<span class="code-line">    <span class="n">constant</span> <span class="o">=</span> <span class="n">x</span></span>
-<span class="code-line">    <span class="k">def</span> <span class="nf">counter</span><span class="p">(</span><span class="n">y</span><span class="p">):</span> <span class="c"># counter() is a closure</span></span>
-<span class="code-line">        <span class="k">return</span> <span class="n">y</span> <span class="o">+</span> <span class="n">constant</span></span>
-<span class="code-line">    <span class="k">return</span> <span class="n">counter</span></span>
-<span class="code-line"></span>
-<span class="code-line"><span class="n">c1</span> <span class="o">=</span> <span class="n">make_counter</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span></span>
-<span class="code-line"><span class="n">c2</span> <span class="o">=</span> <span class="n">make_counter</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span></span>
-<span class="code-line"><span class="k">print</span> <span class="p">(</span><span class="n">c1</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">c1</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">c2</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">c2</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span></span>
-</pre></div>
-<p>Python 闭包最重要的限制是你无法对outer-scoper赋值，就是说闭包是只读的</p>
-<div class="highlight"><pre><span class="code-line"><span class="k">def</span> <span class="nf">outer</span><span class="p">(</span><span class="n">x</span><span class="p">):</span></span>
-<span class="code-line">    <span class="k">def</span> <span class="nf">inner_reads</span><span class="p">():</span></span>
-<span class="code-line">         <span class="c"># Will return outer's 'x'.</span></span>
-<span class="code-line">        <span class="k">return</span> <span class="n">x</span></span>
-<span class="code-line">    <span class="k">def</span> <span class="nf">inner_writes</span><span class="p">(</span><span class="n">y</span><span class="p">):</span></span>
-<span class="code-line">         <span class="c"># Will assign to a local 'x', not the outer 'x'</span></span>
-<span class="code-line">        <span class="n">x</span> <span class="o">=</span> <span class="n">y</span></span>
-<span class="code-line">    <span class="k">def</span> <span class="nf">inner_error</span><span class="p">(</span><span class="n">y</span><span class="p">):</span> </span>
-<span class="code-line">         <span class="c"># Will produce an error: 'x' is local because of the assignment,</span></span>
-<span class="code-line">         <span class="c"># but we use it before it is assigned to.</span></span>
-<span class="code-line">        <span class="n">tmp</span> <span class="o">=</span> <span class="n">x</span></span>
-<span class="code-line">        <span class="n">x</span> <span class="o">=</span> <span class="n">y</span></span>
-<span class="code-line">        <span class="k">return</span> <span class="n">tmp</span></span>
-<span class="code-line">    <span class="k">return</span> <span class="n">inner_reads</span><span class="p">,</span> <span class="n">inner_writes</span><span class="p">,</span> <span class="n">inner_error</span></span>
-</pre></div>
-<p>如果想这段代码正常运行，需要使用一个可变的容器类型</p>
-<div class="highlight"><pre><span class="code-line"><span class="k">def</span> <span class="nf">outer</span><span class="p">(</span><span class="n">x</span><span class="p">):</span></span>
-<span class="code-line">    <span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span></span>
-<span class="code-line">    <span class="k">def</span> <span class="nf">inner_reads</span><span class="p">():</span></span>
-<span class="code-line">         <span class="c"># Will return outer's x's first (and only) element.</span></span>
-<span class="code-line">        <span class="k">return</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></span>
-<span class="code-line">    <span class="k">def</span> <span class="nf">inner_writes</span><span class="p">(</span><span class="n">y</span><span class="p">):</span></span>
-<span class="code-line">        <span class="c"># Will look up outer's x, then mutate it.      </span></span>
-<span class="code-line">        <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span></span>
-<span class="code-line">    <span class="k">def</span> <span class="nf">inner_error</span><span class="p">(</span><span class="n">y</span><span class="p">):</span></span>
-<span class="code-line">         <span class="c"># Will now work, because 'x' is not assigned to, just referenced.</span></span>
-<span class="code-line">        <span class="n">tmp</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></span>
-<span class="code-line">        <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span></span>
-<span class="code-line">        <span class="k">return</span> <span class="n">tmp</span></span>
-<span class="code-line">    <span class="k">return</span> <span class="n">inner_reads</span><span class="p">,</span> <span class="n">inner_writes</span><span class="p">,</span> <span class="n">inner_error</span> </span>
 </pre></div>
 <section>
 <div class="accordion" id="accordion2">

@@ -5,37 +5,51 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>www.houcj.net/</loc>
-<lastmod>2015-06-22T21:44:05-00:00</lastmod>
+<lastmod>2015-06-29T00:02:06-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>www.houcj.net/archives.html</loc>
-<lastmod>2015-06-22T21:44:05-00:00</lastmod>
+<lastmod>2015-06-29T00:02:06-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>www.houcj.net/tags.html</loc>
-<lastmod>2015-06-22T21:44:05-00:00</lastmod>
+<lastmod>2015-06-29T00:02:06-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>www.houcj.net/categories.html</loc>
-<lastmod>2015-06-22T21:44:05-00:00</lastmod>
+<lastmod>2015-06-29T00:02:06-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>www.houcj.net/pages/About.html</loc>
-<lastmod>2015-06-22T21:44:05-00:00</lastmod>
+<lastmod>2015-06-29T00:02:06-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.3</priority>
+</url>
+
+<url>
+<loc>www.houcj.net/blog/2015/07/27/tail-ecursive/</loc>
+<lastmod>2015-07-27T23:30:00+08:00</lastmod>
+<changefreq>monthly</changefreq>
+<priority>0.7</priority>
+</url>
+
+<url>
+<loc>www.houcj.net/blog/2015/07/19/inside-cpp/</loc>
+<lastmod>2015-07-19T21:13:00+08:00</lastmod>
+<changefreq>monthly</changefreq>
+<priority>0.7</priority>
 </url>
 
 <url>
@@ -179,6 +193,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
+<loc>www.houcj.net/blog/2015/04/01/improved-python/</loc>
+<lastmod>2015-04-01T16:09:00+08:00</lastmod>
+<changefreq>monthly</changefreq>
+<priority>0.7</priority>
+</url>
+
+<url>
 <loc>www.houcj.net/blog/2015/04/01/life-is-short-use-python/</loc>
 <lastmod>2015-04-01T16:09:00+08:00</lastmod>
 <changefreq>monthly</changefreq>
@@ -193,7 +214,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-<loc>www.houcj.net/blog/2015/03/03/the-basic-knowledge-in-c/</loc>
+<loc>www.houcj.net/blog/2015/03/03/expert-c-programming/</loc>
 <lastmod>2015-03-03T23:07:00+08:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.7</priority>
@@ -228,7 +249,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-<loc>www.houcj.net/blog/2014/06/02/wei-cao-zuo/</loc>
+<loc>www.houcj.net/blog/2014/06/02/bit-manipulaiton/</loc>
 <lastmod>2014-06-02T00:00:00+08:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.7</priority>
@@ -299,7 +320,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>www.houcj.net/category/bian-cheng.html</loc>
-<lastmod>2015-06-22T20:41:00+08:06</lastmod>
+<lastmod>2015-07-27T23:30:00+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -389,6 +410,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
+<loc>www.houcj.net/tag/di-gui.html</loc>
+<lastmod>2015-07-27T23:30:00+08:06</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
 <loc>www.houcj.net/tag/shell.html</loc>
 <lastmod>2014-07-19T21:13:00+08:06</lastmod>
 <changefreq>daily</changefreq>
@@ -418,7 +446,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>www.houcj.net/tag/cpp.html</loc>
-<lastmod>2015-06-13T16:55:00+08:06</lastmod>
+<lastmod>2015-07-19T21:13:00+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -453,7 +481,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>www.houcj.net/author/chaojun-hou.html</loc>
-<lastmod>2015-06-22T20:41:00+08:06</lastmod>
+<lastmod>2015-07-27T23:30:00+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>

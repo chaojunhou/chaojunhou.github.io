@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="utf-8"> 
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="google-site-verification" content="fdZTDVFyX3hKovPIzn1tgPixk_wysBXaPN8YQw1P8Jw" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="ChaoJun Hou" />
+        <meta name="copyright" content="ChaoJun Hou" />
+
+<meta name="keywords" content="CPP, 编程, " />
+
+<meta property="og:title" content="More about cpp object model "/>
+<meta property="og:url" content="../../../../../blog/2015/07/28/inside-cpp/" />
+<meta property="og:description" content="C++中强制类型转化函数（） dynamic_cast static_cast 关于对象 C++在布局以及存取时间上主要的额外复旦是由virtual引起的，包括： virtual function 机制 用以支持一个有效率的执行器绑定（runtime binding） virtual base 机制 用以实现多次出现在继承体系中的base class，有一个单一而被 共享的实例 此外还有多种继承下的额外负担，发生在一个继承类和其第二或后继的base class的转换。 C++对象模型 在此模型中， Nonstatic data members被配置在每一个class object之内， static data members则被放在class object之外。Static和nonstatic function members 也被放在class object之外。Virutual functions则以下面两个步骤支持。 1. 每个class产生出一堆指向irtual functions的指针，放在表格之中。这个表格被称为virtual table（vtbl） 2 ..." />
+<meta property="og:site_name" content="Write the Code" />
+<meta property="og:article:author" content="ChaoJun Hou" />
+<meta property="og:article:published_time" content="2015-07-28T21:13:00+08:00" />
+<meta name="twitter:title" content="More about cpp object model ">
+<meta name="twitter:description" content="C++中强制类型转化函数（） dynamic_cast static_cast 关于对象 C++在布局以及存取时间上主要的额外复旦是由virtual引起的，包括： virtual function 机制 用以支持一个有效率的执行器绑定（runtime binding） virtual base 机制 用以实现多次出现在继承体系中的base class，有一个单一而被 共享的实例 此外还有多种继承下的额外负担，发生在一个继承类和其第二或后继的base class的转换。 C++对象模型 在此模型中， Nonstatic data members被配置在每一个class object之内， static data members则被放在class object之外。Static和nonstatic function members 也被放在class object之外。Virutual functions则以下面两个步骤支持。 1. 每个class产生出一堆指向irtual functions的指针，放在表格之中。这个表格被称为virtual table（vtbl） 2 ...">
+
+        <title>More about cpp object model  · Change the World | Write the Code
+</title>
+       
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="../../../../../theme/css/style.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="../../../../../theme/css/solarizedlight.css" media="screen">
+        <link rel="shortcut icon" href="../../../../../theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="apple-touch-icon" href="../../../../../theme/images/apple-touch-icon.png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="../../../../../theme/images/apple-touch-icon-57x57.png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="../../../../../theme/images/apple-touch-icon-72x72.png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="../../../../../theme/images/apple-touch-icon-114x114.png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="../../../../../theme/images/apple-touch-icon-144x144.png" />
+        <link rel="icon" href="../../../../../theme/images/apple-touch-icon-144x144.png" />
+        <link href="www.houcj.net/feed.xml" type="application/rss+xml" rel="alternate" title="Write the Code - Full RSS Feed" />
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', '61957498', 'auto');
+    ga('send', 'pageview');
+</script>
+
+    </head>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-61957498-1', 'auto');
+  ga('send', 'pageview');
+
+	</script>
+    <body>
+        <div id="content-sans-footer">
+        <div class="navbar navbar-static-top">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../../../../"><span class=site-name>Write the Code</span></a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav pull-right top-menu">
+                            <li ><a href="../../../../..">Home</a></li>
+                            <li ><a href="../../../../../pages/About.html">About</a></li>
+                            <li ><a href="../../../../../random.html">Pick One!</a></li>
+                            <li ><a href="../../../../../categories.html">分类</a></li>
+                            <li ><a href="../../../../../tags.html">标签</a></li>
+                            <li ><a href="../../../../../archives.html">归档</a></li>
+                            <li><form class="navbar-search" action="../../../../../search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span1"></div>
+                <div class="span10">
+<article>
+<div class="row-fluid">
+    <header class="page_header span10 offset2">
+    <h1><a href="../../../../../blog/2015/07/28/inside-cpp/"> More about cpp object model  </a></h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+    <div class="span2 table-of-content">
+        <nav>
+        <h4>Contents</h4>
+        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="More about cpp object model">More about cpp object model</a><ul><li><a class="toc-href" href="#_1" title="关于对象">关于对象</a><ul><li><a class="toc-href" href="#c" title="C++对象模型">C++对象模型</a></li><li><a class="toc-href" href="#_2" title="对象的差异">对象的差异</a></li><li><a class="toc-href" href="#_3" title="加上多态">加上多态</a></li></ul></li><li><a class="toc-href" href="#_5" title="构造函数语义学">构造函数语义学</a><ul><li><a class="toc-href" href="#default-constructor" title="Default constructor 的构造操作">Default constructor 的构造操作</a></li><li><a class="toc-href" href="#copy-constructor" title="Copy Constructor 的构造操作">Copy Constructor 的构造操作</a></li><li><a class="toc-href" href="#named-returned-value" title="Named Returned Value优化">Named Returned Value优化</a></li><li><a class="toc-href" href="#_6" title="总结">总结</a></li><li><a class="toc-href" href="#_7" title="成员初始化列表">成员初始化列表</a></li></ul></li><li><a class="toc-href" href="#data_1" title="Data 语义学">Data 语义学</a><ul><li><a class="toc-href" href="#_8" title="数据成员的绑定">数据成员的绑定</a></li><li><a class="toc-href" href="#_9" title="数据成员的布局">数据成员的布局</a></li><li><a class="toc-href" href="#_10" title="数据成的存取">数据成的存取</a></li><li><a class="toc-href" href="#_11" title="多重继承">多重继承</a></li><li><a class="toc-href" href="#_12" title="虚拟继承">虚拟继承</a></li></ul></li><li><a class="toc-href" href="#_14" title="函数语义学">函数语义学</a><ul><li><a class="toc-href" href="#_15" title="非静态成员函数">非静态成员函数</a></li><li><a class="toc-href" href="#_16" title="静态成员函数">静态成员函数</a></li><li><a class="toc-href" href="#_17" title="虚成员函数">虚成员函数</a></li><li><a class="toc-href" href="#_18" title="指向成员函数的指针">指向成员函数的指针</a></li><li><a class="toc-href" href="#_19" title="内联函数">内联函数</a></li></ul></li><li><a class="toc-href" href="#_21" title="构造析构拷贝语意学">构造析构拷贝语意学</a><ul><li><a class="toc-href" href="#_22" title="对象构造">对象构造</a></li><li><a class="toc-href" href="#_23" title="对象拷贝">对象拷贝</a></li><li><a class="toc-href" href="#_24" title="对象析构">对象析构</a></li></ul></li><li><a class="toc-href" href="#_26" title="执行期间语义学">执行期间语义学</a><ul><li><a class="toc-href" href="#_27" title="对象的构造和析构">对象的构造和析构</a><ul><li><a class="toc-href" href="#_28" title="对象数组">对象数组</a></li></ul></li><li><a class="toc-href" href="#new-delete_1" title="new 和 delete">new 和 delete</a></li><li><a class="toc-href" href="#_29" title="临时对象">临时对象</a></li></ul></li><li><a class="toc-href" href="#_31" title="站在对象模型的顶端">站在对象模型的顶端</a><ul><li><a class="toc-href" href="#template" title="Template">Template</a></li><li><a class="toc-href" href="#_32" title="异常处理">异常处理</a></li><li><a class="toc-href" href="#rtti" title="RTTI">RTTI</a></li></ul></li><li><a class="toc-href" href="#ps_1" title="PS：">PS：</a><ul><li><a class="toc-href" href="#_33" title="虚函数和纯虚函数">虚函数和纯虚函数</a></li><li><a class="toc-href" href="#c_1" title="C++纯虚函数">C++纯虚函数</a></li><li><a class="toc-href" href="#c_2" title="C++位拷贝和值拷贝">C++位拷贝和值拷贝</a></li><li><a class="toc-href" href="#c_3" title="c++模板之声明定义分离编译模型">c++模板之声明定义分离编译模型</a></li><li><a class="toc-href" href="#c_4" title="C++继承和组合">C++继承和组合</a></li></ul></li></ul></li></ul></div></body></html>
+        </nav>
+    </div>
+    <div class="span8 article-content">
+
+            <hr/>
+<p>C++中强制类型转化函数（）</p>
+<p>dynamic_cast 
+static_cast</p>
+<h2 id="_1">关于对象</h2>
+<p>C++在布局以及存取时间上主要的额外复旦是由virtual引起的，包括：</p>
+<ul>
+<li><strong>virtual function</strong> 机制 用以支持一个有效率的执行器绑定（runtime binding）</li>
+<li><strong>virtual base</strong> 机制  用以实现多次出现在继承体系中的base class，有一个单一而被
+共享的实例</li>
+</ul>
+<p>此外还有多种继承下的额外负担，发生在一个继承类和其第二或后继的base class的转换。</p>
+<h3 id="c">C++对象模型</h3>
+<p>在此模型中， Nonstatic data members被配置在每一个class object之内，
+static data members则被放在class object之外。Static和nonstatic function members
+也被放在class object之外。Virutual functions则以下面两个步骤支持。
+1. 每个class产生出一堆指向irtual functions的指针，放在表格之中。这个表格被称为virtual table（<strong>vtbl</strong>）
+2. 每个class object被安插一个指针，指向相关的virtual table。这个指针被称为<strong>vptr</strong>。vptr的
+设定和重置都由每个class的constructor、deconstructor和copy assignment运算符自动完成。每个
+class所关联的type_info object（用以支持runtime type identification）也经由virtual table 被指出
+放在表格中的第一个slot</p>
+<p>在虚拟继承的情况下，base class 不管在继承串链中被派生多少次，永远都只会存在一个实例。一个derived class
+如何在本质上模塑base class 的实例呢？ <strong>base table模型</strong>。base class table
+被产生出来的时候，表格中每个slot内含一个相关的base class地址。每个class object内含一个
+bptr，它会被初始化，指向器base class table。这种策略的主要缺点是由于间接性而导致的
+空间和存取世间上额外的复旦，优点则是在每个class object中对于继承都有一致的表现方式。第二个
+优点是，无须改变class objects本身，就可以放大缩小或更改base class table。</p>
+<h3 id="_2">对象的差异</h3>
+<p>C++程序设计模型直接支持三种programming paradigms。
+1. 过程模型（procedural model） 。C语言的程序模型
+2. 抽象数据类型模型（abstract data type model）。此模型的抽象是和一组表达式（public接口）一起提供的
+3. 面向对象模型（object oriented model）。此模型有一些彼此相关的类型，通过一个抽象的
+base class（用以提供共同的接口）被封装起来  </p>
+<p>在OO paradigm之中，程序员需要处理一个未知的实例，它的类型虽然有所界定，却是无穷可能。
+原则上被指定的object的真实类型在每个特定执行点之前，是无法解析的。在C++中，只有通过
+pointers和references的操作才能完成。相反地，在ADT paradigm中，程序员处理的是一个拥有固定
+而单一类型的实例，它在编译时期已经完全定义好了。</p>
+<h3 id="_3">加上多态</h3>
+<p>C++以下列方法支持多态：
+1. 经由一组隐式的转化操作。
+2. 经由virtual function机制
+3. 经由dynamic_cast和typeid运算符</p>
+<p>需要多少内存才能表现一个class object？</p>
+<ul>
+<li>其nonstatic data members的总和大小</li>
+<li>加上任何由于对齐（aligment）的需求而填补（padding）上的空间</li>
+<li>加上为了支持virtual而由内部产生的任何额外负担。</li>
+</ul>
+<p>一个pointer或一个reference之所以支持多态，是因为它们并不引发内存中任何
+&ldquo;与类型有关的内存委托操作（type-dependent commitment）&rdquo;;会受到改变的
+只有它们所指向的内存的&ldquo;大小和内容解释方式&rdquo;而已。</p>
+<h2 id="_5">构造函数语义学</h2>
+<h3 id="default-constructor">Default constructor 的构造操作</h3>
+<p>在C++各个不同的编译模块中，编译器如何避免合成出多个default constructor？</p>
+<p>解决方法是把合成的默认构造函数、拷贝构造函数、析构函数、赋值拷贝函数都以<strong>inline</strong>方式
+完成。一个inline函数有静态连接，不会被文件以外看到。如果函数太复杂，不适合
+做成inline 函数（内联函数可能导致代码的膨胀），就会合成一个explicit non-inline static
+实例。</p>
+<p>如果有多个class member都要求constructor初始化操作，将如何？</p>
+<p>C++语言要求以成员对象在class中的声明顺序来调用各个constructors。这一点由编译器完成
+，它为每个constructor安排程序代码，以成员声明顺序来调用每一个成员所关联的默认构造函数。
+这些代码将被安插在explict user code之前。</p>
+<ol>
+<li>如果一个class没有任何constructor，但它内含一个member object，而后者有default constructor。</li>
+<li>如果一个没有任何constructors的class派生自一个"带有default constructor"的base class</li>
+<li>class声明或者继承一个virtual function</li>
+<li>class派生子一个继承串链，其中有一个或更多的virtual base class</li>
+</ol>
+<p>只有上面这四种情况，才会造成编译器必须为未声明constructor的class合成一个default constructor
+。在合成的default constructor中，只有base class subobjects和成员类对象会被初始化。所有
+其他的非静态的数据成员都不会被初始化。</p>
+<h3 id="copy-constructor">Copy Constructor 的构造操作</h3>
+<ol>
+<li>对一个object做显示的初始化操作</li>
+<li>当object被当做参数交给某个函数时</li>
+<li>当函数返回一个class object时</li>
+</ol>
+<p>上面这三种情况会以一个object的内容作为另一个
+class object 的初值。这时候如果class没有提供一个显式的copy Constructor，其内部是以
+default memberwise initialization 完成,也就是把每一个内建的
+或派生的data member的值，从一个object拷贝一份到另一个object上。它病死
+拷贝其中的member class object，而是以递归的方式施行memberwise initialization。</p>
+<h3 id="named-returned-value">Named Returned Value优化</h3>
+<div class="highlight"><pre><span class="code-line"><span class="n">X</span> <span class="nf">bar</span><span class="p">()</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="n">X</span> <span class="n">xx</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="n">xx</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+<p>可能被编译器优化为以下的代码</p>
+<div class="highlight"><pre><span class="code-line"><span class="kt">void</span> <span class="nf">bar</span><span class="p">(</span><span class="n">X</span> <span class="o">&amp;</span> <span class="n">__result</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="n">__result</span><span class="p">.</span><span class="n">X</span><span class="o">::</span><span class="n">X</span><span class="p">();</span></span>
+<span class="code-line">    <span class="k">return</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+<h3 id="_6">总结</h3>
+<p>Copy Constructor的应用，迫使编译器多多少少对你的程序代码做部分转化，尤其是当一个
+函数以传值（by value）的方式传回一个class object，而该class有一个copy constructor
+（无论是显式定义出来的或是合成的）时。这将导致深奥的程序转化-不论在函数的定义上还是在使用上。
+此外，编译器也将copy constructor的调用操作优化，以一个额外的第一参数（数值直接存放于其中）取代NRV。</p>
+<h3 id="_7">成员初始化列表</h3>
+<p>构造函数初始化列表以一个冒号开始，接着是以逗号分隔的数据成员列表，每个数据成员后面跟一个放在括号中的初始化式。</p>
+<div class="highlight"><pre><span class="code-line"><span class="k">class</span> <span class="nc">foo</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line"><span class="k">public</span><span class="o">:</span></span>
+<span class="code-line">    <span class="n">foo</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">,</span> <span class="kt">int</span> <span class="n">i</span><span class="p">)</span><span class="o">:</span><span class="n">name</span><span class="p">(</span><span class="n">s</span><span class="p">),</span><span class="n">id</span><span class="p">(</span><span class="n">i</span><span class="p">){}</span></span>
+<span class="code-line"><span class="k">private</span><span class="o">:</span></span>
+<span class="code-line">    <span class="n">string</span> <span class="n">name</span><span class="p">;</span></span>
+<span class="code-line">    <span class="kt">int</span> <span class="n">id</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">};</span></span>
+</pre></div>
+<p>为了使编译通过，下面四种情况必须使用成员初始化列表。</p>
+<ol>
+<li>当初始化一个reference member时</li>
+<li>当初始化一个const member时</li>
+<li>当调用一个base class 的 constructor，而它拥有一组参数时</li>
+<li>当调用一个member class 的constructor，而它拥有一组参数时</li>
+</ol>
+<p>列表中的项目顺序是由class中的members声明顺序决定的，不是由初始化列表中的
+排列顺序决定的。</p>
+<h2 id="data_1">Data 语义学</h2>
+<h3 id="_8">数据成员的绑定</h3>
+<p>&ldquo;member scope resolution rules&rdquo;，其效果是，如果一个inline函数在class声明之后立刻被定义的话，那么就对其
+进行求值。</p>
+<h3 id="_9">数据成员的布局</h3>
+<p>非静态数据成员在class objects中的排列顺序和被器声明的顺序一样，任何中间介入的static data member都不会
+被放进对象布局之中。目前的编译器都是把一个以上测access sections连锁在一起，依照声明的顺序，成为一个连续区块。
+Access sections的多少并不是带来额外负担。例如在一个section中声明8个members，或是在8个sections中总共声明
+8个members，得到object的大小是一致的。</p>
+<h3 id="_10">数据成的存取</h3>
+<p>每一个静态成员只有一个实例，存放在程序的data segment中，每次程序调用静态成员时，
+就会被转化为对该唯一extern实例的直接引用操作。</p>
+<p>若取一个静态数据的地址，会得到一个指其数据类型的指针，而不是一个指向其class member的指针，
+因为静态成员并不内含在一个class object之中。取一个非静态数据成员的地址，将会得到它在class中的offset，
+取一个绑定于真正class object身上的data member的地址将会得到该member在内存中的真正地址。</p>
+<h3 id="_11">多重继承</h3>
+<p><img align="center" alt="Data member multiple inheritance" class="img-responsive" src="/images/mInheritance.png"/></p>
+<h3 id="_12">虚拟继承</h3>
+<p>class 如果内含一个或多个 virtual base class subobject，将被分割为两部分：一个不变区域和一个共享区域。
+不变区域中的数据，不管后继如何衍化，总拥有固定的offset（从object算起），所以这一部分数据可以被直接存取。
+至于共享区域，其位置会因为每次的派生操作而有变化，所以它们只能被间接存取。</p>
+<p><img align="center" alt="Vitual Table Offset Strategy" class="img-responsive" src="/images/VTOS.png"/></p>
+<h2 id="_14">函数语义学</h2>
+<h3 id="_15">非静态成员函数</h3>
+<p>C++设计准则之一就是:非静态成员函数至少和一般的非成员函数有相同的效率。这是因为编译器内部将成员函数转换为对等的
+非成员函数。下面是转化步骤
+1. 改写函数原型，以安插一个额外的参数到成员函数中，用以提供一个存取管道，使类对象得以将此函数调用。此额外参数就是this指针。
+2. 将每一个对非静态数据成员的存取操作改为经由this指针来存取。
+3. 将成员函数重新写成一个外部函数，将函数名经过<strong>name mangling</strong> （一般而言，成员名称之前
+会被加上class名称和它们的参数链表，以及参数类型）处理，使它在程序中成为独一无二的语汇。</p>
+<div class="highlight"><pre><span class="code-line"><span class="n">Point3d</span> <span class="n">obj</span><span class="p">;</span></span>
+<span class="code-line"><span class="n">Point3d</span> <span class="o">*</span><span class="n">ptr</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">obj</span><span class="p">;</span></span>
+<span class="code-line"><span class="n">obj</span><span class="p">.</span><span class="n">normalize</span><span class="p">();</span></span>
+<span class="code-line"><span class="n">ptr</span><span class="o">-&gt;</span><span class="n">normalize</span><span class="p">();</span></span>
+<span class="code-line"><span class="n">Point3d</span></span>
+<span class="code-line"><span class="n">Point3d</span><span class="o">::</span><span class="n">normalize</span><span class="p">()</span> <span class="k">const</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="k">register</span> <span class="kt">float</span> <span class="n">mag</span> <span class="o">=</span> <span class="n">magnitude</span><span class="p">();</span></span>
+<span class="code-line">    <span class="n">Point3d</span> <span class="n">normal</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">normal</span><span class="p">.</span><span class="n">_x</span> <span class="o">=</span> <span class="n">_x</span><span class="o">/</span><span class="n">mag</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">normal</span><span class="p">.</span><span class="n">_y</span> <span class="o">=</span> <span class="n">_y</span><span class="o">/</span><span class="n">mag</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">normal</span><span class="p">.</span><span class="n">_z</span> <span class="o">=</span> <span class="n">_z</span><span class="o">/</span><span class="n">mag</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="n">normal</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"><span class="kt">float</span> </span>
+<span class="code-line"><span class="n">Point3d</span><span class="o">::</span><span class="n">magnitude</span><span class="p">()</span> <span class="k">const</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">_x</span><span class="o">*</span><span class="n">_x</span> <span class="o">+</span> <span class="n">_y</span><span class="o">*</span><span class="n">_y</span> <span class="o">+</span> <span class="n">_z</span><span class="o">*</span><span class="n">_z</span><span class="p">);</span><span class="c1">// _x,_y,_z是Point3d的数据成员</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+<p>在编译器内部可能会被转化为：</p>
+<div class="highlight"><pre><span class="code-line"><span class="n">normal_7Point3dFv</span><span class="p">(</span><span class="o">&amp;</span><span class="n">obj</span><span class="p">);</span></span>
+<span class="code-line"><span class="n">normal_7Point3dFv</span><span class="p">(</span><span class="n">ptr</span><span class="p">);</span></span>
+<span class="code-line"><span class="kt">void</span> <span class="nf">normal_7Point3dFv</span><span class="p">(</span><span class="k">register</span> <span class="k">const</span> <span class="n">Point3d</span> <span class="o">*</span><span class="k">const</span> <span class="k">this</span><span class="p">,</span> <span class="n">Point3d</span> <span class="o">&amp;</span><span class="n">__result</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="k">register</span> <span class="kt">float</span> <span class="n">mag</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">magnitude</span><span class="p">();</span></span>
+<span class="code-line">    <span class="n">__result</span><span class="p">.</span><span class="n">Point3d</span><span class="o">::</span><span class="n">Point3d</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">x</span><span class="o">/</span><span class="n">mag</span><span class="p">,</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">y</span><span class="o">/</span><span class="n">mag</span><span class="p">,</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">z</span><span class="o">/</span><span class="n">mag</span><span class="p">);</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+<p>如果normalize（），是虚成员函数，那么以下的调用：</p>
+<div class="highlight"><pre><span class="code-line"><span class="n">ptr</span><span class="o">-&gt;</span><span class="n">normalize</span><span class="p">();</span></span>
+<span class="code-line"><span class="c1">// 内部转化为</span></span>
+<span class="code-line"><span class="p">(</span><span class="o">*</span> <span class="n">ptr</span><span class="o">-&gt;</span><span class="n">vptr</span><span class="p">[</span><span class="mi">1</span><span class="p">])(</span><span class="n">ptr</span><span class="p">);</span></span>
+<span class="code-line"><span class="c1">//如何magnitude（）是虚函数，</span></span>
+<span class="code-line"><span class="k">register</span> <span class="kt">float</span> <span class="n">mag</span> <span class="o">=</span> <span class="n">magnitude</span><span class="p">();</span></span>
+<span class="code-line"><span class="c1">// 调用转化为</span></span>
+<span class="code-line"><span class="k">register</span> <span class="kt">float</span> <span class="n">mag</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">vptr</span><span class="p">[</span><span class="mi">2</span><span class="p">])(</span><span class="k">this</span><span class="p">);</span></span>
+</pre></div>
+<p>其中vptr表示编译器产生的指针，指向virtual table。1是virtual table slot的索引值，关联到normalize（）函数。第二个ptr表示
+this指针。</p>
+<h3 id="_16">静态成员函数</h3>
+<p>如果Point3d::normalize（）是一个静态成员函数，</p>
+<div class="highlight"><pre><span class="code-line"><span class="n">obj</span><span class="p">.</span><span class="n">normaobj</span><span class="p">.</span><span class="n">normalize</span><span class="p">();</span></span>
+<span class="code-line"><span class="n">ptr</span><span class="o">-&gt;</span><span class="n">normalize</span><span class="p">();</span></span>
+<span class="code-line"><span class="c1">// 都会被转化为</span></span>
+<span class="code-line"><span class="n">normalize_7Point3dSFv</span><span class="p">();</span></span>
+</pre></div>
+<p>静态成员函数的主要特性就是它没有this指针，所以其地址的类型并不是一个指向类成员函数的指针，而是一个非成员函数指针。 
+1. 它不能直接存取其class中的非静态成员
+2. 它不能被声明为const、volatile或virtual
+3. 它不需经由class object才能调用，虽然大部分时候它是这样被调用的。</p>
+<h3 id="_17">虚成员函数</h3>
+<p>为了支持虚函数机制，必须首先能够对于多态对象有某种形式的执行期类型判断法。在C++中，多态表示以一个public base class的指针
+或引用，寻址出一个继承类对象的意思。</p>
+<div class="highlight"><pre><span class="code-line"><span class="n">Point</span> <span class="o">*</span><span class="n">ptr</span><span class="p">;</span></span>
+<span class="code-line"><span class="n">ptr</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Point2d</span><span class="p">;</span></span>
+<span class="code-line"><span class="n">ptr</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Point3d</span><span class="p">;</span></span>
+</pre></div>
+<p>ptr的多态机能主要扮演一个输送机制的角色，经由它，我们可以在程序的任何地方采用一组public derived类型。这种多态类型是
+消极的，可以在编译时期完成（virtual base class 情况除外）。当对象别指出的对象真正被使用时，多态也就变成积极的了。</p>
+<div class="highlight"><pre><span class="code-line"><span class="c1">//积极多态一种情况</span></span>
+<span class="code-line"><span class="n">ptr</span><span class="o">-&gt;</span><span class="n">z</span><span class="p">();</span></span>
+<span class="code-line"><span class="c1">//积极多态另一种情况</span></span>
+<span class="code-line"><span class="k">if</span> <span class="p">(</span><span class="n">Point3d</span> <span class="o">*</span><span class="n">p3d</span> <span class="o">=</span> </span>
+<span class="code-line">    <span class="k">dynamic_cast</span><span class="o">&lt;</span> <span class="n">Point3d</span> <span class="o">*&gt;</span> <span class="p">(</span><span class="n">ptr</span><span class="p">))</span></span>
+<span class="code-line"><span class="k">return</span> <span class="n">p3d</span><span class="o">-&gt;</span><span class="n">_z</span><span class="p">;</span></span>
+</pre></div>
+<p>为了在执行期间获得z()的正确的实例，我们可以可以在每一个多态的类对象身上增加两个members：
+1. 一个字符串或数字，表示class类型
+2. 一个指针，指向某表格，表格中持有程序的虚函数的执行期地址</p>
+<p>在C++中，虚函数可以在编译时期获知，在程序的执行期间，表格的大小和内容不会发生改变。 一个class只会有一个virtual table。
+每一个table内含其对应之class object中所有active virtual function函数实例的地址。包括：</p>
+<ul>
+<li>这一class所定义的函数实例。它会改写一个可能存在的base class virtual 函数实例</li>
+<li>继承自base class 的函数实例。这是在derived class 决定不会改写virtual function时才会出现的情况。</li>
+<li>一个pure_virtual_called（）函数实例，它既可以扮演pure virtual function 的空间保卫者角色，也可以当作执行期异常处理函数。</li>
+</ul>
+<p><img align="center" alt="Virtual table multiple inheritance" class="img-responsive" src="/images/mVTable.png"/></p>
+<h3 id="_18">指向成员函数的指针</h3>
+<p>所有的非静态成员函数都需要对象的地址（this指针指出）。指向成员函数指针的声明语法，
+以及指向成员选择运算符的指针，其作用是作为this指针的空间保留者，然而面对一个虚函数，其地址在编译时期是未知的，
+所能知道的仅是虚函数在其相关的virtual table中的索引值。即，对一个虚成员函数取地址，所能得到
+的只是一个索引值。</p>
+<p>一个指向成员函数的指针，是一个结构，内含三个字段：index、faddr和delta。index若不是内含一个相关的virtual table索引值
+就是以-1表示函数是nonvirtual。faddr持有nonvirtual 成员函数的地址。delta持有一个可能的this指针调整值。</p>
+<h3 id="_19">内联函数</h3>
+<p>一般而言，处理一个inline函数有两个阶段：
+1. 分析函数定义，以决定函数的 "intrinsic inline ability"。如果函数因其复杂度，或构建问题别判断不能
+称为内联的，它会被转为一个静态函数，并在被编译模块内产生对应的函数定义。
+2. 真正的内联函数扩展操作是在调用的那一点上，这会带来参数的求值操作以及临时性对象管理。</p>
+<p>在内联函数的扩展期间，如果实际参数是常量表达式，我们可以在替换之前先完成其求值操作，如果是带有副作用的常量表达式（++、--）通常
+需要引入临时性变量。否则就直接代换。inline函数对于封装提供了一种必要的支持，可以有效存取封装于class中的非public数据。燃火
+一个inline函数如果被调用多次的话，会产生大量的扩展码，使程序暴涨。  </p>
+<h2 id="_21">构造析构拷贝语意学</h2>
+<blockquote>
+<p>A Plain Old Data Structure in C++ is an aggregate class that contains only PODS as members, has no user-defined destructor, no user-defined copy assignment operator, and no nonstatic members of pointer-to-member type.</p>
+</blockquote>
+<h3 id="_22">对象构造</h3>
+<p>C++并不支持"临时性的定义"，这时因为class构造行为的隐式应用之故。global在C++中被视为完全定义的，C++
+的所有全局对象都被以初始化过的数据来对待。</p>
+<div class="highlight"><pre><span class="code-line"><span class="kt">void</span> <span class="nf">mumble</span><span class="p">()</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="n">Point</span> <span class="n">local1</span> <span class="o">=</span> <span class="p">{</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">};</span></span>
+<span class="code-line">    <span class="n">Point</span> <span class="n">local2</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">local2</span><span class="p">.</span><span class="n">_x</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">local2</span><span class="p">.</span><span class="n">_y</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">local2</span><span class="p">.</span><span class="n">_z</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+<p>loacal1的初始化操作会比local2更有效率些。这时因为当函数的active record被放进
+程序堆栈时，上述initialization list中的常量就可以被放进local1内存中了。但是explict initialization
+list带来三项缺点：1. 只有当类成员都是public时才可以。2. 只能指定常量，因为它们在编译时期就可以被evaluated。
+3. 由于编译器并没有自动施行之，所以初始化行为的失败可能性会高一些。</p>
+<p>Constructors可能内含大量的隐藏码，因为编译器会扩充每一个constructor。在一个class中，经由
+构造中的对象来调用一个virtual function，其函数实例应该是在此class中有作用的那个。Constructors
+的调用顺序是：由根源而末端（bottom-up），由内而外（inside-out）。</p>
+<p>vptr初始化操作在base class Constructors调用操作之后，但是在程序员供应的代码或者成员
+初始化列表中所列的成员初始化操作之前。</p>
+<p>Constructors的执行算法通常如下：
+1. 在继承类构造器中，所有虚基类以及上一层基类的构造器会被调用
+2. 上述完成之后，对象的vptr初始化指向相关的virtual tables
+3. 如果有成员初始化列表的话，将在构造器内扩展开来。这必须在vptr被设定之后才做，以免有一个虚函数被调用
+4. 最后，执行程序员所提供的代码。</p>
+<h3 id="_23">对象拷贝</h3>
+<p>copy assignment operator有一个非正交性的情况，就是它缺乏一个member assignment list。如果没有它，编译器
+就没办法压抑上一层base class 的copy operators调用。</p>
+<div class="highlight"><pre><span class="code-line"><span class="c1">// class Vertex: virtual public Point</span></span>
+<span class="code-line"><span class="kr">inline</span> <span class="n">Vertex</span><span class="o">&amp;</span> </span>
+<span class="code-line"><span class="n">Vertex</span><span class="o">::</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span> <span class="n">Vertex</span> <span class="o">&amp;</span><span class="n">v</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="k">this</span><span class="o">-&gt;</span><span class="n">Point</span><span class="o">::</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">v</span><span class="p">);</span></span>
+<span class="code-line">    <span class="c1">// Vertex::operator=（const Vertex &amp;v）: Point(v),_next(v._next)是不支持的</span></span>
+<span class="code-line">    <span class="n">_next</span> <span class="o">=</span> <span class="n">v</span><span class="p">.</span><span class="n">_next</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+<h3 id="_24">对象析构</h3>
+<p>就像constructor一样，目前对于destructor的一种最佳实现策略就是维护两份destructor实例：
+1. 一个complete object实例，总是设定好vptr（s），并调用virtual base class destructors。
+2. 一个base class subobject实例：除非在destructor函数中调用一个virtual function，否则
+它绝不会调用virtual base class destructors 并设定vptr。 </p>
+<h2 id="_26">执行期间语义学</h2>
+<h3 id="_27">对象的构造和析构</h3>
+<p>一般而言我们会把object尽可能放置在使用它的那个程序区段附近，这么做可以节省非必要的
+对象产生操作和摧毁操作。</p>
+<p>C++程序中所有的global objects都被放置在程序的data segment中。class object在编译时期
+可以被防止与data segment中并且内容是0，但constructor要等到程序启动才会实施，必须对放置于
+program data segment中的object的初始化表达式evaluate，这是一个object需要静态初始化的原因。</p>
+<div class="highlight"><pre><span class="code-line"><span class="k">const</span> <span class="n">Matrix</span><span class="o">&amp;</span></span>
+<span class="code-line"><span class="n">identity</span><span class="p">()</span> <span class="p">{</span></span>
+<span class="code-line"><span class="k">static</span> <span class="n">Matrix</span> <span class="n">mat_identity</span><span class="p">;</span></span>
+<span class="code-line"><span class="k">return</span> <span class="n">mat_identity</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+<p>局部静态变量的constructor必须只能执行一次，虽然可能被调用多次；同时它的destructor必须也只能施行一次，
+虽然它也可能被调用多次。</p>
+<h4 id="_28">对象数组</h4>
+<div class="highlight"><pre><span class="code-line"><span class="n">Point</span> <span class="n">knots</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span></span>
+<span class="code-line"><span class="c1">//编译器可能的操作</span></span>
+<span class="code-line"><span class="n">vec_new</span><span class="p">(</span><span class="o">&amp;</span><span class="n">knots</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">Point</span><span class="p">),</span> <span class="mi">10</span> <span class="o">&amp;</span><span class="n">Point</span><span class="o">::</span><span class="n">Point</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span></span>
+<span class="code-line"><span class="c1">// 使用vec_new 来构造数组对象</span></span>
+<span class="code-line"><span class="kt">void</span> <span class="o">*</span> </span>
+<span class="code-line"><span class="n">vec_new</span><span class="p">(</span></span>
+<span class="code-line">    <span class="kt">void</span> <span class="o">*</span><span class="n">array</span><span class="p">,</span></span>
+<span class="code-line">    <span class="kt">size_t</span> <span class="n">elem_size</span><span class="p">,</span></span>
+<span class="code-line">    <span class="kt">int</span> <span class="n">elem_count</span><span class="p">,</span></span>
+<span class="code-line">    <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">constructor</span><span class="p">)(</span><span class="kt">void</span> <span class="o">*</span><span class="p">),</span></span>
+<span class="code-line">    <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">destructor</span><span class="p">)(</span><span class="kt">void</span> <span class="o">*</span><span class="p">,</span> <span class="kt">char</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="c1">//使用vec_delete来析构数组对象</span></span>
+<span class="code-line"><span class="kt">void</span><span class="o">*</span></span>
+<span class="code-line"><span class="n">vec_delete</span><span class="p">(</span></span>
+<span class="code-line">    <span class="kt">void</span> <span class="o">*</span><span class="n">array</span><span class="p">,</span></span>
+<span class="code-line">    <span class="kt">size_t</span> <span class="n">elem_size</span><span class="p">,</span></span>
+<span class="code-line">    <span class="kt">int</span> <span class="n">elem_count</span><span class="p">,</span></span>
+<span class="code-line">    <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">destructor</span><span class="p">)(</span><span class="kt">void</span> <span class="o">*</span><span class="p">,</span> <span class="kt">char</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">)</span></span>
+</pre></div>
+<h3 id="new-delete_1">new 和 delete</h3>
+<p>new运算符总是以标准的C malloc（）完成，delete运算符总是以标准的C free（）完成。</p>
+<div class="highlight"><pre><span class="code-line"><span class="c1">// new 不考虑exception handling</span></span>
+<span class="code-line"><span class="k">extern</span> <span class="kt">void</span><span class="o">*</span></span>
+<span class="code-line"><span class="k">operator</span> <span class="nf">new</span><span class="p">(</span> <span class="kt">size_t</span> <span class="n">size</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span></span>
+<span class="code-line">        <span class="n">size</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span></span>
+<span class="code-line">    <span class="kt">void</span> <span class="o">*</span><span class="n">last_alloc</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">while</span> <span class="p">(</span><span class="o">!</span> <span class="p">(</span><span class="n">last</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="n">size</span><span class="p">)))</span></span>
+<span class="code-line">    <span class="p">{</span></span>
+<span class="code-line">        <span class="k">if</span> <span class="p">(</span><span class="n">_new_handler</span><span class="p">)</span></span>
+<span class="code-line">            <span class="p">(</span><span class="o">*</span><span class="n">_new_handler</span><span class="p">)();</span></span>
+<span class="code-line">        <span class="k">else</span></span>
+<span class="code-line">            <span class="k">return</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="n">last_alloc</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"><span class="c1">// delete</span></span>
+<span class="code-line"><span class="k">extern</span> <span class="kt">void</span> </span>
+<span class="code-line"><span class="n">operatro</span> <span class="nf">delete</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">ptr</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="n">ptr</span><span class="p">)</span></span>
+<span class="code-line">        <span class="n">free</span><span class="p">((</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span> <span class="n">ptr</span><span class="p">);</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+<p>只有在中括号出现时，编译器才寻找数组的纬度，否则它便假设只有单独一个objects要被删除</p>
+<div class="highlight"><pre><span class="code-line"><span class="k">delete</span> <span class="p">[]</span> <span class="n">p_array</span><span class="p">;</span> <span class="c1">// 整个数组被删除</span></span>
+<span class="code-line"><span class="k">delete</span> <span class="n">p_array</span><span class="p">;</span> <span class="c1">// 只有第一个数组元素被删除</span></span>
+</pre></div>
+<h3 id="_29">临时对象</h3>
+<p>临时对象被摧毁，应该是对完整表达式求值过程中的最后一个步骤，该完整表达式造成临时对象的产生。凡持有
+表达式执行结果的临时性对象，应该存留到object的初始化操作完成为止。同时，如果一个临时性对象被绑定于
+一个reference，对象将残留，直到被初始化它的reference的生命结束，或知道临时对象的生命范畴结束，视哪种
+情况先到达而定。</p>
+<h2 id="_31">站在对象模型的顶端</h2>
+<p>三个著名的C++语言扩充性质，分别为template、exception handling和runtime tyep identification。</p>
+<h3 id="template">Template</h3>
+<p>这里把实例化表示进程将真正类型和表达式绑定到template相关形式参数上头的操作。</p>
+<p>Template之中，对于一个非成员name的解析结果，是根据这个name的使用是否与用以实例化该template的参数类型
+有关而决定的。如果其使用互不相关，那么就以scope of the template来决定name。如果其使用互有关联，那么就以
+scope of the template instantiation来决定name。此外，函数的决议结果只和函数的原型有关，和函数的返回值没有关系。</p>
+<p>以手动方式先在个别的object module中完成预先实例化操作，是唯一可以提高编译效率的方法。</p>
+<h3 id="_32">异常处理</h3>
+<p>欲支持exception handling，编译器的主要工作就是找出catch字句，以处理被抛出来的exception。同时编译器必须提供
+某种查询exception objects的方法，以知道其实际类型（直接导致了某种形式的执行期间类型识别，即RTTI）最后还需要某种机制
+用以管理被抛出的object，包括它的产生、存储、可能的析构、清理以及一般存取。</p>
+<p>当一个exception发生时，编译系统必须完成以下事情：
+1. 检查发生throw操作的函数
+2. 决定throw操作是否发生在try区段中。
+3. 若是，编译系统必须把exception type拿来和每一个catch子句进行比较。
+4. 如果比较后吻合，流程控制应该交到catch子句手中。
+5. 如果throw的发生并不在try区段中，或没有一个catch子句吻合，那么系统必须（a）摧毁
+所有active local objects（b）从堆栈中将目前的函数unwind掉（c）进行到程序堆栈下一个函数中去。然后
+重复上述步骤2-5</p>
+<h3 id="rtti">RTTI</h3>
+<p>一个type-safe downcast必须在执行期对指针有所查询，看看它是否指向它所展现object的真正类型。因此欲支持type-safe
+downcast，在object空间和执行时间上都需要一些额外负担：
+- 需要额外的空间以存储类型信息，通常是一个指针，指向某个类型信息节点
+- 需要额外的时间以决定执行期的类型。</p>
+<p><strong>dynamic_cast</strong>运算符可以在执行期决定真正的类型。如果downcast是安全的，这个运算符会被回传式导弹转换过的指针。
+否则的话，回传0.当dynamic_cast运算符作用一个reference时，如果reference并不是真正的一种derived class，那么，由于
+不能够回传0，因此抛出一个bad_cast exception. 使用typeid运算符，就有可能以一个reference达到相同的执行期替代路线。
+typeid运算符传回一个const reference，类型为type_info。</p>
+<div class="highlight"><pre><span class="code-line"><span class="n">simplify_conv_op</span> <span class="p">(</span><span class="k">const</span> <span class="n">type</span> <span class="o">&amp;</span><span class="n">rt</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="k">typeid</span><span class="p">(</span><span class="n">rt</span><span class="p">)</span> <span class="o">==</span> <span class="k">typeid</span><span class="p">(</span><span class="n">fct</span><span class="p">))</span></span>
+<span class="code-line">    <span class="p">{</span></span>
+<span class="code-line">        <span class="n">fct</span> <span class="o">&amp;</span><span class="n">rf</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span> <span class="n">fct</span><span class="o">&amp;</span> <span class="o">&gt;</span> <span class="p">(</span><span class="n">rt</span><span class="p">);</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+<h2 id="ps_1"><strong>PS：</strong></h2>
+<h3 id="_33">虚函数和纯虚函数</h3>
+<p>定义一个函数为虚函数，不代表函数为不被实现的函数。
+定义他为虚函数是为了允许用基类的指针来调用子类的这个函数。
+定义一个函数为纯虚函数，才代表函数没有被实现。
+定义纯虚函数是为了实现一个接口，起到一个规范的作用，规范继承这个类的程序员必须实现这个函数。</p>
+<p>虚函数只能借助于指针实现</p>
+<h3 id="c_1">C++纯虚函数</h3>
+<p>一、定义
+　纯虚函数是在基类中声明的虚函数，它在基类中没有定义，但要求任何派生类都要定义自己的实现方法。在基类中实现纯虚函数的方法是在函数原型后加&ldquo;=0&rdquo;
+　virtual void funtion1()=0
+二、引入原因
+　　1、为了方便使用多态特性，我们常常需要在基类中定义虚拟函数。
+　　2、在很多情况下，基类本身生成对象是不合情理的。例如，动物作为一个基类可以派生出老虎、孔雀等子类，但动物本身生成对象明显不合常理。
+　　为了解决上述问题，引入了纯虚函数的概念，将函数定义为纯虚函数（方法：virtual ReturnType Function()= 0;），则编译器要求在派生类中必须予以重写以实现多态性。同时含有纯虚拟函数的类称为抽象类，它不能生成对象。这样就很好地解决了上述两个问题。
+声明了纯虚函数的类是一个抽象类。所以，用户不能创建类的实例，只能创建它的派生类的实例。
+纯虚函数最显著的特征是：它们必须在继承类中重新声明函数（不要后面的＝0，否则该派生类也不能实例化），而且它们在抽象类中往往没有定义。
+定义纯虚函数的目的在于，使派生类仅仅只是继承函数的接口。
+纯虚函数的意义，让所有的类对象（主要是派生类对象）都可以执行纯虚函数的动作，但类无法为纯虚函数提供一个合理的缺省实现。所以类纯虚函数的声明就是在告诉子类的设计者，&ldquo;你必须提供一个纯虚函数的实现，但我不知道你会怎样实现它&rdquo;。</p>
+<h3 id="c_2">C++位拷贝和值拷贝</h3>
+<p>位拷贝拷贝的是地址（也叫浅拷贝），而值拷贝则拷贝的是内容（深拷贝）。深拷贝和浅拷贝可以简单理解为：如果一个类拥有资源，当这个类的对象发生复制过程的时候，资源重新分配，这个过程就是深拷贝，反之，没有重新分配资源，就是浅拷贝。
+位拷贝，及"bitwise assignment"是指将一个对象的内存映像按位原封不动的复制给另一个对象，所谓值拷贝就是指，将原对象的值复制一份给新对象。 在用"bitwise assignment"时会直接将对象的内存映像复制给另一个对象，这样两个对象会指向同一个内存区域，当一个对象被释放后，另一个对象的指针会成为空指针。这时，就应该编写operator=和copy constructor来实现值拷贝 。
+默认的拷贝构造函数&rdquo;和&ldquo;缺省的赋值函数&rdquo;均采用&ldquo;位拷贝&rdquo;而非&ldquo;值拷贝&rdquo;的方式来实现，倘若类中含有指针变量，这两个函数注定将出错。</p>
+<h3 id="c_3">c++模板之声明定义分离编译模型</h3>
+<p>当我们声明和定义一个模板的时候，必须要让声明和定义放在一个文件里。否则编译器会报错。
+在分离式编译的环境下，编译器编译某一个.cpp文件时并不知道另一个.cpp文件的存在，也不会去查找（当遇到未决符号时它会寄希望于连接器）。这种模式在没有模板的情况下运行良好，但遇到模板时就傻眼了，因为模板仅在需要的时候才会实例化出来，所以，当编译器只看到模板的声明时，它不能实例化该模板，只能创建一个具有外部连接的符号并期待连接器能够将符号的地址决议出来。然而当实现该模板的.cpp文件中没有用到模板的实例时，编译器懒得去实例化，所以，整个工程的.obj中就找不到一行模板实例的二进制代码，于是连接器也黔驴技穷了。</p>
+<p>这不禁让人疑惑，既然能自动生成函数，为什么还要程序员编写？</p>
+<p>原因如下：
+（1）如果使用&ldquo;缺省的无参数构造函数&rdquo;和&ldquo;缺省的析构函数&rdquo;，等于放弃了自主&ldquo;初始化&rdquo;和&ldquo;清除&rdquo;的机会，C++发明人Stroustrup的好心好意白费了。
+（2）&ldquo;缺省的拷贝构造函数&rdquo;和&ldquo;缺省的赋值函数&rdquo;均采用&ldquo;位拷贝&rdquo;而非&ldquo;值拷贝&rdquo;的方式来实现，倘若类中含有指针变量，这两个函数注定将出错。</p>
+<h3 id="c_4">C++继承和组合</h3>
+<p>1.什么是继承
+A继承B，说明A是B的一种，并且B的所有行为对A都有意义
+eg:A=WOMAN B=HUMAN
+A=鸵鸟 B=鸟 （不行），因为鸟会飞，但是鸵鸟不会。
+2.什么是组合
+若在逻辑上A是B的&ldquo;一部分&rdquo;(a part of)，则不允许B从A派生，而是要用A和其它东西组合出B。
+例如眼(Eye)、鼻(Nose)、口(Mouth)、耳(Ear)是头(Head)的一部分，所以类Head应该由类Eye、Nose、Mouth、Ear组合而成，不是派生而成
+3.继承的优点和缺点 
+ 优点： 
+ 容易进行新的实现，因为其大多数可继承而来。 
+ 易于修改或扩展那些被复用的实现。 
+ 缺点： 
+ 破坏了封装性，因为这会将父类的实现细节暴露给子类。 
+&ldquo;白盒&rdquo;复用，因为父类的内部细节对于子类而言通常是可见的。 
+ 当父类的实现更改时，子类也不得不会随之更改。 
+ 从父类继承来的实现将不能在运行期间进行改变。
+4.组合的优点和缺点 
+ 优点： 
+ 容器类仅能通过被包含对象的接口来对其进行访问。 
+&ldquo;黑盒&rdquo;复用，因为被包含对象的内部细节对外是不可见。 
+ 封装性好。 
+ 实现上的相互依赖性比较小。（被包含对象与容器对象之间的依赖关系比较少） 
+ 每一个类只专注于一项任务。 
+ 通过获取指向其它的具有相同类型的对象引用，可以在运行期间动态地定义（对象的）组合。
+ 缺点： 
+ 导致系统中的对象过多。 
+ 为了能将多个不同的对象作为组合块（composition block）来使用，必须仔细地对接口进行定义。
+5.两者的选择
+is-a关系用继承表达，has-a关系用组合表达
+继承体现的是一种专门化的概念而组合则是一种组装的概念
+另外确定是组合还是继承，最清楚的方法之一就是询问是否需要新类向上映射，也就是说当我们想重用原类型作为新类型的内部实现的话，我们最好自己组合，如果我们不仅想重用内部实现而且还想重用接口的话，那就用继承。
+6.法则：优先使用（对象）组合，而非（类）继承</p>
+<section>
+<div class="accordion" id="accordion2">
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle disqus-comment-count" data-toggle="collapse" data-parent="#accordion2"
+                href="../../../../../blog/2015/07/28/inside-cpp/#disqus_thread">
+                Comments
+            </a>
+        </div>
+        <div id="disqus_thread" class="accordion-body collapse">
+            <div class="accordion-inner">
+                <div class="comments">
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'houcj';
+
+
+    (function() {
+         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+            
+
+            <hr/>
+<section>
+    <h2>Related Posts</h2>
+<ul class="related-posts-list">
+<li><a href="../../../../../blog/2015/06/13/cpp/" title="CPP Primer">CPP Primer</a></li>
+<li><a href="../../../../../blog/2015/07/19/inside-cpp/" title="Inside the CPP Object Model">Inside the CPP Object Model</a></li>
+</ul>
+<hr />
+</section>
+
+            </aside>
+        </div>
+        <section>
+        <div class="span2" style="float:right;font-size:0.9em;">
+ 
+            <h4>Published</h4>
+            <time pubdate="pubdate" datetime="2015-07-28T21:13:00+08:00">Jul 28, 2015</time>
+            <h4>Category</h4>
+            <a class="category-link" href="/categories.html#编程-ref">编程</a> 
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article"> 
+                <li><a href="/tags.html#CPP-ref">CPP
+                    <span>3</span>
+</a></li>
+            </ul>
+<h4>Contact</h4>
+    <a href="https://twitter.com/chaojunhou" title="My Twitter Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-twitter sidebar-social-links"></i></a>
+    <a href="https://www.tumblr.com/blog/houcj" title="My Tumblr Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-tumblr sidebar-social-links"></i></a>
+    <a href="https://github.com/chaojunhou" title="My Github Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-github sidebar-social-links"></i></a>
+            <h4>Blogroll</h4>
+			<ul ><a class="category-link" href="http://www.rudy-yuan.net">Rudy-yuan</a></ul>
+            <ul ><a class="category-link" href="http://www.wengweitao.com">WWT</a></ul>
+            <ul ><a class="category-link" href="http://hult.tiddlyspot.com">HULT</a></ul>
+       
+        </div>
+        </section>
+</div>
+</article>
+                </div>
+                <div class="span1"></div>
+            </div>
+        </div>
+        <div id="push"></div>
+    </div>
+        
+            <script src="http://code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+<script type="text/javascript">
+    var disqus_shortname = 'houcj';
+
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+    </script>
+        <script  language="javascript" type="text/javascript">
+            function uncollapse() {
+                var hash_str = window.location.hash;
+                if (window.location.hash.match(/^#comment-\d+$/))
+                {
+                    var hash_str = '#disqus_thread';
+                }
+                $(hash_str).collapse({
+                    toggle: true
+                    })
+            }
+        </script>
+
+        <script type="text/javascript" language="JavaScript">
+            uncollapse(); 
+        </script>
+    </body>
+      <!-- Baidu Button BEGIN 
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"6","bdPos":"right","bdTop":"250"},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+ <!-- Baidu Button END -->
+  </body>
+
+  <!-- hitwebcounter Code START -->
+
+<img src="http://hitwebcounter.com/counter/counter.php?page=6046616&style=0005&nbdigits=5&type=ip&initCount=0" title="" Alt=""   border="0" style="float:left">  
+
+</html>
