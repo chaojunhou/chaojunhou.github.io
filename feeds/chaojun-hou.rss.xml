@@ -1,5 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Write the Code</title><link>www.houcj.net/</link><description></description><atom:link href="www.houcj.net/feeds%5Cchaojun-hou.rss.xml" rel="self"></atom:link><lastBuildDate>Tue, 28 Jul 2015 21:13:00 +0800</lastBuildDate><item><title>Design Pattern</title><link>www.houcj.net/blog/2015/07/28/design-pattern/</link><description>&lt;hr/&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Write the Code</title><link>www.houcj.net/</link><description></description><atom:link href="www.houcj.net/feeds%5Cchaojun-hou.rss.xml" rel="self"></atom:link><lastBuildDate>Thu, 30 Jul 2015 21:13:00 +0800</lastBuildDate><item><title>More about cpp</title><link>www.houcj.net/blog/2015/07/30/more-cpp/</link><description>&lt;hr/&gt;
+&lt;h2 id="const"&gt;尽量使用const&lt;/h2&gt;
+&lt;p&gt;STL迭代器以指针为根据塑造出来，所以迭代器的作用就像T&lt;em&gt; 指针，
+声明迭代器为const就像声明指针为const一样（即声明一个T&lt;/em&gt; const指针）。
+如果希望迭代器不得指向不同的东西，但它所指的东西不可被改动，即希望STL
+模拟一个const T* 指针，就需要使用const_iterator.&lt;/p&gt;
+&lt;h2 id="_1"&gt;作用域&lt;/h2&gt;
+&lt;p&gt;C++变量根据定义的位置的不同的生命周期，具有不同的作用域，作用域可分为6种：全局作用域，局部作用域，语句作用域，类作用域，命名空间作用域和文件作用域。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;将函数变量尽可能置于最小作用域内，并在变量声明时进行初始化&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;PS：如果变量是一个对象，每次进入作用域都要调用其构造函数，每次退出作用域
+都要调用其析构函数。&lt;/p&gt;
+&lt;h2 id="_2"&gt;类&lt;/h2&gt;
+&lt;h3 id="_3"&gt;显式构造函数&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;对单个参数的构造函数使用C++关键字explicit&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;MyClass&lt;/span&gt;  &lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="p"&gt;{&lt;/span&gt;  &lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;  &lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;MyClass&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;num&lt;/span&gt; &lt;span class="p"&gt;);&lt;/span&gt;  &lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="p"&gt;}&lt;/span&gt;  &lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;MyClass&lt;/span&gt; &lt;span class="n"&gt;obj&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;//ok,convert int to MyClass&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="c1"&gt;// 会被编译器转化为下面的操作&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;Myclass&lt;/span&gt; &lt;span class="nf"&gt;tmp&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;Myclass&lt;/span&gt; &lt;span class="n"&gt;obj&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;为了避免构造函数被调用造成隐式转换，可以将其声明为explicit。&lt;/p&gt;
+&lt;h3 id="_4"&gt;拷贝赋值构造函数&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;仅在代码中需要拷贝一个类对象的时候使用拷贝构造函数，大部分情况下都不需要，此时应使用DISALLOW_COPY_AND_ASSIGN&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;例如&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="cp"&gt;#define DISALLOW_AND_ASSIGN(TypeName)\&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="cp"&gt;        TypeName(const Tyename&amp;amp;);\&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="cp"&gt;        void operator=(const Typename&amp;amp;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Foo&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;        &lt;span class="n"&gt;Foo&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;        &lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="n"&gt;Foo&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="k"&gt;private&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;        &lt;span class="n"&gt;DISALLOW_COPY_AND_ASSIGN&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Foo&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="p"&gt;};&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id="_5"&gt;智能指针&lt;/h3&gt;
+&lt;p&gt;shared_ptr 实现了引用计数, 所以最后一个 shared_ptr 对象析构时, 如果检测到引用次数为 0，就会销毁所指向的对象.&lt;/p&gt;
+&lt;h2 id="_7"&gt;确定对象被使用前已先被初始化&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;reference-returning 函数&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="c1"&gt;// Singleton 是一个class，构造函数是私有的&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="k"&gt;static&lt;/span&gt; &lt;span class="n"&gt;Singleton&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;Instance&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;        &lt;span class="k"&gt;static&lt;/span&gt; &lt;span class="n"&gt;Singleton&lt;/span&gt; &lt;span class="n"&gt;singleton&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;singleton&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;C++中，函数内的local static对象会在&amp;ldquo;该函数被调用期间&amp;rdquo;以及&amp;ldquo;首次遇上该对象之定义式&amp;ldquo;时被初始化，
+。这个函数在第一行定义并初始化一个local static 对象，然后返回一个指向static的引用。任何一种 non-const
+static对象，无论是局部的还是全局的，在多线程情况下都会有一些问题。处理这个问题的一个做法是：在程序的单线程启动
+阶段手工调用所有reference-returning函数，这可消除初始化有关的race conditions。&lt;/p&gt;
+&lt;h2 id="_8"&gt;头文件&lt;/h2&gt;
+&lt;h3 id="include"&gt;include 的尖括号（&amp;lt;&amp;gt;）和双引号("")的区别&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;用尖括号是在宏展开的时候，系统首先从C语言函数库中找文件&lt;/li&gt;
+&lt;li&gt;用双引号的则从项目目录中找文件。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="define"&gt;define 保护&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;所有头文件都应该使用#define防止头文件被多重包含， 命名格式当是: &lt;project&gt;&lt;em&gt;&lt;path&gt;&lt;/path&gt;&lt;/em&gt;&lt;file&gt;&lt;em&gt;H&lt;/em&gt;&lt;/file&gt;&lt;/project&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;例如, 项目 foo 中的头文件 foo/src/bar/baz.h 可按如下方式保护:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="cp"&gt;#ifndef FOO_BAR_BAZ_H_&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="cp"&gt;#define FOO_BAR_BAZ_H_&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="err"&gt;&amp;hellip;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="cp"&gt;#endif &lt;/span&gt;&lt;span class="c1"&gt;// FOO_BAR_BAZ_H_&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id="_9"&gt;头文件依赖&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;能用前置声明的地方尽量不使用 #include，&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;使用前置声明可以显著减少需要包含的头文件数量。前置声明中使用的类定义在CPP文件而非h文件中。
+同时使用前置声明中的类 class Foo时，数据成员类型必须声明为Foo* 或者 Foo&amp;amp;。将函数参数或者返回值
+声明为Foo（但不定义实现）&lt;/p&gt;
+&lt;h3 id="include_1"&gt;#include 的路径及顺序&lt;/h3&gt;
+&lt;p&gt;项目内头文件应按照项目源代码目录树结构排列。
+ru, dir/foo.cc的主要作用是测试或实现dir2/foo2.h的功能，foo.cc中包含头文件的次序
+1. dir2/foo2.h
+2. C系统文件
+3. CPP系统文件
+4. 其他库的.h文件
+5. 本项目内.h文件&lt;/p&gt;
+&lt;h2 id="alloc-malloc_1"&gt;alloc &amp;amp; malloc&lt;/h2&gt;
+&lt;p&gt;alloc是唯一可以不使用堆的动态分配机制。alloc可以在栈上分配任意的栈内允许的空间，并且
+在函数返回的时候自动释放，就像局部变量一样。&lt;/p&gt;
+&lt;h2 id="ps"&gt;PS&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;对与单纯变量，最好以const对象或enums替换#define&lt;/li&gt;
+&lt;li&gt;对于形式函数的宏，最后改用inline函数替换#define&lt;/li&gt;
+&lt;li&gt;将某些东西声明为const 可帮助编译器侦测出错误用法。const可被施加于任何作用域内的对象、函数参数、函数返回类型、成员函数本体&lt;/li&gt;
+&lt;li&gt;编译器强制实施bitwise constness，但你编写程序时应该使用概念上的常量性&lt;/li&gt;
+&lt;li&gt;当const和non-const成员函数有着实质等价的实现时，令non-const版本调用const版本可避免代码重复&lt;/li&gt;
+&lt;li&gt;为内置型对象进行手工初始化，因为C++不保证初始化它们&lt;/li&gt;
+&lt;li&gt;构造函数最好使用成员初始化列表，而不要在构造函数本体内使用赋值操作。初值列列出的成员变量，其排列次序应该和它们在class中的声明次序相同。&lt;/li&gt;
+&lt;li&gt;为免除跨编译单元初始化次序，可以用local static对象替换non-local static对象。 &lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="_10"&gt;指针和引用&lt;/h3&gt;
+&lt;p&gt;指针和引用在语法上最大的区别就是指针可以为NULL，并可以通过delete运算符删除
+指针所指的实例，而引用不可以。声明一个引用并没有为引用分配内存。而仅仅
+是为该变量赋予一个别名。而声明一个指针则分配了内存。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Thu, 30 Jul 2015 21:13:00 +0800</pubDate><guid>tag:,2015-07-30:www.houcj.net/blog/2015/07/30/more-cpp/</guid><category>CPP</category></item><item><title>Design Pattern</title><link>www.houcj.net/blog/2015/07/28/design-pattern/</link><description>&lt;hr/&gt;
 &lt;h2 id="singleton"&gt;Singleton&lt;/h2&gt;
 &lt;p&gt;单利模式是使用最广泛的设计模式，其意图是保证一个类只有一个实例，并提供一个访问它的
 全局访问点。&lt;/p&gt;
@@ -1773,26 +1882,4 @@ N个数有N!个可能的排列情况，也就是说基于比较的排序算法�
 &lt;span class="code-line"&gt;        &lt;span class="n"&gt;B&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;]]&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;        &lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;]]&lt;/span&gt; &lt;span class="o"&gt;-=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;B&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Sun, 31 May 2015 20:24:00 +0800</pubDate><guid>tag:,2015-05-31:www.houcj.net/blog/2015/05/31/sort1/</guid><category>算法</category></item><item><title>How to find a solution</title><link>www.houcj.net/blog/2015/05/28/find-a-solution/</link><description>&lt;hr/&gt;
-&lt;p&gt;&lt;strong&gt;Straight-forward problems&lt;/strong&gt; that don&amp;rsquo;t require any special technique (e.g. simulation, searching, sorting etc.)
-In most cases, these problems will ask you to perform some step by step, straight-forward tasks. Their constraints are not high, and not too low. In most cases the first problems (the easiest ones) in topcoder Single Rounds Matches are of this kind. They test mostly how fast and properly you code, and not necessarily your algorithmic skills.&lt;/p&gt;
-&lt;hr/&gt;
-&lt;p&gt;&lt;strong&gt;Breadth First Search (BFS)&lt;/strong&gt;
-Problems that use BFS usually ask to find the fewest number of steps (or the shortest path) needed to reach a certain end point (state) from the starting one. Besides this, certain ways of passing from one point to another are offered, all of them having the same cost of 1 (sometimes it may be equal to another number). Often there is given a N x M table (formed of N lines and M columns) where certain cells are passable and others are impassable, and the target of the problem is to find the shortest time/path needed to reach the end point from the start one. Such tables may represent mazes, maps, cities, and other similar things. These may be considered as classical BFS problems. Because BFS complexity is in most cases linear (sometimes quadratic, or N logN), constraints of N (or M) could be high &amp;ndash; even up to 1 million.&lt;/p&gt;
-&lt;hr/&gt;
-&lt;p&gt;&lt;strong&gt;Flood Fill&lt;/strong&gt;
-Sometimes you may encounter problems that are solved by the help of Flood Fill, a technique that uses BFS to find all reachable points. The thing that makes them different from BFS problems described above is that a minimum path/cost is not needed.&lt;/p&gt;
-&lt;p&gt;For example, imagine a maze where 1 represents impassable cells and 0 passable cells. You need to find all cells that are reachable from the upper-left corner. The solution is very simple &amp;ndash; take one-by-one a visited vertex, add its unvisited neighbors to the queue of visited vertices and proceed with the next one while the queue is still populated. Note that in most cases a DFS (Depth First Search) will not work for such problems due to stack overflows. Better use a BFS. For inexperienced users it may seem harder to implement, but after a little training it becomes a "piece of cake".&lt;/p&gt;
-&lt;hr/&gt;
-&lt;p&gt;&lt;strong&gt;Brute Force and Backtracking&lt;/strong&gt;
-I have placed these 2 techniques in the same category because they are very similar. Both do the same thing &amp;ndash; try all possible cases (situations) and choose the best one, or count only those that are needed (depending on the problem). Practically, Backtracking is just more advanced and optimized than Brute Force. It usually uses recursion and is applied to problems having low constraints (for example N&amp;lt;=20).&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Brute Force&lt;/strong&gt;
-There are many problems that can be solved by the help of a simple brute force. Note that the limits must not be high. How does a brute force algorithm work? Actually, it tries all possible situations and selects the best one. It&amp;rsquo;s simple to construct and usually simple to implement. If there is a problem that asks to enumerate or find all possible ways (situations) of doing a certain thing, and that doesn&amp;rsquo;t have high limits &amp;ndash; then it&amp;rsquo;s most probably a brute force problem.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Backtracking&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;This technique may be used in many types of problems. Just take a look at the limits (N, M and other main parameters). They serve as the main hint of a backtrack problem. If these are very small and you haven&amp;rsquo;t found a solution that&amp;rsquo;s easier to implement &amp;ndash; then just don&amp;rsquo;t waste your time on searching it and implement a straight-forward backtracking solution.&lt;/p&gt;
-&lt;hr/&gt;
-&lt;p&gt;&lt;strong&gt;Dynamic Programming&lt;/strong&gt;
-Quite a few problems are solved with the help of this technique. Knowing how to detect this type of problem can be very valuable. However in order to do so, one has to have some experience in dynamic programming. Usually a DP problem has some main integer variables (e.g. N) which are neither too small, nor too big &amp;ndash; so that a usual DP complexity of N^2, N^3 etc. fits in time. Note that in the event that N is very small (for TC problems usually less than 30) &amp;ndash; then it is likely the problem is not a DP one. Besides that there should exist states and one or more ways (rules) to reach one greater state from another lower one. In addition, greater states should depend only upon lower states. What is a so-called state? It&amp;rsquo;s just a certain configuration or situation. &lt;/p&gt;
-&lt;hr/&gt;
-&lt;p&gt;&lt;img align="center" alt="Progamming" class="img-responsive" src="/images/programming.png"/&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;PS:有超链接符号的都是已经写过的文章，xmind导出到pdf会丢失超链接信息&lt;/strong&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Thu, 28 May 2015 10:52:00 +0800</pubDate><guid>tag:,2015-05-28:www.houcj.net/blog/2015/05/28/find-a-solution/</guid><category>算法</category></item></channel></rss>
+&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Sun, 31 May 2015 20:24:00 +0800</pubDate><guid>tag:,2015-05-31:www.houcj.net/blog/2015/05/31/sort1/</guid><category>算法</category></item></channel></rss>
