@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="utf-8"> 
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="google-site-verification" content="fdZTDVFyX3hKovPIzn1tgPixk_wysBXaPN8YQw1P8Jw" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="ChaoJun Hou" />
+        <meta name="copyright" content="ChaoJun Hou" />
+
+<meta name="keywords" content="Python, 编程, " />
+
+<meta property="og:title" content="Improved Python "/>
+<meta property="og:url" content="../../../../../blog/2015/06/01/improved-python/" />
+<meta property="og:description" content="MRO mro() Stands for Method Resolution Order. It returns a list of types the class is derived from, in the order they are searched for methods. 在Python2.3中，MRO算法的基本思想是根据每个祖先类的继承结构，编译出一张列表，包括搜索到的类，按策略删除重复的。但是，在维护单调性方面失败过（顺序保存），所以从Python2.3之后采用了新的C3算法。 C3算法 C3算法最早被提出是用于Lisp的，应用在Python中是为了解决原来基于深度优先搜索算法不满足本地优先级，和单调性的问题。 本地优先级：指声明时父类的顺序，比如C(A,B)，如果访问C类对象属性时，应该根据声明顺序，优先查找A类，然后再查找B类 ..." />
+<meta property="og:site_name" content="Write the Code" />
+<meta property="og:article:author" content="ChaoJun Hou" />
+<meta property="og:article:published_time" content="2015-06-01T16:09:00+08:00" />
+<meta name="twitter:title" content="Improved Python ">
+<meta name="twitter:description" content="MRO mro() Stands for Method Resolution Order. It returns a list of types the class is derived from, in the order they are searched for methods. 在Python2.3中，MRO算法的基本思想是根据每个祖先类的继承结构，编译出一张列表，包括搜索到的类，按策略删除重复的。但是，在维护单调性方面失败过（顺序保存），所以从Python2.3之后采用了新的C3算法。 C3算法 C3算法最早被提出是用于Lisp的，应用在Python中是为了解决原来基于深度优先搜索算法不满足本地优先级，和单调性的问题。 本地优先级：指声明时父类的顺序，比如C(A,B)，如果访问C类对象属性时，应该根据声明顺序，优先查找A类，然后再查找B类 ...">
+
+        <title>Improved Python  · Change the World | Write the Code
+</title>
+       
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="../../../../../theme/css/style.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="../../../../../theme/css/solarizedlight.css" media="screen">
+        <link rel="shortcut icon" href="../../../../../theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="apple-touch-icon" href="../../../../../theme/images/apple-touch-icon.png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="../../../../../theme/images/apple-touch-icon-57x57.png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="../../../../../theme/images/apple-touch-icon-72x72.png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="../../../../../theme/images/apple-touch-icon-114x114.png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="../../../../../theme/images/apple-touch-icon-144x144.png" />
+        <link rel="icon" href="../../../../../theme/images/apple-touch-icon-144x144.png" />
+        <link href="www.houcj.net/feed.xml" type="application/rss+xml" rel="alternate" title="Write the Code - Full RSS Feed" />
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', '61957498', 'auto');
+    ga('send', 'pageview');
+</script>
+
+    </head>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-61957498-1', 'auto');
+  ga('send', 'pageview');
+
+	</script>
+    <body>
+        <div id="content-sans-footer">
+        <div class="navbar navbar-static-top">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../../../../"><span class=site-name>Write the Code</span></a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav pull-right top-menu">
+                            <li ><a href="../../../../..">Home</a></li>
+                            <li ><a href="../../../../../pages/About.html">About</a></li>
+                            <li ><a href="../../../../../random.html">Pick One!</a></li>
+                            <li ><a href="../../../../../categories.html">分类</a></li>
+                            <li ><a href="../../../../../tags.html">标签</a></li>
+                            <li ><a href="../../../../../archives.html">归档</a></li>
+                            <li><form class="navbar-search" action="../../../../../search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span1"></div>
+                <div class="span10">
+<article>
+<div class="row-fluid">
+    <header class="page_header span10 offset2">
+    <h1><a href="../../../../../blog/2015/06/01/improved-python/"> Improved Python  </a></h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+    <div class="span2 table-of-content">
+        <nav>
+        <h4>Contents</h4>
+        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="Improved Python">Improved Python</a><ul><li><a class="toc-href" href="#mro" title="MRO">MRO</a><ul><li><a class="toc-href" href="#c3" title="C3算法">C3算法</a></li></ul></li><li><a class="toc-href" href="#legb_1" title="LEGB">LEGB</a></li><li><a class="toc-href" href="#_1" title="静态方法、类方法、抽象方法">静态方法、类方法、抽象方法</a></li><li><a class="toc-href" href="#_2" title="上下文管理器">上下文管理器</a></li><li><a class="toc-href" href="#_3" title="拷贝">拷贝</a></li><li><a class="toc-href" href="#pickling" title="Pickling">Pickling</a></li><li><a class="toc-href" href="#functionbound-methodunbound-method" title="function、bound method、unbound method ##">function、bound method、unbound method ##</a></li><li><a class="toc-href" href="#python" title="附录：Python魔法方法">附录：Python魔法方法</a></li></ul></li></ul></div></body></html>
+        </nav>
+    </div>
+    <div class="span8 article-content">
+
+            <hr/>
+<h2 id="mro">MRO</h2>
+<p>mro() Stands for Method Resolution Order. It returns a list
+of types the class is derived from, in the order they are 
+searched for methods. 在Python2.3中，MRO算法的基本思想是根据每个祖先类的继承结构，编译出一张列表，包括搜索到的类，按策略删除重复的。但是，在维护单调性方面失败过（顺序保存），所以从Python2.3之后采用了新的C3算法。</p>
+<h3 id="c3">C3算法</h3>
+<p>C3算法最早被提出是用于Lisp的，应用在Python中是为了解决原来基于深度优先搜索算法不满足本地优先级，和单调性的问题。
+本地优先级：指声明时父类的顺序，比如C(A,B)，如果访问C类对象属性时，应该根据声明顺序，优先查找A类，然后再查找B类。
+单调性：如果在C的解析顺序中，A排在B的前面，那么在C的所有子类里，也必须满足这个顺序。</p>
+<p><img align="center" alt="mro classic vs new-style " class="img-responsive" src="/images/mro.png"/></p>
+<h2 id="legb_1">LEGB</h2>
+<p>在其他语言中如 C 中，变量名是内存地址的别名，而在 Python 中，名字是一个字符串对象，它与他指向的对象构成一个{name:object}关联。而 LEGB 则是名字空间的一种查找规则。
+<strong>LEGB </strong>代表名字查找顺序: locals -&gt; enclosing function -&gt; globals -&gt; <strong>builtins</strong></p>
+<ul>
+<li>locals 是函数内的名字空间，包括局部变量和形参</li>
+<li>enclosing 外部嵌套函数的名字空间（闭包中常见）</li>
+<li>globals 全局变量，函数定义所在模块的名字空间</li>
+<li>builtins 内置模块的名字空间，轻易不要修改</li>
+</ul>
+<p><strong>builtins</strong></p>
+<div class="highlight"><pre><span class="code-line"><span class="o">&gt;&gt;&gt;</span> <span class="n">b</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span></span>
+<span class="code-line">  <span class="n">File</span> <span class="s">"&lt;pyshell#0&gt;"</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span></span>
+<span class="code-line">    <span class="n">b</span></span>
+<span class="code-line"><span class="ne">NameError</span><span class="p">:</span> <span class="n">name</span> <span class="s">'b'</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">defined</span></span>
+<span class="code-line"><span class="o">&gt;&gt;&gt;</span> <span class="n">__builtins__</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="s">"built"</span></span>
+<span class="code-line"><span class="o">&gt;&gt;&gt;</span> <span class="n">b</span></span>
+<span class="code-line"><span class="s">'built'</span></span>
+</pre></div>
+<h2 id="_1">静态方法、类方法、抽象方法</h2>
+<p><strong>静态方法</strong>是一类特殊的方法，有时你可能需要写一个属于这个类的方法，但是这些代码完全不会使用到实例对象本身。
+<strong>类方法</strong>不是绑定到对象上，而是绑定在类上的方法</p>
+<p>一个具体的列子：调用静态类</p>
+<p>如果你把一个静态方法拆分成多个静态方法，除非你使用类方法，
+否则你还是得硬编码类名。使用这种方式声明方法，Pizza类名明永远都不会在被直接引用，
+继承和方法覆盖都可以完美的工作。</p>
+<div class="highlight"><pre><span class="code-line"><span class="k">class</span> <span class="nc">Pizza</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span></span>
+<span class="code-line">    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">radius</span><span class="p">,</span> <span class="n">height</span><span class="p">):</span></span>
+<span class="code-line">        <span class="bp">self</span><span class="o">.</span><span class="n">radius</span> <span class="o">=</span> <span class="n">radius</span></span>
+<span class="code-line">        <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">height</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="nd">@staticmethod</span> <span class="c"># 静态方法，参数没有self</span></span>
+<span class="code-line">    <span class="k">def</span> <span class="nf">compute_area</span><span class="p">(</span><span class="n">radius</span><span class="p">):</span></span>
+<span class="code-line">         <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="p">(</span><span class="n">radius</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="nd">@classmethod</span> <span class="c"># 类方法，可以绑定类的方法</span></span>
+<span class="code-line">    <span class="k">def</span> <span class="nf">compute_volume</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">radius</span><span class="p">):</span></span>
+<span class="code-line">         <span class="k">return</span> <span class="n">height</span> <span class="o">*</span> <span class="n">cls</span><span class="o">.</span><span class="n">compute_area</span><span class="p">(</span><span class="n">radius</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">def</span> <span class="nf">get_volume</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_volume</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">radius</span><span class="p">)</span></span>
+</pre></div>
+<p><strong>抽象方法</strong>是定义在基类中的一种方法，它没有提供任何实现，类似于java中接口中的方法。</p>
+<div class="highlight"><pre><span class="code-line"><span class="kn">import</span> <span class="nn">abc</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">class</span> <span class="nc">BasePizza</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span></span>
+<span class="code-line">    <span class="n">__metaclass__</span>  <span class="o">=</span> <span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="nd">@abc.abstractmethod</span></span>
+<span class="code-line">    <span class="k">def</span> <span class="nf">get_radius</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></span>
+<span class="code-line">         <span class="sd">"""Method that should do something."""</span></span>
+</pre></div>
+<div class="highlight"><pre><span class="code-line">&gt;&gt;&gt; BasePizza()</span>
+<span class="code-line">Traceback (most recent call last):</span>
+<span class="code-line">  File "&lt;stdin&gt;", line 1, in &lt;module&gt;</span>
+<span class="code-line">TypeError: Can't instantiate abstract class BasePizza with abstract methods get_radius</span>
+</pre></div>
+<h2 id="_2">上下文管理器</h2>
+<div class="highlight"><pre><span class="code-line"><span class="k">class</span> <span class="nc">Closer</span><span class="p">:</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="sd">'''一个上下文管理器，可以在with语句中</span></span>
+<span class="code-line"><span class="sd">    使用close()自动关闭对象'''</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span></span>
+<span class="code-line">        <span class="bp">self</span><span class="o">.</span><span class="n">obj</span> <span class="o">=</span> <span class="n">obj</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">def</span> <span class="nf">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">obj</span> <span class="c"># 绑定到目标</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">def</span> <span class="nf">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exception_type</span><span class="p">,</span> <span class="n">exception_value</span><span class="p">,</span> <span class="n">traceback</span><span class="p">):</span></span>
+<span class="code-line">        <span class="k">try</span><span class="p">:</span></span>
+<span class="code-line">                <span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></span>
+<span class="code-line">        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span> <span class="c"># obj不是可关闭的</span></span>
+<span class="code-line">                <span class="k">print</span> <span class="s">'Not closable.'</span></span>
+<span class="code-line">                <span class="k">return</span> <span class="bp">True</span> <span class="c"># 成功地处理了异常</span></span>
+</pre></div>
+<div class="highlight"><pre><span class="code-line">&gt;&gt;&gt; with Closer(int(2)) as i:</span>
+<span class="code-line">...         i += 1</span>
+<span class="code-line">&gt;&gt;&gt; i</span>
+<span class="code-line">3</span>
+</pre></div>
+<h2 id="_3">拷贝</h2>
+<ul>
+<li>
+<p><strong>copy</strong>(self)</p>
+<p>定义对类的实例使用 copy.copy() 时的行为。 
+copy.copy() 返回一个对象的浅拷贝，这意味着拷贝出的实例是全新的，然而里面的数据全都是引用的。
+也就是说，对象本身是拷贝的，但是它的数据还是引用的（所以浅拷贝中的数据更改会影响原对象）。</p>
+</li>
+<li>
+<p><strong>deepcopy</strong>(self, memodict=)
+    定义对类的实例使用 copy.deepcopy() 时的行为。 copy.deepcopy() 返回一个对象的深拷贝，
+    这个对象和它的数据全都被拷贝了一份。 memodict 是一个先前拷贝对象的缓存，它优化了拷贝过程，
+    而且可以防止拷贝递归数据结构时产生无限递归。当你想深拷贝一个单独的属性时，在那个属性上调用 copy.deepcopy() ，
+    使用 memodict 作为第一个参数。</p>
+</li>
+</ul>
+<h2 id="pickling">Pickling</h2>
+<p>Pickling是Python数据结构的序列化过程。</p>
+<p>下面的例子是 Slate ，它会记住它的值曾经是什么，以及那些值是什么时候赋给它的。
+然而 每次被pickle时它都会变成空白，因为当前的值不会被存储:</p>
+<div class="highlight"><pre><span class="code-line"><span class="kn">import</span> <span class="nn">time</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">class</span> <span class="nc">Slate</span><span class="p">:</span></span>
+<span class="code-line">        <span class="sd">'''存储一个字符串和一个变更日志的类</span></span>
+<span class="code-line"><span class="sd">        每次被pickle都会忘记它当前的值'''</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span></span>
+<span class="code-line">                <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span></span>
+<span class="code-line">                <span class="bp">self</span><span class="o">.</span><span class="n">last_change</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">asctime</span><span class="p">()</span></span>
+<span class="code-line">                <span class="bp">self</span><span class="o">.</span><span class="n">history</span> <span class="o">=</span> <span class="p">{}</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="k">def</span> <span class="nf">change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_value</span><span class="p">):</span></span>
+<span class="code-line">                <span class="c"># 改变当前值，将上一个值记录到历史</span></span>
+<span class="code-line">                <span class="bp">self</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">last_change</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span></span>
+<span class="code-line">                <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">new_value</span><span class="p">)</span></span>
+<span class="code-line">                <span class="bp">self</span><span class="o">.</span><span class="n">last_change</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">asctime</span><span class="p">()</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="k">def</span> <span class="nf">print_change</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></span>
+<span class="code-line">                <span class="k">print</span> <span class="s">'Changelog for Slate object:'</span></span>
+<span class="code-line">                <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">history</span><span class="o">.</span><span class="n">items</span><span class="p">():</span></span>
+<span class="code-line">                        <span class="k">print</span> <span class="s">'</span><span class="si">%s</span><span class="se">\t</span><span class="s"> </span><span class="si">%s</span><span class="s">'</span> <span class="o">%</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="n">v</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="k">def</span> <span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></span>
+<span class="code-line">                <span class="c"># 故意不返回self.value或self.last_change</span></span>
+<span class="code-line">                <span class="c"># 我们想在反pickle时得到一个空白的slate</span></span>
+<span class="code-line">                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">history</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="k">def</span> <span class="nf">__setstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></span>
+<span class="code-line">                <span class="c"># 使self.history = slate，last_change</span></span>
+<span class="code-line">                <span class="c"># 和value为未定义</span></span>
+<span class="code-line">                <span class="bp">self</span><span class="o">.</span><span class="n">history</span> <span class="o">=</span> <span class="n">state</span></span>
+<span class="code-line">                <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_change</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span></span>
+</pre></div>
+<h2 id="functionbound-methodunbound-method">function、bound method、unbound method ##</h2>
+<p>一个函数(function)是由 def 语句或者 lambda 创建的。</p>
+<p>当一个函数(function)定义在了class语句的块中（或者由 type 来创建的), 它会转成一个 unbound method , 当我们通过一个类的实例来 访问这个函数的时候，它就转成了 bound method , bound method 会自动把这个实例作为函数的地一个参数。</p>
+<p>所以， bound method 就是绑定了一个实例的方法， 否则叫做 unbound method .它们都是方法(method), 是出现在 class 中的函数。</p>
+<h2 id="python">附录：Python魔法方法</h2>
+<table>
+<thead>
+<tr>
+<th>魔法方法</th>
+<th>什么时候被调用</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>new</strong>(cls [,...])</td>
+<td>instance = MyClass(arg1, arg2)</td>
+<td>__new__在实例创建时调用</td>
+</tr>
+<tr>
+<td><strong>init</strong>(self [,...])</td>
+<td>instance = MyClass(arg1,arg2)</td>
+<td>__init__在实例创建时调用</td>
+</tr>
+<tr>
+<td><strong>cmp</strong>(self)</td>
+<td>self == other, self &gt; other 等</td>
+<td>进行比较时调用</td>
+</tr>
+<tr>
+<td><strong>pos</strong>(self)</td>
+<td>+self</td>
+<td>一元加法符号</td>
+</tr>
+<tr>
+<td><strong>neg</strong>(self)</td>
+<td>-self</td>
+<td>一元减法符号</td>
+</tr>
+<tr>
+<td><strong>invert</strong>(self)</td>
+<td>~self</td>
+<td>按位取反</td>
+</tr>
+<tr>
+<td><strong>index</strong>(self)</td>
+<td>x[self]</td>
+<td>当对象用于索引时</td>
+</tr>
+<tr>
+<td><strong>nonzero</strong>(self)</td>
+<td>bool(self)</td>
+<td>对象的布尔值</td>
+</tr>
+<tr>
+<td><strong>getattr</strong>(self, name)</td>
+<td>self.name #name不存在</td>
+<td>访问不存在的属性</td>
+</tr>
+<tr>
+<td><strong>setattr</strong>(self, name)</td>
+<td>self.name = val</td>
+<td>给属性赋值</td>
+</tr>
+<tr>
+<td>__delattr_(self, name)</td>
+<td>del self.name</td>
+<td>删除属性</td>
+</tr>
+<tr>
+<td><strong>getattribute</strong>(self,name)</td>
+<td>self.name</td>
+<td>访问任意属性</td>
+</tr>
+<tr>
+<td><strong>getitem</strong>(self, key)</td>
+<td>self[key]</td>
+<td>使用索引访问某个元素</td>
+</tr>
+<tr>
+<td><strong>setitem</strong>(self, key)</td>
+<td>self[key] = val</td>
+<td>使用索引给某个元素赋值</td>
+</tr>
+<tr>
+<td><strong>delitem</strong>(self, key)</td>
+<td>del self[key]</td>
+<td>使用索引删除某个对象</td>
+</tr>
+<tr>
+<td><strong>iter</strong>(self)</td>
+<td>for x in self</td>
+<td>迭代</td>
+</tr>
+<tr>
+<td><strong>contains</strong>(self, value)</td>
+<td>value in self, value not in self</td>
+<td>使用in进行成员测试</td>
+</tr>
+<tr>
+<td><strong>call</strong>(self [,...])</td>
+<td>self(args)</td>
+<td>&ldquo;调用&rdquo;一个实例</td>
+</tr>
+<tr>
+<td><strong>enter</strong>(self)</td>
+<td>with self as x:</td>
+<td>with声明的上下文管理器</td>
+</tr>
+<tr>
+<td><strong>exit</strong>(self, exc, val, trace)</td>
+<td>with self as x:</td>
+<td>with声明的上下文管理器</td>
+</tr>
+<tr>
+<td><strong>getstate</strong>(self)</td>
+<td>pickle.dump(pkl_file, self)</td>
+<td>Pickling</td>
+</tr>
+<tr>
+<td><strong>setstate</strong>(self)</td>
+<td>data = pickle.load(pkl_file)</td>
+<td>Pickling</td>
+</tr>
+</tbody>
+</table>
+<section>
+<div class="accordion" id="accordion2">
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle disqus-comment-count" data-toggle="collapse" data-parent="#accordion2"
+                href="../../../../../blog/2015/06/01/improved-python/#disqus_thread">
+                Comments
+            </a>
+        </div>
+        <div id="disqus_thread" class="accordion-body collapse">
+            <div class="accordion-inner">
+                <div class="comments">
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'houcj';
+
+
+    (function() {
+         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+            
+
+            <hr/>
+<section>
+    <h2>Related Posts</h2>
+<ul class="related-posts-list">
+<li><a href="../../../../../blog/2014/03/21/kmp/" title="字符串匹配">字符串匹配</a></li>
+<li><a href="../../../../../blog/2015/04/01/life-is-short-use-python/" title="人生苦短我用Python">人生苦短我用Python</a></li>
+<li><a href="../../../../../blog/2015/05/05/sifting-prime/" title="素数筛选法">素数筛选法</a></li>
+<li><a href="../../../../../blog/2015/05/05/reverse-linked-list/" title="反转链表">反转链表</a></li>
+<li><a href="../../../../../blog/2015/06/22/python-closure/" title="Python 闭包">Python 闭包</a></li>
+</ul>
+<hr />
+</section>
+
+            </aside>
+        </div>
+        <section>
+        <div class="span2" style="float:right;font-size:0.9em;">
+ 
+            <h4>Published</h4>
+            <time pubdate="pubdate" datetime="2015-06-01T16:09:00+08:00">Jun 1, 2015</time>
+            <h4>Category</h4>
+            <a class="category-link" href="/categories.html#编程-ref">编程</a> 
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article"> 
+                <li><a href="/tags.html#Python-ref">Python
+                    <span>6</span>
+</a></li>
+            </ul>
+<h4>Contact</h4>
+    <a href="https://twitter.com/chaojunhou" title="My Twitter Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-twitter sidebar-social-links"></i></a>
+    <a href="https://www.tumblr.com/blog/houcj" title="My Tumblr Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-tumblr sidebar-social-links"></i></a>
+    <a href="https://github.com/chaojunhou" title="My Github Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-github sidebar-social-links"></i></a>
+            <h4>Blogroll</h4>
+			<ul ><a class="category-link" href="http://www.rudy-yuan.net">Rudy-yuan</a></ul>
+            <ul ><a class="category-link" href="http://www.wengweitao.com">WWT</a></ul>
+            <ul ><a class="category-link" href="http://hult.tiddlyspot.com">HULT</a></ul>
+       
+        </div>
+        </section>
+</div>
+</article>
+                </div>
+                <div class="span1"></div>
+            </div>
+        </div>
+        <div id="push"></div>
+    </div>
+        
+            <script src="http://code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+<script type="text/javascript">
+    var disqus_shortname = 'houcj';
+
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+    </script>
+        <script  language="javascript" type="text/javascript">
+            function uncollapse() {
+                var hash_str = window.location.hash;
+                if (window.location.hash.match(/^#comment-\d+$/))
+                {
+                    var hash_str = '#disqus_thread';
+                }
+                $(hash_str).collapse({
+                    toggle: true
+                    })
+            }
+        </script>
+
+        <script type="text/javascript" language="JavaScript">
+            uncollapse(); 
+        </script>
+    </body>
+      <!-- Baidu Button BEGIN 
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"6","bdPos":"right","bdTop":"250"},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+ <!-- Baidu Button END -->
+  </body>
+
+  <!-- hitwebcounter Code START -->
+
+<img src="http://hitwebcounter.com/counter/counter.php?page=6046616&style=0005&nbdigits=5&type=ip&initCount=0" title="" Alt=""   border="0" style="float:left">  
+
+</html>

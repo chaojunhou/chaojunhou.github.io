@@ -128,14 +128,12 @@
 <p><strong>尽量使用常量引用</strong>，使用引用可以避免拷贝，使用const则避免修改实参的值。</p>
 <h3 id="stringsize_type-size_t">string::size_type &amp; size_t</h3>
 <ol>
-<li>
-<p><strong>size_t</strong>
-size_t是sizeof操作符的结果返回类型，它在头文件中的typedef为
+<li><strong>size_t</strong></li>
+</ol>
+<p>size_t是sizeof操作符的结果返回类型，它在头文件中的typedef为
 unsigned int 类型。该类型保证实现所建立的最大对象的字节大小。</p>
-</li>
-<li>
-<p><strong>string::size_type</strong></p>
-</li>
+<ol>
+<li><strong>string::size_type</strong></li>
 </ol>
 <p>string::size_type是一个无符号类型的值，而且能够存放下任何string对象的大小。所有
 用于存放string类的size函数返回值的变量，都应该是string::size_type
@@ -203,9 +201,11 @@ cast-name 是static_cast、dynamic_cast、const_cast和reinterpret_cast的一种
 <span class="code-line"><span class="k">constexpr</span> <span class="kt">int</span> <span class="o">*</span><span class="n">q</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>   <span class="c1">// q是一个指向整数的常量指针。</span></span>
 </pre></div>
 <h3 id="_8">类型别名</h3>
-<p>两种实现方式
-- typedef  <br/>
-- using</p>
+<p>两种实现方式</p>
+<ul>
+<li>typedef    </li>
+<li>using</li>
+</ul>
 <div class="highlight"><pre><span class="code-line">    <span class="k">using</span> <span class="n">SI</span> <span class="o">=</span> <span class="n">Sales_item</span><span class="p">;</span> <span class="c1">// SI是Sales_item的别名 </span></span>
 </pre></div>
 <blockquote>
@@ -258,7 +258,9 @@ C编译器不能把const看成一个编译器期间的常量，而在C++默认co
 <h3 id="_13">构造函数</h3>
 <p>构造函数的任务是初始化对象的数据成员，无论何时只要类的对象被创建，就会执行构造函数。</p>
 <p>构造函数不能被声明成const的，当我们创建类的const对象时，直到构造函数完成初始化过程，对象才能
-真正取得其常量属性，因此，构造函数在const对象的构造过程中可以向其写值。</p>
+真正取得其常量属性，因此，构造函数在const对象的构造过程中可以向其写值。需要注意的是初始化const
+对象或者引用类型的对象时后，必须在执行构造函数体之前完成初始化工作，所以可以使用初始化列表进行初始化工作。
+因为初始化表的执行先于函数体。</p>
 <h4 id="_14">默认构造函数</h4>
 <p>如果我们的类没有显式地定义构造函数，那么编译器就会为我们隐式地定义一个默认构造函数，
 默认构造函数无需任何实参。</p>
@@ -299,7 +301,7 @@ C编译器不能把const看成一个编译器期间的常量，而在C++默认co
 它所属的类类型，而非静态数据成员则只能声明成它所属类的指针。</p>
 <h3 id="_20">谓词</h3>
 <p>谓词是一个可调用的表达式，其返回结果是一个能用做条件的值。标准库使用两种谓词：一元
-谓词（只接受单一参数）和二元谓词（它们有两个参数）。</p>
+谓词（只接受单一参数）和二元谓词（它们有两个参数）。（相当于if中的条件表达式）</p>
 <h3 id="emplace">使用emplace操作</h3>
 <p>当调用push或insert成员函数时，我们将元素类型的对象传递给它们，
 这些对象被拷贝到容器中。而当我们调用一个emplace成员函数时，则是将参数

@@ -249,7 +249,13 @@ Access sections的多少并不是带来额外负担。例如在一个section中�
 1. 改写函数原型，以安插一个额外的参数到成员函数中，用以提供一个存取管道，使类对象得以将此函数调用。此额外参数就是this指针。
 2. 将每一个对非静态数据成员的存取操作改为经由this指针来存取。
 3. 将成员函数重新写成一个外部函数，将函数名经过<strong>name mangling</strong> （一般而言，成员名称之前
-会被加上class名称和它们的参数链表，以及参数类型）处理，使它在程序中成为独一无二的语汇。</p>
+会被加上class名称和它们的参数链表，以及参数类型）处理，使它在程序中成为独一无二的语汇。
+指向类成员函数的指针</p>
+<p>指向类成员函数的指针与普通函数指针的区别在于，前者不仅要匹配函数的参数类型和个数以及返回值类型，还要匹配该函数指针所属的类类型。总结一下，比较以下几点：</p>
+<p>a）参数类型和个数</p>
+<p>b）返回值类型</p>
+<p>c）所属的类类型（特别之处）</p>
+<p>究其原因，是因为非静态的成员函数必须被绑定到一个类的对象或者指针上，才能得到被调用对象的this指针，然后才能调用指针所指的成员函数</p>
 <div class="highlight"><pre><span class="code-line"><span class="n">Point3d</span> <span class="n">obj</span><span class="p">;</span></span>
 <span class="code-line"><span class="n">Point3d</span> <span class="o">*</span><span class="n">ptr</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">obj</span><span class="p">;</span></span>
 <span class="code-line"><span class="n">obj</span><span class="p">.</span><span class="n">normalize</span><span class="p">();</span></span>

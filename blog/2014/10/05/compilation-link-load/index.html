@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="utf-8"> 
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="google-site-verification" content="fdZTDVFyX3hKovPIzn1tgPixk_wysBXaPN8YQw1P8Jw" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="ChaoJun Hou" />
+        <meta name="copyright" content="ChaoJun Hou" />
+
+<meta name="keywords" content="编译原理, 计算机科学, " />
+
+<meta property="og:title" content="程序员的自我修养 "/>
+<meta property="og:url" content="../../../../../blog/2014/10/05/compilation-link-load/" />
+<meta property="og:description" content="程序的编译汇编链接装载 总体来说，程序源代码被编译以后主要分成两种段：程序指令和程序数据。代码段属于程序指令，而数据段和BSS短属于程序数据。C语言指针大小的位数和虚拟空间的位数相同。 ELF可执行文件引入了一个概念叫做Segment，一个Segment包含一个或多个属性类似的Section。 对于相同权限的段，把它们合并到一起当作一个段进行映射。 数据段和BSS的唯一区别就是：数据段从文件中初始化内容，而BSS段内容全部初始化为0. 操作系统通过给进程空间划分出一个个VMA（Virtual Memory Area，Linux中进程虚拟空间的一个段）来管理进程的虚拟空间。 基本原则是将相同权限属性的、有相同映像文件的映射成一个VMA；一个进程基本上可以分为如下集中VMA区域： 代码VMA，权限只读、可执行；有映像文件 数据VMA，权限可读写、可执行；有映像文件 堆VMA，权限可读写、可执行；无映像文件，匿名，可向上扩展 栈VMA，权限可读写、不可执行；无映像文件，匿名，可向下扩展 影响C语言ABI（Application Binary Interface, 二进制接口）的因素 内置类型 ..." />
+<meta property="og:site_name" content="Write the Code" />
+<meta property="og:article:author" content="ChaoJun Hou" />
+<meta property="og:article:published_time" content="2014-10-05T14:26:00+08:00" />
+<meta name="twitter:title" content="程序员的自我修养 ">
+<meta name="twitter:description" content="程序的编译汇编链接装载 总体来说，程序源代码被编译以后主要分成两种段：程序指令和程序数据。代码段属于程序指令，而数据段和BSS短属于程序数据。C语言指针大小的位数和虚拟空间的位数相同。 ELF可执行文件引入了一个概念叫做Segment，一个Segment包含一个或多个属性类似的Section。 对于相同权限的段，把它们合并到一起当作一个段进行映射。 数据段和BSS的唯一区别就是：数据段从文件中初始化内容，而BSS段内容全部初始化为0. 操作系统通过给进程空间划分出一个个VMA（Virtual Memory Area，Linux中进程虚拟空间的一个段）来管理进程的虚拟空间。 基本原则是将相同权限属性的、有相同映像文件的映射成一个VMA；一个进程基本上可以分为如下集中VMA区域： 代码VMA，权限只读、可执行；有映像文件 数据VMA，权限可读写、可执行；有映像文件 堆VMA，权限可读写、可执行；无映像文件，匿名，可向上扩展 栈VMA，权限可读写、不可执行；无映像文件，匿名，可向下扩展 影响C语言ABI（Application Binary Interface, 二进制接口）的因素 内置类型 ...">
+
+        <title>程序员的自我修养  · Change the World | Write the Code
+</title>
+       
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="../../../../../theme/css/style.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="../../../../../theme/css/solarizedlight.css" media="screen">
+        <link rel="shortcut icon" href="../../../../../theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="apple-touch-icon" href="../../../../../theme/images/apple-touch-icon.png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="../../../../../theme/images/apple-touch-icon-57x57.png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="../../../../../theme/images/apple-touch-icon-72x72.png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="../../../../../theme/images/apple-touch-icon-114x114.png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="../../../../../theme/images/apple-touch-icon-144x144.png" />
+        <link rel="icon" href="../../../../../theme/images/apple-touch-icon-144x144.png" />
+        <link href="www.houcj.net/feed.xml" type="application/rss+xml" rel="alternate" title="Write the Code - Full RSS Feed" />
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', '61957498', 'auto');
+    ga('send', 'pageview');
+</script>
+
+    </head>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-61957498-1', 'auto');
+  ga('send', 'pageview');
+
+	</script>
+    <body>
+        <div id="content-sans-footer">
+        <div class="navbar navbar-static-top">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../../../../"><span class=site-name>Write the Code</span></a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav pull-right top-menu">
+                            <li ><a href="../../../../..">Home</a></li>
+                            <li ><a href="../../../../../pages/About.html">About</a></li>
+                            <li ><a href="../../../../../random.html">Pick One!</a></li>
+                            <li ><a href="../../../../../categories.html">分类</a></li>
+                            <li ><a href="../../../../../tags.html">标签</a></li>
+                            <li ><a href="../../../../../archives.html">归档</a></li>
+                            <li><form class="navbar-search" action="../../../../../search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span1"></div>
+                <div class="span10">
+<article>
+<div class="row-fluid">
+    <header class="page_header span10 offset2">
+    <h1><a href="../../../../../blog/2014/10/05/compilation-link-load/"> 程序员的自我修养  </a></h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+    <div class="span2 table-of-content">
+        <nav>
+        <h4>Contents</h4>
+        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="程序员的自我修养">程序员的自我修养</a><ul><li><a class="toc-href" href="#_1" title="程序的编译汇编链接装载">程序的编译汇编链接装载</a><ul><li><a class="toc-href" href="#_2" title="进程栈线程栈">进程栈线程栈</a></li><li><a class="toc-href" href="#_3" title="关于模块">关于模块</a></li><li><a class="toc-href" href="#_4" title="固定装载地址">固定装载地址</a></li><li><a class="toc-href" href="#_5" title="延迟绑定">延迟绑定</a></li><li><a class="toc-href" href="#_6" title="动态符号表">动态符号表</a></li><li><a class="toc-href" href="#_7" title="动态链接重定位表">动态链接重定位表</a></li><li><a class="toc-href" href="#_8" title="动态链接器自举">动态链接器自举</a></li><li><a class="toc-href" href="#_9" title="环境变量">环境变量</a></li><li><a class="toc-href" href="#cpp" title="CPP 全局构造与解释">CPP 全局构造与解释</a></li><li><a class="toc-href" href="#_10" title="段错误 &amp; 非法操作">段错误 &amp; 非法操作</a></li></ul></li></ul></li></ul></div></body></html>
+        </nav>
+    </div>
+    <div class="span8 article-content">
+
+            <hr/>
+<h2 id="_1">程序的编译汇编链接装载</h2>
+<p><img align="center" alt="Vim Cheat Sheet" class="img-responsive" src="/images/gcc-compile.png"/></p>
+<p>总体来说，程序源代码被编译以后主要分成两种段：程序指令和程序数据。代码段属于程序指令，而数据段和BSS短属于程序数据。C语言指针大小的位数和虚拟空间的位数相同。</p>
+<p>ELF可执行文件引入了一个概念叫做Segment，一个Segment包含一个或多个属性类似的Section。
+对于相同权限的段，把它们合并到一起当作一个段进行映射。</p>
+<p>数据段和BSS的唯一区别就是：数据段从文件中初始化内容，而BSS段内容全部初始化为0.</p>
+<p>操作系统通过给进程空间划分出一个个VMA（Virtual Memory Area，Linux中进程虚拟空间的一个段）来管理进程的虚拟空间。
+基本原则是将相同权限属性的、有相同映像文件的映射成一个VMA；一个进程基本上可以分为如下集中VMA区域：</p>
+<ul>
+<li>代码VMA，权限只读、可执行；有映像文件</li>
+<li>数据VMA，权限可读写、可执行；有映像文件</li>
+<li>堆VMA，权限可读写、可执行；无映像文件，匿名，可向上扩展</li>
+<li>栈VMA，权限可读写、不可执行；无映像文件，匿名，可向下扩展</li>
+</ul>
+<p>影响C语言ABI（Application Binary Interface, 二进制接口）的因素</p>
+<ul>
+<li>内置类型（int、float、char）的大小和在存储器中的放置方式（大端小端对齐方式）</li>
+<li>组合类型（struct、union、array）的存储方式和内存分布</li>
+<li>外部符号（extern-linkage）与用户定义的符号之间的命名方式和解析方式，如函数名func在C语言的目标文件中是否被解析成外部符号_func.</li>
+<li>函数调用方式，比如参数入栈顺序、返回值如何保持等。</li>
+<li>堆栈的分布方式，比如参数和局部变量在堆栈里的位置，参数传递方法等。</li>
+<li>寄存器使用约定，函数调用时那些寄存器可以修改，哪些需要保存，等等</li>
+</ul>
+<p>影响CPP语言ABI的因素</p>
+<ul>
+<li>继承类体系的内存分布，如基类，虚基类在继承类中的位置等</li>
+<li>指向成员函数的指针的内存分布，如果通过指向成员函数的指针来调用成员函数，如何传递this指针</li>
+<li>如何调用虚函数，vtable的内容和分布形式，vtable指针在object中的位置等。</li>
+<li>template如何实例化</li>
+<li>外部符号的修饰</li>
+<li>全局对象的构造和析构</li>
+<li>异常的产生和捕获机制</li>
+<li>标准库的细节问题，RTTI如何实现</li>
+<li>内嵌函数的访问细节</li>
+</ul>
+<h3 id="_2">进程栈线程栈</h3>
+<ul>
+<li>进程栈大小执行时确定的，与编译链接无关</li>
+<li>进程栈大小是随机确定的，至少可以比线程栈要大，但不会超过2倍。</li>
+<li>线程栈是固定大小的，可以使用ulimit -a查看。</li>
+</ul>
+<h3 id="_3">关于模块</h3>
+<p>在静态链接中，整个程序最终只有一个可执行文件，它是一个不可以分割的整体，
+但是在动态链接下，一个程序被分成了若干个文件，有程序的主要部分，即可执行文件和程序
+所依赖的共享对象，很多时候我们也把这些部分称为模块，即在动态链接下的可执行文件和
+共享文件对象都可以看作是程序的一个模块。</p>
+<h3 id="_4">固定装载地址</h3>
+<p>共享对象在编译时不能假设自己在进程虚拟地址空间的为孩子，于此不同的是，可执行
+文件基本可以确定自己在进程虚拟空间中的其实位置,因为可执行文件往往是
+第一次个加载的文件,它可以选择一个固定空闲的地址,比如Linux下一般都是OX08040000,
+Windows下一般都是0x00400000.</p>
+<h3 id="_5">延迟绑定</h3>
+<p>动态链接比静态链接慢的原因是动态链接下对于全局的和静态的数据访问都要进行复杂的GOT(Global offset table)
+定位,然后间接寻址;对于模块间的调用也要先定位GOT,然后再进行间接跳转.另一个原因是动态链接的链接工作
+在运行时完成,即在程序开始执行时,动态链接器都要进行一次链接工作,这时动态链接器会寻找并装载
+所需要的共享对象,然后进行符号查找地址重定位等工作.</p>
+<p>解决方案延迟绑定，基本思想是当函数第一次被用到时才进行绑定（符号查找、重定位），如果
+没有用到就不进行绑定。ELF主要使用PLT（Procedure Linkage Table）的方法来实现。调用函数并不直接
+通过GOT跳转，而是通过一个PLT项的结构来进行跳转。</p>
+<h3 id="_6">动态符号表</h3>
+<p>为了动态链接这些模块之间的符号导入导出关系，ELF专门有一个叫做动态符号表的段来保存这些信息，这个
+段的名字通常叫做".dynsym"(dynamic symbol).动态符号表也需要一些辅助的表，比如用于保存符号名
+的字符串表，为了加快查找过程的符号哈希表。</p>
+<h3 id="_7">动态链接重定位表</h3>
+<p>共享对象的重定位与静态链接目标文件的重定位的唯一区别是目标文件的重定位是在静态链接时完成的，
+而共享对象的重定位是在装载时完成的。".rel.text"表示的是代码段的重定位表,".rel.data"书数据段的
+重定位表,".rel.dyn"是对数据引用的修正，它所修正的位置位于".got"以及数据段；而 ".rel.plt"
+是对函数引用的修正，它所修正的位置位于".got.plt"。</p>
+<h3 id="_8">动态链接器自举</h3>
+<p>动态链接器本身不可以依赖于其他任何共享对象，其次是动态链接器本身所需要的全局和静态变量的重定位工作需要自己完成提供，
+这种具有一定限制条件的启动代码往往被称为自举。动态链接器本身是静态链接的。</p>
+<h3 id="_9">环境变量</h3>
+<p>动态链接器会按照下列顺序依次装载或查找共享对象：
+- 由环境变量LD_LIBRARY_PATH指定的路径
+- 由路径缓存文件/etc/ld.so.cache指定的路径
+- 默认贡献爱那个库目录，先/usr/lib， 后/lib</p>
+<h3 id="cpp">CPP 全局构造与解释</h3>
+<p>GCC中有类代码的CPP初始化代码如下：</p>
+<p>_start-&gt; __libc_start_main -&gt; __lib_csu_init -&gt; _init -&gt;
+__do_global_ctors_aux。对于每个编译单元（.cpp），GCC编译器会遍历其中
+所有的全局对象，生成一个特殊函数，这个特殊函数的作用就是对本编译单元里的所有
+全局对象进行初始化。</p>
+<h3 id="_10">段错误 &amp; 非法操作</h3>
+<p>这是典型的非法指针解引用造成的错误，当指针指向一个不允许读或者写的
+内存地址，而程序却试图利用指针来读或写该地址的时候，就会出现这个错误。
+造成这样的错误最普遍的原因有两种：
+1. 程序员将指针初始化为NULL，之后却没有给它一个合理的值就开始使用指针
+2. 程序员没有初始化栈上的指针，指针的值一般会是随机数，之后就直接开始使用指针。</p>
+<div class="highlight"><pre><span class="code-line"><span class="k">if</span> <span class="p">(</span><span class="n">anybuf</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">stream</span><span class="o">-&gt;</span> <span class="n">_cnt</span> <span class="o">!=</span><span class="mi">0</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="n">nbytes</span> <span class="o">=</span> <span class="p">(</span><span class="n">count</span> <span class="o">&lt;</span> <span class="n">stream</span><span class="o">-&gt;</span><span class="n">_cnt</span><span class="p">)</span> <span class="o">?</span> <span class="nl">count</span><span class="p">:</span> <span class="n">stream</span><span class="o">-&gt;</span><span class="n">_cnt</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">memcpy_s</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dataSize</span><span class="p">,</span> <span class="n">stream</span><span class="o">-&gt;</span><span class="n">_ptr</span><span class="p">,</span> <span class="n">nbytes</span><span class="p">);</span></span>
+<span class="code-line">    <span class="n">count</span> <span class="o">-=</span> <span class="n">bytes</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">stream</span><span class="o">-&gt;</span><span class="n">_cnt</span> <span class="o">-=</span> <span class="n">nbytes</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">stream</span><span class="o">-&gt;</span><span class="n">_ptr</span> <span class="o">+=</span> <span class="n">nbytes</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">data</span> <span class="o">++</span> <span class="n">nbytes</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">dataSize</span> <span class="o">-=</span> <span class="n">nbytes</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+<section>
+<div class="accordion" id="accordion2">
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle disqus-comment-count" data-toggle="collapse" data-parent="#accordion2"
+                href="../../../../../blog/2014/10/05/compilation-link-load/#disqus_thread">
+                Comments
+            </a>
+        </div>
+        <div id="disqus_thread" class="accordion-body collapse">
+            <div class="accordion-inner">
+                <div class="comments">
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'houcj';
+
+
+    (function() {
+         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+            
+
+            <hr/>
+
+            </aside>
+        </div>
+        <section>
+        <div class="span2" style="float:right;font-size:0.9em;">
+ 
+            <h4>Published</h4>
+            <time pubdate="pubdate" datetime="2014-10-05T14:26:00+08:00">Oct 5, 2014</time>
+            <h4>Category</h4>
+            <a class="category-link" href="/categories.html#计算机科学-ref">计算机科学</a> 
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article"> 
+                <li><a href="/tags.html#编译原理-ref">编译原理
+                    <span>1</span>
+</a></li>
+            </ul>
+<h4>Contact</h4>
+    <a href="https://twitter.com/chaojunhou" title="My Twitter Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-twitter sidebar-social-links"></i></a>
+    <a href="https://www.tumblr.com/blog/houcj" title="My Tumblr Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-tumblr sidebar-social-links"></i></a>
+    <a href="https://github.com/chaojunhou" title="My Github Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-github sidebar-social-links"></i></a>
+            <h4>Blogroll</h4>
+			<ul ><a class="category-link" href="http://www.rudy-yuan.net">Rudy-yuan</a></ul>
+            <ul ><a class="category-link" href="http://www.wengweitao.com">WWT</a></ul>
+            <ul ><a class="category-link" href="http://hult.tiddlyspot.com">HULT</a></ul>
+       
+        </div>
+        </section>
+</div>
+</article>
+                </div>
+                <div class="span1"></div>
+            </div>
+        </div>
+        <div id="push"></div>
+    </div>
+        
+            <script src="http://code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+<script type="text/javascript">
+    var disqus_shortname = 'houcj';
+
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+    </script>
+        <script  language="javascript" type="text/javascript">
+            function uncollapse() {
+                var hash_str = window.location.hash;
+                if (window.location.hash.match(/^#comment-\d+$/))
+                {
+                    var hash_str = '#disqus_thread';
+                }
+                $(hash_str).collapse({
+                    toggle: true
+                    })
+            }
+        </script>
+
+        <script type="text/javascript" language="JavaScript">
+            uncollapse(); 
+        </script>
+    </body>
+      <!-- Baidu Button BEGIN 
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"6","bdPos":"right","bdTop":"250"},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+ <!-- Baidu Button END -->
+  </body>
+
+  <!-- hitwebcounter Code START -->
+
+<img src="http://hitwebcounter.com/counter/counter.php?page=6046616&style=0005&nbdigits=5&type=ip&initCount=0" title="" Alt=""   border="0" style="float:left">  
+
+</html>
