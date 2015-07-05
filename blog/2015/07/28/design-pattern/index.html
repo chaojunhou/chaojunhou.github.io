@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="utf-8"> 
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="google-site-verification" content="fdZTDVFyX3hKovPIzn1tgPixk_wysBXaPN8YQw1P8Jw" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="ChaoJun Hou" />
+        <meta name="copyright" content="ChaoJun Hou" />
+
+<meta name="keywords" content="CPP, 编程, " />
+
+<meta property="og:title" content="Design Pattern "/>
+<meta property="og:url" content="../../../../../blog/2015/07/28/design-pattern/" />
+<meta property="og:description" content="Singleton 单利模式是使用最广泛的设计模式，其意图是保证一个类只有一个实例，并提供一个访问它的 全局访问点。 可以定义一个单例类，使用类的私有静态指针变量指向类的唯一实例，并用一个公有的静态方法获取该实例 #实现__new__方法 #并在将一个类的实例绑定到类变量_instance上, #如果cls._instance为None说明该类还没有实例化过,实例化该类,如果cls._instance不为None,直接返回cls._instance class Singleton(object): def __new__(cls, *args, **kw): if not hasattr(cls, &#39;_instance&#39;): orig = super(Singleton, cls) cls._instance = orig.__new__(cls, *args, **kw) return cls._instance if __name__ == &#39;__main__&#39;: s1=Singleton() s2 ..." />
+<meta property="og:site_name" content="Write the Code" />
+<meta property="og:article:author" content="ChaoJun Hou" />
+<meta property="og:article:published_time" content="2015-07-28T21:13:00+08:00" />
+<meta name="twitter:title" content="Design Pattern ">
+<meta name="twitter:description" content="Singleton 单利模式是使用最广泛的设计模式，其意图是保证一个类只有一个实例，并提供一个访问它的 全局访问点。 可以定义一个单例类，使用类的私有静态指针变量指向类的唯一实例，并用一个公有的静态方法获取该实例 #实现__new__方法 #并在将一个类的实例绑定到类变量_instance上, #如果cls._instance为None说明该类还没有实例化过,实例化该类,如果cls._instance不为None,直接返回cls._instance class Singleton(object): def __new__(cls, *args, **kw): if not hasattr(cls, &#39;_instance&#39;): orig = super(Singleton, cls) cls._instance = orig.__new__(cls, *args, **kw) return cls._instance if __name__ == &#39;__main__&#39;: s1=Singleton() s2 ...">
+
+        <title>Design Pattern  · Change the World | Write the Code
+</title>
+       
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="../../../../../theme/css/style.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="../../../../../theme/css/solarizedlight.css" media="screen">
+        <link rel="shortcut icon" href="../../../../../theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="apple-touch-icon" href="../../../../../theme/images/apple-touch-icon.png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="../../../../../theme/images/apple-touch-icon-57x57.png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="../../../../../theme/images/apple-touch-icon-72x72.png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="../../../../../theme/images/apple-touch-icon-114x114.png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="../../../../../theme/images/apple-touch-icon-144x144.png" />
+        <link rel="icon" href="../../../../../theme/images/apple-touch-icon-144x144.png" />
+        <link href="www.houcj.net/feed.xml" type="application/rss+xml" rel="alternate" title="Write the Code - Full RSS Feed" />
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', '61957498', 'auto');
+    ga('send', 'pageview');
+</script>
+
+    </head>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-61957498-1', 'auto');
+  ga('send', 'pageview');
+
+	</script>
+    <body>
+        <div id="content-sans-footer">
+        <div class="navbar navbar-static-top">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../../../../"><span class=site-name>Write the Code</span></a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav pull-right top-menu">
+                            <li ><a href="../../../../..">Home</a></li>
+                            <li ><a href="../../../../../pages/About.html">About</a></li>
+                            <li ><a href="../../../../../random.html">Pick One!</a></li>
+                            <li ><a href="../../../../../categories.html">分类</a></li>
+                            <li ><a href="../../../../../tags.html">标签</a></li>
+                            <li ><a href="../../../../../archives.html">归档</a></li>
+                            <li><form class="navbar-search" action="../../../../../search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span1"></div>
+                <div class="span10">
+<article>
+<div class="row-fluid">
+    <header class="page_header span10 offset2">
+    <h1><a href="../../../../../blog/2015/07/28/design-pattern/"> Design Pattern  </a></h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+    <div class="span2 table-of-content">
+        <nav>
+        <h4>Contents</h4>
+        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="Design Pattern">Design Pattern</a><ul><li><a class="toc-href" href="#singleton" title="Singleton">Singleton</a></li></ul></li></ul></div></body></html>
+        </nav>
+    </div>
+    <div class="span8 article-content">
+
+            <hr/>
+<h2 id="singleton">Singleton</h2>
+<p>单利模式是使用最广泛的设计模式，其意图是保证一个类只有一个实例，并提供一个访问它的
+全局访问点。</p>
+<p>可以定义一个单例类，使用类的私有静态指针变量指向类的唯一实例，并用一个公有的静态方法获取该实例</p>
+<div class="highlight"><pre><span class="code-line"><span class="c">#实现__new__方法  </span></span>
+<span class="code-line"><span class="c">#并在将一个类的实例绑定到类变量_instance上,  </span></span>
+<span class="code-line"><span class="c">#如果cls._instance为None说明该类还没有实例化过,实例化该类,如果cls._instance不为None,直接返回cls._instance  </span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">class</span> <span class="nc">Singleton</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  </span>
+<span class="code-line">    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>  </span>
+<span class="code-line">        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="s">'_instance'</span><span class="p">):</span>  </span>
+<span class="code-line">            <span class="n">orig</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">Singleton</span><span class="p">,</span> <span class="n">cls</span><span class="p">)</span>  </span>
+<span class="code-line">            <span class="n">cls</span><span class="o">.</span><span class="n">_instance</span> <span class="o">=</span> <span class="n">orig</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>  </span>
+<span class="code-line">        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">_instance</span></span>
+<span class="code-line"><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>                                                                                             </span>
+<span class="code-line">    <span class="n">s1</span><span class="o">=</span><span class="n">Singleton</span><span class="p">()</span></span>
+<span class="code-line">    <span class="n">s2</span><span class="o">=</span><span class="n">Singleton</span><span class="p">()</span></span>
+<span class="code-line">    <span class="k">if</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">s1</span><span class="p">)</span><span class="o">==</span><span class="nb">id</span><span class="p">(</span><span class="n">s2</span><span class="p">)):</span></span>
+<span class="code-line">        <span class="k">print</span> <span class="s">"Same"</span></span>
+<span class="code-line">    <span class="k">else</span><span class="p">:</span></span>
+<span class="code-line">        <span class="k">print</span> <span class="s">"Different"</span></span>
+</pre></div>
+<p>下面是CPP版本</p>
+<div class="highlight"><pre><span class="code-line"><span class="k">class</span> <span class="nc">Singleton</span> <span class="p">{</span></span>
+<span class="code-line"><span class="k">public</span><span class="o">:</span></span>
+<span class="code-line">    <span class="k">static</span> <span class="n">Singleton</span><span class="o">&amp;</span> <span class="n">Instance</span><span class="p">()</span> <span class="p">{</span></span>
+<span class="code-line">        <span class="k">static</span> <span class="n">Singleton</span> <span class="n">theSingleton</span><span class="p">;</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">theSingleton</span><span class="p">;</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="cm">/* more (non-static) functions here */</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">private</span><span class="o">:</span></span>
+<span class="code-line">    <span class="n">Singleton</span><span class="p">(){};</span>                            <span class="c1">// ctor hidden</span></span>
+<span class="code-line">    <span class="n">Singleton</span><span class="p">(</span><span class="n">Singleton</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">){};</span>            <span class="c1">// copy ctor hidden</span></span>
+<span class="code-line">    <span class="n">Singleton</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">Singleton</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">);{}</span> <span class="c1">// assign op. hidden</span></span>
+<span class="code-line">    <span class="o">~</span><span class="n">Singleton</span><span class="p">()</span> <span class="p">{};</span>                           <span class="c1">// dtor hidden</span></span>
+<span class="code-line"><span class="p">};</span></span>
+<span class="code-line"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="n">Singleton</span> <span class="o">&amp;</span><span class="n">p</span> <span class="o">=</span> <span class="n">Singleton</span><span class="o">::</span><span class="n">Instance</span><span class="p">()</span> <span class="p">;</span></span>
+<span class="code-line">    <span class="n">Singleton</span> <span class="o">&amp;</span><span class="n">q</span> <span class="o">=</span> <span class="n">Singleton</span><span class="o">::</span><span class="n">Instance</span><span class="p">();</span></span>
+<span class="code-line">    <span class="n">printf</span><span class="p">(</span><span class="s">"%p</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">p</span><span class="p">);</span></span>
+<span class="code-line">    <span class="n">printf</span><span class="p">(</span><span class="s">"%p</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="o">&amp;</span><span class="n">q</span><span class="p">);</span></span>
+<span class="code-line">    <span class="n">cin</span><span class="p">.</span><span class="n">get</span><span class="p">();</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+<p>一个线程安全的版本</p>
+<div class="highlight"><pre><span class="code-line"><span class="k">volatile</span> <span class="n">Singleton</span><span class="o">*</span> <span class="n">pInst</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line"><span class="k">static</span> <span class="n">Singleton</span><span class="o">&amp;</span> <span class="n">GetInstance</span><span class="p">()</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="n">pInst</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span></span>
+<span class="code-line">        <span class="p">{</span></span>
+<span class="code-line">            <span class="n">lock</span><span class="p">();</span></span>
+<span class="code-line">            <span class="k">if</span> <span class="p">(</span><span class="n">pInst</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span></span>
+<span class="code-line">                <span class="n">pInst</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Singelton</span><span class="p">();</span></span>
+<span class="code-line">            <span class="n">unlock</span><span class="p">();</span></span>
+<span class="code-line">        <span class="p">}</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="o">*</span><span class="n">pInst</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+<p>C++里的new包含了两个步骤：
+1. 内存分配
+2. 调用构造函数</p>
+<p>同时C++标准中规定，如果内存分配失败，或者构造函数没有成功执行， new运算符所返回的将是空。</p>
+<section>
+<div class="accordion" id="accordion2">
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle disqus-comment-count" data-toggle="collapse" data-parent="#accordion2"
+                href="../../../../../blog/2015/07/28/design-pattern/#disqus_thread">
+                Comments
+            </a>
+        </div>
+        <div id="disqus_thread" class="accordion-body collapse">
+            <div class="accordion-inner">
+                <div class="comments">
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'houcj';
+
+
+    (function() {
+         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+            
+
+            <hr/>
+<section>
+    <h2>Related Posts</h2>
+<ul class="related-posts-list">
+<li><a href="../../../../../blog/2015/06/13/cpp/" title="CPP Primer">CPP Primer</a></li>
+<li><a href="../../../../../blog/2015/07/19/inside-cpp/" title="Inside the CPP Object Model">Inside the CPP Object Model</a></li>
+</ul>
+<hr />
+</section>
+
+            </aside>
+        </div>
+        <section>
+        <div class="span2" style="float:right;font-size:0.9em;">
+ 
+            <h4>Published</h4>
+            <time pubdate="pubdate" datetime="2015-07-28T21:13:00+08:00">Jul 28, 2015</time>
+            <h4>Category</h4>
+            <a class="category-link" href="/categories.html#编程-ref">编程</a> 
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article"> 
+                <li><a href="/tags.html#CPP-ref">CPP
+                    <span>3</span>
+</a></li>
+            </ul>
+<h4>Contact</h4>
+    <a href="https://twitter.com/chaojunhou" title="My Twitter Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-twitter sidebar-social-links"></i></a>
+    <a href="https://www.tumblr.com/blog/houcj" title="My Tumblr Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-tumblr sidebar-social-links"></i></a>
+    <a href="https://github.com/chaojunhou" title="My Github Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-github sidebar-social-links"></i></a>
+            <h4>Blogroll</h4>
+			<ul ><a class="category-link" href="http://www.rudy-yuan.net">Rudy-yuan</a></ul>
+            <ul ><a class="category-link" href="http://www.wengweitao.com">WWT</a></ul>
+            <ul ><a class="category-link" href="http://hult.tiddlyspot.com">HULT</a></ul>
+       
+        </div>
+        </section>
+</div>
+</article>
+                </div>
+                <div class="span1"></div>
+            </div>
+        </div>
+        <div id="push"></div>
+    </div>
+        
+            <script src="http://code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+<script type="text/javascript">
+    var disqus_shortname = 'houcj';
+
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+    </script>
+        <script  language="javascript" type="text/javascript">
+            function uncollapse() {
+                var hash_str = window.location.hash;
+                if (window.location.hash.match(/^#comment-\d+$/))
+                {
+                    var hash_str = '#disqus_thread';
+                }
+                $(hash_str).collapse({
+                    toggle: true
+                    })
+            }
+        </script>
+
+        <script type="text/javascript" language="JavaScript">
+            uncollapse(); 
+        </script>
+    </body>
+      <!-- Baidu Button BEGIN 
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"6","bdPos":"right","bdTop":"250"},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+ <!-- Baidu Button END -->
+  </body>
+
+  <!-- hitwebcounter Code START -->
+
+<img src="http://hitwebcounter.com/counter/counter.php?page=6046616&style=0005&nbdigits=5&type=ip&initCount=0" title="" Alt=""   border="0" style="float:left">  
+
+</html>
