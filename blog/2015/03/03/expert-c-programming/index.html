@@ -310,6 +310,18 @@
 <p>答：如下：</p>
 <div class="highlight"><pre><span class="code-line"><span class="kt">int</span> <span class="n">func</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">ptr</span><span class="p">)</span> </span>
 </pre></div>
+<ul>
+<li>数组和指针</li>
+</ul>
+<p>数组名a本身就是指针，在加上取地址符&amp;，就变成了一个双指针，如果a是一维数组对应的
+&amp;a就是二维数组，&amp;a+1就是数组整体加一行。</p>
+<ul>
+<li>空指针和悬挂指针</li>
+</ul>
+<p>当delete一个指针的时候，实际上仅是让编译器释放内存，但指针本身依然存在，这时它就是一个
+悬挂指针，可以通过下面的语句使悬挂指针成为空指针。</p>
+<div class="highlight"><pre><span class="code-line"><span class="n">ptr</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
+</pre></div>
 <p>如果这个函数的参数超过一个，那么这个函数应该由一个结构体来调用，
 这个结构体可以由需要传递参数来填充。
 - 大端和小端 （数据在内存中的字节排列顺序）
