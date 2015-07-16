@@ -177,7 +177,7 @@ static对象，无论是局部的还是全局的，在多线程情况下都会�
 包括vptr指针和vtbl函数表。</p>
 <p>virtual 函数系动态绑定而来，意思是调用一个virtual函数时，究竟调用哪一份函数实现代码，取决于发出调用的那个对象的动态类型。</p>
 <h3 id="_7">编译期多态 &amp; 运行期多态</h3>
-<p>哪一个重载函数该被调用（发生在编译期）和哪一个virtual函数该被绑定（发生在运行期）。      ，，，</p>
+<p>哪一个重载函数该被调用（发生在编译期）和哪一个virtual函数该被绑定（发生在运行期）。     </p>
 <h2 id="_9">头文件</h2>
 <h3 id="include">include 的尖括号（&lt;&gt;）和双引号("")的区别</h3>
 <ul>
@@ -336,7 +336,8 @@ ru, dir/foo.cc的主要作用是测试或实现dir2/foo2.h的功能，foo.cc中�
 <li>polymorphic base classes应该声明一个virtual 析构函数。如果class带有任何virtual 函数，它就拥有一个virtual析构函数</li>
 <li>classes的设计目的如果不是作为base classes使用，或不是为了具备多态性，就不该声明virtual析构函数</li>
 <li>析构函数绝对不要throw异常。如果一个被析构函数调用的函数可能抛出异常，析构函数应该捕获任何异常，然后不传播或结束程序</li>
-<li>如果客户需要对某个操作函数运行期间抛出的异常做出反应，那么class应该提供一个普通函数执行该操作。</li>
+<li>如果客户需要对某个操作函数</li>
+<li>运行期间抛出的异常做出反应，那么class应该提供一个普通函数执行该操作。</li>
 <li>在构造和析构期间不要调用virutal函数，因为这类调用从不下降至derived class。</li>
 <li>赋值操作符返回一个 reference to *this</li>
 <li>确保当对象自我赋值时operator=有良好行为。其中技术包括比较来源对象和目标对象的地址、语句的顺序、以及copy-and-swap</li>
@@ -363,9 +364,9 @@ ru, dir/foo.cc的主要作用是测试或实现dir2/foo2.h的功能，foo.cc中�
 <span class="code-line"><span class="p">{</span></span>
 <span class="code-line"><span class="kt">int</span> <span class="n">client</span> <span class="o">=</span> <span class="p">(</span><span class="kt">intptr_t</span><span class="p">)</span><span class="n">client1</span><span class="p">;</span></span>
 <span class="code-line"><span class="c1">// 省略</span></span>
-<span class="code-line"><span class="err">同时注意此函数</span><span class="mi">77</span> <span class="err">和</span><span class="mi">129</span><span class="err">行改为</span><span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span></span>
-<span class="code-line"><span class="mi">497</span><span class="err">行改为</span><span class="k">if</span> <span class="p">(</span><span class="n">pthread_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">newthread</span> <span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">accept_request</span><span class="p">,</span> <span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)(</span><span class="kt">intptr_t</span><span class="p">)</span><span class="n">client_sock</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span></span>
-<span class="code-line"><span class="err">之后再</span><span class="n">make</span><span class="err">，程序就</span><span class="n">OK</span><span class="err">了。</span></span>
+<span class="code-line"><span class="c1">//同时注意此函数77 和129行改为return NULL;</span></span>
+<span class="code-line"><span class="c1">//497行改为if (pthread_create(&amp;newthread , NULL, accept_request, (void*)(intptr_t)client_sock) != 0)</span></span>
+<span class="code-line"><span class="c1">//之后再make，程序就OK了。</span></span>
 </pre></div>
 <section>
 <div class="accordion" id="accordion2">
@@ -404,7 +405,7 @@ ru, dir/foo.cc的主要作用是测试或实现dir2/foo2.h的功能，foo.cc中�
     <h2>Related Posts</h2>
 <ul class="related-posts-list">
 <li><a href="../../../../../blog/2015/06/13/cpp/" title="CPP Primer">CPP Primer</a></li>
-<li><a href="../../../../../blog/2015/06/14/More-efective-cpp/" title="More efective cpp">More efective cpp</a></li>
+<li><a href="../../../../../blog/2015/07/14/More-efective-cpp/" title="More efective cpp">More efective cpp</a></li>
 <li><a href="../../../../../blog/2015/07/19/inside-cpp/" title="Inside the CPP Object Model">Inside the CPP Object Model</a></li>
 <li><a href="../../../../../blog/2015/07/28/design-pattern/" title="Design Pattern">Design Pattern</a></li>
 </ul>

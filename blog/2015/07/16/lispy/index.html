@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="utf-8"> 
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="google-site-verification" content="fdZTDVFyX3hKovPIzn1tgPixk_wysBXaPN8YQw1P8Jw" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="ChaoJun Hou" />
+        <meta name="copyright" content="ChaoJun Hou" />
+
+<meta name="keywords" content="解释器, 编程, " />
+
+<meta property="og:title" content="A Lisp Interpreter in Python "/>
+<meta property="og:url" content="../../../../../blog/2015/07/16/lispy/" />
+<meta property="og:description" content="解释器是如何工作的 解释器主要分为两部分：解析（parse）和求值（eval）。解析包括词法分析和语法分析，语义分析，生成语法树。 求值包括作用域，类型处理和语法树遍历。 programs (str) ➡ parse ➡ abstract syntax tree (list) ➡ eval ➡ result (object) 解析 词法分析负责把源程序解析成词法单元token，方便以后语义分析中利用这些token生成抽象语法树。Scheme中的tokens 主要是括号，符号和数字。这里使用python内置的str.split()来进行见到的操作。 def tokenize(s): &#34;Convert a string into a list of tokens.&#34; return s.replace(&#39;(&#39;,&#39; ( &#39;).replace(&#39;)&#39;,&#39; ) &#39;).split() def read_from_tokens(tokens): &#34;Read ..." />
+<meta property="og:site_name" content="Write the Code" />
+<meta property="og:article:author" content="ChaoJun Hou" />
+<meta property="og:article:published_time" content="2015-07-16T15:49:00+08:00" />
+<meta name="twitter:title" content="A Lisp Interpreter in Python ">
+<meta name="twitter:description" content="解释器是如何工作的 解释器主要分为两部分：解析（parse）和求值（eval）。解析包括词法分析和语法分析，语义分析，生成语法树。 求值包括作用域，类型处理和语法树遍历。 programs (str) ➡ parse ➡ abstract syntax tree (list) ➡ eval ➡ result (object) 解析 词法分析负责把源程序解析成词法单元token，方便以后语义分析中利用这些token生成抽象语法树。Scheme中的tokens 主要是括号，符号和数字。这里使用python内置的str.split()来进行见到的操作。 def tokenize(s): &#34;Convert a string into a list of tokens.&#34; return s.replace(&#39;(&#39;,&#39; ( &#39;).replace(&#39;)&#39;,&#39; ) &#39;).split() def read_from_tokens(tokens): &#34;Read ...">
+
+        <title>A Lisp Interpreter in Python  · Change the World | Write the Code
+</title>
+       
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="../../../../../theme/css/style.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="../../../../../theme/css/solarizedlight.css" media="screen">
+        <link rel="shortcut icon" href="../../../../../theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="apple-touch-icon" href="../../../../../theme/images/apple-touch-icon.png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="../../../../../theme/images/apple-touch-icon-57x57.png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="../../../../../theme/images/apple-touch-icon-72x72.png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="../../../../../theme/images/apple-touch-icon-114x114.png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="../../../../../theme/images/apple-touch-icon-144x144.png" />
+        <link rel="icon" href="../../../../../theme/images/apple-touch-icon-144x144.png" />
+        <link href="www.houcj.net/feed.xml" type="application/rss+xml" rel="alternate" title="Write the Code - Full RSS Feed" />
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', '61957498', 'auto');
+    ga('send', 'pageview');
+</script>
+
+    </head>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-61957498-1', 'auto');
+  ga('send', 'pageview');
+
+	</script>
+    <body>
+        <div id="content-sans-footer">
+        <div class="navbar navbar-static-top">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../../../../"><span class=site-name>Write the Code</span></a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav pull-right top-menu">
+                            <li ><a href="../../../../..">Home</a></li>
+                            <li ><a href="../../../../../pages/About.html">About</a></li>
+                            <li ><a href="../../../../../random.html">Pick One!</a></li>
+                            <li ><a href="../../../../../categories.html">分类</a></li>
+                            <li ><a href="../../../../../tags.html">标签</a></li>
+                            <li ><a href="../../../../../archives.html">归档</a></li>
+                            <li><form class="navbar-search" action="../../../../../search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span1"></div>
+                <div class="span10">
+<article>
+<div class="row-fluid">
+    <header class="page_header span10 offset2">
+    <h1><a href="../../../../../blog/2015/07/16/lispy/"> A Lisp Interpreter in Python  </a></h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+    <div class="span2 table-of-content">
+        <nav>
+        <h4>Contents</h4>
+        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="A Lisp Interpreter in Python">A Lisp Interpreter in Python</a><ul><li><a class="toc-href" href="#_1" title="解释器是如何工作的">解释器是如何工作的</a><ul><li><a class="toc-href" href="#_2" title="解析">解析</a></li><li><a class="toc-href" href="#_3" title="环境">环境</a></li><li><a class="toc-href" href="#_4" title="求值">求值</a></li></ul></li></ul></li></ul></div></body></html>
+        </nav>
+    </div>
+    <div class="span8 article-content">
+
+            <hr/>
+<h2 id="_1">解释器是如何工作的</h2>
+<p>解释器主要分为两部分：解析（parse）和求值（eval）。解析包括词法分析和语法分析，语义分析，生成语法树。
+求值包括作用域，类型处理和语法树遍历。</p>
+<p>programs (str) ➡ parse ➡ abstract syntax tree (list) ➡ eval ➡ result (object)</p>
+<h3 id="_2">解析</h3>
+<p>词法分析负责把源程序解析成词法单元token，方便以后语义分析中利用这些token生成抽象语法树。Scheme中的tokens
+主要是括号，符号和数字。这里使用python内置的str.split()来进行见到的操作。</p>
+<div class="highlight"><pre><span class="code-line"><span class="k">def</span> <span class="nf">tokenize</span><span class="p">(</span><span class="n">s</span><span class="p">):</span></span>
+<span class="code-line">    <span class="s">"Convert a string into a list of tokens."</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">'('</span><span class="p">,</span><span class="s">' ( '</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">')'</span><span class="p">,</span><span class="s">' ) '</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">()</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">def</span> <span class="nf">read_from_tokens</span><span class="p">(</span><span class="n">tokens</span><span class="p">):</span></span>
+<span class="code-line">    <span class="s">"Read an expression from a sequence of tokens."</span></span>
+<span class="code-line">    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span></span>
+<span class="code-line">        <span class="k">raise</span> <span class="ne">SyntaxError</span><span class="p">(</span><span class="s">'unexpected EOF while reading'</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">token</span> <span class="o">=</span> <span class="n">tokens</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="c"># get the token from the front</span></span>
+<span class="code-line">    <span class="k">if</span> <span class="s">'('</span> <span class="o">==</span> <span class="n">token</span><span class="p">:</span></span>
+<span class="code-line">        <span class="n">L</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="code-line">        <span class="k">while</span> <span class="n">tokens</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s">')'</span><span class="p">:</span></span>
+<span class="code-line">            <span class="n">L</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">read_from_tokens</span><span class="p">(</span><span class="n">tokens</span><span class="p">))</span></span>
+<span class="code-line">        <span class="n">tokens</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="c"># pop off ')'</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">L</span></span>
+<span class="code-line">    <span class="k">elif</span> <span class="s">')'</span> <span class="o">==</span> <span class="n">token</span><span class="p">:</span></span>
+<span class="code-line">        <span class="k">raise</span> <span class="ne">SyntaxError</span><span class="p">(</span><span class="s">'unexpected )'</span><span class="p">)</span></span>
+<span class="code-line">    <span class="k">else</span><span class="p">:</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">atom</span><span class="p">(</span><span class="n">token</span><span class="p">)</span></span>
+</pre></div>
+<h3 id="_3">环境</h3>
+<p>eval 函数里有两个参数，表达式x和环境env，环境用来map变量的名字到变量的值中。环境里有两个方法__init__用来根据形参(parameter)和实参
+(argument)来为inner 部分构造一个{variable: value}pair，同时也引用到给定的外部环境。find方法用来找到正确的执行环境。</p>
+<div class="highlight"><pre><span class="code-line"><span class="k">class</span> <span class="nc">Env</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span></span>
+<span class="code-line">    <span class="s">"An environment: a dict of {'var':val} pairs, with an outer Env."</span></span>
+<span class="code-line">    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parms</span><span class="o">=</span><span class="p">(),</span> <span class="n">args</span><span class="o">=</span><span class="p">(),</span> <span class="n">outer</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span></span>
+<span class="code-line">        <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">parms</span><span class="p">,</span> <span class="n">args</span><span class="p">))</span></span>
+<span class="code-line">        <span class="bp">self</span><span class="o">.</span><span class="n">outer</span> <span class="o">=</span> <span class="n">outer</span></span>
+<span class="code-line">    <span class="k">def</span> <span class="nf">find</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="p">):</span></span>
+<span class="code-line">        <span class="s">"Find the innermost Env where var appears."</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="bp">self</span> <span class="k">if</span> <span class="p">(</span><span class="n">var</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">)</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">outer</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">var</span><span class="p">)</span></span>
+</pre></div>
+<h3 id="_4">求值</h3>
+<p>对于基础操作的求值可根据Scheme里token所代表的意思用python的方式执行即可。
+但对于一个过程操作，当我们在一个嵌套的环境中查找一个变量的时候,我们首先在内层环境中查找，如果找不到的话，我们就到它的外层去查找。
+每个过程一般都有三个部分组成：参数列表，函数主体，函数内的环境用来确定变量作用的范围。</p>
+<div class="highlight"><pre><span class="code-line"><span class="k">class</span> <span class="nc">Procedure</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span></span>
+<span class="code-line">    <span class="s">"A user-defined Scheme procedure."</span></span>
+<span class="code-line">    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parms</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">env</span><span class="p">):</span></span>
+<span class="code-line">        <span class="bp">self</span><span class="o">.</span><span class="n">parms</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">body</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span> <span class="o">=</span> <span class="n">parms</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">env</span></span>
+<span class="code-line">    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> </span>
+<span class="code-line">        <span class="k">return</span> <span class="nb">eval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">body</span><span class="p">,</span> <span class="n">Env</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parms</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="p">))</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="c">################ eval</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">def</span> <span class="nf">eval</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">global_env</span><span class="p">):</span></span>
+<span class="code-line">    <span class="s">"Evaluate an expression in an environment."</span></span>
+<span class="code-line">    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Symbol</span><span class="p">):</span>      <span class="c"># variable reference</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">env</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">x</span><span class="p">)[</span><span class="n">x</span><span class="p">]</span></span>
+<span class="code-line">    <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">List</span><span class="p">):</span>  <span class="c"># constant literal</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">x</span>                </span>
+<span class="code-line">    <span class="k">elif</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s">'quote'</span><span class="p">:</span>          <span class="c"># (quote exp)</span></span>
+<span class="code-line">        <span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">exp</span><span class="p">)</span> <span class="o">=</span> <span class="n">x</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">exp</span></span>
+<span class="code-line">    <span class="k">elif</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s">'if'</span><span class="p">:</span>             <span class="c"># (if test conseq alt)</span></span>
+<span class="code-line">        <span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">test</span><span class="p">,</span> <span class="n">conseq</span><span class="p">,</span> <span class="n">alt</span><span class="p">)</span> <span class="o">=</span> <span class="n">x</span></span>
+<span class="code-line">        <span class="n">exp</span> <span class="o">=</span> <span class="p">(</span><span class="n">conseq</span> <span class="k">if</span> <span class="nb">eval</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">env</span><span class="p">)</span> <span class="k">else</span> <span class="n">alt</span><span class="p">)</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="nb">eval</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">env</span><span class="p">)</span></span>
+<span class="code-line">    <span class="k">elif</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s">'define'</span><span class="p">:</span>         <span class="c"># (define var exp)</span></span>
+<span class="code-line">        <span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">exp</span><span class="p">)</span> <span class="o">=</span> <span class="n">x</span></span>
+<span class="code-line">        <span class="n">env</span><span class="p">[</span><span class="n">var</span><span class="p">]</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">env</span><span class="p">)</span></span>
+<span class="code-line">    <span class="k">elif</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s">'set!'</span><span class="p">:</span>           <span class="c"># (set! var exp)</span></span>
+<span class="code-line">        <span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">exp</span><span class="p">)</span> <span class="o">=</span> <span class="n">x</span></span>
+<span class="code-line">        <span class="n">env</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">var</span><span class="p">)[</span><span class="n">var</span><span class="p">]</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">env</span><span class="p">)</span></span>
+<span class="code-line">    <span class="k">elif</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s">'lambda'</span><span class="p">:</span>         <span class="c"># (lambda (var...) body)</span></span>
+<span class="code-line">        <span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">parms</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span> <span class="o">=</span> <span class="n">x</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">Procedure</span><span class="p">(</span><span class="n">parms</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">env</span><span class="p">)</span></span>
+<span class="code-line">    <span class="k">else</span><span class="p">:</span>                          <span class="c"># (proc arg...)</span></span>
+<span class="code-line">        <span class="n">proc</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">env</span><span class="p">)</span></span>
+<span class="code-line">        <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="nb">eval</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">env</span><span class="p">)</span> <span class="k">for</span> <span class="n">exp</span> <span class="ow">in</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">:]]</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">proc</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span></span>
+</pre></div>
+<p>完成代码见<a href="">Github</a></p>
+<section>
+<div class="accordion" id="accordion2">
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle disqus-comment-count" data-toggle="collapse" data-parent="#accordion2"
+                href="../../../../../blog/2015/07/16/lispy/#disqus_thread">
+                Comments
+            </a>
+        </div>
+        <div id="disqus_thread" class="accordion-body collapse">
+            <div class="accordion-inner">
+                <div class="comments">
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'houcj';
+
+
+    (function() {
+         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+            
+
+            <hr/>
+
+            </aside>
+        </div>
+        <section>
+        <div class="span2" style="float:right;font-size:0.9em;">
+ 
+            <h4>Published</h4>
+            <time pubdate="pubdate" datetime="2015-07-16T15:49:00+08:00">Jul 16, 2015</time>
+            <h4>Category</h4>
+            <a class="category-link" href="/categories.html#编程-ref">编程</a> 
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article"> 
+                <li><a href="/tags.html#解释器-ref">解释器
+                    <span>1</span>
+</a></li>
+            </ul>
+<h4>Contact</h4>
+    <a href="https://twitter.com/chaojunhou" title="My Twitter Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-twitter sidebar-social-links"></i></a>
+    <a href="https://www.tumblr.com/blog/houcj" title="My Tumblr Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-tumblr sidebar-social-links"></i></a>
+    <a href="https://github.com/chaojunhou" title="My Github Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-github sidebar-social-links"></i></a>
+            <h4>Blogroll</h4>
+			<ul ><a class="category-link" href="http://www.rudy-yuan.net">Rudy-yuan</a></ul>
+            <ul ><a class="category-link" href="http://www.wengweitao.com">WWT</a></ul>
+            <ul ><a class="category-link" href="http://hult.tiddlyspot.com">HULT</a></ul>
+       
+        </div>
+        </section>
+</div>
+</article>
+                </div>
+                <div class="span1"></div>
+            </div>
+        </div>
+        <div id="push"></div>
+    </div>
+        
+            <script src="http://code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+<script type="text/javascript">
+    var disqus_shortname = 'houcj';
+
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+    </script>
+        <script  language="javascript" type="text/javascript">
+            function uncollapse() {
+                var hash_str = window.location.hash;
+                if (window.location.hash.match(/^#comment-\d+$/))
+                {
+                    var hash_str = '#disqus_thread';
+                }
+                $(hash_str).collapse({
+                    toggle: true
+                    })
+            }
+        </script>
+
+        <script type="text/javascript" language="JavaScript">
+            uncollapse(); 
+        </script>
+    </body>
+      <!-- Baidu Button BEGIN 
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"6","bdPos":"right","bdTop":"250"},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+ <!-- Baidu Button END -->
+  </body>
+
+  <!-- hitwebcounter Code START -->
+
+<img src="http://hitwebcounter.com/counter/counter.php?page=6046616&style=0005&nbdigits=5&type=ip&initCount=0" title="" Alt=""   border="0" style="float:left">  
+
+</html>
