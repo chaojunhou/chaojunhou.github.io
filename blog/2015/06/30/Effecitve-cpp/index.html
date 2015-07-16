@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="utf-8"> 
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="google-site-verification" content="fdZTDVFyX3hKovPIzn1tgPixk_wysBXaPN8YQw1P8Jw" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="ChaoJun Hou" />
+        <meta name="copyright" content="ChaoJun Hou" />
+
+<meta name="keywords" content="CPP, 编程, " />
+
+<meta property="og:title" content="Effecitve CPP "/>
+<meta property="og:url" content="../../../../../blog/2015/06/30/Effecitve-cpp/" />
+<meta property="og:description" content="尽量使用const STL迭代器以指针为根据塑造出来，所以迭代器的作用就像T 指针， 声明迭代器为const就像声明指针为const一样（即声明一个T const指针）。 如果希望迭代器不得指向不同的东西，但它所指的东西不可被改动，即希望STL 模拟一个const T* 指针，就需要使用const_iterator. 作用域 C++变量根据定义的位置的不同的生命周期，具有不同的作用域，作用域可分为6种：全局作用域，局部作用域，语句作用域，类作用域，命名空间作用域和文件作用域。 将函数变量尽可能置于最小作用域内，并在变量声明时进行初始化 PS：如果变量是一个对象，每次进入作用域都要调用其构造函数，每次退出作用域 都要调用其析构函数。 类 显式构造函数 对单个参数的构造函数使用C++关键字explicit class MyClass { public: MyClass( int num ); } MyClass obj = 1; //ok,convert int to MyClass // 会被编译器转化为下面的操作 ..." />
+<meta property="og:site_name" content="Write the Code" />
+<meta property="og:article:author" content="ChaoJun Hou" />
+<meta property="og:article:published_time" content="2015-06-30T21:13:00+08:00" />
+<meta name="twitter:title" content="Effecitve CPP ">
+<meta name="twitter:description" content="尽量使用const STL迭代器以指针为根据塑造出来，所以迭代器的作用就像T 指针， 声明迭代器为const就像声明指针为const一样（即声明一个T const指针）。 如果希望迭代器不得指向不同的东西，但它所指的东西不可被改动，即希望STL 模拟一个const T* 指针，就需要使用const_iterator. 作用域 C++变量根据定义的位置的不同的生命周期，具有不同的作用域，作用域可分为6种：全局作用域，局部作用域，语句作用域，类作用域，命名空间作用域和文件作用域。 将函数变量尽可能置于最小作用域内，并在变量声明时进行初始化 PS：如果变量是一个对象，每次进入作用域都要调用其构造函数，每次退出作用域 都要调用其析构函数。 类 显式构造函数 对单个参数的构造函数使用C++关键字explicit class MyClass { public: MyClass( int num ); } MyClass obj = 1; //ok,convert int to MyClass // 会被编译器转化为下面的操作 ...">
+
+        <title>Effecitve CPP  · Change the World | Write the Code
+</title>
+       
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="../../../../../theme/css/style.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="../../../../../theme/css/solarizedlight.css" media="screen">
+        <link rel="shortcut icon" href="../../../../../theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="apple-touch-icon" href="../../../../../theme/images/apple-touch-icon.png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="../../../../../theme/images/apple-touch-icon-57x57.png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="../../../../../theme/images/apple-touch-icon-72x72.png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="../../../../../theme/images/apple-touch-icon-114x114.png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="../../../../../theme/images/apple-touch-icon-144x144.png" />
+        <link rel="icon" href="../../../../../theme/images/apple-touch-icon-144x144.png" />
+        <link href="www.houcj.net/feed.xml" type="application/rss+xml" rel="alternate" title="Write the Code - Full RSS Feed" />
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', '61957498', 'auto');
+    ga('send', 'pageview');
+</script>
+
+    </head>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-61957498-1', 'auto');
+  ga('send', 'pageview');
+
+	</script>
+    <body>
+        <div id="content-sans-footer">
+        <div class="navbar navbar-static-top">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../../../../"><span class=site-name>Write the Code</span></a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav pull-right top-menu">
+                            <li ><a href="../../../../..">Home</a></li>
+                            <li ><a href="../../../../../pages/About.html">About</a></li>
+                            <li ><a href="../../../../../random.html">Pick One!</a></li>
+                            <li ><a href="../../../../../categories.html">分类</a></li>
+                            <li ><a href="../../../../../tags.html">标签</a></li>
+                            <li ><a href="../../../../../archives.html">归档</a></li>
+                            <li><form class="navbar-search" action="../../../../../search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span1"></div>
+                <div class="span10">
+<article>
+<div class="row-fluid">
+    <header class="page_header span10 offset2">
+    <h1><a href="../../../../../blog/2015/06/30/Effecitve-cpp/"> Effecitve CPP  </a></h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+    <div class="span2 table-of-content">
+        <nav>
+        <h4>Contents</h4>
+        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="Effecitve CPP">Effecitve CPP</a><ul><li><a class="toc-href" href="#const" title="尽量使用const">尽量使用const</a></li><li><a class="toc-href" href="#_1" title="作用域">作用域</a></li><li><a class="toc-href" href="#_2" title="类">类</a><ul><li><a class="toc-href" href="#_3" title="显式构造函数">显式构造函数</a></li><li><a class="toc-href" href="#_4" title="拷贝赋值构造函数">拷贝赋值构造函数</a></li><li><a class="toc-href" href="#_5" title="智能指针">智能指针</a></li><li><a class="toc-href" href="#placement-new-palcement-delete" title="placement new &amp; palcement delete">placement new &amp; palcement delete</a></li><li><a class="toc-href" href="#_6" title="确定对象被使用前已先被初始化">确定对象被使用前已先被初始化</a></li><li><a class="toc-href" href="#virtual" title="为多态基类声明virtual析构函数">为多态基类声明virtual析构函数</a></li><li><a class="toc-href" href="#_7" title="编译期多态 &amp; 运行期多态">编译期多态 &amp; 运行期多态</a></li></ul></li><li><a class="toc-href" href="#_9" title="头文件">头文件</a><ul><li><a class="toc-href" href="#include" title='include 的尖括号（&lt;&gt;）和双引号("")的区别'>include 的尖括号（）和双引号("")的区别</a></li><li><a class="toc-href" href="#define" title="define 保护">define 保护</a></li><li><a class="toc-href" href="#_10" title="头文件依赖">头文件依赖</a></li><li><a class="toc-href" href="#include_1" title="#include 的路径及顺序">#include 的路径及顺序</a></li><li><a class="toc-href" href="#copy-and-swap" title="copy and swap">copy and swap</a></li><li><a class="toc-href" href="#alloc-malloc" title="alloc &amp; malloc">alloc &amp; malloc</a></li><li><a class="toc-href" href="#cpp" title="CPP 创建对象的两种方式">CPP 创建对象的两种方式</a></li><li><a class="toc-href" href="#mallocfreenewdelete" title="malloc/free与new/delete的区别">malloc/free与new/delete的区别</a></li><li><a class="toc-href" href="#_11" title="指针和引用">指针和引用</a></li><li><a class="toc-href" href="#vtable" title="虚函数表vtable的存储位置">虚函数表vtable的存储位置</a></li><li><a class="toc-href" href="#traits-class" title="Traits class">Traits class</a></li><li><a class="toc-href" href="#iostream-stdio" title="iostream &amp; stdio">iostream &amp; stdio</a></li><li><a class="toc-href" href="#_12" title="类成员初始化">类成员初始化</a></li><li><a class="toc-href" href="#exceptionsdestructors" title="避免exceptions传出destructors之外">避免exceptions传出destructors之外</a></li><li><a class="toc-href" href="#virtual_1" title="如何不使用virtual函数来实现多态">如何不使用virtual函数来实现多态</a></li><li><a class="toc-href" href="#cpp_1" title="CPP正负下标">CPP正负下标</a></li><li><a class="toc-href" href="#vector" title="vector简单优化 ###">vector简单优化 ###</a></li></ul></li><li><a class="toc-href" href="#ps_1" title="PS">PS</a></li><li><a class="toc-href" href="#httpd" title="httpd源码学习">httpd源码学习</a></li></ul></li></ul></div></body></html>
+        </nav>
+    </div>
+    <div class="span8 article-content">
+
+            <hr/>
+<h2 id="const">尽量使用const</h2>
+<p>STL迭代器以指针为根据塑造出来，所以迭代器的作用就像T<em> 指针，
+声明迭代器为const就像声明指针为const一样（即声明一个T</em> const指针）。
+如果希望迭代器不得指向不同的东西，但它所指的东西不可被改动，即希望STL
+模拟一个const T* 指针，就需要使用const_iterator.</p>
+<h2 id="_1">作用域</h2>
+<p>C++变量根据定义的位置的不同的生命周期，具有不同的作用域，作用域可分为6种：全局作用域，局部作用域，语句作用域，类作用域，命名空间作用域和文件作用域。</p>
+<blockquote>
+<p>将函数变量尽可能置于最小作用域内，并在变量声明时进行初始化</p>
+</blockquote>
+<p>PS：如果变量是一个对象，每次进入作用域都要调用其构造函数，每次退出作用域
+都要调用其析构函数。</p>
+<h2 id="_2">类</h2>
+<h3 id="_3">显式构造函数</h3>
+<blockquote>
+<p>对单个参数的构造函数使用C++关键字explicit</p>
+</blockquote>
+<div class="highlight"><pre><span class="code-line"><span class="k">class</span> <span class="nc">MyClass</span>  </span>
+<span class="code-line"><span class="p">{</span>  </span>
+<span class="code-line"><span class="k">public</span><span class="o">:</span>  </span>
+<span class="code-line"><span class="n">MyClass</span><span class="p">(</span> <span class="kt">int</span> <span class="n">num</span> <span class="p">);</span>  </span>
+<span class="code-line"><span class="p">}</span>  </span>
+<span class="code-line"></span>
+<span class="code-line"><span class="n">MyClass</span> <span class="n">obj</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">//ok,convert int to MyClass</span></span>
+<span class="code-line"><span class="c1">// 会被编译器转化为下面的操作</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="n">Myclass</span> <span class="nf">tmp</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span></span>
+<span class="code-line"><span class="n">Myclass</span> <span class="n">obj</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">;</span> </span>
+</pre></div>
+<p>为了避免构造函数被调用造成隐式转换，可以将其声明为explicit。</p>
+<h3 id="_4">拷贝赋值构造函数</h3>
+<blockquote>
+<p>仅在代码中需要拷贝一个类对象的时候使用拷贝构造函数，大部分情况下都不需要，此时应使用DISALLOW_COPY_AND_ASSIGN</p>
+</blockquote>
+<p>例如</p>
+<div class="highlight"><pre><span class="code-line"><span class="cp">#define DISALLOW_AND_ASSIGN(TypeName)\</span></span>
+<span class="code-line"><span class="cp">        TypeName(const Tyename&amp;);\</span></span>
+<span class="code-line"><span class="cp">        void operator=(const Typename&amp;)</span></span>
+<span class="code-line"><span class="k">class</span> <span class="nc">Foo</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="k">public</span><span class="o">:</span></span>
+<span class="code-line">        <span class="n">Foo</span><span class="p">(</span><span class="kt">int</span> <span class="n">f</span><span class="p">);</span></span>
+<span class="code-line">        <span class="o">~</span><span class="n">Foo</span><span class="p">();</span></span>
+<span class="code-line">    <span class="k">private</span><span class="o">:</span></span>
+<span class="code-line">        <span class="n">DISALLOW_COPY_AND_ASSIGN</span><span class="p">(</span><span class="n">Foo</span><span class="p">);</span></span>
+<span class="code-line"><span class="p">};</span></span>
+<span class="code-line"><span class="n">Foo</span> <span class="n">f1</span><span class="p">;</span> <span class="c1">// default constructor</span></span>
+<span class="code-line"><span class="n">Foo</span> <span class="nf">f2</span><span class="p">(</span><span class="n">f1</span><span class="p">);</span> <span class="c1">// copy constructor</span></span>
+<span class="code-line"><span class="n">Foo</span> <span class="n">f3</span> <span class="o">=</span> <span class="n">f1</span><span class="p">;</span> <span class="c1">// copy constructor not copy assigin constructor</span></span>
+</pre></div>
+<p>如果一个新对象被定义，一定会有一个构造函数被调用，不可能调用赋值操作。如果新对象没有被定义，出现operator=就是
+拷贝赋值操作。</p>
+<h3 id="_5">智能指针</h3>
+<p>shared_ptr 实现了引用计数, 所以最后一个 shared_ptr 对象析构时, 如果检测到引用次数为 0，就会销毁所指向的对象.在一个指针
+操作一个资源的时候，为了实现代码的异常安全，应该尽量把这个资源放到智能指针中。</p>
+<h3 id="placement-new-palcement-delete">placement new &amp; palcement delete</h3>
+<p>如果operator new 接受的参数除了一定会有的size_t之外还有其他，这便是所谓的placment new，众多placment new版本中特别有用的
+一个是"接受一个指针指向该对象被构造之处"，形如：</p>
+<div class="highlight"><pre><span class="code-line"><span class="kt">void</span><span class="o">*</span> <span class="n">opreator</span> <span class="nf">new</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span> <span class="n">pMemory</span><span class="p">)</span> <span class="k">throw</span><span class="p">();</span></span>
+</pre></div>
+<h3 id="_6">确定对象被使用前已先被初始化</h3>
+<p><strong>reference-returning 函数</strong></p>
+<div class="highlight"><pre><span class="code-line"><span class="c1">// Singleton 是一个class，构造函数是私有的</span></span>
+<span class="code-line">    <span class="k">static</span> <span class="n">Singleton</span><span class="o">&amp;</span> <span class="n">Instance</span><span class="p">()</span> <span class="p">{</span></span>
+<span class="code-line">        <span class="k">static</span> <span class="n">Singleton</span> <span class="n">singleton</span><span class="p">;</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">singleton</span><span class="p">;</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+</pre></div>
+<p>C++中，函数内的local static对象会在&ldquo;该函数被调用期间&rdquo;以及&ldquo;首次遇上该对象之定义式&ldquo;时被初始化，
+。这个函数在第一行定义并初始化一个local static 对象，然后返回一个指向static的引用。任何一种 non-const
+static对象，无论是局部的还是全局的，在多线程情况下都会有一些问题。处理这个问题的一个做法是：在程序的单线程启动
+阶段手工调用所有reference-returning函数，这可消除初始化有关的race conditions。</p>
+<h3 id="virtual">为多态基类声明virtual析构函数</h3>
+<p>任何class只要有virtual函数都几乎确定应该也有一个virtual析构函数。如果class不含virtual函数，通常表示它并不意图被
+用做一个base classes。当class不企图被当作基类，令其析构函数为virtual往往是个坏主意，因为这增加了对象模型的占有空间。
+包括vptr指针和vtbl函数表。</p>
+<p>virtual 函数系动态绑定而来，意思是调用一个virtual函数时，究竟调用哪一份函数实现代码，取决于发出调用的那个对象的动态类型。</p>
+<h3 id="_7">编译期多态 &amp; 运行期多态</h3>
+<p>哪一个重载函数该被调用（发生在编译期）和哪一个virtual函数该被绑定（发生在运行期）。     </p>
+<h2 id="_9">头文件</h2>
+<h3 id="include">include 的尖括号（&lt;&gt;）和双引号("")的区别</h3>
+<ul>
+<li>用尖括号是在宏展开的时候，系统首先从C语言函数库中找文件</li>
+<li>用双引号的则从项目目录中找文件。</li>
+</ul>
+<h3 id="define">define 保护</h3>
+<blockquote>
+<p>所有头文件都应该使用#define防止头文件被多重包含， 命名格式当是: <project><em><path></path></em><file><em>H</em></file></project></p>
+</blockquote>
+<p>例如, 项目 foo 中的头文件 foo/src/bar/baz.h 可按如下方式保护:</p>
+<div class="highlight"><pre><span class="code-line"><span class="cp">#ifndef FOO_BAR_BAZ_H_</span></span>
+<span class="code-line"><span class="cp">#define FOO_BAR_BAZ_H_</span></span>
+<span class="code-line"><span class="err">&hellip;</span></span>
+<span class="code-line"><span class="cp">#endif </span><span class="c1">// FOO_BAR_BAZ_H_</span></span>
+</pre></div>
+<h3 id="_10">头文件依赖</h3>
+<blockquote>
+<p>能用前置声明的地方尽量不使用 #include，</p>
+</blockquote>
+<p>使用前置声明可以显著减少需要包含的头文件数量。前置声明中使用的类定义在CPP文件而非h文件中。
+同时使用前置声明中的类 class Foo时，数据成员类型必须声明为Foo* 或者 Foo&amp;。将函数参数或者返回值
+声明为Foo（但不定义实现）</p>
+<h3 id="include_1">#include 的路径及顺序</h3>
+<p>项目内头文件应按照项目源代码目录树结构排列。
+ru, dir/foo.cc的主要作用是测试或实现dir2/foo2.h的功能，foo.cc中包含头文件的次序
+1. dir2/foo2.h
+2. C系统文件
+3. CPP系统文件
+4. 其他库的.h文件
+5. 本项目内.h文件</p>
+<h3 id="copy-and-swap">copy and swap</h3>
+<p>为了实现异常安全的代码，在涉及到内存分配和回收的时候，可以使用copy and assign的方法</p>
+<div class="highlight"><pre><span class="code-line"><span class="n">MyString</span><span class="o">&amp;</span> <span class="n">MyString</span><span class="o">::</span><span class="k">operator</span> <span class="o">=</span> <span class="p">(</span><span class="k">const</span> <span class="n">MyString</span> <span class="o">&amp;</span><span class="n">str</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="k">this</span> <span class="o">!=</span> <span class="n">str</span><span class="p">);</span></span>
+<span class="code-line">    <span class="err">｛</span></span>
+<span class="code-line">        <span class="n">MyString</span> <span class="n">StrTemp</span><span class="p">(</span><span class="n">str</span><span class="p">);</span></span>
+<span class="code-line">        <span class="kt">char</span><span class="o">*</span> <span class="n">pTemp</span> <span class="o">=</span> <span class="n">strTemp</span><span class="p">.</span><span class="n">m_pData</span><span class="p">;</span></span>
+<span class="code-line">        <span class="n">strTemp</span><span class="p">.</span><span class="n">m_pData</span> <span class="o">=</span> <span class="n">m_pData</span><span class="p">;</span></span>
+<span class="code-line">        <span class="n">m_pData</span> <span class="o">=</span> <span class="n">pTemp</span><span class="p">;</span></span>
+<span class="code-line">    <span class="err">｝</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+<h3 id="alloc-malloc">alloc &amp; malloc</h3>
+<p>alloc是唯一可以不使用堆的动态分配机制。alloc可以在栈上分配任意的栈内允许的空间，并且
+在函数返回的时候自动释放，就像局部变量一样。 </p>
+<div class="highlight"><pre><span class="code-line"><span class="kt">char</span><span class="o">*</span> <span class="n">ptr</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span> <span class="n">malloc</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span></span>
+<span class="code-line"><span class="n">ptr</span><span class="o">++</span><span class="p">;</span></span>
+<span class="code-line"><span class="n">free</span><span class="p">(</span><span class="n">ptr</span><span class="p">);</span> <span class="c1">// 错误，ptr被修改，不是内存分配时的起始地址</span></span>
+</pre></div>
+<h3 id="cpp">CPP 创建对象的两种方式</h3>
+<ol>
+<li><strong>堆上创建</strong>
+需要程序员自己去维护内存的分配和释放</li>
+</ol>
+<div class="highlight"><pre><span class="code-line"><span class="n">BTree</span> <span class="o">*</span><span class="n">btree</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BTree</span><span class="p">;</span></span>
+</pre></div>
+<ol>
+<li><strong>栈上创建</strong>
+由操作系统维护，在超过其范围内自动释放</li>
+</ol>
+<div class="highlight"><pre><span class="code-line"><span class="n">BTree</span> <span class="n">btree</span><span class="p">;</span></span>
+</pre></div>
+<h3 id="mallocfreenewdelete">malloc/free与new/delete的区别</h3>
+<p>malloc与free是C++/C 语言的标准库函数，new/delete 是C++的运算符。对于非内部数据类的对象而言，maloc/free 无法满足动态对象的要求
+。对象在创建的同时要自动执行构造函数， 对象消亡之前要自动执行析构函数。
+由于malloc/free 是库函数而不是运算符，不在编译器控制权限之内，不能够把执行构造函数和析构函数的任务强加malloc/free。</p>
+<h3 id="_11">指针和引用</h3>
+<p>指针和引用在语法上最大的区别就是指针可以为NULL，并可以通过delete运算符删除
+指针所指的实例，而引用不可以。声明一个引用并没有为引用分配内存。而仅仅
+是为该变量赋予一个别名。而声明一个指针则分配了内存。当你知道你需要指向某个东西，而且绝不会改变指向其他东西，或是
+当你实现一个操作符而其语法需求无法由pointers打成，你就应该使用reference，任何其他时候使用指针。</p>
+<h3 id="vtable">虚函数表vtable的存储位置</h3>
+<p>为了防止vtable被修改，通常vtable被放在只读内存中，在GCC中它被放在ELF中的
+.rodata的section中。一个基类的虚函数表总是会继承给它的派生类。在linux下可以通过以下命令查找到</p>
+<div class="highlight"><pre><span class="code-line">objdump -s -x -d objfilename <span class="p">|</span> c++filt <span class="p">|</span> grep <span class="s2">"vtable"</span></span>
+</pre></div>
+<h3 id="traits-class">Traits class</h3>
+<ul>
+<li>建立一组重载函数或函数模版，彼此间的差异只在于各自的traits参数。令每个函数实现码与其接受之traits信息相应和。</li>
+<li>建立一个控制函数或函数模版，它调用上述那些重载函数并传递traits class所提供的信息。</li>
+</ul>
+<h3 id="iostream-stdio">iostream &amp; stdio</h3>
+<ul>
+<li>iostream在编译期间就决定其操作数的类型，而且operator&lt;&lt;是类型安全和可扩充的</li>
+<li>stido函数则是在运行时期才解析其格式字符串（formating string）</li>
+</ul>
+<h3 id="_12">类成员初始化</h3>
+<p>编程时尽量将成员的初始化放到初始化列表中，而不是构造函数中，一方面，一些const只能被初始化不能被赋值，
+另一方面，在初始化列表中初始化成员在构造函数中通过赋值初始化效率要高。因为对象的初始化首先进行的数据成员
+的初始化，然后才会执行构造函数体内的动作。</p>
+<p><strong>初始化顺序必须和他们的声明顺序保持一致</strong>，否则将会产生一些致命的错误。对于一个对象
+的所有成员来说，他们在析构函数被调用的顺序总是和在构造函数里被创建的顺序相反。</p>
+<h3 id="exceptionsdestructors">避免exceptions传出destructors之外</h3>
+<ul>
+<li>它可以避免terminate函数在exceptions传播过程的栈展开机制被调用</li>
+<li>它可以协助确保destructors完成其应该完成的所有事情。 </li>
+</ul>
+<h3 id="virtual_1">如何不使用virtual函数来实现多态</h3>
+<div class="highlight"><pre><span class="code-line"><span class="n">Base</span><span class="o">*</span> <span class="n">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Derived</span><span class="p">;</span></span>
+<span class="code-line"><span class="n">Derived</span><span class="o">*</span> <span class="n">d</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Derived</span><span class="o">*&gt;</span><span class="p">(</span> <span class="n">obj</span> <span class="p">);</span> </span>
+<span class="code-line"><span class="n">d</span><span class="o">-&gt;</span><span class="n">doSomething</span><span class="p">();</span></span>
+</pre></div>
+<p>当然也可以使用函数指针，但是比较别扭，上面应该是最优雅的解决方案。</p>
+<h3 id="cpp_1">CPP正负下标</h3>
+<p>数组的第一个元素是元素 0。 C++ 数组的范围是从 array[0] 到 array[size &ndash; 1]。 但是，C++ 支持正负下标。 负下标必须在数组边界内；否则结果不可预知。</p>
+<div class="highlight"><pre><span class="code-line"><span class="cp">#include &lt;iostream&gt;</span></span>
+<span class="code-line"><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="kt">int</span> <span class="n">intArray</span><span class="p">[</span><span class="mi">1024</span><span class="p">];</span></span>
+<span class="code-line">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">1024</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span></span>
+<span class="code-line">    <span class="p">{</span></span>
+<span class="code-line">        <span class="n">intArray</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">j</span><span class="o">++</span><span class="p">;</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">intArray</span><span class="p">[</span><span class="mi">512</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span><span class="c1">// 512</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="kt">int</span> <span class="o">*</span><span class="n">midArray</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">intArray</span><span class="p">[</span><span class="mi">512</span><span class="p">];</span>  <span class="c1">// pointer to the middle of the array</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">midArray</span><span class="p">[</span><span class="o">-</span><span class="mi">256</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>   <span class="c1">// 256</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">intArray</span><span class="p">[</span><span class="o">-</span><span class="mi">256</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="c1">// unpredictable</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+<h3 id="vector">vector简单优化 ###</h3>
+<div class="highlight"><pre><span class="code-line"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">vec</span><span class="p">;</span></span>
+<span class="code-line"><span class="k">for</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">130</span><span class="p">;</span> <span class="n">i</span> <span class="o">++</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="n">vec</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">i</span><span class="p">);</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+<p>vec刚开始时的容量为0。随着push_back()，每次分配2倍的内存。
+1，2，4，8。vector是先创建2倍原来的内存，然后把原来内存中的数据拷贝到
+新的内存中，最后在释放原来的内存。为了提高效率可以使用reserve提前为vector分配一大块内存。
+而且一旦分配了内存，vec的占有内存的大小就不在改变。需要使用</p>
+<div class="highlight"><pre><span class="code-line"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">v</span><span class="p">).</span><span class="n">swap</span><span class="p">(</span><span class="n">v</span><span class="p">);</span></span>
+</pre></div>
+<p>即原来的内存和0空间内存进行交换。</p>
+<h2 id="ps_1">PS</h2>
+<ul>
+<li>对与单纯变量，最好以const对象或enums替换#define</li>
+<li>对于形式函数的宏，最后改用inline函数替换#define</li>
+<li>将某些东西声明为const 可帮助编译器侦测出错误用法。const可被施加于任何作用域内的对象、函数参数、函数返回类型、成员函数本体</li>
+<li>编译器强制实施bitwise constness，但你编写程序时应该使用概念上的常量性</li>
+<li>当const和non-const成员函数有着实质等价的实现时，令non-const版本调用const版本可避免代码重复</li>
+<li>为内置型对象进行手工初始化，因为C++不保证初始化它们</li>
+<li>构造函数最好使用成员初始化列表，而不要在构造函数本体内使用赋值操作。初值列列出的成员变量，其排列次序应该和它们在class中的声明次序相同。</li>
+<li>为免除跨编译单元初始化次序，可以用local static对象替换non-local static对象。 </li>
+<li>Copying函数应该确保复制对象内所有变量及所有base class成分</li>
+<li>不要尝试以某个copying（copy or copy assign）函数实现另一个copying函数。应该将共同机制放进第三个函数中，并由连个copying函数共同调用</li>
+<li>编译器可以暗自为class创建default构造函数、copy构造函数、copy assign操作符，以及析构函数</li>
+<li>为了驳回编译器自动提供的机能，可将相应的成员函数声明为private并且不予实现。</li>
+<li>polymorphic base classes应该声明一个virtual 析构函数。如果class带有任何virtual 函数，它就拥有一个virtual析构函数</li>
+<li>classes的设计目的如果不是作为base classes使用，或不是为了具备多态性，就不该声明virtual析构函数</li>
+<li>析构函数绝对不要throw异常。如果一个被析构函数调用的函数可能抛出异常，析构函数应该捕获任何异常，然后不传播或结束程序</li>
+<li>如果客户需要对某个操作函数</li>
+<li>运行期间抛出的异常做出反应，那么class应该提供一个普通函数执行该操作。</li>
+<li>在构造和析构期间不要调用virutal函数，因为这类调用从不下降至derived class。</li>
+<li>赋值操作符返回一个 reference to *this</li>
+<li>确保当对象自我赋值时operator=有良好行为。其中技术包括比较来源对象和目标对象的地址、语句的顺序、以及copy-and-swap</li>
+<li>确定任何函数如果操作一个以上的对象，而其中多个对象是同一个对象时，其行为仍然正确。</li>
+<li>copying函数应该确保复制对象内的所有成员变量及所有base class成分</li>
+<li>不要尝试以某个copying函数实现另一个copying函数。应该将共同技能放进第三个函数中，并由两个copying函数共同调用</li>
+<li>为防止资源泄露，请使用RAII（Resource Acquisition is Initialization）对象，它们在构造函数中获得资源并在析构函数中释放资源</li>
+<li>两个常被使用的RAII classes分别为shared_ptr和auto_ptr。前者通常是最佳选择，因为其copy行为比较直观。若选择auto_ptr，复制动作会使它指向NULL。</li>
+<li></li>
+</ul>
+<hr/>
+<h2 id="httpd">httpd源码学习</h2>
+<ol>
+<li>Makefile文件里的：gcc -W -Wall -lsocket -lpthread -o httpd httpd.c ，修改为：</li>
+</ol>
+<div class="highlight"><pre><span class="code-line">gcc -W -Wall -o httpd httpd.c -lpthread</span>
+</pre></div>
+<ol>
+<li>481行的 int client_name_len 改为 socklen_t client_name_len</li>
+<li>436行 改动与上面相似，改为socklen_t类型即可。</li>
+<li>34行改为void accept_request(void ); 所以下面的实现也要修改下：</li>
+</ol>
+<div class="highlight"><pre><span class="code-line"><span class="kt">void</span> <span class="o">*</span><span class="nf">accept_request</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">client1</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line"><span class="kt">int</span> <span class="n">client</span> <span class="o">=</span> <span class="p">(</span><span class="kt">intptr_t</span><span class="p">)</span><span class="n">client1</span><span class="p">;</span></span>
+<span class="code-line"><span class="c1">// 省略</span></span>
+<span class="code-line"><span class="c1">//同时注意此函数77 和129行改为return NULL;</span></span>
+<span class="code-line"><span class="c1">//497行改为if (pthread_create(&amp;newthread , NULL, accept_request, (void*)(intptr_t)client_sock) != 0)</span></span>
+<span class="code-line"><span class="c1">//之后再make，程序就OK了。</span></span>
+</pre></div>
+<section>
+<div class="accordion" id="accordion2">
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle disqus-comment-count" data-toggle="collapse" data-parent="#accordion2"
+                href="../../../../../blog/2015/06/30/Effecitve-cpp/#disqus_thread">
+                Comments
+            </a>
+        </div>
+        <div id="disqus_thread" class="accordion-body collapse">
+            <div class="accordion-inner">
+                <div class="comments">
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'houcj';
+
+
+    (function() {
+         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+            
+
+            <hr/>
+<section>
+    <h2>Related Posts</h2>
+<ul class="related-posts-list">
+<li><a href="../../../../../blog/2015/06/13/cpp/" title="CPP Primer">CPP Primer</a></li>
+<li><a href="../../../../../blog/2015/06/19/inside-cpp/" title="Inside the CPP Object Model">Inside the CPP Object Model</a></li>
+<li><a href="../../../../../blog/2015/06/28/design-pattern/" title="Design Pattern">Design Pattern</a></li>
+<li><a href="../../../../../blog/2015/07/14/More-efective-cpp/" title="More efective cpp">More efective cpp</a></li>
+</ul>
+<hr />
+</section>
+
+            </aside>
+        </div>
+        <section>
+        <div class="span2" style="float:right;font-size:0.9em;">
+ 
+            <h4>Published</h4>
+            <time pubdate="pubdate" datetime="2015-06-30T21:13:00+08:00">Jun 30, 2015</time>
+            <h4>Category</h4>
+            <a class="category-link" href="/categories.html#编程-ref">编程</a> 
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article"> 
+                <li><a href="/tags.html#CPP-ref">CPP
+                    <span>5</span>
+</a></li>
+            </ul>
+<h4>Contact</h4>
+    <a href="https://twitter.com/chaojunhou" title="My Twitter Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-twitter sidebar-social-links"></i></a>
+    <a href="https://www.tumblr.com/blog/houcj" title="My Tumblr Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-tumblr sidebar-social-links"></i></a>
+    <a href="https://github.com/chaojunhou" title="My Github Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-github sidebar-social-links"></i></a>
+            <h4>Blogroll</h4>
+			<ul ><a class="category-link" href="http://www.rudy-yuan.net">Rudy-yuan</a></ul>
+            <ul ><a class="category-link" href="http://www.wengweitao.com">WWT</a></ul>
+            <ul ><a class="category-link" href="http://hult.tiddlyspot.com">HULT</a></ul>
+       
+        </div>
+        </section>
+</div>
+</article>
+                </div>
+                <div class="span1"></div>
+            </div>
+        </div>
+        <div id="push"></div>
+    </div>
+        
+            <script src="http://code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+<script type="text/javascript">
+    var disqus_shortname = 'houcj';
+
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+    </script>
+        <script  language="javascript" type="text/javascript">
+            function uncollapse() {
+                var hash_str = window.location.hash;
+                if (window.location.hash.match(/^#comment-\d+$/))
+                {
+                    var hash_str = '#disqus_thread';
+                }
+                $(hash_str).collapse({
+                    toggle: true
+                    })
+            }
+        </script>
+
+        <script type="text/javascript" language="JavaScript">
+            uncollapse(); 
+        </script>
+    </body>
+      <!-- Baidu Button BEGIN 
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"6","bdPos":"right","bdTop":"250"},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+ <!-- Baidu Button END -->
+  </body>
+
+  <!-- hitwebcounter Code START -->
+
+<img src="http://hitwebcounter.com/counter/counter.php?page=6046616&style=0005&nbdigits=5&type=ip&initCount=0" title="" Alt=""   border="0" style="float:left">  
+
+</html>
