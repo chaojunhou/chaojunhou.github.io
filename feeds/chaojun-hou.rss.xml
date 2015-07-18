@@ -1,5 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Write the Code</title><link>www.houcj.net/</link><description></description><atom:link href="www.houcj.net/feeds%5Cchaojun-hou.rss.xml" rel="self"></atom:link><lastBuildDate>Thu, 16 Jul 2015 15:49:00 +0800</lastBuildDate><item><title>A Lisp Interpreter in Python</title><link>www.houcj.net/blog/2015/07/16/lispy/</link><description>&lt;hr/&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Write the Code</title><link>www.houcj.net/</link><description></description><atom:link href="www.houcj.net/feeds%5Cchaojun-hou.rss.xml" rel="self"></atom:link><lastBuildDate>Sat, 18 Jul 2015 11:09:00 +0800</lastBuildDate><item><title>2015阿里内推电话面试经验</title><link>www.houcj.net/blog/2015/07/18/ali-interview/</link><description>&lt;hr/&gt;
+&lt;p&gt;面试部门是阿里巴巴的国际事业部，主要业务是SEO，广告推荐以及翻译和搜索。&lt;/p&gt;
+&lt;h2 id="78-30mins"&gt;一面（7/8 30mins）&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;自我介绍&lt;/li&gt;
+&lt;li&gt;项目的相关&lt;/li&gt;
+&lt;li&gt;语言细节：&lt;ol&gt;
+&lt;li&gt;Python中pyc文件的作用&lt;/li&gt;
+&lt;li&gt;Python元组与列表的区别，什么时候会用到元组？&lt;/li&gt;
+&lt;li&gt;Python中yiled关键字，同时描述生成器的作用&lt;/li&gt;
+&lt;li&gt;Python中GIL，以及如何在Python中实现多线程编程&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;算法相关：&lt;ol&gt;
+&lt;li&gt;求两个链表的第一个交点(没有环)&lt;/li&gt;
+&lt;li&gt;求包含字串所有字母的母串的最小窗口长度 &lt;a href="https://leetcode.com/problems/minimum-window-substring/"&gt;Leetcode&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;一面主要是很多基础相关的，语言细节和算法。一般情况下会30分钟左右，
+算法相关由于是电面一般只要描述基本思路和时间空间复杂度。&lt;/p&gt;
+&lt;h2 id="79-40mins"&gt;二面 (7/9 40mins)&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;自我介绍&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;项目的介绍（根据你项目的描述进行提问）&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;DNS是如何进行查询的&lt;/li&gt;
+&lt;li&gt;什么是DNS污染，如何防止DNS污染&lt;/li&gt;
+&lt;li&gt;DNS里的一个条目大小是多少？（这个真不知道）&lt;/li&gt;
+&lt;li&gt;具体描述下你访问 www.taobao.com 时的DNS查询过程&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;输入关键字的时候，建立什么样的数学模型能够使错误的关键字转化为正确的关键字（描述有点不太清楚，提示用编辑距离，最后我说自动状态机也可以）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;关于实习和去杭州工作的想法&lt;/li&gt;
+&lt;li&gt;你对他们的问题？（我主要问的是他们是什么方向的）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;二面可能对你的知识的全面性以及抽象能力考察比较多&lt;/p&gt;
+&lt;h2 id="713-50mins"&gt;三面 (7/13 50mins)&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;详细的介绍最熟悉的项目&lt;/li&gt;
+&lt;li&gt;用两句话总结NDN的优缺点&lt;/li&gt;
+&lt;li&gt;设计一个可靠的UDP传输协议&lt;/li&gt;
+&lt;li&gt;说下TCP（三次握手）是如何建立连接的&lt;/li&gt;
+&lt;li&gt;简单的说下客户端如何根据网络的情况来调整他的发送速度&lt;/li&gt;
+&lt;li&gt;你关注了GitHub的什么人&lt;/li&gt;
+&lt;li&gt;平常是如何学习的&lt;/li&gt;
+&lt;li&gt;说下自己的优势&lt;/li&gt;
+&lt;li&gt;对他们的一个问题&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;三面更关注项目的细节以及学习能力，剩下的就是聊人生啦。。。。。&lt;/p&gt;
+&lt;h2 id="717-25mins"&gt;四面 (7/17 25mins)&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;挑了一个他感兴趣的项目进行提问&lt;/li&gt;
+&lt;li&gt;在爬虫爬到1亿条数据如何进行存储（我提出一个文本方式，提出要使用数据库）&lt;/li&gt;
+&lt;li&gt;服务器端应该如何反爬虫&lt;/li&gt;
+&lt;li&gt;说下对大数据的理解&lt;/li&gt;
+&lt;li&gt;说下对阿里巴巴的理解&lt;/li&gt;
+&lt;li&gt;提问一个问题&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;四面是技术终面，最后说HR可能也会是电面。。。。。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Sat, 18 Jul 2015 11:09:00 +0800</pubDate><guid>tag:,2015-07-18:www.houcj.net/blog/2015/07/18/ali-interview/</guid><category>面试</category></item><item><title>Build a web server</title><link>www.houcj.net/blog/2015/07/17/build-a-web-server/</link><description>&lt;hr/&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Fri, 17 Jul 2015 10:28:00 +0800</pubDate><guid>tag:,2015-07-17:www.houcj.net/blog/2015/07/17/build-a-web-server/</guid><category>CPP</category></item><item><title>A Lisp Interpreter in Python</title><link>www.houcj.net/blog/2015/07/16/lispy/</link><description>&lt;hr/&gt;
 &lt;h2 id="_1"&gt;解释器是如何工作的&lt;/h2&gt;
 &lt;p&gt;解释器主要分为两部分：解析（parse）和求值（eval）。解析包括词法分析和语法分析，语义分析，生成语法树。
 求值包括作用域，类型处理和语法树遍历。&lt;/p&gt;
@@ -1054,653 +1116,4 @@ A=鸵鸟 B=鸟 （不行），因为鸟会飞，但是鸵鸟不会。
 is-a关系用继承表达，has-a关系用组合表达
 继承体现的是一种专门化的概念而组合则是一种组装的概念
 另外确定是组合还是继承，最清楚的方法之一就是询问是否需要新类向上映射，也就是说当我们想重用原类型作为新类型的内部实现的话，我们最好自己组合，如果我们不仅想重用内部实现而且还想重用接口的话，那就用继承。
-6.法则：优先使用（对象）组合，而非（类）继承&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Fri, 19 Jun 2015 21:13:00 +0800</pubDate><guid>tag:,2015-06-19:www.houcj.net/blog/2015/06/19/inside-cpp/</guid><category>CPP</category></item><item><title>SICP and Scheme</title><link>www.houcj.net/blog/2015/06/19/sicp/</link><description>&lt;hr/&gt;
-&lt;h2 id="_1"&gt;构造过程抽象&lt;/h2&gt;
-&lt;p&gt;在程序设计中，需要处理两类要素：数据和过程。数据是一种我们希望去操作的东西，
-过程就是有关操作这些数据的规则的描述。&lt;/p&gt;
-&lt;h3 id="_2"&gt;复合过程&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;数和算术运算是基本的数据和过程&lt;/li&gt;
-&lt;li&gt;组合式的嵌套提供了一种组织起多个操作的方法&lt;/li&gt;
-&lt;li&gt;定义是一种受限的抽象手段，它为名字关联相应的值。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id="_3"&gt;用高阶函数做抽象&lt;/h3&gt;
-&lt;p&gt;一般而言程序设计语言总会对计算元素的可能使用方式强加上某些限制。带有
-最少限制的元素被称为第一级的状态。第一级元素的权利包括：
-- 可以用变量命名
-- 可以提供给过程参数
-- 可以由过程作为结果返回
-- 可以包含在数据结构中&lt;/p&gt;
-&lt;p&gt;Lisp把过程作为第一级状态，带来强大的表达功能。可以使用过程构造参数，
-用lambda构造过程，同时过程也可以作为一般性的方法或者返回值。 &lt;/p&gt;
-&lt;h2 id="_5"&gt;构造数据抽象&lt;/h2&gt;
-&lt;p&gt;定义过程的能力使我们有可能在更高的概念层次上处理计算机工作一样，能够构造
-符合数据的能力，也将使我们得以在比语言提供的基本数据对象更高的概念
-层次上，处理与数据有关的各种问题。&lt;/p&gt;
-&lt;p&gt;将程序中处理数据对象的表示部分，与处理对象的使用的部分相互隔离的技术形成了
-一种称为数据抽象的强有力的设计方法学.&lt;/p&gt;
-&lt;p&gt;在处理符合数据中的一个关键性思想是闭包的概念---也就是说，用于组合
-数据对象的黏合剂不但能用于组合基本的数据对象，同样也可以用于复合的数据对象。
-另一关键思想是，复合数据对象能够称为以混合与匹配的方式组合程序模块的方便界面。&lt;/p&gt;
-&lt;p&gt;数据抽象的基本思想，就是设法构造出一些使用符合数据对象的程序，使它们就像在抽象数据
-上操作一样。&lt;/p&gt;
-&lt;p&gt;map是一种很重要的结构，不仅因为它代表了一种公共模式，而且因为它建立起了
-一种处理表的高层抽象。通过map强调的是从元 素表到另一个结果表的缩放变换。从作用上看，map
-帮我们建立起了一层抽象屏障，将实现表变换的过程实现与如何提取表中元素以及
-组合结果的细节隔离开。&lt;/p&gt;
-&lt;h3 id="_6"&gt;模块化、对象和状态&lt;/h3&gt;
-&lt;p&gt;对于系统结构的两种非常不同的世界观。第一种策略将注意力集中在对象上，将一个大型系统看成一批对象，
-它们的行为可能随着时间的进展而不断变化。另一种组织策略将注意力集中在流过系统的
-信息流上。&lt;/p&gt;
-&lt;p&gt;只要我们不使用赋值，以同样的参数对同一过程的两次求值一定产生同样的结果，因此就可以认为
-过程是在计算数学函数。不用任何赋值的程序设计称为函数式程序设计。&lt;/p&gt;
-&lt;p&gt;一个环境就是框架的一个序列，每个框架里包含着一些约束的表格，这些约束将一些变量名字
-关联于对应的值。每个框架还包含着一个指针，指向这一框架的外围环境。如果由于当前讨论的目的，
-将相应的框架看作是全局的，那么它将没有外围环境。一个变量相对于某个特定环境的值，也就是在
-这一环境中，包含着该变量的第一个框架里这个变量的约束值。如果在序列中并不存在
-这一变量的约束，那么我们就说这个变量在该特定环境中是无约束的。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;过程应用的环境模型&lt;/strong&gt;
-- 将一个过程对象应用于实际参数，将构造出一个新框架，其中将过程的形式参数约束到调用时的
-的实际参数，而后在构造起的这一新环境的上下文中求值过程体。这个新框架的外围环境
-就是作为被应用的那个过程对象的一部分的环境
-- 相对于一个给定环境求值一个lambda表达式，将创建起一个过程对象，这个过程对象是一个
-序对，由该lambda表达式的正文和一个指向环境的指针组成。这一指针指向的就是创建这个过程对象
-时的环境。 &lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;以局部过程定义作为程序模块化的有用技术中的两个关键性质：&lt;/strong&gt; 
-- 局部过程的名字不会与包含它们的过程之外的名字互相干扰，这是因为这些局部过程名都是
-在该过程运行时创建的框架里面的约束的，而不是在全局环境里约束的。
-- 局部过程只需要将包含着它们的过程的形参作为自由变量，就可以访问该过程的实际参数。这时
-是因为对于局部过程体的求值所在的环境是外围过程求值所在环境的下属。&lt;/p&gt;
-&lt;p&gt;我们可以将世界模拟为一个相互分离的、受时间约束的，具有状态的相互交流的对象，或者
-可以将它模拟为单一的、无时间也无状态的统一体。&lt;/p&gt;
-&lt;h2 id="scheme_1"&gt;附录：&lt;strong&gt;Scheme&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;Scheme语法极其简洁，支持S（symbol）表达式，可以减少词法解析的时间。Scheme程序中充满了
-一对对嵌套的小括号，这些嵌套的符号体现了最基本的数学思想----递归。下面的表格是Scheme语法的基本
-结构.&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th align="left"&gt;&lt;/th&gt;
-&lt;th align="right"&gt;Procedures&lt;/th&gt;
-&lt;th align="center"&gt;Data&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td align="left"&gt;Primitive elements&lt;/td&gt;
-&lt;td align="right"&gt;+,-,*,/,&amp;lt;,=,&amp;gt;&lt;/td&gt;
-&lt;td align="center"&gt;数字，字符，字符串，布尔值，列表，函数&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td align="left"&gt;Means of combination&lt;/td&gt;
-&lt;td align="right"&gt;()composition,COND,IF&lt;/td&gt;
-&lt;td align="center"&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td align="left"&gt;Means of abstraction&lt;/td&gt;
-&lt;td align="right"&gt;Define&lt;/td&gt;
-&lt;td align="center"&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;h3 id="list"&gt;List&lt;/h3&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th align="center"&gt;命令&lt;/th&gt;
-&lt;th align="center"&gt;操作&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td align="center"&gt;car&lt;/td&gt;
-&lt;td align="center"&gt;取表的第一个元素&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td align="center"&gt;cdr&lt;/td&gt;
-&lt;td align="center"&gt;表在取car后的其余部分，对于正常表，其结果是一个表，对非正常表，结果可能是一个元素&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td align="center"&gt;cons&lt;/td&gt;
-&lt;td align="center"&gt;构造表，如果第二个参数是表，则将第一个参数作为整体放在第二个参数的表中&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td align="center"&gt;List&lt;/td&gt;
-&lt;td align="center"&gt;构造表，将各个参数做为整体放在一个表中&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;define &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;appnd&lt;/span&gt; &lt;span class="nv"&gt;list1&lt;/span&gt; &lt;span class="nv"&gt;list2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;/span&gt;
-&lt;span class="code-line"&gt;            &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;if &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;null? &lt;/span&gt;&lt;span class="nv"&gt;list1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;                &lt;span class="nv"&gt;list2&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;        &lt;span class="p"&gt;(&lt;/span&gt; &lt;span class="nv"&gt;cons&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;car &lt;/span&gt;&lt;span class="nv"&gt;list1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;appnd&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;cdr &lt;/span&gt;&lt;span class="nv"&gt;list1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="nv"&gt;list2&lt;/span&gt;&lt;span class="p"&gt;))))&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;define &lt;/span&gt;&lt;span class="nv"&gt;one-two&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;list &lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;define &lt;/span&gt;&lt;span class="nv"&gt;odds&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;list &lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt; &lt;span class="mi"&gt;7&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;appnd&lt;/span&gt; &lt;span class="nv"&gt;odds&lt;/span&gt; &lt;span class="nv"&gt;one-two&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;;return (1 3 5 7 1 2 3 4)&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;h3 id="_7"&gt;表达式&lt;/h3&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;Scheme&lt;/th&gt;
-&lt;th&gt;C&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;(+ 2 3 4)&lt;/td&gt;
-&lt;td&gt;(2 + 3 + 4)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;(&amp;lt; low x high)&lt;/td&gt;
-&lt;td&gt;((low &amp;lt; x) &amp;amp;&amp;amp; (x &amp;lt; high))&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;(f x y)&lt;/td&gt;
-&lt;td&gt;f(x, y)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;(define (sq x) (* x x))&lt;/td&gt;
-&lt;td retrun="retrun" x_x_="x*x;"&gt;int sq(int) &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;#t&lt;/td&gt;
-&lt;td&gt;true&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;#\c&lt;/td&gt;
-&lt;td&gt;'c'&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;"abc"&lt;/td&gt;
-&lt;td&gt;"abc"&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;h3 id="_8"&gt;语法糖&lt;/h3&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th align="left"&gt;语法糖形式&lt;/th&gt;
-&lt;th align="left"&gt;解释器中形式&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td align="left"&gt;(define (sq x) (* x x))&lt;/td&gt;
-&lt;td align="left"&gt;(define sq (lambda (x) (* x x)))&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td align="left"&gt;'(+ 2 3)&lt;/td&gt;
-&lt;td align="left"&gt;(quote (+ 2 3))&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td align="left"&gt;if 表达式&lt;/td&gt;
-&lt;td align="left"&gt;cond 表达式&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;h3 id="let"&gt;let 表达式和赋值&lt;/h3&gt;
-&lt;p&gt;语法：(let ((var1 val1)...) exp1 exp2...)&lt;/p&gt;
-&lt;p&gt;说明：let表达式的赋值只在表达式内部有效&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;let &lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="nf"&gt;f&lt;/span&gt; &lt;span class="nv"&gt;+&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;f&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;  &lt;span class="c1"&gt;; return 5 &lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;let &lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="nf"&gt;f&lt;/span&gt; &lt;span class="nv"&gt;+&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;x&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;f&lt;/span&gt; &lt;span class="nv"&gt;x&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;  &lt;span class="c1"&gt;; return 5 &lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;let &lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="nf"&gt;f&lt;/span&gt; &lt;span class="nv"&gt;+&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;x&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;y&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;f&lt;/span&gt; &lt;span class="nv"&gt;x&lt;/span&gt; &lt;span class="nv"&gt;y&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;  &lt;span class="c1"&gt;; return 5 &lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;h3 id="define-set"&gt;用define 和 set! 赋值&lt;/h3&gt;
-&lt;p&gt;语法：(define var exp), (set! var exp)&lt;/p&gt;
-&lt;p&gt;说明：define和 set! 表达式的赋值在全局有效。define 和 set! 的区别是define既能赋值又能定义变量，而set!只能对已经定义的变量赋值&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;define &lt;/span&gt;&lt;span class="nv"&gt;a&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;     &lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="nv"&gt;a&lt;/span&gt;               &lt;span class="c1"&gt;; return 1&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;set! &lt;/span&gt;&lt;span class="nv"&gt;a&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="nv"&gt;a&lt;/span&gt;               &lt;span class="c1"&gt;; return 2&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;let &lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="nf"&gt;a&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="nv"&gt;a&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;         &lt;span class="c1"&gt;; return 3&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="nv"&gt;a&lt;/span&gt;               &lt;span class="c1"&gt;; return 2&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;let &lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="nf"&gt;a&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;set! &lt;/span&gt;&lt;span class="nv"&gt;a&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="nv"&gt;a&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;  &lt;span class="c1"&gt;; return 4&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="nv"&gt;a&lt;/span&gt;               &lt;span class="c1"&gt;; return 2&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;let &lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="nf"&gt;a&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;define &lt;/span&gt;&lt;span class="nv"&gt;a&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="nv"&gt;a&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;    &lt;span class="c1"&gt;; return 5&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="nv"&gt;a&lt;/span&gt;               &lt;span class="c1"&gt;; return 2&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;set! &lt;/span&gt;&lt;span class="nv"&gt;b&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;          &lt;span class="c1"&gt;; 错误，b尚未定义&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;h3 id="lambda"&gt;lambda&lt;/h3&gt;
-&lt;p&gt;语法：(lambda (var ...) exp1 exp2 ...)&lt;/p&gt;
-&lt;p&gt;说明：lambda 表达式用于定义函数。var ... 是参数，exp1 exp2 ...是函数的执行 部分。通常需要结合局部定义 let 或者全局定义表达式 define，再进行函数调用。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="k"&gt;lambda &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;+ &lt;/span&gt;&lt;span class="nv"&gt;x&lt;/span&gt; &lt;span class="nv"&gt;x&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;* &lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;  &lt;span class="c1"&gt;; return 24&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;h3 id="if"&gt;if 表达式&lt;/h3&gt;
-&lt;p&gt;语法：(if test consequent alternative)&lt;/p&gt;
-&lt;p&gt;说明：如果test表达式为真，返回 consequent，否则返回 alternative。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;define &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;abs &lt;/span&gt;&lt;span class="nv"&gt;n&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;if &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;&amp;lt; &lt;/span&gt;&lt;span class="nv"&gt;n&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;        &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;- &lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="nv"&gt;n&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;        &lt;span class="nv"&gt;n&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;h3 id="cond"&gt;cond 表达式&lt;/h3&gt;
-&lt;p&gt;语法：(cond (test exp) ... (else exp))&lt;/p&gt;
-&lt;p&gt;说明：多路分支判断表达式，类似于C语言的 "if ... else if ... else"。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;define &lt;/span&gt;&lt;span class="nv"&gt;abs&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;lambda &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;n&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;cond&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;      &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="nb"&gt;= &lt;/span&gt;&lt;span class="nv"&gt;n&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;      &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="nb"&gt;&amp;lt; &lt;/span&gt;&lt;span class="nv"&gt;n&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;- &lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="nv"&gt;n&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;      &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;else &lt;/span&gt;&lt;span class="nv"&gt;n&lt;/span&gt;&lt;span class="p"&gt;))))&lt;/span&gt; &lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;h3 id="map"&gt;map 表达式&lt;/h3&gt;
-&lt;p&gt;语法：(map procedure list1 list2 ...)&lt;/p&gt;
-&lt;p&gt;说明：列表 list1 list2 ... 必须具有同样的长度；过程 procedure 接受的参数个数同列表的个数，各个列表中对应的变量分别作为过程 procedure 的参数被执行， 将每次的运算结果以列表形式返回。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;map &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;lambda &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;x&lt;/span&gt; &lt;span class="nv"&gt;y&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;+ &lt;/span&gt;&lt;span class="nv"&gt;x&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;* &lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="nv"&gt;y&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;   &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;list &lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;   &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;list &lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt; &lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;   &lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;; return (9 12 15)&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;h3 id="ps"&gt;&lt;strong&gt;PS:&lt;/strong&gt;&lt;/h3&gt;
-&lt;h4 id="_9"&gt;过程和定义&lt;/h4&gt;
-&lt;p&gt;&lt;strong&gt;()&lt;/strong&gt;在Scheme中表示一个过程&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;define &lt;/span&gt;&lt;span class="nv"&gt;A&lt;/span&gt;   &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;* &lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;define &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;D&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;* &lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;粗浅理解，带括号的表示一个过程，相当于C语言中的函数， 不带参数是一个符号表示，
-相当于C语言中的宏。&lt;/p&gt;
-&lt;h4 id="_10"&gt;注释&lt;/h4&gt;
-&lt;p&gt;使用分号进行注释&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="c1"&gt;;(list 1 2 3)&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Fri, 19 Jun 2015 15:25:00 +0800</pubDate><guid>tag:,2015-06-19:www.houcj.net/blog/2015/06/19/sicp/</guid><category>SICP</category></item><item><title>CPP Primer</title><link>www.houcj.net/blog/2015/06/13/cpp/</link><description>&lt;hr/&gt;
-&lt;h3 id="_1"&gt;进程、线程、协程&lt;/h3&gt;
-&lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;进程拥有自己独立的堆和栈，既不共享堆，亦不共享栈，进程由操作系统调度。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;线程拥有自己独立的栈和共享的堆，共享堆，不共享栈，线程亦由操作系统调度(标准线程是的)。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;协程和线程一样共享堆，不共享栈，协程由程序员在协程的代码里显示调度。基本上相当与用户空间下进行线程调度。协程不存在
-子程序之间的线程切换，而是程序自身控制，因此没有线程切换的开销，协程只有一个线程，因此不需要多线程的锁机制。&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h3 id="_2"&gt;静态内存、栈内存、堆内存&lt;/h3&gt;
-&lt;ol&gt;
-&lt;li&gt;静态内存用来保存局部static对象、类static数据成员以及定义在任何函数之外的变量&lt;/li&gt;
-&lt;li&gt;栈内存用来保存定义在函数内的非static对象。分配在静态内存或者栈内存中的对象由编译器自动
-创建和销毁。对于栈对象仅在其定义的程序块运行时才存在，static对象在使用之前分配，在程序
-结束时销毁。&lt;/li&gt;
-&lt;li&gt;程序用堆来存储动态分配的对象，动态对象的生存周期由程序来控制。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h3 id="const"&gt;Const&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;顶层const表示指针本身是个常量&lt;/li&gt;
-&lt;li&gt;底层const表示指针所指的对象是个常量&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;尽量使用常量引用&lt;/strong&gt;，使用引用可以避免拷贝，使用const则避免修改实参的值。&lt;/p&gt;
-&lt;h3 id="stringsize_type-size_t"&gt;string::size_type &amp;amp; size_t&lt;/h3&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;size_t&lt;/strong&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;size_t是sizeof操作符的结果返回类型，它在头文件中的typedef为
-unsigned int 类型。该类型保证实现所建立的最大对象的字节大小。&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;string::size_type&lt;/strong&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;string::size_type是一个无符号类型的值，而且能够存放下任何string对象的大小。所有
-用于存放string类的size函数返回值的变量，都应该是string::size_type
-类型的。&lt;/p&gt;
-&lt;h3 id="_3"&gt;命名的强制类型转换&lt;/h3&gt;
-&lt;p&gt;一个命名的强制类型转换具有如下形式：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;cast-name&lt;type&gt; (expression);&lt;/type&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;其中，type是转换的目标类型，而expression是要转换的值。如果type是引用类型，则结果是左值。
-cast-name 是static_cast、dynamic_cast、const_cast和reinterpret_cast的一种。其语法为&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;pc&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;const_cast&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;char&lt;/span&gt;&lt;span class="o"&gt;*&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;pc&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;   &lt;span class="c1"&gt;//正确但是通过p写值是未定义的行为&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;ul&gt;
-&lt;li&gt;const_cast通常被用来将对象的常量性去除。（cast away the constness）&lt;/li&gt;
-&lt;li&gt;dynamic_cast主要用来执行安全向下转型（safe downcasting），也就是用来决定某对象是否归属继承体系中的某个类型，从基类到派生类&lt;/li&gt;
-&lt;li&gt;reinterpret_cast执行低级转型，实际结果取决于编译器,例如，从int* 到 int&lt;/li&gt;
-&lt;li&gt;static_cast用来强迫隐式转换（implicit conversions），例如将non-const对象转化为const对象，或将int转化为double。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id="_4"&gt;实参入栈顺序&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="n"&gt;cout&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;endl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// 输出10，b++先使用b然后再加加&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="n"&gt;cout&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="o"&gt;++&amp;lt;&amp;lt;++&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;endl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// 输出5351&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;在处理printf或者cout时，压栈顺序为从右向左，对于a++的结果，是有ebp寻址函数栈
-空间来记录中间结果的，在最后给printf压栈的时候，再从栈中把中间结果取出来；而对于
-++a的结果，则直接压寄存器变量，寄存器经过了所有的自增操作。&lt;/p&gt;
-&lt;h3 id="_5"&gt;尾置迭代器&lt;/h3&gt;
-&lt;p&gt;迭代器的end成员负责返回指向容器尾元素的下一位置的迭代器，该迭代器表示容器的不存在的尾后
-元素，作为处理完容器所有元素的标记。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;[]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;7&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;9&lt;/span&gt;&lt;span class="p"&gt;};&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;&lt;span class="c1"&gt;// 指向arr尾元素的下一个位置的指针，相当于哨兵的作用。&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;h3 id="_6"&gt;使用尾置返回类型&lt;/h3&gt;
-&lt;p&gt;任何函数的定义都可以使用尾置（trailing return type）返回，尾置返回类型跟在
-形参列表后面并以一个-&amp;gt;符号开头，同时为了表示函数真正的返回类型跟在形参列表之后，
-可以在返回类型出现的地方放置一个auto：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="k"&gt;auto&lt;/span&gt; &lt;span class="n"&gt;func&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)[&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;func返回一个函数指针，该指针指向一个含有10个整数的数组。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;string&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;size_type&lt;/span&gt; &lt;span class="n"&gt;pos&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// why string::size_type&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;blockquote&gt;
-&lt;p&gt;The std::string type defines size_type to be the name of the appropriate type for holding the number of characters in a string. Whenever we need a local variable to contain the size of a string, we should use std::string::size_type as the type of that variable.&lt;/p&gt;
-&lt;p&gt;The reason that we have given cols a type of std::string::size_type is to ensure that cols is capable of containing the number of characters in greeting, no matter how large that number might be. We could simply have said that cols has type int, and indeed, doing so would probably work. However, the value of cols depends on the size of the input to our program, and we have no control over how long that input might be. It is conceivable that someone might give our program a string so long that an int is insufficient to contain its length.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h3 id="_7"&gt;列表初始化&lt;/h3&gt;
-&lt;p&gt;下面四条语句都可以：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;};&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;i&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;};&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;ul&gt;
-&lt;li&gt;void * 是一种特殊的指针类型，可以用于存放任意对象的地址。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id="const-constexpr"&gt;const 和 constexpr&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;如果想在多个文件之间共享const对象，必须在变量的定义之前加extern关键字&lt;/li&gt;
-&lt;li&gt;常量表达式是指值不会在改变并且在编译过程就能得到计算结果的表达式。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;max_files&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;20&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;//是常量表达式&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;sz&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;get_size&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt; &lt;span class="c1"&gt;//不是常量表达式，具体值在运行时才能得到&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;blockquote&gt;
-&lt;p&gt;C++11 规定允许将变量声明为constexpr类型，以便由编译器来验证变量的值是否是一个常量
-表达式。声明为constexpr的变量一定是一个常量，而且必须用常量表达式初始化&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;nullptr&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;       &lt;span class="c1"&gt;// p是一个指向整型常量的指针&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="k"&gt;constexpr&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;q&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;nullptr&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;   &lt;span class="c1"&gt;// q是一个指向整数的常量指针。&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;h3 id="_8"&gt;类型别名&lt;/h3&gt;
-&lt;p&gt;两种实现方式&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;typedef    &lt;/li&gt;
-&lt;li&gt;using&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;    &lt;span class="k"&gt;using&lt;/span&gt; &lt;span class="n"&gt;SI&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Sales_item&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// SI是Sales_item的别名 &lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;blockquote&gt;
-&lt;p&gt;C++11引入auto类型说明符，用它就能让编译器替我们去分析表达式所属的类型
-C++11引入decltype类型说明符，它的作用是选择并返回操作数的数据类型。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;字面值类型：
-常量表达式的值需要在编译使就得到计算，因此对声明constexpr时用到的类型必须有所限制。因为这些类型一般都比较
-简单，值也容易得到。就把它们称为"字面值类型(literal type)"&lt;/p&gt;
-&lt;p&gt;一个constexpr指针的初始值必须是nullptr或者0，或者是存储于某个固定地址中的对象。&lt;/p&gt;
-&lt;h3 id="_9"&gt;类模版&lt;/h3&gt;
-&lt;p&gt;编译器根据模版创建类或函数的过程称为实例化，当使用模版时，需要指出编译器应把类或函数实例化成何种
-类型。&lt;/p&gt;
-&lt;h3 id="constexpr"&gt;内联函数和constexpr函数&lt;/h3&gt;
-&lt;p&gt;将函数指定为内联函数，通常就是将它在每个调用节点上内联地展开。&lt;/p&gt;
-&lt;p&gt;constexpr函数是指用于常量表达式的函数，同时要求函数的返回类型及所有形参的类型
-都是字面值类型，而且函数体中必须有且只有一条return语句。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="k"&gt;constexpr&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;new_sz&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;42&lt;/span&gt;&lt;span class="p"&gt;;}&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="k"&gt;constexpr&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;foo&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;new_sz&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;&lt;span class="c1"&gt;// foo是一个常量表达式&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;对于某个给定的内联或者constexpr函数来说，它的多个定义必须完全一致，因此内联函数和
-constexpr函数通常定义在头文件中。&lt;/p&gt;
-&lt;h3 id="class-struct"&gt;class 和struct关键字&lt;/h3&gt;
-&lt;p&gt;使用class和struct定义类唯一的区别就是默认的访问权限。使用struct关键字，定义在第一个访问说明
-符之前的成员是public的，如果我们使用class关键字，则这些成员是private的。&lt;/p&gt;
-&lt;h3 id="_10"&gt;函数指针&lt;/h3&gt;
-&lt;p&gt;函数指针指向的是函数而非对象，函数的类型由它的返回类型和形参类型共同决定，与函数名无关。&lt;/p&gt;
-&lt;h3 id="const_1"&gt;const&lt;/h3&gt;
-&lt;p&gt;在成员函数后面加const表示，这个函数是只读函数，不会改变类的数据成员。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Point&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;xVal&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;yVal&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;GetY&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="p"&gt;};&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="c1"&gt;//关键字const必须用同样的方式重复出现在函数实现里，否则编译会把它们看成不同的函数&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;Point&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;GetY&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;yVal&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;如果把const放在函数声明前就意味着函数的返回值是常量。同时在const成员函数中，用mutable修饰
-成员变量名后，就可以修改类的成员变量。&lt;/p&gt;
-&lt;p&gt;在C中const是外部链接，它总是占用内存，而且它的名字是全局符，
-C编译器不能把const看成一个编译器期间的常量，而在C++默认const是内部连接的，它
-在编译期间就会确定值。&lt;/p&gt;
-&lt;h2 id="_12"&gt;类&lt;/h2&gt;
-&lt;p&gt;类是C++语言中最基本的特性，它允许我们为自己的应用定义新类型，从而使得程序更加简洁。类有
-两项基本功能：一是数据抽象，即定义数据成员和函数成员的能力。二是封装，即保护类的成员不被随意
-访问的能力。&lt;/p&gt;
-&lt;h3 id="_13"&gt;构造函数&lt;/h3&gt;
-&lt;p&gt;构造函数的任务是初始化对象的数据成员，无论何时只要类的对象被创建，就会执行构造函数。&lt;/p&gt;
-&lt;p&gt;构造函数不能被声明成const的，当我们创建类的const对象时，直到构造函数完成初始化过程，对象才能
-真正取得其常量属性，因此，构造函数在const对象的构造过程中可以向其写值。需要注意的是初始化const
-对象或者引用类型的对象时后，必须在执行构造函数体之前完成初始化工作，所以可以使用初始化列表进行初始化工作。
-因为初始化表的执行先于函数体。&lt;/p&gt;
-&lt;h4 id="_14"&gt;默认构造函数&lt;/h4&gt;
-&lt;p&gt;如果我们的类没有显式地定义构造函数，那么编译器就会为我们隐式地定义一个默认构造函数，
-默认构造函数无需任何实参。&lt;/p&gt;
-&lt;p&gt;如果类包含有内置类型或者复合类型的成员，则只有当这些成员都被赋予了类内的初始值时，
-这个类才适合于使用合成的构造函数&lt;/p&gt;
-&lt;h3 id="_16"&gt;类类型&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;First&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;memi&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;geMem&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="p"&gt;};&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;Second&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;memi&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;getMem&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="p"&gt;};&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="n"&gt;First&lt;/span&gt; &lt;span class="n"&gt;obj&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="n"&gt;Second&lt;/span&gt; &lt;span class="n"&gt;obj2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;obj1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;//错误，obj1和obj2类型不同&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;即使两个类的成员列表完全一致，它们也是不同的类型，对于一个类来说，它的成员
-和其他任何类的成员都不是一回事。&lt;/p&gt;
-&lt;h3 id="_17"&gt;友元&lt;/h3&gt;
-&lt;p&gt;友元关系不存在传递性，每个类独立的负责自己的友元类或者友元函数。当第一个名字第一次
-出现在一个友元声明中，我们隐式地假定该名字当前作用域是可见的，即使我们仅仅是用友元的类
-的成员调用友元函数，它也必须是被显式的声明过。&lt;/p&gt;
-&lt;h3 id="_18"&gt;成员初始化顺序&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;test&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;val&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;val&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;){}&lt;/span&gt; &lt;span class="c1"&gt;// i先初始化&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="k"&gt;private&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="p"&gt;};&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;构造函数的初始化值的顺序和成员声明的顺序保持一致，同时尽量避免使用某些成员初始化其他成员。&lt;/p&gt;
-&lt;h3 id="_19"&gt;静态成员&lt;/h3&gt;
-&lt;p&gt;和类的所有成员一样，当我们指向类外部的静态成员时，必须指明成员所属的类名，static关键字则只
-出现在类内部的声明语句中。&lt;/p&gt;
-&lt;p&gt;静态数据成员可以是不完全类型，非静态数据成员必须是完全类型才能使用。静态数据成员的类型可以是
-它所属的类类型，而非静态数据成员则只能声明成它所属类的指针。&lt;/p&gt;
-&lt;h3 id="_20"&gt;谓词&lt;/h3&gt;
-&lt;p&gt;谓词是一个可调用的表达式，其返回结果是一个能用做条件的值。标准库使用两种谓词：一元
-谓词（只接受单一参数）和二元谓词（它们有两个参数）。（相当于if中的条件表达式）&lt;/p&gt;
-&lt;h3 id="emplace"&gt;使用emplace操作&lt;/h3&gt;
-&lt;p&gt;当调用push或insert成员函数时，我们将元素类型的对象传递给它们，
-这些对象被拷贝到容器中。而当我们调用一个emplace成员函数时，则是将参数
-传递给元素类型的构造函数。emplace成员使用这些参数在容器管理的内存空间中直接
-构造元素。&lt;/p&gt;
-&lt;h3 id="adaptor"&gt;适配器（adaptor）&lt;/h3&gt;
-&lt;p&gt;容器、迭代器、和函数都有适配器。本质上，一个适配器是一种机制，能使某种事物的行为
-看起来想另外一种事物一样。一个容器适配器接受一种已有的容器类型，使其看起来像一种
-不同的类型。&lt;/p&gt;
-&lt;h3 id="_21"&gt;动态内存&lt;/h3&gt;
-&lt;p&gt;程序使用动态内存出于以下三种原因：
-1. 程序不知道自己需要使用多少对象
-2. 程序不知道所需对象的准确类型
-3. 程序需要多个对象间共享数据。&lt;/p&gt;
-&lt;h3 id="new-delete"&gt;new &amp;amp; delete&lt;/h3&gt;
-&lt;p&gt;在自由空间分配的内存是无名的，因此&lt;strong&gt;new&lt;/strong&gt;无法为其分配的对象命名，而是返回一个指向该对象
-的指针：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;pi&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="err"&gt;（&lt;/span&gt;&lt;span class="mi"&gt;1024&lt;/span&gt;&lt;span class="err"&gt;）&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;  &lt;span class="c1"&gt;//pi 指向的对象的值为1024&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="n"&gt;vector&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;pv&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;7&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;9&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="c1"&gt;// 列表初始化&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;我们传递给delete的指针必须指向动态分配的内存，或者是一个空指针。释放一块并非new分配的内存，或者
-将相同的指针值释放多次，其行为都是未定义的。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;pci&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1024&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="k"&gt;delete&lt;/span&gt; &lt;span class="n"&gt;pci&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;当我们delete一个指针后，指针值就变为无效了，但在很多机器上指针仍保存着已经释放的动态内存的地址，这时候
-指针就会变成悬空指针，即，指向一块曾经保存数据对象但现在已经无效（delete）的的内存的指针。解放方法是：在指针
-即将离开其作用域之前释放掉它所&lt;strong&gt;关联&lt;/strong&gt;的内存。如果需要保存指针可以在delete之后将nullptr赋予指针。&lt;/p&gt;
-&lt;h3 id="shared_ptr"&gt;shared_ptr&lt;/h3&gt;
-&lt;p&gt;智能指针也是模块，我们创建一个智能指针时，必须提供指针可以指向的类型。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="n"&gt;shared_ptr&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;Foo&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;factory&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;T&lt;/span&gt; &lt;span class="n"&gt;arg&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="c1"&gt;// shared_ptr 负责释放内存&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;make_shared&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;Foo&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;arg&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;use_factory&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;T&lt;/span&gt; &lt;span class="n"&gt;arg&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="n"&gt;shared_ptr&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;Foo&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;factory&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;arg&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="c1"&gt;// 使用p，p离开作用域，它指向的内存会被自动释放掉&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;strong&gt;智能指针与动态数组&lt;/strong&gt;&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="c1"&gt;// 为了使用shared_ptr必须提供一个删除器&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="n"&gt;shared_ptr&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;sp&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;],[](&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="k"&gt;delete&lt;/span&gt;&lt;span class="p"&gt;[]&lt;/span&gt; &lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="p"&gt;;});&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="c1"&gt;// shared_ptr未定义下标运算符，并且不支持指针的算术运算&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;size_t&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sp&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// 使用get获取一个内置指针&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="n"&gt;sp&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;reset&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="c1"&gt;//使用lambda释放数组，它使用delete[]&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;h3 id="unique_ptr-weak_ptr"&gt;unique_ptr &amp;amp; weak_ptr&lt;/h3&gt;
-&lt;ol&gt;
-&lt;li&gt;unique_ptr拥有它所指指向的对象。与shared_ptr不同，某个时刻只能有一个unique_ptr指向
-一个给定的对象。当unique_ptr对象被销毁时，它所指向的对象也被销毁。&lt;/li&gt;
-&lt;li&gt;weak_ptr是一种不控制所指向对象生存期的智能指针，它指向一个shared_ptr管理的对象。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;通过在编译时绑定删除器，unique_ptr避免了间接调用删除器的运行时的开销。通过
-在运行时绑定删除器，shared_ptr使用户重载删除器更为方便。&lt;/p&gt;
-&lt;h3 id="_22"&gt;释放动态数组&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="k"&gt;typedef&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;arrT&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;42&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;&lt;span class="c1"&gt;// arrT 是一个42个int的数组的类型别名&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;arrT&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// 分配一个42个int的数组，p指向第一个元素&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="k"&gt;delete&lt;/span&gt; &lt;span class="p"&gt;[]&lt;/span&gt; &lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;    &lt;span class="c1"&gt;// 方括号是必须的，因为被分配的是一个数组&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;h3 id="_23"&gt;析构函数&lt;/h3&gt;
-&lt;p&gt;在一个析构函数中，首先执行函数体（析构函数体被不直接销毁成员），然后销毁成员，成员按初始化顺序的逆序销毁。通常析构函数释放
-对象在生存期分配的所有资源。隐式销毁一个内置指针类型的成员不会delete它所指向的对象。与普通指针不同
-，智能指针是类类型，所以有析构函数，智能指针成员在析构阶段会被自动销毁。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;自动调用析构函数的情况&lt;/strong&gt;
-- 变量在离开其作用域时被销毁
-- 当一个对象被销毁时，其成员被销毁
-- 容器被销毁时，其元素被销毁
-- 对于动态分配的对象，当对指向它的指针应用delete运算符时被销毁
-- 对于临时对象，当创建它的完整表达式结束时被销毁&lt;/p&gt;
-&lt;h3 id="_24"&gt;删除的函数&lt;/h3&gt;
-&lt;p&gt;我们可以通过将拷贝构造函数和拷贝赋值运算符定义为删除的函数（deleted
- function）来阻止拷贝。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;NoCopy&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="n"&gt;NoCopy&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;default&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// 使用合成的默认构造函数&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="n"&gt;NoCopy&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;NoCopy&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;delete&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// 阻止拷贝&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="n"&gt;NoCopy&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="k"&gt;operator&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;NoCopy&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;delete&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="c1"&gt;// 阻止拷贝&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="n"&gt;NoCopy&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;default&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;//使用合成析构函数&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="err"&gt;｝&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;如果有一个类有数据成员不能默认构造、拷贝、复制或销毁，则对应
-的成员函数将被定义为删除的。&lt;/p&gt;
-&lt;h3 id="_25"&gt;引用计数&lt;/h3&gt;
-&lt;p&gt;引用计数的工作方式如下：
-- 除了初始化对象外，每个构造函数（拷贝构造函数除外）还要创建一个引用计数，用来记录有多少
-对象与正在创建的对象共享状态。当创建一个对象时，计数器初始化为1
-- 拷贝构造函数不分配新的计数器，而是拷贝给定对象的数据成员，包括计数器。拷贝构造函数递增共享
-的计数器，指出给定对象的状态又被一个新用户所共享。
-- 析构函数递减计数器，指出共享状态的用户少了一个。如果计数器变为0，则析构
-函数释放状态。
-- 拷贝赋值运算符递增右侧运算对象的计数器，递减左侧运算对象的计数器。如果左侧运算对象的计数器
-变为0，拷贝赋值运算符就必须销毁状态。&lt;/p&gt;
-&lt;h3 id="_26"&gt;拷贝和交换 ###&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="n"&gt;HasPtr&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;HasPtr&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="k"&gt;operator&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;HasPtr&lt;/span&gt; &lt;span class="n"&gt;rhs&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="c1"&gt;// rhs 是按值传递的，&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="c1"&gt;// 交换左侧运算对象和局部变量rhs的内容&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="n"&gt;swap&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;rhs&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; &lt;span class="c1"&gt;// rhs指向本对象曾经使用的内存&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;  &lt;span class="c1"&gt;// rhs被销毁，从而delete了rhs中的指针&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;h3 id="_27"&gt;右值引用&lt;/h3&gt;
-&lt;p&gt;右值引用就是必须绑定到右值的引用，右值引用有一个重要的性质--只能
-绑定到一个将要销毁的对象。&lt;/p&gt;
-&lt;p&gt;一个左值表达式表示的是一个对象的身份，而一个右值表达式表示的是
-对象的值。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;42&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;rr&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// 错误：不能将一个右值引用绑定到一个左值上&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;r2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="mi"&gt;42&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;   &lt;span class="c1"&gt;// 错误：i*42是个右值&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;rr2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="mi"&gt;42&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;  &lt;span class="c1"&gt;// 正确：将rr2绑定到结果上&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;h3 id="_28"&gt;移动&amp;amp;拷贝&lt;/h3&gt;
-&lt;p&gt;如果一个类有一个可用的拷贝构造函数而没有移动构造函数，则其对象是通过
-拷贝构造函数来移动的，拷贝赋值运算符和移动赋值运算符的情况类似。&lt;/p&gt;
-&lt;h3 id="_29"&gt;三/五原则&lt;/h3&gt;
-&lt;p&gt;三个基本的控制类的拷贝操作：拷贝构造函数，拷贝赋值函数，析构函数；
-还有两个不新标准下的：移动构造函数，移动赋值函数。这所有五个拷贝控制成员应该看作一个整体；
-一般来说，如果一个类定义了任何一个拷贝操作，它就应该定义所有五个操作。&lt;/p&gt;
-&lt;h3 id="_30"&gt;引用限定符&lt;/h3&gt;
-&lt;p&gt;引用限定符可以是&amp;amp;或&amp;amp;&amp;amp;，分别指出this可以指一个左值或者右值。类似const限定符，引用限定符
-只能用于（非static）成员函数，且必须同时出现在函数的声明和定义中。&lt;/p&gt;
-&lt;h3 id="_31"&gt;面向对象程序设计&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;面向对象程序设计&lt;/strong&gt;的核心思想是数据抽象、继承和动态绑定。通过使用数据抽象，我们可以将类的
-接口与实现分离；使用继承，可以定义相似的类型并对其相似关系建模；使用动态绑定，可以在一定
-程度上忽略相似类型的区别，而以同意的方式使用它们的对象。&lt;/p&gt;
-&lt;h3 id="_32"&gt;防止继承的发生&lt;/h3&gt;
-&lt;p&gt;如果一个类不想被其他类继承，或者不想考虑它是否适合作为一个基类，C++11新标准提供了一种
-防止继承发生的方法，即在类名后跟一个关键字final：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;NoDerived&lt;/span&gt; &lt;span class="k"&gt;final&lt;/span&gt; &lt;span class="p"&gt;{};&lt;/span&gt; &lt;span class="c1"&gt;// NoDerived 不能作为基类被继承&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;h3 id="_33"&gt;纯虚函数&lt;/h3&gt;
-&lt;p&gt;一个纯虚函数无需定义，我们通过在函数体的位置书写=0就可以将一个虚函数
-说明为纯虚函数。其中=0只能出现在类内部的虚函数声明语句处：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;base&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="kt"&gt;double&lt;/span&gt; &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;//纯虚函数 &lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="p"&gt;};&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;h3 id="_34"&gt;尾置返回类型与类型转换&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="k"&gt;template&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="k"&gt;typename&lt;/span&gt; &lt;span class="n"&gt;It&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="k"&gt;auto&lt;/span&gt; &lt;span class="n"&gt;fcn&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;It&lt;/span&gt; &lt;span class="n"&gt;beg&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;It&lt;/span&gt; &lt;span class="n"&gt;end&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="k"&gt;decltype&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;beg&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;beg&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;h3 id="_35"&gt;转发&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;模版转发&lt;/strong&gt;&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="k"&gt;template&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="k"&gt;typename&lt;/span&gt; &lt;span class="n"&gt;F&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;typename&lt;/span&gt; &lt;span class="n"&gt;T1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;typename&lt;/span&gt; &lt;span class="n"&gt;T2&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;flip&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;F&lt;/span&gt; &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;T1&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;t1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;T2&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;t2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;forward&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;T2&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;t2&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;forward&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;T1&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;t1&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;strong&gt;可变参数模版转发&lt;/strong&gt;&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="k"&gt;template&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="k"&gt;typename&lt;/span&gt;&lt;span class="p"&gt;...&lt;/span&gt; &lt;span class="n"&gt;Args&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;fun&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Args&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="p"&gt;..&lt;/span&gt; &lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="n"&gt;work&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;forward&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;Args&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="p"&gt;)...);&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;h3 id="_36"&gt;命名空间&lt;/h3&gt;
-&lt;p&gt;命名空间的定义可以不连续的特性使得我们可以将几个独立的接口和实现
-文件组成一个命名空间。此时，命名空间的组织方式类似于我们管理自定义
-类及函数的方式：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;命名空间的一部分成员的作用是定义类，以及声明作为类接口的函数及对象，
-则这写成员应该置于头文件中，这些头文件将被包含在使用了这些成员的文件中。&lt;/li&gt;
-&lt;li&gt;命名空间的成员的定义部分则置于另外的源文件中。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id="_37"&gt;虚继承&lt;/h3&gt;
-&lt;p&gt;虚继承的目的是令某个类做出声明，承诺愿意共享它的基类。其中，共享的
-基类子对象称为虚基类（virtual base class）。在这种机制下，不论虚基类
-在继承体系中出现了多少次，在派生类中都只包含唯一一个共享的虚基类
-子对象。&lt;/p&gt;
-&lt;h3 id="_38"&gt;运行时类型识别&lt;/h3&gt;
-&lt;p&gt;运行时类型识别（run-time type identification）的功能由两个运算符实现：
-- typeid运算符，用于返回表达式的类型
-- dynamic_cast 运算符，用于将基类的指针或引用安全地转换成派生类的指针或引用&lt;/p&gt;
-&lt;p&gt;在可能的情况下，最好定义虚函数而非直接接管类型管理的重任。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Sat, 13 Jun 2015 16:55:00 +0800</pubDate><guid>tag:,2015-06-13:www.houcj.net/blog/2015/06/13/cpp/</guid><category>CPP</category></item></channel></rss>
+6.法则：优先使用（对象）组合，而非（类）继承&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Fri, 19 Jun 2015 21:13:00 +0800</pubDate><guid>tag:,2015-06-19:www.houcj.net/blog/2015/06/19/inside-cpp/</guid><category>CPP</category></item></channel></rss>
