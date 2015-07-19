@@ -23,18 +23,15 @@
 &lt;h2 id="79-40mins"&gt;二面 (7/9 40mins)&lt;/h2&gt;
 &lt;ol&gt;
 &lt;li&gt;自我介绍&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;项目的介绍（根据你项目的描述进行提问）&lt;/p&gt;
-&lt;ol&gt;
+&lt;li&gt;项目的介绍（根据你项目的描述进行提问）&lt;ol&gt;
 &lt;li&gt;DNS是如何进行查询的&lt;/li&gt;
 &lt;li&gt;什么是DNS污染，如何防止DNS污染&lt;/li&gt;
 &lt;li&gt;DNS里的一个条目大小是多少？（这个真不知道）&lt;/li&gt;
 &lt;li&gt;具体描述下你访问 www.taobao.com 时的DNS查询过程&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;输入关键字的时候，建立什么样的数学模型能够使错误的关键字转化为正确的关键字（描述有点不太清楚，提示用编辑距离，最后我说自动状态机也可以）&lt;/p&gt;
-&lt;/li&gt;
+&lt;li&gt;CPP中成员初始化列表为何要与成员数据的声明次序相同（当场告诉我回答的不对，让再看下）&lt;/li&gt;
+&lt;li&gt;输入关键字的时候，建立什么样的数学模型能够使错误的关键字转化为正确的关键字（描述有点不太清楚，提示用编辑距离，最后我说自动状态机也可以）&lt;/li&gt;
 &lt;li&gt;关于实习和去杭州工作的想法&lt;/li&gt;
 &lt;li&gt;你对他们的问题？（我主要问的是他们是什么方向的）&lt;/li&gt;
 &lt;/ol&gt;
@@ -47,19 +44,21 @@
 &lt;li&gt;说下TCP（三次握手）是如何建立连接的&lt;/li&gt;
 &lt;li&gt;简单的说下客户端如何根据网络的情况来调整他的发送速度&lt;/li&gt;
 &lt;li&gt;你关注了GitHub的什么人&lt;/li&gt;
+&lt;li&gt;说下Python和CPP的不同&lt;/li&gt;
+&lt;li&gt;从CPP中说下面向对象编程&lt;/li&gt;
 &lt;li&gt;平常是如何学习的&lt;/li&gt;
 &lt;li&gt;说下自己的优势&lt;/li&gt;
 &lt;li&gt;对他们的一个问题&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;三面更关注项目的细节以及学习能力，剩下的就是聊人生啦。。。。。&lt;/p&gt;
+&lt;p&gt;三面更关注抽象能力以及学习能力，剩下的就是聊人生啦。。。。。&lt;/p&gt;
 &lt;h2 id="717-25mins"&gt;四面 (7/17 25mins)&lt;/h2&gt;
 &lt;ol&gt;
 &lt;li&gt;挑了一个他感兴趣的项目进行提问&lt;/li&gt;
 &lt;li&gt;在爬虫爬到1亿条数据如何进行存储（我提出一个文本方式，提出要使用数据库）&lt;/li&gt;
 &lt;li&gt;服务器端应该如何反爬虫&lt;/li&gt;
-&lt;li&gt;说下对大数据的理解&lt;/li&gt;
+&lt;li&gt;说下对大数据的理解 （安排说抽时间看下大数据相关的）&lt;/li&gt;
 &lt;li&gt;说下对阿里巴巴的理解&lt;/li&gt;
-&lt;li&gt;提问一个问题&lt;/li&gt;
+&lt;li&gt;提问一个问题 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;四面是技术终面，最后说HR可能也会是电面。。。。。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Sat, 18 Jul 2015 11:09:00 +0800</pubDate><guid>tag:,2015-07-18:www.houcj.net/blog/2015/07/18/ali-interview/</guid><category>面试</category></item><item><title>Build a web server</title><link>www.houcj.net/blog/2015/07/17/build-a-web-server/</link><description>&lt;hr/&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Fri, 17 Jul 2015 10:28:00 +0800</pubDate><guid>tag:,2015-07-17:www.houcj.net/blog/2015/07/17/build-a-web-server/</guid><category>CPP</category></item><item><title>A Lisp Interpreter in Python</title><link>www.houcj.net/blog/2015/07/16/lispy/</link><description>&lt;hr/&gt;
 &lt;h2 id="_1"&gt;解释器是如何工作的&lt;/h2&gt;
@@ -147,7 +146,27 @@
 系统领域，各进程之间往往允许共享某些内存分页（以及fork命令等），知道他们打算修改
 属于自己的那一个page。这项技术被称作copy on write，是lazy evaluation的一个典型
 代表。&lt;/p&gt;
-&lt;h3 id="_1"&gt;&lt;/h3&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Tue, 14 Jul 2015 21:02:00 +0800</pubDate><guid>tag:,2015-07-14:www.houcj.net/blog/2015/07/14/More-efective-cpp/</guid><category>CPP</category></item><item><title>multiprocessing</title><link>www.houcj.net/blog/2015/07/12/multiprocessing/</link><description>&lt;hr/&gt;
+&lt;h3 id="cppvirtual"&gt;CPP中不能声明为virtual函数的函数&lt;/h3&gt;
+&lt;h4 id="_1"&gt;一、 内联函数&lt;/h4&gt;
+&lt;p&gt;内联函数是在编译期间进行展开，而虚函数的特性是运行时才动态编译的。&lt;/p&gt;
+&lt;h4 id="_2"&gt;二、构造函数&lt;/h4&gt;
+&lt;p&gt;构造函数是用来创建对象成员的准确类型的，虚函数在不同类型的对象之间选择
+合适的动作，在确定的对象没有创建出来以前，是不可能支持虚函数的。&lt;/p&gt;
+&lt;h4 id="_3"&gt;三、静态成员函数&lt;/h4&gt;
+&lt;p&gt;静态成员函数对每个类来说都只有一份，所有对象都共享一份代码。没有
+动态绑定的必要。&lt;/p&gt;
+&lt;h4 id="_4"&gt;四、普通函数&lt;/h4&gt;
+&lt;p&gt;普通函数只能被重载（overload），不能被重写&lt;/p&gt;
+&lt;h4 id="_5"&gt;五、友元函数&lt;/h4&gt;
+&lt;p&gt;友元函数不属于类的成员，不能被继承。对于没有继承性质的函数就没有虚函数，虚函数就是
+用来确定继承类之间的具体动作。&lt;/p&gt;
+&lt;h3 id="_7"&gt;面向对象编程&lt;/h3&gt;
+&lt;p&gt;封装：可以隐藏实现细节，使得代码模块化。&lt;/p&gt;
+&lt;p&gt;继承：可以扩展已存在的代码模块，实现代码重用&lt;/p&gt;
+&lt;p&gt;多态：主要是为了实现接口重用，允许将之类类型的指针赋值给父类类型的指针。&amp;ldquo;接口是公司最有价值的资源。设计接口比用一堆类来实现这个接口更费时间。而且接口需要耗费更昂贵的人力的时间&amp;rdquo;&lt;/p&gt;
+&lt;h3 id="rtti"&gt;RTTI&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;typeid&lt;/strong&gt;在CPP中返回一个const std::type_info 对象的引用。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;dynamic_cast&lt;/strong&gt;可以实现在类层次之间的向上向下以及交叉转化。dynamic_cast&amp;lt;目标*&amp;gt;(指针)&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Tue, 14 Jul 2015 21:02:00 +0800</pubDate><guid>tag:,2015-07-14:www.houcj.net/blog/2015/07/14/More-efective-cpp/</guid><category>CPP</category></item><item><title>multiprocessing</title><link>www.houcj.net/blog/2015/07/12/multiprocessing/</link><description>&lt;hr/&gt;
 &lt;h2 id="_1"&gt;多进程&lt;/h2&gt;
 &lt;p&gt;linux下进程间通信的几种主要手段简介：&lt;/p&gt;
 &lt;h3 id="pipenamed-pipe"&gt;管道（Pipe）及有名管道（named pipe）&lt;/h3&gt;

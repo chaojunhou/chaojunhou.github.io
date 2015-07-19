@@ -12,12 +12,12 @@
 
 <meta property="og:title" content="More efective cpp "/>
 <meta property="og:url" content="../../../../../blog/2015/07/14/More-efective-cpp/" />
-<meta property="og:description" content="Copy on write 和其他对象共享一份实值，知道我们必须对自己所拥有的那一份实值进行写动作。在操作 系统领域，各进程之间往往允许共享某些内存分页（以及fork命令等），知道他们打算修改 属于自己的那一个page。这项技术被称作copy on write，是lazy evaluation的一个典型 代表。" />
+<meta property="og:description" content="Copy on write 和其他对象共享一份实值，知道我们必须对自己所拥有的那一份实值进行写动作。在操作 系统领域，各进程之间往往允许共享某些内存分页（以及fork命令等），知道他们打算修改 属于自己的那一个page。这项技术被称作copy on write，是lazy evaluation的一个典型 代表。 CPP中不能声明为virtual函数的函数 一、 内联函数 内联函数是在编译期间进行展开，而虚函数的特性是运行时才动态编译的。 二、构造函数 构造函数是用来创建对象成员的准确类型的，虚函数在不同类型的对象之间选择 合适的动作，在确定的对象没有创建出来以前，是不可能支持虚函数的。 三、静态成员函数 静态成员函数对每个类来说都只有一份，所有对象都共享一份代码。没有 动态绑定的必要。 四、普通函数 普通函数只能被重载（overload），不能被重写 五、友元函数 友元函数不属于类的成员，不能被继承。对于没有继承性质的函数就没有虚函数，虚函数就是 用来确定继承类之间的具体动作。 面向对象编程 封装：可以隐藏实现细节 ..." />
 <meta property="og:site_name" content="Write the Code" />
 <meta property="og:article:author" content="ChaoJun Hou" />
 <meta property="og:article:published_time" content="2015-07-14T21:02:00+08:00" />
 <meta name="twitter:title" content="More efective cpp ">
-<meta name="twitter:description" content="Copy on write 和其他对象共享一份实值，知道我们必须对自己所拥有的那一份实值进行写动作。在操作 系统领域，各进程之间往往允许共享某些内存分页（以及fork命令等），知道他们打算修改 属于自己的那一个page。这项技术被称作copy on write，是lazy evaluation的一个典型 代表。">
+<meta name="twitter:description" content="Copy on write 和其他对象共享一份实值，知道我们必须对自己所拥有的那一份实值进行写动作。在操作 系统领域，各进程之间往往允许共享某些内存分页（以及fork命令等），知道他们打算修改 属于自己的那一个page。这项技术被称作copy on write，是lazy evaluation的一个典型 代表。 CPP中不能声明为virtual函数的函数 一、 内联函数 内联函数是在编译期间进行展开，而虚函数的特性是运行时才动态编译的。 二、构造函数 构造函数是用来创建对象成员的准确类型的，虚函数在不同类型的对象之间选择 合适的动作，在确定的对象没有创建出来以前，是不可能支持虚函数的。 三、静态成员函数 静态成员函数对每个类来说都只有一份，所有对象都共享一份代码。没有 动态绑定的必要。 四、普通函数 普通函数只能被重载（overload），不能被重写 五、友元函数 友元函数不属于类的成员，不能被继承。对于没有继承性质的函数就没有虚函数，虚函数就是 用来确定继承类之间的具体动作。 面向对象编程 封装：可以隐藏实现细节 ...">
 
         <title>More efective cpp  · Change the World | Write the Code
 </title>
@@ -94,7 +94,7 @@
     <div class="span2 table-of-content">
         <nav>
         <h4>Contents</h4>
-        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="More efective cpp">More efective cpp</a><ul><li><a class="toc-href" href="#copy-on-write" title="Copy on write">Copy on write</a></li><li><a class="toc-href" href="#_1" title=""></a></li></ul></li></ul></div></body></html>
+        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="More efective cpp">More efective cpp</a><ul><li><a class="toc-href" href="#copy-on-write" title="Copy on write">Copy on write</a></li><li><a class="toc-href" href="#cppvirtual" title="CPP中不能声明为virtual函数的函数">CPP中不能声明为virtual函数的函数</a><ul><li><a class="toc-href" href="#_1" title="一、 内联函数">一、 内联函数</a></li><li><a class="toc-href" href="#_2" title="二、构造函数">二、构造函数</a></li><li><a class="toc-href" href="#_3" title="三、静态成员函数">三、静态成员函数</a></li><li><a class="toc-href" href="#_4" title="四、普通函数">四、普通函数</a></li><li><a class="toc-href" href="#_5" title="五、友元函数">五、友元函数</a></li></ul></li><li><a class="toc-href" href="#_7" title="面向对象编程">面向对象编程</a></li><li><a class="toc-href" href="#rtti" title="RTTI">RTTI</a></li></ul></li></ul></div></body></html>
         </nav>
     </div>
     <div class="span8 article-content">
@@ -105,7 +105,27 @@
 系统领域，各进程之间往往允许共享某些内存分页（以及fork命令等），知道他们打算修改
 属于自己的那一个page。这项技术被称作copy on write，是lazy evaluation的一个典型
 代表。</p>
-<h3 id="_1"></h3>
+<h3 id="cppvirtual">CPP中不能声明为virtual函数的函数</h3>
+<h4 id="_1">一、 内联函数</h4>
+<p>内联函数是在编译期间进行展开，而虚函数的特性是运行时才动态编译的。</p>
+<h4 id="_2">二、构造函数</h4>
+<p>构造函数是用来创建对象成员的准确类型的，虚函数在不同类型的对象之间选择
+合适的动作，在确定的对象没有创建出来以前，是不可能支持虚函数的。</p>
+<h4 id="_3">三、静态成员函数</h4>
+<p>静态成员函数对每个类来说都只有一份，所有对象都共享一份代码。没有
+动态绑定的必要。</p>
+<h4 id="_4">四、普通函数</h4>
+<p>普通函数只能被重载（overload），不能被重写</p>
+<h4 id="_5">五、友元函数</h4>
+<p>友元函数不属于类的成员，不能被继承。对于没有继承性质的函数就没有虚函数，虚函数就是
+用来确定继承类之间的具体动作。</p>
+<h3 id="_7">面向对象编程</h3>
+<p>封装：可以隐藏实现细节，使得代码模块化。</p>
+<p>继承：可以扩展已存在的代码模块，实现代码重用</p>
+<p>多态：主要是为了实现接口重用，允许将之类类型的指针赋值给父类类型的指针。&ldquo;接口是公司最有价值的资源。设计接口比用一堆类来实现这个接口更费时间。而且接口需要耗费更昂贵的人力的时间&rdquo;</p>
+<h3 id="rtti">RTTI</h3>
+<p><strong>typeid</strong>在CPP中返回一个const std::type_info 对象的引用。</p>
+<p><strong>dynamic_cast</strong>可以实现在类层次之间的向上向下以及交叉转化。dynamic_cast&lt;目标*&gt;(指针)</p>
 <section>
 <div class="accordion" id="accordion2">
     <div class="accordion-group">
