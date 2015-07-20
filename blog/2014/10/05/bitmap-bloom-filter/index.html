@@ -157,6 +157,13 @@ value在第几个数组元素中存储，然后我们把<strong>value%sizeof(arr
 <span class="code-line">    <span class="k">return</span> <span class="nb">all</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filter</span><span class="p">[</span><span class="n">digest</span><span class="o">&gt;&gt;</span><span class="mi">3</span><span class="p">]</span> <span class="o">&amp;</span> <span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="p">(</span><span class="n">digest</span> <span class="o">&amp;</span> <span class="mi">7</span><span class="p">))</span></span>
 <span class="code-line">      <span class="k">for</span> <span class="n">digest</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hash</span><span class="p">(</span><span class="n">value</span><span class="p">))</span></span>
 </pre></div>
+<p>Bloom Filter无法删除元素，只能删除，因此出现了一个改进的可以删除元素的BloomFilter，
+计数Bloom Filter。它的基本设计思路是使用多个比特位表示基本的信息单元。将集合成员
+加入位数组使，根据k个哈希函数计算，将原先的数值加1即可。删除的时候减1.只要不为0，就是
+该成员属于集合。</p>
+<p>BloomFilter因其极高的空间利用率而得到广泛的使用。Google Chrome
+使用它进行恶意的URL的判断；缓存使用BF来对海量数据进行查找；网络爬虫
+使用它对已经爬取过的URL进行判断。</p>
 <section>
 <div class="accordion" id="accordion2">
     <div class="accordion-group">
