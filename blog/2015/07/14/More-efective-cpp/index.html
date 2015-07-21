@@ -94,7 +94,7 @@
     <div class="span2 table-of-content">
         <nav>
         <h4>Contents</h4>
-        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="More efective cpp">More efective cpp</a><ul><li><a class="toc-href" href="#copy-on-write" title="Copy on write">Copy on write</a></li><li><a class="toc-href" href="#cppvirtual" title="CPP中不能声明为virtual函数的函数">CPP中不能声明为virtual函数的函数</a><ul><li><a class="toc-href" href="#_1" title="一、 内联函数">一、 内联函数</a></li><li><a class="toc-href" href="#_2" title="二、构造函数">二、构造函数</a></li><li><a class="toc-href" href="#_3" title="三、静态成员函数">三、静态成员函数</a></li><li><a class="toc-href" href="#_4" title="四、普通函数">四、普通函数</a></li><li><a class="toc-href" href="#_5" title="五、友元函数">五、友元函数</a></li></ul></li><li><a class="toc-href" href="#_7" title="面向对象编程">面向对象编程</a></li><li><a class="toc-href" href="#rtti" title="RTTI">RTTI</a></li></ul></li></ul></div></body></html>
+        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="More efective cpp">More efective cpp</a><ul><li><a class="toc-href" href="#copy-on-write" title="Copy on write">Copy on write</a></li><li><a class="toc-href" href="#cppvirtual" title="CPP中不能声明为virtual函数的函数">CPP中不能声明为virtual函数的函数</a><ul><li><a class="toc-href" href="#_1" title="一、 内联函数">一、 内联函数</a></li><li><a class="toc-href" href="#_2" title="二、构造函数">二、构造函数</a></li><li><a class="toc-href" href="#_3" title="三、静态成员函数">三、静态成员函数</a></li><li><a class="toc-href" href="#_4" title="四、普通函数">四、普通函数</a></li><li><a class="toc-href" href="#_5" title="五、友元函数">五、友元函数</a></li></ul></li><li><a class="toc-href" href="#_7" title="面向对象编程">面向对象编程</a></li><li><a class="toc-href" href="#rtti" title="RTTI">RTTI</a></li><li><a class="toc-href" href="#pimpl" title="Pimpl">Pimpl</a></li></ul></li></ul></div></body></html>
         </nav>
     </div>
     <div class="span8 article-content">
@@ -126,6 +126,41 @@
 <h3 id="rtti">RTTI</h3>
 <p><strong>typeid</strong>在CPP中返回一个const std::type_info 对象的引用。</p>
 <p><strong>dynamic_cast</strong>可以实现在类层次之间的向上向下以及交叉转化。dynamic_cast&lt;目标*&gt;(指针)</p>
+<h3 id="pimpl">Pimpl</h3>
+<p>C++中Pimpl惯用法，又被称为编译防火墙，是一种在头文件中隐藏实现的方式。</p>
+<div class="highlight"><pre><span class="code-line"><span class="c1">// Foo.h</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">class</span> <span class="nc">Foo</span> <span class="p">{</span></span>
+<span class="code-line"><span class="k">public</span><span class="o">:</span></span>
+<span class="code-line">  <span class="n">Foo</span><span class="p">();</span></span>
+<span class="code-line">  <span class="k">virtual</span> <span class="o">~</span><span class="n">Foo</span><span class="p">();</span></span>
+<span class="code-line"><span class="k">private</span><span class="o">:</span></span>
+<span class="code-line">  <span class="k">class</span> <span class="nc">Pimpl</span><span class="p">;</span></span>
+<span class="code-line">  <span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Pimpl</span><span class="o">&gt;</span> <span class="n">_pimpl</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">};</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="c1">// Foo.cpp</span></span>
+<span class="code-line"><span class="k">class</span> <span class="nc">Foo</span><span class="o">::</span><span class="n">Pimpl</span> <span class="p">{</span></span>
+<span class="code-line"><span class="k">public</span><span class="o">:</span></span>
+<span class="code-line">  <span class="c1">// data or functions</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="n">Foo</span><span class="o">::</span><span class="n">Foo</span><span class="p">()</span> <span class="o">:</span> <span class="n">_pimpl</span><span class="p">(</span><span class="k">new</span> <span class="n">Pimpl</span><span class="p">)</span> <span class="p">{}</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="n">Foo</span><span class="o">::~</span><span class="n">Foo</span><span class="p">()</span> <span class="p">{}</span></span>
+</pre></div>
+<p><strong>好处</strong>：</p>
+<ul>
+<li>成员变量的修改不会影响类的头文件，避免重新编译所有inclue类头文件的模块</li>
+<li>类的头文件不需要include 成员变量的头文件，减少编译依赖，加快编译速度</li>
+<li>更好的封装类的实现细节</li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>增加了代码复杂度</li>
+<li>造成代码可读性下降</li>
+<li>由于指针间接调用造成的性能下降</li>
+</ul>
 <section>
 <div class="accordion" id="accordion2">
     <div class="accordion-group">

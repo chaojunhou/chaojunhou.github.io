@@ -8,18 +8,18 @@
         <meta name="author" content="ChaoJun Hou" />
         <meta name="copyright" content="ChaoJun Hou" />
 
-<meta name="keywords" content="Python, 编程, " />
+<meta name="keywords" content="正则表达式, 编程, " />
 
-<meta property="og:title" content="Python 闭包 "/>
-<meta property="og:url" content="../../../../../blog/2015/06/22/python-closure/" />
-<meta property="og:description" content="Objects are data with methods attached, closures are functions with data attached. 闭包就是一个函数可以引用限定范围内的另一个函数中的变量。在函数式语言领域对于数学闭包常用的表述是“如果一个运算的结果仍然能被此运算作用， 则这个运算是封闭的”，如果我们将这个运算的所有结果看做一个集合，那么就可以等价表述说这个运算在这个集合上是封闭的。 def make_counter(x): constant = x def counter(y): # counter() is a closure return y + constant return counter # 返回一个闭包函数名 c1 = make_counter(12) c2 = make_counter(4) print (c1(3), c1(4), c2(3), c2 ..." />
+<meta property="og:title" content="Regular expression "/>
+<meta property="og:url" content="../../../../../blog/2015/02/07/high-performance-network-programming/" />
+<meta property="og:description" content="糊涂窗口综合症（Silly Windw Syndrome） 当发送端应用进程产生数据很慢、或接收端应用进程处理接收缓冲区数据很慢，或二者兼而有之；就会使应用进程间传送的报文段很小，特别是有效载荷很小。 极端情况下，有效载荷可能只有1个字节；而传输开销有40字节(20字节的IP头+20字节的TCP头) 这种现象就叫糊涂窗口综合症。 发送端引起的SWS 如果发送端为产生很慢的应用程序（telnet），一次产生一个字节，这个应用程序一次将一个字节的数据写入 发送端的TCP缓存。解决方法是强迫发送端的TCp收集数据，然后用一个更大的数据块来发送， 解法算法为nagle。 接收端引起的SWS 接收端的TCP可能产生糊涂窗口综合症，如果它为消耗数据很慢的应用程序服务，例如一次只能消耗一个字节。 有两种建议的解决方法： clark解决方法：只要有数据到达就发送确认，但宣布窗口的大小为0，直到处理完相应的缓存数据。 延迟确认：这表示当一个报文段到达时并不立即发送确认，接收端在确认收到的报文段到达时并不立即发送确认。同时它也减少了通信量，但是可能会造成超时重传。" />
 <meta property="og:site_name" content="Write the Code" />
 <meta property="og:article:author" content="ChaoJun Hou" />
-<meta property="og:article:published_time" content="2015-06-22T20:41:00+08:00" />
-<meta name="twitter:title" content="Python 闭包 ">
-<meta name="twitter:description" content="Objects are data with methods attached, closures are functions with data attached. 闭包就是一个函数可以引用限定范围内的另一个函数中的变量。在函数式语言领域对于数学闭包常用的表述是“如果一个运算的结果仍然能被此运算作用， 则这个运算是封闭的”，如果我们将这个运算的所有结果看做一个集合，那么就可以等价表述说这个运算在这个集合上是封闭的。 def make_counter(x): constant = x def counter(y): # counter() is a closure return y + constant return counter # 返回一个闭包函数名 c1 = make_counter(12) c2 = make_counter(4) print (c1(3), c1(4), c2(3), c2 ...">
+<meta property="og:article:published_time" content="2015-02-07T00:00:00+08:00" />
+<meta name="twitter:title" content="Regular expression ">
+<meta name="twitter:description" content="糊涂窗口综合症（Silly Windw Syndrome） 当发送端应用进程产生数据很慢、或接收端应用进程处理接收缓冲区数据很慢，或二者兼而有之；就会使应用进程间传送的报文段很小，特别是有效载荷很小。 极端情况下，有效载荷可能只有1个字节；而传输开销有40字节(20字节的IP头+20字节的TCP头) 这种现象就叫糊涂窗口综合症。 发送端引起的SWS 如果发送端为产生很慢的应用程序（telnet），一次产生一个字节，这个应用程序一次将一个字节的数据写入 发送端的TCP缓存。解决方法是强迫发送端的TCp收集数据，然后用一个更大的数据块来发送， 解法算法为nagle。 接收端引起的SWS 接收端的TCP可能产生糊涂窗口综合症，如果它为消耗数据很慢的应用程序服务，例如一次只能消耗一个字节。 有两种建议的解决方法： clark解决方法：只要有数据到达就发送确认，但宣布窗口的大小为0，直到处理完相应的缓存数据。 延迟确认：这表示当一个报文段到达时并不立即发送确认，接收端在确认收到的报文段到达时并不立即发送确认。同时它也减少了通信量，但是可能会造成超时重传。">
 
-        <title>Python 闭包  · Change the World | Write the Code
+        <title>Regular expression  · Change the World | Write the Code
 </title>
        
         <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
@@ -86,68 +86,43 @@
 <article>
 <div class="row-fluid">
     <header class="page_header span10 offset2">
-    <h1><a href="../../../../../blog/2015/06/22/python-closure/"> Python 闭包  </a></h1>
+    <h1><a href="../../../../../blog/2015/02/07/high-performance-network-programming/"> Regular expression  </a></h1>
     </header>
 </div>
 
 <div class="row-fluid">
-        <div class="span8 offset2 article-content">
+    <div class="span2 table-of-content">
+        <nav>
+        <h4>Contents</h4>
+        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="Regular expression">Regular expression</a><ul><li><a class="toc-href" href="#silly-windw-syndrome" title="糊涂窗口综合症（Silly Windw Syndrome）">糊涂窗口综合症（Silly Windw Syndrome）</a><ul><li><a class="toc-href" href="#sws" title="发送端引起的SWS">发送端引起的SWS</a></li><li><a class="toc-href" href="#sws_1" title="接收端引起的SWS">接收端引起的SWS</a></li></ul></li></ul></li></ul></div></body></html>
+        </nav>
+    </div>
+    <div class="span8 article-content">
 
             <hr/>
-<blockquote>
-<p>Objects are data with methods attached, </p>
-<p>closures are functions with data attached.</p>
-</blockquote>
-<p>闭包就是一个函数可以引用限定范围内的另一个函数中的变量。在函数式语言领域对于数学闭包常用的表述是&ldquo;如果一个运算的结果仍然能被此运算作用，
-则这个运算是封闭的&rdquo;，如果我们将这个运算的所有结果看做一个集合，那么就可以等价表述说这个运算在这个集合上是封闭的。</p>
-<div class="highlight"><pre><span class="code-line"><span class="k">def</span> <span class="nf">make_counter</span><span class="p">(</span><span class="n">x</span><span class="p">):</span></span>
-<span class="code-line">    <span class="n">constant</span> <span class="o">=</span> <span class="n">x</span></span>
-<span class="code-line">    <span class="k">def</span> <span class="nf">counter</span><span class="p">(</span><span class="n">y</span><span class="p">):</span> <span class="c"># counter() is a closure</span></span>
-<span class="code-line">        <span class="k">return</span> <span class="n">y</span> <span class="o">+</span> <span class="n">constant</span></span>
-<span class="code-line">    <span class="k">return</span> <span class="n">counter</span>  <span class="c"># 返回一个闭包函数名</span></span>
-<span class="code-line"></span>
-<span class="code-line"><span class="n">c1</span> <span class="o">=</span> <span class="n">make_counter</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span></span>
-<span class="code-line"><span class="n">c2</span> <span class="o">=</span> <span class="n">make_counter</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span></span>
-<span class="code-line"><span class="k">print</span> <span class="p">(</span><span class="n">c1</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">c1</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">c2</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">c2</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span></span>
-</pre></div>
-<p>Python 闭包最重要的限制是你无法对outer-scoper赋值，就是说闭包是只读的</p>
-<div class="highlight"><pre><span class="code-line"><span class="k">def</span> <span class="nf">outer</span><span class="p">(</span><span class="n">x</span><span class="p">):</span></span>
-<span class="code-line">    <span class="k">def</span> <span class="nf">inner_reads</span><span class="p">():</span></span>
-<span class="code-line">         <span class="c"># Will return outer's 'x'.</span></span>
-<span class="code-line">        <span class="k">return</span> <span class="n">x</span></span>
-<span class="code-line">    <span class="k">def</span> <span class="nf">inner_writes</span><span class="p">(</span><span class="n">y</span><span class="p">):</span></span>
-<span class="code-line">         <span class="c"># Will assign to a local 'x', not the outer 'x'</span></span>
-<span class="code-line">        <span class="n">x</span> <span class="o">=</span> <span class="n">y</span></span>
-<span class="code-line">    <span class="k">def</span> <span class="nf">inner_error</span><span class="p">(</span><span class="n">y</span><span class="p">):</span> </span>
-<span class="code-line">         <span class="c"># Will produce an error: 'x' is local because of the assignment,</span></span>
-<span class="code-line">         <span class="c"># but we use it before it is assigned to.</span></span>
-<span class="code-line">        <span class="n">tmp</span> <span class="o">=</span> <span class="n">x</span></span>
-<span class="code-line">        <span class="n">x</span> <span class="o">=</span> <span class="n">y</span></span>
-<span class="code-line">        <span class="k">return</span> <span class="n">tmp</span></span>
-<span class="code-line">    <span class="k">return</span> <span class="n">inner_reads</span><span class="p">,</span> <span class="n">inner_writes</span><span class="p">,</span> <span class="n">inner_error</span></span>
-</pre></div>
-<p>如果想这段代码正常运行，需要使用一个可变的容器类型</p>
-<div class="highlight"><pre><span class="code-line"><span class="k">def</span> <span class="nf">outer</span><span class="p">(</span><span class="n">x</span><span class="p">):</span></span>
-<span class="code-line">    <span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span></span>
-<span class="code-line">    <span class="k">def</span> <span class="nf">inner_reads</span><span class="p">():</span></span>
-<span class="code-line">         <span class="c"># Will return outer's x's first (and only) element.</span></span>
-<span class="code-line">        <span class="k">return</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></span>
-<span class="code-line">    <span class="k">def</span> <span class="nf">inner_writes</span><span class="p">(</span><span class="n">y</span><span class="p">):</span></span>
-<span class="code-line">        <span class="c"># Will look up outer's x, then mutate it.      </span></span>
-<span class="code-line">        <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span></span>
-<span class="code-line">    <span class="k">def</span> <span class="nf">inner_error</span><span class="p">(</span><span class="n">y</span><span class="p">):</span></span>
-<span class="code-line">         <span class="c"># Will now work, because 'x' is not assigned to, just referenced.</span></span>
-<span class="code-line">        <span class="n">tmp</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></span>
-<span class="code-line">        <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span></span>
-<span class="code-line">        <span class="k">return</span> <span class="n">tmp</span></span>
-<span class="code-line">    <span class="k">return</span> <span class="n">inner_reads</span><span class="p">,</span> <span class="n">inner_writes</span><span class="p">,</span> <span class="n">inner_error</span> </span>
-</pre></div>
+<h3 id="silly-windw-syndrome">糊涂窗口综合症（Silly Windw Syndrome）</h3>
+<p>当发送端应用进程产生数据很慢、或接收端应用进程处理接收缓冲区数据很慢，或二者兼而有之；就会使应用进程间传送的报文段很小，特别是有效载荷很小。 极端情况下，有效载荷可能只有1个字节；而传输开销有40字节(20字节的IP头+20字节的TCP头) 这种现象就叫糊涂窗口综合症。</p>
+<h4 id="sws">发送端引起的SWS</h4>
+<p>如果发送端为产生很慢的应用程序（telnet），一次产生一个字节，这个应用程序一次将一个字节的数据写入
+发送端的TCP缓存。解决方法是强迫发送端的TCp收集数据，然后用一个更大的数据块来发送，
+解法算法为<strong>nagle</strong>。</p>
+<h4 id="sws_1">接收端引起的SWS</h4>
+<p>接收端的TCP可能产生糊涂窗口综合症，如果它为消耗数据很慢的应用程序服务，例如一次只能消耗一个字节。</p>
+<p>有两种建议的解决方法：</p>
+<ol>
+<li>
+<p>clark解决方法：只要有数据到达就发送确认，但宣布窗口的大小为0，直到处理完相应的缓存数据。</p>
+</li>
+<li>
+<p>延迟确认：这表示当一个报文段到达时并不立即发送确认，接收端在确认收到的报文段到达时并不立即发送确认。同时它也减少了通信量，但是可能会造成超时重传。</p>
+</li>
+</ol>
 <section>
 <div class="accordion" id="accordion2">
     <div class="accordion-group">
         <div class="accordion-heading">
             <a class="accordion-toggle disqus-comment-count" data-toggle="collapse" data-parent="#accordion2"
-                href="../../../../../blog/2015/06/22/python-closure/#disqus_thread">
+                href="../../../../../blog/2015/02/07/high-performance-network-programming/#disqus_thread">
                 Comments
             </a>
         </div>
@@ -175,17 +150,6 @@
             
 
             <hr/>
-<section>
-    <h2>Related Posts</h2>
-<ul class="related-posts-list">
-<li><a href="../../../../../blog/2014/03/21/kmp/" title="字符串匹配">字符串匹配</a></li>
-<li><a href="../../../../../blog/2015/04/01/life-is-short-use-python/" title="人生苦短我用Python">人生苦短我用Python</a></li>
-<li><a href="../../../../../blog/2015/05/05/sifting-prime/" title="素数筛选法">素数筛选法</a></li>
-<li><a href="../../../../../blog/2015/05/05/reverse-linked-list/" title="反转链表">反转链表</a></li>
-<li><a href="../../../../../blog/2015/06/01/improved-python/" title="Improved Python">Improved Python</a></li>
-</ul>
-<hr />
-</section>
 
             </aside>
         </div>
@@ -193,13 +157,13 @@
         <div class="span2" style="float:right;font-size:0.9em;">
  
             <h4>Published</h4>
-            <time pubdate="pubdate" datetime="2015-06-22T20:41:00+08:00">Jun 22, 2015</time>
+            <time pubdate="pubdate" datetime="2015-02-07T00:00:00+08:00">Feb 7, 2015</time>
             <h4>Category</h4>
             <a class="category-link" href="/categories.html#编程-ref">编程</a> 
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article"> 
-                <li><a href="/tags.html#Python-ref">Python
-                    <span>6</span>
+                <li><a href="/tags.html#正则表达式-ref">正则表达式
+                    <span>1</span>
 </a></li>
             </ul>
 <h4>Contact</h4>

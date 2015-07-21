@@ -12,12 +12,12 @@
 
 <meta property="og:title" content="Build a web server "/>
 <meta property="og:url" content="../../../../../blog/2015/07/17/build-a-web-server/" />
-<meta property="og:description" content="" />
+<meta property="og:description" content="这里实现一个简单的WSGI服务器，可以并发的处理多个请求并可以在多个框架下执行下面的代码。本文以django为例。 CGI &amp; WSGI CGI（common gateway interface）描述了客户端和服务器程序之间传输数据的一种标准。可以使用任何 一种语言编写，只要这种语言具有标准输入、输出和环境变量。 WSGI（Python Web Server Gateway Interface）可以让你的web server在多个web 框架下运行。 因此我们的web server只需要实现WSGI的接口就可以在不同的框架下运行。 下面是django框架下的具体实现(需要使用django-admin.py 建立一个helloworld的project): import sys sys.path.insert(0, &#39;./helloworld&#39;) from helloworld import wsgi app = wsgi.application WSGI为Pyhont的web server和Python的web 框架提供了最下的接口，下面的代码片段是server端和框架端的接口： def run_application(application ..." />
 <meta property="og:site_name" content="Write the Code" />
 <meta property="og:article:author" content="ChaoJun Hou" />
 <meta property="og:article:published_time" content="2015-07-17T10:28:00+08:00" />
 <meta name="twitter:title" content="Build a web server ">
-<meta name="twitter:description" content="">
+<meta name="twitter:description" content="这里实现一个简单的WSGI服务器，可以并发的处理多个请求并可以在多个框架下执行下面的代码。本文以django为例。 CGI &amp; WSGI CGI（common gateway interface）描述了客户端和服务器程序之间传输数据的一种标准。可以使用任何 一种语言编写，只要这种语言具有标准输入、输出和环境变量。 WSGI（Python Web Server Gateway Interface）可以让你的web server在多个web 框架下运行。 因此我们的web server只需要实现WSGI的接口就可以在不同的框架下运行。 下面是django框架下的具体实现(需要使用django-admin.py 建立一个helloworld的project): import sys sys.path.insert(0, &#39;./helloworld&#39;) from helloworld import wsgi app = wsgi.application WSGI为Pyhont的web server和Python的web 框架提供了最下的接口，下面的代码片段是server端和框架端的接口： def run_application(application ...">
 
         <title>Build a web server  · Change the World | Write the Code
 </title>
@@ -91,9 +91,150 @@
 </div>
 
 <div class="row-fluid">
-        <div class="span8 offset2 article-content">
+    <div class="span2 table-of-content">
+        <nav>
+        <h4>Contents</h4>
+        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="Build a web server">Build a web server</a><ul><li><a class="toc-href" href="#cgi-wsgi" title="CGI &amp; WSGI">CGI &amp; WSGI</a></li><li><a class="toc-href" href="#_1" title="并发">并发</a><ul><li><a class="toc-href" href="#socket-server" title="Socket Server端">Socket Server端</a></li><li><a class="toc-href" href="#socket-client" title="Socket Client端">Socket Client端</a></li><li><a class="toc-href" href="#_2" title="文件描述符">文件描述符</a></li><li><a class="toc-href" href="#_3" title="重复文件描述符">重复文件描述符</a></li><li><a class="toc-href" href="#_4" title="僵尸进程">僵尸进程</a></li></ul></li><li><a class="toc-href" href="#_6" title="总结">总结</a></li></ul></li></ul></div></body></html>
+        </nav>
+    </div>
+    <div class="span8 article-content">
 
             <hr/>
+<p>这里实现一个简单的WSGI服务器，可以并发的处理多个请求并可以在多个框架下执行下面的代码。本文以django为例。</p>
+<h3 id="cgi-wsgi">CGI &amp; WSGI</h3>
+<p><strong>CGI</strong>（common gateway interface）描述了客户端和服务器程序之间传输数据的一种标准。可以使用任何
+一种语言编写，只要这种语言具有标准输入、输出和环境变量。</p>
+<p><strong>WSGI</strong>（Python Web Server Gateway Interface）可以让你的web server在多个web 框架下运行。</p>
+<p>因此我们的web server只需要实现WSGI的接口就可以在不同的框架下运行。
+下面是django框架下的具体实现(需要使用django-admin.py 建立一个helloworld的project):</p>
+<div class="highlight"><pre><span class="code-line"><span class="kn">import</span> <span class="nn">sys</span></span>
+<span class="code-line"><span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s">'./helloworld'</span><span class="p">)</span></span>
+<span class="code-line"><span class="kn">from</span> <span class="nn">helloworld</span> <span class="kn">import</span> <span class="n">wsgi</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="n">app</span> <span class="o">=</span> <span class="n">wsgi</span><span class="o">.</span><span class="n">application</span></span>
+</pre></div>
+<p>WSGI为Pyhont的web server和Python的web 框架提供了最下的接口，下面的代码片段是server端和框架端的接口：</p>
+<div class="highlight"><pre><span class="code-line"><span class="k">def</span> <span class="nf">run_application</span><span class="p">(</span><span class="n">application</span><span class="p">):</span></span>
+<span class="code-line">    <span class="n">headers_set</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="code-line">    <span class="n">environ</span> <span class="o">=</span> <span class="p">{}</span></span>
+<span class="code-line">    <span class="k">def</span> <span class="nf">start_response</span><span class="p">(</span><span class="n">status</span><span class="p">,</span> <span class="n">response_headers</span><span class="p">,</span> <span class="n">exc_info</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span></span>
+<span class="code-line">        <span class="n">headers_set</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">[</span><span class="n">status</span><span class="p">,</span> <span class="n">response_headers</span><span class="p">]</span></span>
+<span class="code-line">    <span class="n">result</span> <span class="o">=</span> <span class="n">application</span><span class="p">(</span><span class="n">environ</span><span class="p">,</span> <span class="n">start_response</span><span class="p">)</span></span>
+<span class="code-line"><span class="k">def</span> <span class="nf">app</span><span class="p">(</span><span class="n">environ</span><span class="p">,</span> <span class="n">start_response</span><span class="p">):</span></span>
+<span class="code-line">    <span class="sd">"""A barebones WSGI app."""</span></span>
+<span class="code-line">    <span class="n">start_response</span><span class="p">(</span><span class="s">'200 OK'</span><span class="p">,</span> <span class="p">[(</span><span class="s">'Content-Type'</span><span class="p">,</span> <span class="s">'text/plain'</span><span class="p">)])</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="p">[</span><span class="s">'Hello world!'</span><span class="p">]</span></span>
+<span class="code-line"><span class="n">run_application</span><span class="p">(</span><span class="n">app</span><span class="p">)</span></span>
+</pre></div>
+<p>具体步骤如下：</p>
+<ol>
+<li>框架提供了一个"application"的调用接口</li>
+<li>server为每个它接收到的HTTP client请求调用"application"接口。它传递给这个接口一个包含WSGI/CGI变量的字典"environ"和一个"start_response"的实参</li>
+<li>框架产生一个HTTP 状态和HTTP的状态头，并把这些内容传递给 "start_response"以便server可以存储这些内容，同时框架也返回一个response body</li>
+<li>server把这些状态， 应答头，应答主体组合成一个HTTP的应答包发给client。</li>
+</ol>
+<p>但是这个程序只能执行一次连接无法并发处理这些数据。下面通过socket来介绍具体的并发实现。</p>
+<h3 id="_1">并发</h3>
+<h4 id="socket-server">Socket Server端</h4>
+<p>Socket是通信终端的一个抽象，它允许你的程序使用文件描述符（file descriptors）来与另一个程序建立连接后进行通信。
+一个连接就是由一个socket pair决定的一个四元组（srcIP，srcPort，dstIP，dstPort）。一个server创建一个可接受连接的socket的步骤一般如下：</p>
+<div class="highlight"><pre><span class="code-line">socket-&gt;bind-&gt;listen-&gt;accept</span>
+<span class="code-line">//对应的具体代码如下</span>
+<span class="code-line"></span>
+<span class="code-line">listen_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)</span>
+<span class="code-line">listen_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)</span>
+<span class="code-line">listen_socket.bind(SERVER_ADDRESS)</span>
+<span class="code-line">listen_socket.listen(REQUEST_QUEUE_SIZE)</span>
+</pre></div>
+<p>listen方法只被server调用，它告诉内核它可以接受请求这个socket的连接。当这些准备操作
+都完成后，server就会调用accept来返回一个已经连接的client sockent。然后从连接的client socket中
+（从网卡中接收到的数据）读取请求的数据，并对这些数据做相应的处理，然后返回给client一个消息。</p>
+<h4 id="socket-client">Socket Client端</h4>
+<p>一个Client连接到server的步骤如下：</p>
+<div class="highlight"><pre><span class="code-line">socket-&gt;connect-&gt;send-&gt;recv</span>
+<span class="code-line">//对应的具体代码如下</span>
+<span class="code-line"></span>
+<span class="code-line">sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)</span>
+<span class="code-line">sock.connect(('localhost', 8888)) // create a socket and connect to a server</span>
+<span class="code-line">sock.sendall(b'test')  // send and receive some data</span>
+<span class="code-line">data = sock.recv(1024)</span>
+</pre></div>
+<h4 id="_2">文件描述符</h4>
+<p>文件描述符是内核在打开一个已经存在的文件，创建一个新的文件或者创建进程时，返回给进程的一个非负的整数。内核通过把
+文件描述符引用给进程来让进程进行文件的处理。当你需要读或者写一个文件的时候，你通过文件描述符来唯一确定它。</p>
+<h4 id="_3">重复文件描述符</h4>
+<p>当有多个连接的时候我们就需要使用fork来让内核给我们分配相应的进程来进行处理。同时注意必须及时的关闭子进程的连接（client_connection.close()），因为当子进程关闭Client连接的时候，内核把相应的client socket的数目减少1，但是这个client socket并不会被内核关闭，因为还有父进程的引用，
+因此当我们长期执行的server不关闭重复的文件描述符的时候，就会迅速耗尽系统的文件描述符。</p>
+<div class="highlight"><pre><span class="code-line"><span class="k">def</span> <span class="nf">serve_forever</span><span class="p">():</span></span>
+<span class="code-line">    <span class="n">listen_socket</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">listen_socket</span><span class="o">.</span><span class="n">setsockopt</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">SOL_SOCKET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SO_REUSEADDR</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">listen_socket</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">SERVER_ADDRESS</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">listen_socket</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="n">REQUEST_QUEUE_SIZE</span><span class="p">)</span></span>
+<span class="code-line">    <span class="k">print</span><span class="p">(</span><span class="s">'Serving HTTP on port {port} ...'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="n">PORT</span><span class="p">))</span></span>
+<span class="code-line">    <span class="k">while</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="code-line">        <span class="n">client_connection</span><span class="p">,</span> <span class="n">client_address</span> <span class="o">=</span> <span class="n">listen_socket</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span></span>
+<span class="code-line">        <span class="c"># store the reference otherwise it's garbage collected</span></span>
+<span class="code-line">        <span class="c"># on the next loop run</span></span>
+<span class="code-line">        <span class="n">clients</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">client_connection</span><span class="p">)</span></span>
+<span class="code-line">        <span class="n">pid</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">fork</span><span class="p">()</span></span>
+<span class="code-line">        <span class="k">if</span> <span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>  <span class="c"># child</span></span>
+<span class="code-line">            <span class="n">listen_socket</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>  <span class="c"># close child copy</span></span>
+<span class="code-line">            <span class="n">handle_request</span><span class="p">(</span><span class="n">client_connection</span><span class="p">)</span></span>
+<span class="code-line">            <span class="n">client_connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></span>
+<span class="code-line">            <span class="n">os</span><span class="o">.</span><span class="n">_exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c"># child exits here</span></span>
+<span class="code-line">        <span class="k">else</span><span class="p">:</span>  </span>
+<span class="code-line">            <span class="n">client_connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></span>
+<span class="code-line">            <span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">clients</span><span class="p">))</span></span>
+</pre></div>
+<p>但是这样处理是有问题的，通过PS命令，我们可以查看到僵尸进程的存在，其中 Z+就代表一个僵尸进程</p>
+<h4 id="_4">僵尸进程</h4>
+<p>僵尸进程就是一个已经终结的进程，但是它的父进程没有等到它的终结状态(termination status)，这时内核就会存储该进程的一些信息以便让它的
+父进程能最终的回收这些资源。这些存储的信息包括进程ID，进程终结状态，以及进程使用的资源。</p>
+<p>因为为了解决这个问题，我们需要等待这些僵尸进程来获得它们的终结状态，可以使用SIGCHLD，它是signal handle与wait的系统调用的组合。
+它的工作原理如下：当子进程退出的时候，内核就会发送一个SIGCHLD的信号，父进程可以建立一个信号的handle来异步的处理这些SIGCHLD事件，
+然后它就等待这个子进程来收集相应的终结状态，防止子进程离开。</p>
+<p>代码修改如下：</p>
+<div class="highlight"><pre><span class="code-line"><span class="k">def</span> <span class="nf">grim_reaper</span><span class="p">(</span><span class="n">signum</span><span class="p">,</span> <span class="n">frame</span><span class="p">):</span></span>
+<span class="code-line">    <span class="k">while</span> <span class="mi">1</span><span class="p">:</span> <span class="c"># 防止子进程一起退出时造成的阻塞，从而造成新的僵尸进程</span></span>
+<span class="code-line">        <span class="k">try</span><span class="p">:</span></span>
+<span class="code-line">            <span class="n">pid</span><span class="p">,</span> <span class="n">status</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">waitpid</span><span class="p">(</span></span>
+<span class="code-line">                <span class="o">-</span><span class="mi">1</span><span class="p">,</span>          <span class="c"># Wait for any child process</span></span>
+<span class="code-line">                 <span class="n">os</span><span class="o">.</span><span class="n">WNOHANG</span>  <span class="c"># Do not block and return EWOULDBLOCK error</span></span>
+<span class="code-line">            <span class="p">)</span></span>
+<span class="code-line">        <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span></span>
+<span class="code-line">            <span class="k">return</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="k">if</span> <span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>  <span class="c"># 所有的子进程状态都得到处理</span></span>
+<span class="code-line">            <span class="k">return</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">def</span> <span class="nf">serve_forever</span><span class="p">():</span></span>
+<span class="code-line">    <span class="n">signal</span><span class="o">.</span><span class="n">signal</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGCHLD</span><span class="p">,</span> <span class="n">grim_reaper</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">while</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="code-line">        <span class="k">try</span><span class="p">:</span></span>
+<span class="code-line">            <span class="n">client_connection</span><span class="p">,</span> <span class="n">client_address</span> <span class="o">=</span> <span class="n">listen_socket</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span></span>
+<span class="code-line">        <span class="k">except</span> <span class="ne">IOError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span></span>
+<span class="code-line">            <span class="n">code</span><span class="p">,</span> <span class="n">msg</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">args</span></span>
+<span class="code-line">            <span class="c"># restart 'accept' if it was interrupted</span></span>
+<span class="code-line">            <span class="k">if</span> <span class="n">code</span> <span class="o">==</span> <span class="n">errno</span><span class="o">.</span><span class="n">EINTR</span><span class="p">:</span></span>
+<span class="code-line">                <span class="k">continue</span></span>
+<span class="code-line">            <span class="k">else</span><span class="p">:</span></span>
+<span class="code-line">                <span class="k">raise</span></span>
+<span class="code-line">        <span class="n">pid</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">fork</span><span class="p">()</span></span>
+<span class="code-line">        <span class="k">if</span> <span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>  <span class="c"># child</span></span>
+<span class="code-line">            <span class="n">listen_socket</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>  <span class="c"># close child copy</span></span>
+<span class="code-line">            <span class="n">handle_request</span><span class="p">(</span><span class="n">client_connection</span><span class="p">)</span></span>
+<span class="code-line">            <span class="n">client_connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></span>
+<span class="code-line">            <span class="n">os</span><span class="o">.</span><span class="n">_exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c"># child exits here</span></span>
+<span class="code-line">        <span class="k">else</span><span class="p">:</span>  <span class="c"># parent</span></span>
+<span class="code-line">            <span class="n">client_connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></span>
+<span class="code-line">            <span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">clients</span><span class="p">))</span></span>
+</pre></div>
+<p>本文的完整代码见<a href="https://github.com/chaojunhou/WSGIServer">Github</a></p>
+<h3 id="_6">总结</h3>
+<p>首先，server调用框架提供的"application"接口，然后，server读取一个请求，并解析这个请求，并根据请求数据构建一个"environ"字典，
+然后它调用"application"接口并把"environ"和"start_response"(一个函数)作为参数传递过去,并得到一个应答body。然后server根据返回的数据和状态来构建一个HTTP的应答包。
+最终server把这个HTTP 应答包发送给client。并关闭连接。</p>
 <section>
 <div class="accordion" id="accordion2">
     <div class="accordion-group">
