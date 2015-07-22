@@ -5,35 +5,35 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>www.houcj.net/</loc>
-<lastmod>2015-07-21T20:38:18-00:00</lastmod>
+<lastmod>2015-07-22T11:07:01-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>www.houcj.net/archives.html</loc>
-<lastmod>2015-07-21T20:38:18-00:00</lastmod>
+<lastmod>2015-07-22T11:07:01-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>www.houcj.net/tags.html</loc>
-<lastmod>2015-07-21T20:38:18-00:00</lastmod>
+<lastmod>2015-07-22T11:07:01-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>www.houcj.net/categories.html</loc>
-<lastmod>2015-07-21T20:38:18-00:00</lastmod>
+<lastmod>2015-07-22T11:07:01-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>www.houcj.net/pages/About.html</loc>
-<lastmod>2015-07-21T20:38:18-00:00</lastmod>
+<lastmod>2015-07-22T11:07:01-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.3</priority>
 </url>
@@ -340,6 +340,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
+<loc>www.houcj.net/blog/2014/07/22/network-programming/</loc>
+<lastmod>2014-07-22T09:45:00+08:00</lastmod>
+<changefreq>monthly</changefreq>
+<priority>0.7</priority>
+</url>
+
+<url>
 <loc>www.houcj.net/blog/2014/07/19/open-source-code/</loc>
 <lastmod>2014-07-19T21:13:00+08:00</lastmod>
 <changefreq>monthly</changefreq>
@@ -410,15 +417,15 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-<loc>www.houcj.net/blog/2013/12/22/hui-su-yu-fen-zhi-xian-jie/</loc>
-<lastmod>2013-12-22T00:00:00+08:00</lastmod>
+<loc>www.houcj.net/blog/2013/12/29/hui-su-yu-fen-zhi-xian-jie/</loc>
+<lastmod>2013-12-29T00:00:00+08:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.7</priority>
 </url>
 
 <url>
-<loc>www.houcj.net/blog/2013/12/22/red-black-tree/</loc>
-<lastmod>2013-12-22T00:00:00+08:00</lastmod>
+<loc>www.houcj.net/blog/2013/12/27/red-black-tree/</loc>
+<lastmod>2013-12-27T00:00:00+08:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.7</priority>
 </url>
@@ -536,6 +543,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
+<loc>www.houcj.net/tag/opensource.html</loc>
+<lastmod>2014-07-19T21:13:00+08:06</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
 <loc>www.houcj.net/tag/shu-dan.html</loc>
 <lastmod>2015-05-08T13:50:00+08:06</lastmod>
 <changefreq>daily</changefreq>
@@ -587,6 +601,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>www.houcj.net/tag/di-gui.html</loc>
 <lastmod>2015-06-27T23:30:00+08:06</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>www.houcj.net/tag/wang-luo-bian-cheng.html</loc>
+<lastmod>2014-07-22T09:45:00+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>

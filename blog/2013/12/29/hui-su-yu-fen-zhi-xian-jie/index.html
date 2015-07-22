@@ -11,11 +11,11 @@
 <meta name="keywords" content="算法, 编程, " />
 
 <meta property="og:title" content="回溯与分支限界 "/>
-<meta property="og:url" content="../../../../../blog/2013/12/22/hui-su-yu-fen-zhi-xian-jie/" />
+<meta property="og:url" content="../../../../../blog/2013/12/29/hui-su-yu-fen-zhi-xian-jie/" />
 <meta property="og:description" content="回溯 对于搜索问题和优化问题，它们的解分布在一个解空间里，求解这些搜索问题的算法 就是一种遍历搜索解空间的系统方法。回溯算法将搜索空间看作一定的结构，一个解对应于树中的一片树叶。算法从 根节点出发，尝试所有可达的节点。当不能前进时，就后退一步或若干步，再从另一个节点继续 搜索，知道所有的节点都尝试过，为了加快搜索，通常使用分支限界等剪枝方法。同时需要记录解的路径 重复访问和重复解 重复访问 在图等数据结构的访问中，经常会出现重复访问的情况，这时需要记录临时访问到的节点，然后在访问结束时要恢复临时节点的值。 重复解 在枚举所有解的情况时，如果当前访问的层的节点值和pre层的节点值相等就会出现重复解的情况，需要记录pre层访问的节点值来解决这种情况。 N皇后 The n-queens puzzle is the problem of placing n queens on an n×n chessboard such that no two queens attack ..." />
 <meta property="og:site_name" content="Write the Code" />
 <meta property="og:article:author" content="ChaoJun Hou" />
-<meta property="og:article:published_time" content="2013-12-22T00:00:00+08:00" />
+<meta property="og:article:published_time" content="2013-12-29T00:00:00+08:00" />
 <meta name="twitter:title" content="回溯与分支限界 ">
 <meta name="twitter:description" content="回溯 对于搜索问题和优化问题，它们的解分布在一个解空间里，求解这些搜索问题的算法 就是一种遍历搜索解空间的系统方法。回溯算法将搜索空间看作一定的结构，一个解对应于树中的一片树叶。算法从 根节点出发，尝试所有可达的节点。当不能前进时，就后退一步或若干步，再从另一个节点继续 搜索，知道所有的节点都尝试过，为了加快搜索，通常使用分支限界等剪枝方法。同时需要记录解的路径 重复访问和重复解 重复访问 在图等数据结构的访问中，经常会出现重复访问的情况，这时需要记录临时访问到的节点，然后在访问结束时要恢复临时节点的值。 重复解 在枚举所有解的情况时，如果当前访问的层的节点值和pre层的节点值相等就会出现重复解的情况，需要记录pre层访问的节点值来解决这种情况。 N皇后 The n-queens puzzle is the problem of placing n queens on an n×n chessboard such that no two queens attack ...">
 
@@ -86,7 +86,7 @@
 <article>
 <div class="row-fluid">
     <header class="page_header span10 offset2">
-    <h1><a href="../../../../../blog/2013/12/22/hui-su-yu-fen-zhi-xian-jie/"> 回溯与分支限界  </a></h1>
+    <h1><a href="../../../../../blog/2013/12/29/hui-su-yu-fen-zhi-xian-jie/"> 回溯与分支限界  </a></h1>
     </header>
 </div>
 
@@ -312,7 +312,7 @@ word = "ABCB", -&gt; returns false.</p>
     <div class="accordion-group">
         <div class="accordion-heading">
             <a class="accordion-toggle disqus-comment-count" data-toggle="collapse" data-parent="#accordion2"
-                href="../../../../../blog/2013/12/22/hui-su-yu-fen-zhi-xian-jie/#disqus_thread">
+                href="../../../../../blog/2013/12/29/hui-su-yu-fen-zhi-xian-jie/#disqus_thread">
                 Comments
             </a>
         </div>
@@ -347,12 +347,12 @@ word = "ABCB", -&gt; returns false.</p>
 <li><a href="../../../../../blog/2014/03/21/kmp/" title="字符串匹配">字符串匹配</a></li>
 <li><a href="../../../../../blog/2014/06/02/bit-manipulaiton/" title="位操作">位操作</a></li>
 <li><a href="../../../../../blog/2015/04/25/cal24/" title="24点游戏编程">24点游戏编程</a></li>
-<li><a href="../../../../../blog/2015/05/05/sifting-prime/" title="素数筛选法">素数筛选法</a></li>
 <li><a href="../../../../../blog/2015/05/05/reverse-linked-list/" title="反转链表">反转链表</a></li>
 <li><a href="../../../../../blog/2015/05/18/binary-tree/" title="二叉树">二叉树</a></li>
 <li><a href="../../../../../blog/2015/05/24/select/" title="选择算法">选择算法</a></li>
 <li><a href="../../../../../blog/2015/05/28/search/" title="查找算法">查找算法</a></li>
 <li><a href="../../../../../blog/2015/05/28/find-a-solution/" title="How to find a solution">How to find a solution</a></li>
+<li><a href="../../../../../blog/2015/05/31/sort1/" title="排序算法">排序算法</a></li>
 </ul>
 <hr />
 </section>
@@ -363,7 +363,7 @@ word = "ABCB", -&gt; returns false.</p>
         <div class="span2" style="float:right;font-size:0.9em;">
  
             <h4>Published</h4>
-            <time pubdate="pubdate" datetime="2013-12-22T00:00:00+08:00">Dec 22, 2013</time>
+            <time pubdate="pubdate" datetime="2013-12-29T00:00:00+08:00">Dec 29, 2013</time>
             <h4>Category</h4>
             <a class="category-link" href="/categories.html#编程-ref">编程</a> 
             <h4>Tags</h4>
