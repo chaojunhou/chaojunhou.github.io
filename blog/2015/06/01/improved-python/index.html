@@ -136,7 +136,8 @@ searched for methods. 在Python2.3中，MRO算法的基本思想是根据每个�
 </pre></div>
 <h2 id="_1">静态方法、类方法、抽象方法</h2>
 <p><strong>静态方法</strong>是一类特殊的方法，有时你可能需要写一个属于这个类的方法，但是这些代码完全不会使用到实例对象本身。
-<strong>类方法</strong>不是绑定到对象上，而是绑定在类上的方法</p>
+直接类名.方法()调用，有利于组织代码。
+<strong>类方法</strong>不是绑定到对象上，而是绑定在类上的方法，需要有cls参数.</p>
 <p>一个具体的列子：调用静态类</p>
 <p>如果你把一个静态方法拆分成多个静态方法，除非你使用类方法，
 否则你还是得硬编码类名。使用这种方式声明方法，Pizza类名明永远都不会在被直接引用，
@@ -424,8 +425,8 @@ __init__方法才被调用，它不返回任何信息，只是初始化对象，
 <ul class="related-posts-list">
 <li><a href="../../../../../blog/2014/03/21/kmp/" title="字符串匹配">字符串匹配</a></li>
 <li><a href="../../../../../blog/2015/04/01/life-is-short-use-python/" title="人生苦短我用Python">人生苦短我用Python</a></li>
-<li><a href="../../../../../blog/2015/05/05/reverse-linked-list/" title="反转链表">反转链表</a></li>
 <li><a href="../../../../../blog/2015/05/05/sifting-prime/" title="素数筛选法">素数筛选法</a></li>
+<li><a href="../../../../../blog/2015/05/05/reverse-linked-list/" title="反转链表">反转链表</a></li>
 <li><a href="../../../../../blog/2015/06/22/python-closure/" title="Python 闭包">Python 闭包</a></li>
 </ul>
 <hr />

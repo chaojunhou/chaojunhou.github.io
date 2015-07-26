@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="utf-8"> 
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="google-site-verification" content="fdZTDVFyX3hKovPIzn1tgPixk_wysBXaPN8YQw1P8Jw" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="ChaoJun Hou" />
+        <meta name="copyright" content="ChaoJun Hou" />
+
+<meta name="keywords" content="算法, 计算机科学, " />
+
+<meta property="og:title" content="Awesome Solution "/>
+<meta property="og:url" content="../../../../../blog/2014/09/21/awesome-solution/" />
+<meta property="og:description" content="Maximum circular subarray sum Given n numbers (both +ve and -ve), arranged in a circle, fnd the maximum sum of consecutive number. Examples: Input: a[] = {8, -8, 9, -9, 10, -11, 12} Output: 22 (12 + 8 - 8 + 9 - 9 + 10) Input: a[] = {10, -3, -4, 7, 6, 5, -4, -1 ..." />
+<meta property="og:site_name" content="Write the Code" />
+<meta property="og:article:author" content="ChaoJun Hou" />
+<meta property="og:article:published_time" content="2014-09-21T15:57:00+08:00" />
+<meta name="twitter:title" content="Awesome Solution ">
+<meta name="twitter:description" content="Maximum circular subarray sum Given n numbers (both +ve and -ve), arranged in a circle, fnd the maximum sum of consecutive number. Examples: Input: a[] = {8, -8, 9, -9, 10, -11, 12} Output: 22 (12 + 8 - 8 + 9 - 9 + 10) Input: a[] = {10, -3, -4, 7, 6, 5, -4, -1 ...">
+
+        <title>Awesome Solution  · Change the World | Write the Code
+</title>
+       
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="../../../../../theme/css/style.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="../../../../../theme/css/solarizedlight.css" media="screen">
+        <link rel="shortcut icon" href="../../../../../theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="apple-touch-icon" href="../../../../../theme/images/apple-touch-icon.png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="../../../../../theme/images/apple-touch-icon-57x57.png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="../../../../../theme/images/apple-touch-icon-72x72.png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="../../../../../theme/images/apple-touch-icon-114x114.png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="../../../../../theme/images/apple-touch-icon-144x144.png" />
+        <link rel="icon" href="../../../../../theme/images/apple-touch-icon-144x144.png" />
+        <link href="www.houcj.net/feed.xml" type="application/rss+xml" rel="alternate" title="Write the Code - Full RSS Feed" />
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', '61957498', 'auto');
+    ga('send', 'pageview');
+</script>
+
+    </head>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-61957498-1', 'auto');
+  ga('send', 'pageview');
+
+	</script>
+    <body>
+        <div id="content-sans-footer">
+        <div class="navbar navbar-static-top">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../../../../"><span class=site-name>Write the Code</span></a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav pull-right top-menu">
+                            <li ><a href="../../../../..">Home</a></li>
+                            <li ><a href="../../../../../pages/About.html">About</a></li>
+                            <li ><a href="../../../../../random.html">Pick One!</a></li>
+                            <li ><a href="../../../../../categories.html">分类</a></li>
+                            <li ><a href="../../../../../tags.html">标签</a></li>
+                            <li ><a href="../../../../../archives.html">归档</a></li>
+                            <li><form class="navbar-search" action="../../../../../search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span1"></div>
+                <div class="span10">
+<article>
+<div class="row-fluid">
+    <header class="page_header span10 offset2">
+    <h1><a href="../../../../../blog/2014/09/21/awesome-solution/"> Awesome Solution  </a></h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+    <div class="span2 table-of-content">
+        <nav>
+        <h4>Contents</h4>
+        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="Awesome Solution">Awesome Solution</a><ul><li><a class="toc-href" href="#maximum-circular-subarray-sum" title="Maximum circular subarray sum">Maximum circular subarray sum</a></li></ul></li></ul></div></body></html>
+        </nav>
+    </div>
+    <div class="span8 article-content">
+
+            <hr/>
+<h3 id="maximum-circular-subarray-sum">Maximum circular subarray sum</h3>
+<p>Given n numbers (both +ve and -ve), arranged in a circle, fnd the maximum sum of consecutive number.</p>
+<p>Examples:</p>
+<div class="highlight"><pre><span class="code-line"><span class="n">Input</span><span class="o">:</span> <span class="n">a</span><span class="o">[]</span> <span class="o">=</span> <span class="o">{</span><span class="mi">8</span><span class="o">,</span> <span class="o">-</span><span class="mi">8</span><span class="o">,</span> <span class="mi">9</span><span class="o">,</span> <span class="o">-</span><span class="mi">9</span><span class="o">,</span> <span class="mi">10</span><span class="o">,</span> <span class="o">-</span><span class="mi">11</span><span class="o">,</span> <span class="mi">12</span><span class="o">}</span></span>
+<span class="code-line"><span class="n">Output</span><span class="o">:</span> <span class="mi">22</span> <span class="o">(</span><span class="mi">12</span> <span class="o">+</span> <span class="mi">8</span> <span class="o">-</span> <span class="mi">8</span> <span class="o">+</span> <span class="mi">9</span> <span class="o">-</span> <span class="mi">9</span> <span class="o">+</span> <span class="mi">10</span><span class="o">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="n">Input</span><span class="o">:</span> <span class="n">a</span><span class="o">[]</span> <span class="o">=</span> <span class="o">{</span><span class="mi">10</span><span class="o">,</span> <span class="o">-</span><span class="mi">3</span><span class="o">,</span> <span class="o">-</span><span class="mi">4</span><span class="o">,</span> <span class="mi">7</span><span class="o">,</span> <span class="mi">6</span><span class="o">,</span> <span class="mi">5</span><span class="o">,</span> <span class="o">-</span><span class="mi">4</span><span class="o">,</span> <span class="o">-</span><span class="mi">1</span><span class="o">}</span> </span>
+<span class="code-line"><span class="n">Output</span><span class="o">:</span>  <span class="mi">23</span> <span class="o">(</span><span class="mi">7</span> <span class="o">+</span> <span class="mi">6</span> <span class="o">+</span> <span class="mi">5</span> <span class="o">-</span> <span class="mi">4</span> <span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">10</span><span class="o">)</span> </span>
+<span class="code-line"></span>
+<span class="code-line"><span class="n">Input</span><span class="o">:</span> <span class="n">a</span><span class="o">[]</span> <span class="o">=</span> <span class="o">{-</span><span class="mi">1</span><span class="o">,</span> <span class="mi">40</span><span class="o">,</span> <span class="o">-</span><span class="mi">14</span><span class="o">,</span> <span class="mi">7</span><span class="o">,</span> <span class="mi">6</span><span class="o">,</span> <span class="mi">5</span><span class="o">,</span> <span class="o">-</span><span class="mi">4</span><span class="o">,</span> <span class="o">-</span><span class="mi">1</span><span class="o">}</span></span>
+<span class="code-line"><span class="n">Output</span><span class="o">:</span> <span class="mi">52</span> <span class="o">(</span><span class="mi">7</span> <span class="o">+</span> <span class="mi">6</span> <span class="o">+</span> <span class="mi">5</span> <span class="o">-</span> <span class="mi">4</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">40</span><span class="o">)</span></span>
+</pre></div>
+<p>Solutions:</p>
+<p>如果出现环形时结果最大的情况，一定是所有元素的和与所有元素反转后的最大子数组的和的
+和情况。</p>
+<p>```c
+// The function returns maximum circular contiguous sum in a[]
+int maxCircularSum (int a[], int n)
+{
+   // Case 1: get the maximum sum using standard kadane's algorithm
+   int max_kadane = kadane(a, n);</p>
+<p _="+" max_wrap="max_wrap">// Case 2: Now find the maximum sum that includes corner elements.
+   int max_wrap  =  0, i;
+   for(i=0; i&lt;n; i++)</p>
+<p>// max sum with corner elements will be:
+   // array-sum - (-max subarray sum of inverted array)
+   max_wrap = max_wrap + kadane(a, n);</p>
+<p>// The maximum circular sum will be maximum of two sums
+   return (max_wrap &gt; max_kadane)? max_wrap: max_kadane;
+}
+int kadane (int a[], int n)
+{
+    int max_so_far = 0, max_ending_here = 0;
+    int i;
+    for(i = 0; i &lt; n; i++)
+    {
+        max_ending_here = max_ending_here + a[i];
+        if(max_ending_here &lt; 0)
+            max_ending_here = 0;
+        if(max_so_far &lt; max_ending_here)
+            max_so_far = max_ending_here;
+    }
+    return max_so_far;
+}
+``</p>
+<section>
+<div class="accordion" id="accordion2">
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle disqus-comment-count" data-toggle="collapse" data-parent="#accordion2"
+                href="../../../../../blog/2014/09/21/awesome-solution/#disqus_thread">
+                Comments
+            </a>
+        </div>
+        <div id="disqus_thread" class="accordion-body collapse">
+            <div class="accordion-inner">
+                <div class="comments">
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'houcj';
+
+
+    (function() {
+         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+            
+
+            <hr/>
+<section>
+    <h2>Related Posts</h2>
+<ul class="related-posts-list">
+<li><a href="../../../../../blog/2013/12/22/string-related/" title="字符串相关">字符串相关</a></li>
+<li><a href="../../../../../blog/2013/12/29/hui-su-yu-fen-zhi-xian-jie/" title="回溯与分支限界">回溯与分支限界</a></li>
+<li><a href="../../../../../blog/2014/03/21/kmp/" title="字符串匹配">字符串匹配</a></li>
+<li><a href="../../../../../blog/2015/05/05/sifting-prime/" title="素数筛选法">素数筛选法</a></li>
+<li><a href="../../../../../blog/2015/05/05/reverse-linked-list/" title="反转链表">反转链表</a></li>
+<li><a href="../../../../../blog/2015/05/18/binary-tree/" title="二叉树">二叉树</a></li>
+<li><a href="../../../../../blog/2015/05/24/select/" title="选择算法">选择算法</a></li>
+<li><a href="../../../../../blog/2015/05/28/search/" title="查找算法">查找算法</a></li>
+<li><a href="../../../../../blog/2015/05/28/find-a-solution/" title="How to find a solution">How to find a solution</a></li>
+<li><a href="../../../../../blog/2015/05/31/sort1/" title="排序算法">排序算法</a></li>
+</ul>
+<hr />
+</section>
+
+            </aside>
+        </div>
+        <section>
+        <div class="span2" style="float:right;font-size:0.9em;">
+ 
+            <h4>Published</h4>
+            <time pubdate="pubdate" datetime="2014-09-21T15:57:00+08:00">Sep 21, 2014</time>
+            <h4>Category</h4>
+            <a class="category-link" href="/categories.html#计算机科学-ref">计算机科学</a> 
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article"> 
+                <li><a href="/tags.html#算法-ref">算法
+                    <span>14</span>
+</a></li>
+            </ul>
+<h4>Contact</h4>
+    <a href="https://twitter.com/chaojunhou" title="My Twitter Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-twitter sidebar-social-links"></i></a>
+    <a href="https://www.tumblr.com/blog/houcj" title="My Tumblr Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-tumblr sidebar-social-links"></i></a>
+    <a href="https://github.com/chaojunhou" title="My Github Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-github sidebar-social-links"></i></a>
+            <h4>Blogroll</h4>
+			<ul ><a class="category-link" href="http://www.rudy-yuan.net">Rudy-yuan</a></ul>
+            <ul ><a class="category-link" href="http://www.wengweitao.com">WWT</a></ul>
+            <ul ><a class="category-link" href="http://hult.tiddlyspot.com">HULT</a></ul>
+       
+        </div>
+        </section>
+</div>
+</article>
+                </div>
+                <div class="span1"></div>
+            </div>
+        </div>
+        <div id="push"></div>
+    </div>
+        
+            <script src="http://code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+<script type="text/javascript">
+    var disqus_shortname = 'houcj';
+
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+    </script>
+        <script  language="javascript" type="text/javascript">
+            function uncollapse() {
+                var hash_str = window.location.hash;
+                if (window.location.hash.match(/^#comment-\d+$/))
+                {
+                    var hash_str = '#disqus_thread';
+                }
+                $(hash_str).collapse({
+                    toggle: true
+                    })
+            }
+        </script>
+
+        <script type="text/javascript" language="JavaScript">
+            uncollapse(); 
+        </script>
+    </body>
+      <!-- Baidu Button BEGIN 
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"6","bdPos":"right","bdTop":"250"},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+ <!-- Baidu Button END -->
+  </body>
+
+  <!-- hitwebcounter Code START -->
+
+<img src="http://hitwebcounter.com/counter/counter.php?page=6046616&style=0005&nbdigits=5&type=ip&initCount=0" title="" Alt=""   border="0" style="float:left">  
+
+</html>

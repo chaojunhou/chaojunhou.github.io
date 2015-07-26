@@ -94,7 +94,7 @@
     <div class="span2 table-of-content">
         <nav>
         <h4>Contents</h4>
-        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="Design Pattern">Design Pattern</a><ul><li><a class="toc-href" href="#singleton" title="Singleton">Singleton</a></li></ul></li></ul></div></body></html>
+        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="Design Pattern">Design Pattern</a><ul><li><a class="toc-href" href="#singleton" title="Singleton">Singleton</a></li><li><a class="toc-href" href="#observer-pattern" title="Observer pattern">Observer pattern</a></li><li><a class="toc-href" href="#reactor-pattern" title="Reactor pattern">Reactor pattern</a></li></ul></li></ul></div></body></html>
         </nav>
     </div>
     <div class="span8 article-content">
@@ -162,10 +162,72 @@
 <span class="code-line">    <span class="k">return</span> <span class="o">*</span><span class="n">pInst</span><span class="p">;</span></span>
 <span class="code-line"><span class="p">}</span></span>
 </pre></div>
-<p>C++里的new包含了两个步骤：
-1. 内存分配
-2. 调用构造函数</p>
-<p>同时C++标准中规定，如果内存分配失败，或者构造函数没有成功执行， new运算符所返回的将是空。</p>
+<hr/>
+<h2 id="observer-pattern">Observer pattern</h2>
+<p>观察者模式（有时又被称为发布/订阅模式）是软件设计模式的一种。在此种模式中，一个目标对象管理所有相依于它的观察者对象，并且在它本身的状态改变时主动发出通知。这通常透过呼叫各观察者所提供的方法来实现。
+此种模式通常被用来实现分布式系统中的事件的处理。</p>
+<div class="highlight"><pre><span class="code-line"><span class="k">class</span> <span class="nc">AbstractSubject</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span></span>
+<span class="code-line">    <span class="k">def</span> <span class="nf">register</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">listener</span><span class="p">):</span></span>
+<span class="code-line">        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s">"Must subclass me"</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">def</span> <span class="nf">deregister</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">listener</span><span class="p">):</span></span>
+<span class="code-line">        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s">"Must subclass me"</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">def</span> <span class="nf">notify_listeners</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span></span>
+<span class="code-line">        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s">"Must subclass me"</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">class</span> <span class="nc">Listener</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span></span>
+<span class="code-line">    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">subject</span><span class="p">):</span></span>
+<span class="code-line">        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span></span>
+<span class="code-line">        <span class="n">subject</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">def</span> <span class="nf">notify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span></span>
+<span class="code-line">        <span class="k">print</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s">"received event"</span><span class="p">,</span> <span class="n">event</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">class</span> <span class="nc">Subject</span><span class="p">(</span><span class="n">AbstractSubject</span><span class="p">):</span></span>
+<span class="code-line">    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></span>
+<span class="code-line">        <span class="bp">self</span><span class="o">.</span><span class="n">listeners</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="code-line">        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="bp">None</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">def</span> <span class="nf">getUserAction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></span>
+<span class="code-line">        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s">'Enter something to do:'</span><span class="p">)</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="c"># Implement abstract Class AbstractSubject</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">def</span> <span class="nf">register</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">listener</span><span class="p">):</span></span>
+<span class="code-line">        <span class="bp">self</span><span class="o">.</span><span class="n">listeners</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">listener</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">def</span> <span class="nf">deregister</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">listener</span><span class="p">):</span></span>
+<span class="code-line">        <span class="bp">self</span><span class="o">.</span><span class="n">listeners</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">listener</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">def</span> <span class="nf">notify_listeners</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span></span>
+<span class="code-line">        <span class="k">for</span> <span class="n">listener</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">listeners</span><span class="p">:</span></span>
+<span class="code-line">            <span class="n">listener</span><span class="o">.</span><span class="n">notify</span><span class="p">(</span><span class="n">event</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">if</span> <span class="n">__name__</span><span class="o">==</span><span class="s">"__main__"</span><span class="p">:</span></span>
+<span class="code-line">    <span class="c"># make a subject object to spy on</span></span>
+<span class="code-line">    <span class="n">subject</span> <span class="o">=</span> <span class="n">Subject</span><span class="p">()</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="c"># register two listeners to monitor it.</span></span>
+<span class="code-line">    <span class="n">listenerA</span> <span class="o">=</span> <span class="n">Listener</span><span class="p">(</span><span class="s">"&lt;listener A&gt;"</span><span class="p">,</span> <span class="n">subject</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">listenerB</span> <span class="o">=</span> <span class="n">Listener</span><span class="p">(</span><span class="s">"&lt;listener B&gt;"</span><span class="p">,</span> <span class="n">subject</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="c"># simulated event</span></span>
+<span class="code-line">    <span class="n">subject</span><span class="o">.</span><span class="n">notify_listeners</span> <span class="p">(</span><span class="s">"&lt;event 1&gt;"</span><span class="p">)</span></span>
+<span class="code-line">    <span class="c"># outputs:</span></span>
+<span class="code-line">    <span class="c">#     &lt;listener A&gt; received event &lt;event 1&gt;</span></span>
+<span class="code-line">    <span class="c">#     &lt;listener B&gt; received event &lt;event 1&gt;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="n">action</span> <span class="o">=</span> <span class="n">subject</span><span class="o">.</span><span class="n">getUserAction</span><span class="p">()</span></span>
+<span class="code-line">    <span class="n">subject</span><span class="o">.</span><span class="n">notify_listeners</span><span class="p">(</span><span class="n">action</span><span class="p">)</span></span>
+<span class="code-line">    <span class="c">#Enter something to do:hello</span></span>
+<span class="code-line">    <span class="c"># outputs:</span></span>
+<span class="code-line">    <span class="c">#     &lt;listener A&gt; received event hello</span></span>
+<span class="code-line">    <span class="c">#     &lt;listener B&gt; received event hello</span></span>
+</pre></div>
+<hr/>
+<h2 id="reactor-pattern">Reactor pattern</h2>
 <section>
 <div class="accordion" id="accordion2">
     <div class="accordion-group">

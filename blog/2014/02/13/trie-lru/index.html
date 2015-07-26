@@ -94,7 +94,7 @@
     <div class="span2 table-of-content">
         <nav>
         <h4>Contents</h4>
-        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="Trie-LRU">Trie-LRU</a><ul><li><a class="toc-href" href="#trie" title="Trie (前缀树)">Trie (前缀树)</a><ul><li><a class="toc-href" href="#implement-trie-prefix-tree" title="Implement Trie (Prefix Tree)">Implement Trie (Prefix Tree)</a></li><li><a class="toc-href" href="#_1" title="分析">分析</a></li><li><a class="toc-href" href="#_2" title="前缀树的应用">前缀树的应用</a><ul><li><a class="toc-href" href="#_3" title="分析">分析</a></li></ul></li></ul></li><li><a class="toc-href" href="#lru_2" title="LRU">LRU</a><ul><li><a class="toc-href" href="#lru-cache" title="LRU Cache">LRU Cache</a></li><li><a class="toc-href" href="#_4" title="分析">分析</a></li></ul></li></ul></li></ul></div></body></html>
+        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="Trie-LRU">Trie-LRU</a><ul><li><a class="toc-href" href="#trie" title="Trie (前缀树)">Trie (前缀树)</a><ul><li><a class="toc-href" href="#implement-trie-prefix-tree" title="Implement Trie (Prefix Tree)">Implement Trie (Prefix Tree)</a></li><li><a class="toc-href" href="#_1" title="分析">分析</a></li><li><a class="toc-href" href="#_2" title="前缀树的应用">前缀树的应用</a><ul><li><a class="toc-href" href="#_3" title="分析">分析</a></li></ul></li><li><a class="toc-href" href="#ternary-search-tree_1" title="三元搜索树 （ternary search Tree）">三元搜索树 （ternary search Tree）</a><ul><li><a class="toc-href" href="#_4" title="三元搜索树的应用">三元搜索树的应用</a></li><li><a class="toc-href" href="#_5" title="具体实现代码">具体实现代码</a></li><li><a class="toc-href" href="#_6" title="复杂度分析">复杂度分析</a></li></ul></li></ul></li><li><a class="toc-href" href="#lru_2" title="LRU">LRU</a><ul><li><a class="toc-href" href="#lru-cache" title="LRU Cache">LRU Cache</a></li><li><a class="toc-href" href="#_7" title="分析">分析</a></li></ul></li></ul></li></ul></div></body></html>
         </nav>
     </div>
     <div class="span8 article-content">
@@ -213,8 +213,127 @@ You may assume that all inputs are consist of lowercase letters a-z.</p>
 <span class="code-line">                <span class="n">board</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="n">col</span><span class="p">]</span><span class="o">=</span><span class="n">char</span> </span>
 </pre></div>
 <hr/>
-<h2 id="lru_2">LRU</h2>
+<h3 id="ternary-search-tree_1">三元搜索树 （ternary search Tree）</h3>
+<p>三元搜索书是一种特殊的Trie数据结构，它的子节点是按二叉搜索树进行排序的。</p>
+<ol>
+<li>The left pointer points to the node whose value is less than the value in the current node.</li>
+<li>The equal pointer points to the node whose value is equal to the value in the current node.</li>
+<li>The right pointer points to the node whose value is greater than the value in the current node.</li>
+</ol>
+<p>其节点的数据结构如下：</p>
+<div class="highlight"><pre><span class="code-line"><span class="k">struct</span> <span class="n">Node</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="kt">char</span> <span class="n">data</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="c1">// True if this character is last character of one of the words</span></span>
+<span class="code-line">    <span class="kt">unsigned</span> <span class="nl">isEndOfString</span><span class="p">:</span> <span class="mi">1</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">struct</span> <span class="n">Node</span> <span class="o">*</span><span class="n">left</span><span class="p">,</span> <span class="o">*</span><span class="n">eq</span><span class="p">,</span> <span class="o">*</span><span class="n">right</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">};</span></span>
+<span class="code-line"><span class="k">struct</span> <span class="n">Node</span><span class="o">*</span> <span class="nf">newNode</span><span class="p">(</span><span class="kt">char</span> <span class="n">data</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="k">struct</span> <span class="n">Node</span><span class="o">*</span> <span class="n">temp</span> <span class="o">=</span> <span class="p">(</span><span class="k">struct</span> <span class="n">Node</span><span class="o">*</span><span class="p">)</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span> <span class="k">struct</span> <span class="n">Node</span> <span class="p">));</span></span>
+<span class="code-line">    <span class="n">temp</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">temp</span><span class="o">-&gt;</span><span class="n">isEndOfString</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">temp</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">=</span> <span class="n">temp</span><span class="o">-&gt;</span><span class="n">eq</span> <span class="o">=</span> <span class="n">temp</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="n">temp</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+<p>下面是一个具体的例子：</p>
+<p><img align="center" alt="skip list" class="img-responsive" src="/images/Ternary-Search-Tree.png"/></p>
+<h4 id="_4">三元搜索树的应用</h4>
+<p>相比与前缀树，三元搜索树具有更好的空间利用率,三元搜索树的每个节点都有三个指针(而前缀树
+需要26个节点).在使用hashtable的地方都可以使用三元查找树。前缀树只在单词按字母的顺序均匀分布的
+时候才比较有效率，别的时候我们都应该使用三元搜索树，譬如当知道一个string 的前缀求整个string的时候，
+也可以用来实现单词的拼写检查。</p>
+<h4 id="_5">具体实现代码</h4>
+<div class="highlight"><pre><span class="code-line"><span class="c1">// Function to insert a new word in a Ternary Search Tree</span></span>
+<span class="code-line"><span class="kt">void</span> <span class="nf">insert</span><span class="p">(</span><span class="k">struct</span> <span class="n">Node</span><span class="o">**</span> <span class="n">root</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">word</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="c1">// Base Case: Tree is empty</span></span>
+<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="o">*</span><span class="n">root</span><span class="p">))</span></span>
+<span class="code-line">        <span class="o">*</span><span class="n">root</span> <span class="o">=</span> <span class="n">newNode</span><span class="p">(</span><span class="o">*</span><span class="n">word</span><span class="p">);</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="c1">// If current character of word is smaller than root's character,</span></span>
+<span class="code-line">    <span class="c1">// then insert this word in left subtree of root</span></span>
+<span class="code-line">    <span class="k">if</span> <span class="p">((</span><span class="o">*</span><span class="n">word</span><span class="p">)</span> <span class="o">&lt;</span> <span class="p">(</span><span class="o">*</span><span class="n">root</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">)</span></span>
+<span class="code-line">        <span class="n">insert</span><span class="p">(</span><span class="o">&amp;</span><span class="p">(</span> <span class="p">(</span><span class="o">*</span><span class="n">root</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">left</span> <span class="p">),</span> <span class="n">word</span><span class="p">);</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="c1">// If current character of word is greate than root's character,</span></span>
+<span class="code-line">    <span class="c1">// then insert this word in right subtree of root</span></span>
+<span class="code-line">    <span class="k">else</span> <span class="k">if</span> <span class="p">((</span><span class="o">*</span><span class="n">word</span><span class="p">)</span> <span class="o">&gt;</span> <span class="p">(</span><span class="o">*</span><span class="n">root</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">)</span></span>
+<span class="code-line">        <span class="n">insert</span><span class="p">(</span><span class="o">&amp;</span><span class="p">(</span> <span class="p">(</span><span class="o">*</span><span class="n">root</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">right</span> <span class="p">),</span> <span class="n">word</span><span class="p">);</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="c1">// If current character of word is same as root's character,</span></span>
+<span class="code-line">    <span class="k">else</span></span>
+<span class="code-line">    <span class="p">{</span></span>
+<span class="code-line">        <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">word</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span></span>
+<span class="code-line">            <span class="n">insert</span><span class="p">(</span><span class="o">&amp;</span><span class="p">(</span> <span class="p">(</span><span class="o">*</span><span class="n">root</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">eq</span> <span class="p">),</span> <span class="n">word</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="c1">// the last character of the word</span></span>
+<span class="code-line">        <span class="k">else</span></span>
+<span class="code-line">            <span class="p">(</span><span class="o">*</span><span class="n">root</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">isEndOfString</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="c1">// A recursive function to traverse Ternary Search Tree</span></span>
+<span class="code-line"><span class="kt">void</span> <span class="nf">traverseTSTUtil</span><span class="p">(</span><span class="k">struct</span> <span class="n">Node</span><span class="o">*</span> <span class="n">root</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">buffer</span><span class="p">,</span> <span class="kt">int</span> <span class="n">depth</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="n">root</span><span class="p">)</span></span>
+<span class="code-line">    <span class="p">{</span></span>
+<span class="code-line">        <span class="c1">// First traverse the left subtree</span></span>
+<span class="code-line">        <span class="n">traverseTSTUtil</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">,</span> <span class="n">buffer</span><span class="p">,</span> <span class="n">depth</span><span class="p">);</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="c1">// Store the character of this node</span></span>
+<span class="code-line">        <span class="n">buffer</span><span class="p">[</span><span class="n">depth</span><span class="p">]</span> <span class="o">=</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">;</span></span>
+<span class="code-line">        <span class="k">if</span> <span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">isEndOfString</span><span class="p">)</span></span>
+<span class="code-line">        <span class="p">{</span></span>
+<span class="code-line">            <span class="n">buffer</span><span class="p">[</span><span class="n">depth</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="sc">'\0'</span><span class="p">;</span></span>
+<span class="code-line">            <span class="n">printf</span><span class="p">(</span> <span class="s">"%s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">buffer</span><span class="p">);</span></span>
+<span class="code-line">        <span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="c1">// Traverse the subtree using equal pointer (middle subtree)</span></span>
+<span class="code-line">        <span class="n">traverseTSTUtil</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">eq</span><span class="p">,</span> <span class="n">buffer</span><span class="p">,</span> <span class="n">depth</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="c1">// Finally Traverse the right subtree</span></span>
+<span class="code-line">        <span class="n">traverseTSTUtil</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">,</span> <span class="n">buffer</span><span class="p">,</span> <span class="n">depth</span><span class="p">);</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="c1">// The main function to traverse a Ternary Search Tree.</span></span>
+<span class="code-line"><span class="c1">// It mainly uses traverseTSTUtil()</span></span>
+<span class="code-line"><span class="kt">void</span> <span class="nf">traverseTST</span><span class="p">(</span><span class="k">struct</span> <span class="n">Node</span><span class="o">*</span> <span class="n">root</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="kt">char</span> <span class="n">buffer</span><span class="p">[</span><span class="n">MAX</span><span class="p">];</span></span>
+<span class="code-line">    <span class="n">traverseTSTUtil</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">buffer</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="c1">// Function to search a given word in TST</span></span>
+<span class="code-line"><span class="kt">int</span> <span class="nf">searchTST</span><span class="p">(</span><span class="k">struct</span> <span class="n">Node</span> <span class="o">*</span><span class="n">root</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">word</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">root</span><span class="p">)</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="n">word</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">root</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">)</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">searchTST</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">,</span> <span class="n">word</span><span class="p">);</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="n">word</span> <span class="o">&gt;</span> <span class="p">(</span><span class="n">root</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">)</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">searchTST</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">,</span> <span class="n">word</span><span class="p">);</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">else</span></span>
+<span class="code-line">    <span class="p">{</span></span>
+<span class="code-line">        <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">word</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="sc">'\0'</span><span class="p">)</span></span>
+<span class="code-line">            <span class="k">return</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">isEndOfString</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">searchTST</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">eq</span><span class="p">,</span> <span class="n">word</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+<h4 id="_6">复杂度分析</h4>
+<p>三元搜索树的时间复杂度和二分查找树的时间复杂度类似，插入和删除以及查找的时间复杂度都正比与三元
+搜索树。空间复杂度正比与string的长度。</p>
 <hr/>
+<h2 id="lru_2">LRU</h2>
 <h3 id="lru-cache">LRU Cache</h3>
 <hr/>
 <blockquote>
@@ -223,7 +342,7 @@ You may assume that all inputs are consist of lowercase letters a-z.</p>
 <p>set(key, value) - Set or insert the value if the key is not already present. When the cache reached its capacity, it should invalidate the least recently used item before inserting a new item.</p>
 </blockquote>
 <hr/>
-<h3 id="_4">分析</h3>
+<h3 id="_7">分析</h3>
 <p>在常数时间内，可以使用一个双向链表来完成删除和插入到链表末尾的操作。而使用hash则可以在常数时间完成从key到value的映射。
 因为这个算法的关键是用hash table + double link list来实现。
 当使用get(key)时，这时双向链表中的key节点需要删除，然后插入到链表末尾。而

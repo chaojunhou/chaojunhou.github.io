@@ -120,6 +120,11 @@
 </pre></div>
 <p>从中我们得出父进程create了copy自己的两个子进程，其中第一次产生的子进程也进行了一次fork操作。
 每次fork操作都会复制相应的代码和数据。</p>
+<p>fork有两个典型用法：</p>
+<ol>
+<li>一个进程创建一个自身的副本，这样每个进程都可以在另一个副本执行其他任务的同时处理各自的某个操作。</li>
+<li>一个进程想要执行另一个程序。该进程首先调用fork创建一个自身的副本，然后其中的一个副本调用exec把自身替换新的程序。</li>
+</ol>
 <section>
 <div class="accordion" id="accordion2">
     <div class="accordion-group">
