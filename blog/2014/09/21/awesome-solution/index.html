@@ -115,36 +115,42 @@
 <p>Solutions:</p>
 <p>如果出现环形时结果最大的情况，一定是所有元素的和与所有元素反转后的最大子数组的和的
 和情况。</p>
-<p>```c
-// The function returns maximum circular contiguous sum in a[]
-int maxCircularSum (int a[], int n)
-{
-   // Case 1: get the maximum sum using standard kadane's algorithm
-   int max_kadane = kadane(a, n);</p>
-<p _="+" max_wrap="max_wrap">// Case 2: Now find the maximum sum that includes corner elements.
-   int max_wrap  =  0, i;
-   for(i=0; i&lt;n; i++)</p>
-<p>// max sum with corner elements will be:
-   // array-sum - (-max subarray sum of inverted array)
-   max_wrap = max_wrap + kadane(a, n);</p>
-<p>// The maximum circular sum will be maximum of two sums
-   return (max_wrap &gt; max_kadane)? max_wrap: max_kadane;
-}
-int kadane (int a[], int n)
-{
-    int max_so_far = 0, max_ending_here = 0;
-    int i;
-    for(i = 0; i &lt; n; i++)
-    {
-        max_ending_here = max_ending_here + a[i];
-        if(max_ending_here &lt; 0)
-            max_ending_here = 0;
-        if(max_so_far &lt; max_ending_here)
-            max_so_far = max_ending_here;
-    }
-    return max_so_far;
-}
-``</p>
+<div class="highlight"><pre><span class="code-line"><span class="c1">// The function returns maximum circular contiguous sum in a[]</span></span>
+<span class="code-line"><span class="kt">int</span> <span class="nf">maxCircularSum</span> <span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">   <span class="c1">// Case 1: get the maximum sum using standard kadane's algorithm</span></span>
+<span class="code-line">   <span class="kt">int</span> <span class="n">max_kadane</span> <span class="o">=</span> <span class="n">kadane</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span></span>
+<span class="code-line"></span>
+<span class="code-line">   <span class="c1">// Case 2: Now find the maximum sum that includes corner elements.</span></span>
+<span class="code-line">   <span class="kt">int</span> <span class="n">max_wrap</span>  <span class="o">=</span>  <span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">;</span></span>
+<span class="code-line">   <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span></span>
+<span class="code-line">   <span class="p">{</span></span>
+<span class="code-line">        <span class="n">max_wrap</span> <span class="o">+=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">];</span> <span class="c1">// Calculate array-sum</span></span>
+<span class="code-line">        <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>  <span class="c1">// invert the array (change sign)</span></span>
+<span class="code-line">   <span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">   <span class="c1">// max sum with corner elements will be:</span></span>
+<span class="code-line">   <span class="c1">// array-sum - (-max subarray sum of inverted array)</span></span>
+<span class="code-line">   <span class="n">max_wrap</span> <span class="o">=</span> <span class="n">max_wrap</span> <span class="o">+</span> <span class="n">kadane</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span></span>
+<span class="code-line"></span>
+<span class="code-line">   <span class="c1">// The maximum circular sum will be maximum of two sums</span></span>
+<span class="code-line">   <span class="k">return</span> <span class="p">(</span><span class="n">max_wrap</span> <span class="o">&gt;</span> <span class="n">max_kadane</span><span class="p">)</span><span class="o">?</span> <span class="nl">max_wrap</span><span class="p">:</span> <span class="n">max_kadane</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"><span class="kt">int</span> <span class="nf">kadane</span> <span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="kt">int</span> <span class="n">max_so_far</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">max_ending_here</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line">    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span></span>
+<span class="code-line">    <span class="p">{</span></span>
+<span class="code-line">        <span class="n">max_ending_here</span> <span class="o">=</span> <span class="n">max_ending_here</span> <span class="o">+</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">];</span></span>
+<span class="code-line">        <span class="k">if</span><span class="p">(</span><span class="n">max_ending_here</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span></span>
+<span class="code-line">            <span class="n">max_ending_here</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line">        <span class="k">if</span><span class="p">(</span><span class="n">max_so_far</span> <span class="o">&lt;</span> <span class="n">max_ending_here</span><span class="p">)</span></span>
+<span class="code-line">            <span class="n">max_so_far</span> <span class="o">=</span> <span class="n">max_ending_here</span><span class="p">;</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="n">max_so_far</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
 <section>
 <div class="accordion" id="accordion2">
     <div class="accordion-group">
@@ -184,13 +190,13 @@ int kadane (int a[], int n)
 <li><a href="../../../../../blog/2013/12/22/string-related/" title="字符串相关">字符串相关</a></li>
 <li><a href="../../../../../blog/2013/12/29/hui-su-yu-fen-zhi-xian-jie/" title="回溯与分支限界">回溯与分支限界</a></li>
 <li><a href="../../../../../blog/2014/03/21/kmp/" title="字符串匹配">字符串匹配</a></li>
+<li><a href="../../../../../blog/2015/04/25/cal24/" title="24点游戏编程">24点游戏编程</a></li>
 <li><a href="../../../../../blog/2015/05/05/sifting-prime/" title="素数筛选法">素数筛选法</a></li>
 <li><a href="../../../../../blog/2015/05/05/reverse-linked-list/" title="反转链表">反转链表</a></li>
 <li><a href="../../../../../blog/2015/05/18/binary-tree/" title="二叉树">二叉树</a></li>
 <li><a href="../../../../../blog/2015/05/24/select/" title="选择算法">选择算法</a></li>
 <li><a href="../../../../../blog/2015/05/28/search/" title="查找算法">查找算法</a></li>
 <li><a href="../../../../../blog/2015/05/28/find-a-solution/" title="How to find a solution">How to find a solution</a></li>
-<li><a href="../../../../../blog/2015/05/31/sort1/" title="排序算法">排序算法</a></li>
 </ul>
 <hr />
 </section>

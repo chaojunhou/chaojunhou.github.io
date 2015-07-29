@@ -115,6 +115,15 @@
 以 TCP/UDP 套接字的方式接受客户的请求
 memcached 有可配置的两种模式: UNIX 域套接字和 TCP/UDP, 允许客户端以两种方式向 memcached 发起请求. 客户端和服务器在同一个主机上的情况下可以用 UNIX 域套接字, 否则可以采用 TCP/UDP 的模式. 两种模式是不兼容的. 特别的, 如果是 UNIX 域套接字或者 TCP 模式, 需要建立监听套接字, 并在事件中心注册了读事件, 回调函数是event_handler(), 我们会看到所有的连接都会被注册回调函数是event_handler().</p>
 <p>调用event_base_loop()开启 libevent 的事件循环. 到此, memcached 服务器的工作正式进入了工作. 如果遇到致命错误或者客户明令结束 memcached, 那么才会进入接下来的清理工作.</p>
+<hr/>
+<p>Reactor模式：</p>
+<p>事件源</p>
+<p>Reator-反应器
+reactor是事件管理的接口，内部使用event demultiplexer注册、注销事件；并运行事件循环，当有事件进入
+就绪状态时，调用注册事件的回调函数处理事件。</p>
+<p>Event Handler-事件处理程序</p>
+<p>事件处理程序提供了一组接口，每个接口对应了一种类型的事件，供Reactor在相应的事件发生时调用，执行相应的
+事件处理。通常它会绑定一个有效的句柄。</p>
 <section>
 <div class="accordion" id="accordion2">
     <div class="accordion-group">

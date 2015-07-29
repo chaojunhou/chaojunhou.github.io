@@ -12,12 +12,12 @@
 
 <meta property="og:title" content="TCP/IP 详解 "/>
 <meta property="og:url" content="../../../../../blog/2015/07/23/tcp-ip-illlstrated/" />
-<meta property="og:description" content="ping命令工作原理 ping命令主要是用于检测网络的连通性。 Ping命令发送一个ICMP请求报文给目的IP，然后目的IP回复一个ICMP报文。 原理：网络上的机器都有唯一确定的IP地址，我们给目标IP地址发送一个数据包，对方就要返回一个同样大小的数据包， 根据返回的数据包我们可以确定目标主机的存在，可以初步判断目标主机的操作系统等。 因为ping命令是使用ICMP协议，所以没有端口号，但是有两个域：类型和代码。 traceroute工作原理 traceroute是利用ICMP及IP头部的TTL。 首先，traceroute送出一个TTL是1的IP数据包（其实，每次送出的为3个40字节的包，包括源地址，目的地址和包发出的时间标签） 到目的地，当路径上的第一个路由器收到IP数据包时，将TTL减1。此时，TTL变为0，所以将该路由器会将此IP数据包丢掉，并返回一个ICMP数据包（包括发IP包的源地址，IP包的所有内容及路由器的IP地址），当traceroute收到这个消息后，接着继续发生TTL为2的IP数据包给第二个路由器。以此类推，直到IP数据包达到最后一台路由器时，会返回一个ICMP echo reply的数据包。 TIME_WAIT 状态存活时间为2MSL的理由： 可靠的实现TCP全双工连接的终止 允许老的重复的packet在网络中消逝 TCP接收套接字不可能溢出，因为不允许对端发出超过本端所通告窗口大小的数据，这就是TCP的流量控制，如果对端无视窗口大小 而发出了超过窗口大小的数据，本端TCP将丢弃它们。" />
+<meta property="og:description" content="ping命令工作原理 ping命令主要是用于检测网络的连通性。 Ping命令发送一个ICMP请求报文给目的IP，然后目的IP回复一个ICMP报文。 原理：网络上的机器都有唯一确定的IP地址，我们给目标IP地址发送一个数据包，对方就要返回一个同样大小的数据包， 根据返回的数据包我们可以确定目标主机的存在，可以初步判断目标主机的操作系统等。 因为ping命令是使用ICMP协议，所以没有端口号，但是有两个域：类型和代码。 traceroute工作原理 traceroute是利用ICMP及IP头部的TTL。 首先，traceroute送出一个TTL是1的IP数据包（其实，每次送出的为3个40字节的包，包括源地址，目的地址和包发出的时间标签） 到目的地，当路径上的第一个路由器收到IP数据包时，将TTL减1。此时，TTL变为0，所以将该路由器会将此IP数据包丢掉，并返回一个ICMP数据包（包括发IP包的源地址，IP包的所有内容及路由器的IP地址），当traceroute收到这个消息后，接着继续发生TTL为2的IP数据包给第二个路由器。以此类推，直到IP数据包达到最后一台路由器时，会返回一个ICMP echo reply的数据包。 TIME_WAIT 状态存活时间为2MSL的理由： 可靠的实现TCP全双工连接的终止 允许老的重复的packet在网络中消逝 TCP接收套接字不可能溢出，因为不允许对端发出超过本端所通告窗口大小的数据，这就是TCP的流量控制，如果对端无视窗口大小 而发出了超过窗口大小的数据，本端TCP将丢弃它们。 在单播中，在网络位址和网络节点之间存在一一对应的关系 ..." />
 <meta property="og:site_name" content="Write the Code" />
 <meta property="og:article:author" content="ChaoJun Hou" />
 <meta property="og:article:published_time" content="2015-07-23T15:25:00+08:00" />
 <meta name="twitter:title" content="TCP/IP 详解 ">
-<meta name="twitter:description" content="ping命令工作原理 ping命令主要是用于检测网络的连通性。 Ping命令发送一个ICMP请求报文给目的IP，然后目的IP回复一个ICMP报文。 原理：网络上的机器都有唯一确定的IP地址，我们给目标IP地址发送一个数据包，对方就要返回一个同样大小的数据包， 根据返回的数据包我们可以确定目标主机的存在，可以初步判断目标主机的操作系统等。 因为ping命令是使用ICMP协议，所以没有端口号，但是有两个域：类型和代码。 traceroute工作原理 traceroute是利用ICMP及IP头部的TTL。 首先，traceroute送出一个TTL是1的IP数据包（其实，每次送出的为3个40字节的包，包括源地址，目的地址和包发出的时间标签） 到目的地，当路径上的第一个路由器收到IP数据包时，将TTL减1。此时，TTL变为0，所以将该路由器会将此IP数据包丢掉，并返回一个ICMP数据包（包括发IP包的源地址，IP包的所有内容及路由器的IP地址），当traceroute收到这个消息后，接着继续发生TTL为2的IP数据包给第二个路由器。以此类推，直到IP数据包达到最后一台路由器时，会返回一个ICMP echo reply的数据包。 TIME_WAIT 状态存活时间为2MSL的理由： 可靠的实现TCP全双工连接的终止 允许老的重复的packet在网络中消逝 TCP接收套接字不可能溢出，因为不允许对端发出超过本端所通告窗口大小的数据，这就是TCP的流量控制，如果对端无视窗口大小 而发出了超过窗口大小的数据，本端TCP将丢弃它们。">
+<meta name="twitter:description" content="ping命令工作原理 ping命令主要是用于检测网络的连通性。 Ping命令发送一个ICMP请求报文给目的IP，然后目的IP回复一个ICMP报文。 原理：网络上的机器都有唯一确定的IP地址，我们给目标IP地址发送一个数据包，对方就要返回一个同样大小的数据包， 根据返回的数据包我们可以确定目标主机的存在，可以初步判断目标主机的操作系统等。 因为ping命令是使用ICMP协议，所以没有端口号，但是有两个域：类型和代码。 traceroute工作原理 traceroute是利用ICMP及IP头部的TTL。 首先，traceroute送出一个TTL是1的IP数据包（其实，每次送出的为3个40字节的包，包括源地址，目的地址和包发出的时间标签） 到目的地，当路径上的第一个路由器收到IP数据包时，将TTL减1。此时，TTL变为0，所以将该路由器会将此IP数据包丢掉，并返回一个ICMP数据包（包括发IP包的源地址，IP包的所有内容及路由器的IP地址），当traceroute收到这个消息后，接着继续发生TTL为2的IP数据包给第二个路由器。以此类推，直到IP数据包达到最后一台路由器时，会返回一个ICMP echo reply的数据包。 TIME_WAIT 状态存活时间为2MSL的理由： 可靠的实现TCP全双工连接的终止 允许老的重复的packet在网络中消逝 TCP接收套接字不可能溢出，因为不允许对端发出超过本端所通告窗口大小的数据，这就是TCP的流量控制，如果对端无视窗口大小 而发出了超过窗口大小的数据，本端TCP将丢弃它们。 在单播中，在网络位址和网络节点之间存在一一对应的关系 ...">
 
         <title>TCP/IP 详解  · Change the World | Write the Code
 </title>
@@ -111,6 +111,24 @@ traceroute是利用ICMP及IP头部的TTL。
 </ul>
 <p>TCP接收套接字不可能溢出，因为不允许对端发出超过本端所通告窗口大小的数据，这就是TCP的流量控制，如果对端无视窗口大小
 而发出了超过窗口大小的数据，本端TCP将丢弃它们。</p>
+<p>在单播中，在网络位址和网络节点之间存在一一对应的关系。
+在广播和组播中，在网络位址和网络节点之间存在一对多的关系：每一个目的位址对应一群接收可以复制资讯的节点。
+组播报文的目的地址使用D类IP地址， D类地址不能出现在IP报文的源IP地址字段。广播都是限制在局域网中的，比如以太网或令牌环网络。因为广播在局域网中造成的影响远比在广域网中小得多。
+在任播中，在网络位址和网络节点之间存在一对多的关系：每一个位址对应一群接收节点，但在任何给定时间，只有其中之一可以接收到传送端来的资讯。</p>
+<p>在互联网中，通常使用边界网关协议来实现任播。</p>
+<p>解决重传二义性（请求丢失，应答丢失，RTO太小）的一个方案：</p>
+<p>client在发送packet的时候加上一个timestamp，然后server回射客户端的timestamp，客户端根据当前的timestamp减去回射的timestamp即可
+得到一个RTT。</p>
+<p>The ping command is used to detect network connectivity.</p>
+<p>Ping command sends an ICMP request packets to the destination IP, destination IP and then reply to an ICMP packet.</p>
+<p>Principle: machines on the network has a unique IP address identified, we sent to the destination IP address of a packet, the person would return to a similarly sized packets, based on the data returned package, we can determine the presence of the target host, can initially Analyzing the target host operating system.</p>
+<p>The ping command uses the ICMP protocol, so there is no port number, but there are two fields: type and code.</p>
+<p>traceroute Work</p>
+<p>traceroute use ICMP and IP header TTL. First of all, traceroute sends a TTL is an IP packet (in fact, each sent three 40-byte packets, 
+including source address, destination address and packet issued time stamp) to the destination, 
+when the first path When a router receives an IP packet, the TTL minus 1. TTL becomes 0, 
+the router will drop this IP packet and returns an ICMP packet (including the source address of an IP packet, 
+all the contents of the IP packet and the IP address of the router), when traceroute to close to this message, and then continue to the TTL of the IP packet to the second router. And so on, until the IP packet reaches the last router returns an ICMP echo reply packet.</p>
 <section>
 <div class="accordion" id="accordion2">
     <div class="accordion-group">

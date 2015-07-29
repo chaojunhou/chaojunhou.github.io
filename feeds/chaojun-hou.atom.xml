@@ -16,7 +16,25 @@ traceroute是利用ICMP及IP头部的TTL。
 &lt;li&gt;允许老的重复的packet在网络中消逝&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;TCP接收套接字不可能溢出，因为不允许对端发出超过本端所通告窗口大小的数据，这就是TCP的流量控制，如果对端无视窗口大小
-而发出了超过窗口大小的数据，本端TCP将丢弃它们。&lt;/p&gt;</summary><category term="TCP"></category></entry><entry><title>nginx 源码剖析</title><link href="www.houcj.net/blog/2015/07/22/nginx/" rel="alternate"></link><updated>2015-07-22T22:07:00+08:00</updated><author><name>ChaoJun Hou</name></author><id>tag:,2015-07-22:www.houcj.net/blog/2015/07/22/nginx/</id><summary type="html">&lt;hr/&gt;
+而发出了超过窗口大小的数据，本端TCP将丢弃它们。&lt;/p&gt;
+&lt;p&gt;在单播中，在网络位址和网络节点之间存在一一对应的关系。
+在广播和组播中，在网络位址和网络节点之间存在一对多的关系：每一个目的位址对应一群接收可以复制资讯的节点。
+组播报文的目的地址使用D类IP地址， D类地址不能出现在IP报文的源IP地址字段。广播都是限制在局域网中的，比如以太网或令牌环网络。因为广播在局域网中造成的影响远比在广域网中小得多。
+在任播中，在网络位址和网络节点之间存在一对多的关系：每一个位址对应一群接收节点，但在任何给定时间，只有其中之一可以接收到传送端来的资讯。&lt;/p&gt;
+&lt;p&gt;在互联网中，通常使用边界网关协议来实现任播。&lt;/p&gt;
+&lt;p&gt;解决重传二义性（请求丢失，应答丢失，RTO太小）的一个方案：&lt;/p&gt;
+&lt;p&gt;client在发送packet的时候加上一个timestamp，然后server回射客户端的timestamp，客户端根据当前的timestamp减去回射的timestamp即可
+得到一个RTT。&lt;/p&gt;
+&lt;p&gt;The ping command is used to detect network connectivity.&lt;/p&gt;
+&lt;p&gt;Ping command sends an ICMP request packets to the destination IP, destination IP and then reply to an ICMP packet.&lt;/p&gt;
+&lt;p&gt;Principle: machines on the network has a unique IP address identified, we sent to the destination IP address of a packet, the person would return to a similarly sized packets, based on the data returned package, we can determine the presence of the target host, can initially Analyzing the target host operating system.&lt;/p&gt;
+&lt;p&gt;The ping command uses the ICMP protocol, so there is no port number, but there are two fields: type and code.&lt;/p&gt;
+&lt;p&gt;traceroute Work&lt;/p&gt;
+&lt;p&gt;traceroute use ICMP and IP header TTL. First of all, traceroute sends a TTL is an IP packet (in fact, each sent three 40-byte packets, 
+including source address, destination address and packet issued time stamp) to the destination, 
+when the first path When a router receives an IP packet, the TTL minus 1. TTL becomes 0, 
+the router will drop this IP packet and returns an ICMP packet (including the source address of an IP packet, 
+all the contents of the IP packet and the IP address of the router), when traceroute to close to this message, and then continue to the TTL of the IP packet to the second router. And so on, until the IP packet reaches the last router returns an ICMP echo reply packet.&lt;/p&gt;</summary><category term="TCP"></category></entry><entry><title>nginx 源码剖析</title><link href="www.houcj.net/blog/2015/07/22/nginx/" rel="alternate"></link><updated>2015-07-22T22:07:00+08:00</updated><author><name>ChaoJun Hou</name></author><id>tag:,2015-07-22:www.houcj.net/blog/2015/07/22/nginx/</id><summary type="html">&lt;hr/&gt;
 &lt;h3 id="nginx"&gt;nginx架构&lt;/h3&gt;
 &lt;p&gt;nginx在启动后，以守护进程的方式在后台运行，后台进程包含一个master进程
 和多个worker进程。其中worker进程的数目一般与&lt;/p&gt;
@@ -31,216 +49,16 @@ traceroute是利用ICMP及IP头部的TTL。
 &lt;p&gt;以 UNIX 域套接字的方式接受客户的请求
 以 TCP/UDP 套接字的方式接受客户的请求
 memcached 有可配置的两种模式: UNIX 域套接字和 TCP/UDP, 允许客户端以两种方式向 memcached 发起请求. 客户端和服务器在同一个主机上的情况下可以用 UNIX 域套接字, 否则可以采用 TCP/UDP 的模式. 两种模式是不兼容的. 特别的, 如果是 UNIX 域套接字或者 TCP 模式, 需要建立监听套接字, 并在事件中心注册了读事件, 回调函数是event_handler(), 我们会看到所有的连接都会被注册回调函数是event_handler().&lt;/p&gt;
-&lt;p&gt;调用event_base_loop()开启 libevent 的事件循环. 到此, memcached 服务器的工作正式进入了工作. 如果遇到致命错误或者客户明令结束 memcached, 那么才会进入接下来的清理工作.&lt;/p&gt;</summary><category term="源码"></category></entry><entry><title>基本网络编程</title><link href="www.houcj.net/blog/2015/07/22/network-programming/" rel="alternate"></link><updated>2015-07-22T09:45:00+08:00</updated><author><name>ChaoJun Hou</name></author><id>tag:,2015-07-22:www.houcj.net/blog/2015/07/22/network-programming/</id><summary type="html">&lt;hr/&gt;
-&lt;h3 id="_1"&gt;网络中的数据结构&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="cp"&gt;#include &amp;lt;sys/select.h&amp;gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="cp"&gt;#include &amp;lt;sys/types.h&amp;gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;addrinfo&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;ai_flags&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// AI_PASSIVE, AI_CANONNAME,etc.&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;ai_family&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// AF_INET, AF_INET6, AF_UNSPEC&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;ai_socktype&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// SOCK_STREAM, SOCK_DGRAM&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;ai_protocol&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// use 0 for any&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="kt"&gt;size_t&lt;/span&gt; &lt;span class="n"&gt;ai_addrlen&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// size of ai_addr in bytes&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;sockaddr&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;ai_addr&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// struct sockaddr_in or _in6&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;ai_canonname&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// full canonical hostname&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;addrinfo&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;ai_next&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// linked list, next node &lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="p"&gt;};&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="c1"&gt;//**socket address internet**&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="n"&gt;strcut&lt;/span&gt; &lt;span class="n"&gt;sockaddr_in&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="kt"&gt;short&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;sin_family&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// Address family, AF_INET&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="kt"&gt;short&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;sin_port&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// port number&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;in_addr&lt;/span&gt; &lt;span class="n"&gt;sin_addr&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// Internet address&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="n"&gt;sin_zero&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt; &lt;span class="c1"&gt;// same size as struct sockaddr &lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;accept&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;sockaddr&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;addr&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;socklen_t&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;addrlen&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;socket&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;domain&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;type&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;protocol&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; &lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;connect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;sockfd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;sockaddr&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;serv_addr&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;addrlen&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; &lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;listen&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;sockfd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;backlog&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; &lt;span class="c1"&gt;//backlog is the number of connections allowed on the incoming queue.&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;accept&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;sockfd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;sockaddr&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;addr&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;socklen_t&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;addrlen&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;send&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;sockfd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;msg&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;len&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;flags&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; &lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;recv&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;sockfd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;buf&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;len&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;flags&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="n"&gt;close&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sockfd&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;shutdown&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;sockfd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;how&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; &lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="c1"&gt;//参数 how的设置&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="c1"&gt;// 0 Further receives are disallowed,1&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="c1"&gt;// 1 Further sends are disallowed&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="c1"&gt;// 2 Further sends and receives are disallowed (like close())&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="kt"&gt;ssize_t&lt;/span&gt; &lt;span class="nf"&gt;send&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;buf&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;size_t&lt;/span&gt; &lt;span class="n"&gt;len&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;flags&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="kt"&gt;ssize_t&lt;/span&gt; &lt;span class="nf"&gt;sendto&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;buf&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;size_t&lt;/span&gt; &lt;span class="n"&gt;len&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;               &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;flags&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;sockaddr&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;               &lt;span class="kt"&gt;socklen_t&lt;/span&gt; &lt;span class="n"&gt;tolen&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;调用event_base_loop()开启 libevent 的事件循环. 到此, memcached 服务器的工作正式进入了工作. 如果遇到致命错误或者客户明令结束 memcached, 那么才会进入接下来的清理工作.&lt;/p&gt;
 &lt;hr/&gt;
-&lt;p&gt;close一个TCP套接字的默认行为是把套接字标记成已关闭，然后立即返回到调用进程。该套接字
-描述符不能再由进程使用，然后TCP将尝试发送已经排队的的待发送到对端的任何数据，发送完毕后
-发生的是正常的TCP连接终止序列。&lt;/p&gt;
-&lt;p&gt;正常终止客户和服务器的步骤
-一、 客户在main函数中调用exit终止
-二、 进程终止处理的部分工作是关闭所有打开的描述符，因此客户打开的套接字由内核关闭。这导致
-客户TCP发送一个FIN给服务器，服务器TCP则以ACK响应。至此服务器套接字处于CLOSE_WAIT状态，客户套接字则处于
-FIN_WAIT_2状态。
-三、 当服务器TCP接收FIN时，服务器在mian函数中调用exit终止
-四、 服务器子进程中打开所有描述符随之关闭。由子进程关闭已连接套截止会引发TCP连接终止序列
-的最后两个分解：一个从服务器到客户的FIN和一个从客户到服务器的ACK。至此，连接完全终止，客户套接字会进入TIME_WAIT状态。
-五、 在server子进程终止时，会给父进程发送一个SIGCHLD信号。&lt;/p&gt;
-&lt;h4 id="_2"&gt;慢系统调用&lt;/h4&gt;
-&lt;p&gt;慢系统调用适用于那些可能永远阻塞的系统调用，永远阻塞的系统调用是值调用可能
-永远无法返回（socket的accept函数，对管道和终端设备的读和写，磁盘IO一般返回
-到调用者，因此不是慢系统调用）&lt;/p&gt;
-&lt;p&gt;适用于慢系统调用的基本规则是：当阻塞与某个慢系统调用的一个进程捕获某个信号且相应
-信号处理函数返回时，该系统调用可能返回一个ENTER错误。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="cp"&gt;# include&amp;lt;sys/wait.h&amp;gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="kt"&gt;pid_t&lt;/span&gt; &lt;span class="nf"&gt;wait&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;statloc&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; &lt;span class="c1"&gt;//如果没有终止的子进程，会阻塞到第一个终止的子进程&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="kt"&gt;pid_t&lt;/span&gt; &lt;span class="nf"&gt;waitpid&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;pid_t&lt;/span&gt; &lt;span class="n"&gt;pid&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;statloc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;options&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="c1"&gt;// 若成功返回进程ID，若出错返回0或者1，通过statloc返回子进程终止状态&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;waitpid中的pid参数允许我们指定想等待的进程ID，值-1表示第一终止的子进程，options
-允许我们指定附加选项，一般是WNOHANG，它告知内核在没有已终止子进程时不要阻塞。&lt;/p&gt;
-&lt;h4 id="_3"&gt;网络编程中常见的问题&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;当fork子进程时，必须捕获SIGCHLD信号&lt;/li&gt;
-&lt;li&gt;当捕获信号时，必须处理别中断的系统调用&lt;/li&gt;
-&lt;li&gt;SIGCHLD的信号处理函数必须正确编写，使用waitpid避免僵尸进程&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id="_4"&gt;解决数据格式两种常用的方法&lt;/h4&gt;
-&lt;ol&gt;
-&lt;li&gt;把所有的数值数据作为文本串来传递&lt;/li&gt;
-&lt;li&gt;显示定义所支持数据类型的二进制格式（位数、大端或小端字节序），并以这样的格式在客户与服务器之间传递所有数据。IPC通常使用这种技术&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h3 id="io_1"&gt;IO复用&lt;/h3&gt;
-&lt;p&gt;I/O multiplexing means what it says - allowing the programmer to examine and block on multiple I/O streams (or other "synchronizing" events),
- being notified whenever any one of the streams is active so that it can process data on that stream.&lt;/p&gt;
-&lt;p&gt;The advantage of IoMultiplexing is that it allows blocking on multiple resources simultaneously,
- without needing to use polling (which wastes CPU cycles) or multithreading (which can be difficult to deal with, 
-especially if threads are introduced into an otherwise sequential app only for the purpose of pending on multiple descriptors).
-I/O复用（这里的&amp;ldquo;复用&amp;rdquo;指的是复用同一个线程。）的场合:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;当客户处理多个描述符（交互式输入和网络套接字）时，必须使用IO复用&lt;/li&gt;
-&lt;li&gt;如果一个TCP server既要处理监听套接字又要处理已连接套接字，一般使用IO复用&lt;/li&gt;
-&lt;li&gt;如果一个server即要处理TCP又要处理UDP一般要使用IO复用&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id="unixio"&gt;Unix五种IO模型&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;阻塞式IO （进程阻塞直到数据处理完成）&lt;/li&gt;
-&lt;li&gt;非阻塞式IO （轮询数据何时处理完成）&lt;/li&gt;
-&lt;li&gt;IO复用（select/poll）（select可以等待多个描述符就绪）&lt;/li&gt;
-&lt;li&gt;信号驱动（SIGIO）（等待数据期间不被阻塞，等待来自信号函数的通知）&lt;/li&gt;
-&lt;li&gt;异步IO（POSIX的aio_系列函数） &lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;对于一个套接字的输入操作，第一步通常涉及等待数据从网络中到达，当所等待分组到达时，它被复制到内核中的某个缓冲区。第二步就是把数据
-从内核缓冲区复制到应用进程缓冲区。&lt;/p&gt;
-&lt;p&gt;前面四种模型都是同步IO模型，因为真正的IO操作将阻塞进程。只有异步IO模型才不导致请求时的进程阻塞的异步IO操作
-&lt;img align="center" alt="IOModel" class="img-responsive" src="/images/ioModel.png"/&gt;&lt;/p&gt;
-&lt;h4 id="select"&gt;Select函数&lt;/h4&gt;
-&lt;p&gt;该函数允许进程指示内核等待多个事件的任何一个发生，并只在有一个或多个事件发生或经历一段指定的时间后才唤醒它。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;timeval&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="kt"&gt;long&lt;/span&gt; &lt;span class="n"&gt;tv_sec&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;//seconds     &lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="kt"&gt;long&lt;/span&gt; &lt;span class="n"&gt;tv_use&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// microseconds 1s = 10^6 ms&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;select&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;fd_set&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;readfds&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;fd_set&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;writefds&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;fd_set&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;exceptfds&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;timeval&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;timeout&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; &lt;span class="c1"&gt;// timeout 为0时立刻轮询，为NULL时永远等待&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="n"&gt;FD_SET&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;fd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;fd_set&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;set&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;  &lt;span class="c1"&gt;// turn on the bit for fd in fdset&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="n"&gt;FD_CLR&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;fd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;fd_set&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;set&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; &lt;span class="c1"&gt;// turn off the bit for fd in fdset&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="n"&gt;FD_ISSET&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;fd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;fd_set&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;set&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; &lt;span class="c1"&gt;// is the bit for fd on in fdset&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="n"&gt;FD_ZERO&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;fd_set&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;set&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; &lt;span class="c1"&gt;// clear all bits in fds&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;h4 id="_5"&gt;一个基本概念&lt;/h4&gt;
-&lt;p&gt;当一个服务器在处理多个客户时，它绝对不能阻塞于只与单个客户相关的某个函数调用，否则可能导致服务器被挂起，拒绝为所有其他客户提供服务。
-可能的解决方法包括：（a）使用非阻塞式IO。（b）让每个客户由单独的控制线程提供服务（c）对IO操作设置一个Timer&lt;/p&gt;
-&lt;h4 id="poll"&gt;Poll函数&lt;/h4&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="cp"&gt;#inlcude&amp;lt;poll.h&amp;gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;poll&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;pollfd&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;fdarray&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="kt"&gt;long&lt;/span&gt; &lt;span class="n"&gt;nfds&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;timeout&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;  &lt;span class="c1"&gt;// timeout 毫秒的正值&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;poll识别三类数据：普通（normal）、优先级带（priority band）、高优先级（high priority）&lt;/p&gt;
-&lt;h4 id="getsockopt-setsockopt"&gt;getsockopt 和 setsockopt函数&lt;/h4&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="cp"&gt;#include &amp;lt;sys/socket.h&amp;gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;getsockopt&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;sockfd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;level&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;optname&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;optval&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;socklen_t&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;optlen&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;setsockopt&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;sockfd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;level&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;optname&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;optval&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;socklen_t&lt;/span&gt; &lt;span class="n"&gt;optlen&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;h4 id="so_linger"&gt;SO_LINGER套接字选项&lt;/h4&gt;
-&lt;p&gt;本选项指定close函数面对连接的协议如何操作，默认操作是close立即返回，但是如果有数据残留在套接字缓存中，系统将试着将这些
-数据发送给对端。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;linger&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;l_onoff&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// 0=off 非0=on&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;l_linger&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;  &lt;span class="c1"&gt;// linger time, posix specifies units as seconds&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="p"&gt;};&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;h4 id="gethostbyname"&gt;gethostbyname 函数&lt;/h4&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="cp"&gt;#include &amp;lt;netdb.h&amp;gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;hostent&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="nf"&gt;gethostbyname&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;hostname&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;hostent&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;hname&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// official name of host&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="n"&gt;h_aliases&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// pointer to array of pointers to alias namexs&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;h_addrtype&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// host address type: AF_INET&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;h_length&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;  &lt;span class="c1"&gt;// length of address: 4&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="n"&gt;h_addr_list&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// prt ot array of ptrs with IPv4 addrs&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="p"&gt;};&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;h4 id="wrapper"&gt;wrapper函数&lt;/h4&gt;
-&lt;p&gt;面对接口编程，而不是实现编程。&lt;/p&gt;
-&lt;h4 id="getaddrinfofreeaddrinfo"&gt;getaddrinfo和freeaddrinfo&lt;/h4&gt;
-&lt;p&gt;由getaddrinfo返回的所有存储空间都是动态获取的，这些存储空间必须通过
-调用freeaddrinfo返回给系统。&lt;/p&gt;
-&lt;p&gt;getaddrinfor 可重用的前提是它调用的函数都可重入，它应该调用可重入版本的gethostbyname
-（以解析主机名）和getservbyname（以解析服务名）。本函数的返回的结果全部存放在动态分配
-内存空间的原因之一就是它可重入。&lt;/p&gt;
-&lt;h3 id="_7"&gt;四类网络相关的信息&lt;/h3&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th align="left"&gt;信息&lt;/th&gt;
-&lt;th align="left"&gt;数据&lt;/th&gt;
-&lt;th align="left"&gt;结构&lt;/th&gt;
-&lt;th align="left"&gt;键值查找函数&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td align="left"&gt;主机&lt;/td&gt;
-&lt;td align="left"&gt;/etc/hosts&lt;/td&gt;
-&lt;td align="left"&gt;hostent&lt;/td&gt;
-&lt;td align="left"&gt;gethostbyaddr, gethostbyname&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td align="left"&gt;网络&lt;/td&gt;
-&lt;td align="left"&gt;/etc/networks&lt;/td&gt;
-&lt;td align="left"&gt;netent&lt;/td&gt;
-&lt;td align="left"&gt;getnetbyaddr, getnetbyname&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td align="left"&gt;协议&lt;/td&gt;
-&lt;td align="left"&gt;/etc/protocols&lt;/td&gt;
-&lt;td align="left"&gt;protoent&lt;/td&gt;
-&lt;td align="left"&gt;getprotobyname, getprotobynumber&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td align="left"&gt;服务&lt;/td&gt;
-&lt;td align="left"&gt;/etc/services&lt;/td&gt;
-&lt;td align="left"&gt;servent&lt;/td&gt;
-&lt;td align="left"&gt;getservbyname, getservbyport&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;hr/&gt;
-&lt;p&gt;ping命令工作原理
-ping命令主要是用于检测网络的连通性。
-Ping命令发送一个ICMP请求报文给目的IP，然后目的IP回复一个ICMP报文。
-原理：网络上的机器都有唯一确定的IP地址，我们给目标IP地址发送一个数据包，对方就要返回一个同样大小的数据包，
-根据返回的数据包我们可以确定目标主机的存在，可以初步判断目标主机的操作系统等。
-因为ping命令是使用ICMP协议，所以没有端口号，但是有两个域：类型和代码。&lt;/p&gt;
-&lt;p&gt;traceroute工作原理
-traceroute是利用ICMP及IP头部的TTL。
-首先，traceroute送出一个TTL是1的IP数据包（其实，每次送出的为3个40字节的包，包括源地址，目的地址和包发出的时间标签）
-到目的地，当路径上的第一个路由器收到IP数据包时，将TTL减1。此时，TTL变为0，所以将该路由器会将此IP数据包丢掉，并返回一个ICMP数据包（包括发IP包的源地址，IP包的所有内容及路由器的IP地址），当traceroute收到这个消息后，接着继续发生TTL为2的IP数据包给第二个路由器。以此类推，直到IP数据包达到最后一台路由器时，会返回一个ICMP echo reply的数据包。&lt;/p&gt;
-&lt;p&gt;TIME_WAIT 状态存活时间为2MSL的理由：
-- 可靠的实现TCP全双工连接的终止
-- 允许老的重复的packet在网络中消逝&lt;/p&gt;
-&lt;p&gt;TCP接收套接字不可能溢出，因为不允许对端发出超过本端所通告窗口大小的数据，这就是TCP的流量控制，如果对端无视窗口大小
-而发出了超过窗口大小的数据，本端TCP将丢弃它们。&lt;/p&gt;</summary><category term="网络编程"></category></entry><entry><title>2015阿里内推电话面试经验</title><link href="www.houcj.net/blog/2015/07/18/ali-interview/" rel="alternate"></link><updated>2015-07-18T11:09:00+08:00</updated><author><name>ChaoJun Hou</name></author><id>tag:,2015-07-18:www.houcj.net/blog/2015/07/18/ali-interview/</id><summary type="html">&lt;hr/&gt;
+&lt;p&gt;Reactor模式：&lt;/p&gt;
+&lt;p&gt;事件源&lt;/p&gt;
+&lt;p&gt;Reator-反应器
+reactor是事件管理的接口，内部使用event demultiplexer注册、注销事件；并运行事件循环，当有事件进入
+就绪状态时，调用注册事件的回调函数处理事件。&lt;/p&gt;
+&lt;p&gt;Event Handler-事件处理程序&lt;/p&gt;
+&lt;p&gt;事件处理程序提供了一组接口，每个接口对应了一种类型的事件，供Reactor在相应的事件发生时调用，执行相应的
+事件处理。通常它会绑定一个有效的句柄。&lt;/p&gt;</summary><category term="源码"></category></entry><entry><title>2015阿里内推电话面试经验</title><link href="www.houcj.net/blog/2015/07/18/ali-interview/" rel="alternate"></link><updated>2015-07-18T11:09:00+08:00</updated><author><name>ChaoJun Hou</name></author><id>tag:,2015-07-18:www.houcj.net/blog/2015/07/18/ali-interview/</id><summary type="html">&lt;hr/&gt;
 &lt;p&gt;面试部门是阿里巴巴的国际事业部，主要业务是SEO，广告推荐以及翻译和搜索。&lt;/p&gt;
 &lt;h2 id="78-30mins"&gt;一面（7/8 30mins）&lt;/h2&gt;
 &lt;ol&gt;
@@ -1052,4 +870,37 @@ ru, dir/foo.cc的主要作用是测试或实现dir2/foo2.h的功能，foo.cc中�
 &lt;span class="code-line"&gt;    &lt;span class="c"&gt;#     &amp;lt;listener B&amp;gt; received event hello&lt;/span&gt;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;hr/&gt;
-&lt;h2 id="reactor-pattern"&gt;Reactor pattern&lt;/h2&gt;</summary><category term="CPP"></category></entry></feed>
+&lt;h2 id="reactor-pattern"&gt;Reactor pattern&lt;/h2&gt;</summary><category term="CPP"></category></entry><entry><title>尾递归优化</title><link href="www.houcj.net/blog/2015/06/27/tail-ecursive/" rel="alternate"></link><updated>2015-06-27T23:30:00+08:00</updated><author><name>ChaoJun Hou</name></author><id>tag:,2015-06-27:www.houcj.net/blog/2015/06/27/tail-ecursive/</id><summary type="html">&lt;hr/&gt;
+&lt;p&gt;在一般的递归调用中，典型的模型是首先执行递归操作，然后记录递归的返回值并计算结果。这种方式下，知道最后的递归我们才能
+得到这个返回值来进行最终的计算。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;recsum&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="k"&gt;else&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;recsum&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;rescsum（5）调用时的结果&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;recsum(5)&lt;/span&gt;
+&lt;span class="code-line"&gt;5 + recsum(4)&lt;/span&gt;
+&lt;span class="code-line"&gt;5 + (4 + recsum(3))&lt;/span&gt;
+&lt;span class="code-line"&gt;5 + (4 + (3 + recsum(2)))&lt;/span&gt;
+&lt;span class="code-line"&gt;5 + (4 + (3 + (2 + recsum(1))))&lt;/span&gt;
+&lt;span class="code-line"&gt;5 + (4 + (3 + (2 + 1)))&lt;/span&gt;
+&lt;span class="code-line"&gt;15&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;在尾递归调用时，我们可以给递归传递一个参数，这个参数记录从当前递归到下个递归时的结果。这样可以让当前递归的返回值和下个递归的返回值相同。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;tailrecsum&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;running_total&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;running_total&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="k"&gt;else&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;tailrecsum&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;running_total&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;tailrescsum（5）调用时的结果&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;tailrecsum(5, 0)&lt;/span&gt;
+&lt;span class="code-line"&gt;tailrecsum(4, 5)&lt;/span&gt;
+&lt;span class="code-line"&gt;tailrecsum(3, 9)&lt;/span&gt;
+&lt;span class="code-line"&gt;tailrecsum(2, 12)&lt;/span&gt;
+&lt;span class="code-line"&gt;tailrecsum(1, 14)&lt;/span&gt;
+&lt;span class="code-line"&gt;tailrecsum(0, 15)&lt;/span&gt;
+&lt;span class="code-line"&gt;15&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="递归"></category></entry></feed>

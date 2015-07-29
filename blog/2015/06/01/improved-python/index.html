@@ -94,7 +94,7 @@
     <div class="span2 table-of-content">
         <nav>
         <h4>Contents</h4>
-        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="Improved Python">Improved Python</a><ul><li><a class="toc-href" href="#mro" title="MRO">MRO</a><ul><li><a class="toc-href" href="#c3" title="C3算法">C3算法</a></li></ul></li><li><a class="toc-href" href="#legb_1" title="LEGB">LEGB</a></li><li><a class="toc-href" href="#item" title="用下标item来获取序列的元素">用下标item来获取序列的元素</a></li><li><a class="toc-href" href="#_1" title="静态方法、类方法、抽象方法">静态方法、类方法、抽象方法</a></li><li><a class="toc-href" href="#_2" title="上下文管理器">上下文管理器</a></li><li><a class="toc-href" href="#_3" title="拷贝">拷贝</a></li><li><a class="toc-href" href="#pickling" title="Pickling">Pickling</a></li><li><a class="toc-href" href="#functionbound-methodunbound-method" title="function、bound method、unbound method">function、bound method、unbound method</a></li><li><a class="toc-href" href="#new-init" title="new &amp; init的区别">new &amp; init的区别</a></li><li><a class="toc-href" href="#_4" title="元类">元类</a></li><li><a class="toc-href" href="#gil" title="GIL">GIL</a></li><li><a class="toc-href" href="#python" title="附录：Python魔法方法">附录：Python魔法方法</a></li></ul></li></ul></div></body></html>
+        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="Improved Python">Improved Python</a><ul><li><a class="toc-href" href="#mro" title="MRO">MRO</a><ul><li><a class="toc-href" href="#c3" title="C3算法">C3算法</a></li></ul></li><li><a class="toc-href" href="#legb_1" title="LEGB">LEGB</a></li><li><a class="toc-href" href="#item" title="用下标item来获取序列的元素">用下标item来获取序列的元素</a></li><li><a class="toc-href" href="#_1" title="静态方法、类方法、抽象方法">静态方法、类方法、抽象方法</a></li><li><a class="toc-href" href="#_2" title="上下文管理器">上下文管理器</a></li><li><a class="toc-href" href="#_3" title="拷贝">拷贝</a></li><li><a class="toc-href" href="#pickling" title="Pickling">Pickling</a></li><li><a class="toc-href" href="#functionbound-methodunbound-method" title="function、bound method、unbound method">function、bound method、unbound method</a></li><li><a class="toc-href" href="#new-init" title="new &amp; init的区别">new &amp; init的区别</a></li><li><a class="toc-href" href="#_4" title="元类">元类</a></li><li><a class="toc-href" href="#gil" title="GIL">GIL</a></li><li><a class="toc-href" href="#_5" title="数据隐藏">数据隐藏</a></li><li><a class="toc-href" href="#python" title="附录：Python魔法方法">附录：Python魔法方法</a></li></ul></li></ul></div></body></html>
         </nav>
     </div>
     <div class="span8 article-content">
@@ -259,12 +259,15 @@ copy.copy() 返回一个对象的浅拷贝，这意味着拷贝出的实例是�
 方法。在创建一个对象的时候，__new__方法被最先调用，然后返回一个对象的实例，然后
 __init__方法才被调用，它不返回任何信息，只是初始化对象，给对象的属性赋值。</p>
 <h2 id="_4">元类</h2>
-<p>python中的一切都是对象，它们要么是类的实例，要么是元类的实例，除了type。type实际上是它自己的元类，在纯Python环境中这可不是你能够做到的，这是通过在实现层面耍一些小手段做到的。</p>
+<p>python中的一切都是对象，它们要么是类的实例，要么是元类的实例，除了type。type实际上是它自己的元类。</p>
 <h2 id="gil">GIL</h2>
 <p>全局解释器锁是一种用来同步线程执行的机制，保证在一个时刻只有一个线程
 执行。Python里的全局解释锁必要性的原因主要是由Python的内存管理非线程安全
 决定的。</p>
 <p>使用GIL还是有一些好处的，主要包括提高单线程程序执行的速度，很容易继承C函数库里那些线程不安全的函数。</p>
+<h2 id="_5">数据隐藏</h2>
+<p>对象的属性不应该被类定义以外的方法访问，这时候你需要使用双下划线来让这些属性不直接被外部访问到。
+python里所有的成员属性都是public的，只能通过这种方面实现数据的封装。</p>
 <h2 id="python">附录：Python魔法方法</h2>
 <table>
 <thead>
