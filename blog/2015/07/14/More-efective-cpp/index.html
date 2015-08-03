@@ -94,7 +94,7 @@
     <div class="span2 table-of-content">
         <nav>
         <h4>Contents</h4>
-        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="More efective cpp">More efective cpp</a><ul><li><a class="toc-href" href="#copy-on-write" title="Copy on write">Copy on write</a></li><li><a class="toc-href" href="#cppvirtual" title="CPP中不能声明为virtual函数的函数">CPP中不能声明为virtual函数的函数</a><ul><li><a class="toc-href" href="#_1" title="一、 内联函数">一、 内联函数</a></li><li><a class="toc-href" href="#_2" title="二、构造函数">二、构造函数</a></li><li><a class="toc-href" href="#_3" title="三、静态成员函数">三、静态成员函数</a></li><li><a class="toc-href" href="#_4" title="四、普通函数">四、普通函数</a></li><li><a class="toc-href" href="#_5" title="五、友元函数">五、友元函数</a></li></ul></li><li><a class="toc-href" href="#_7" title="面向对象编程">面向对象编程</a></li><li><a class="toc-href" href="#rtti" title="RTTI">RTTI</a></li><li><a class="toc-href" href="#new" title="new关键字">new关键字</a></li><li><a class="toc-href" href="#pimpl" title="Pimpl">Pimpl</a></li></ul></li></ul></div></body></html>
+        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="More efective cpp">More efective cpp</a><ul><li><a class="toc-href" href="#copy-on-write" title="Copy on write">Copy on write</a></li><li><a class="toc-href" href="#cppvirtual" title="CPP中不能声明为virtual函数的函数">CPP中不能声明为virtual函数的函数</a><ul><li><a class="toc-href" href="#_1" title="一、 内联函数">一、 内联函数</a></li><li><a class="toc-href" href="#_2" title="二、构造函数">二、构造函数</a></li><li><a class="toc-href" href="#_3" title="三、静态成员函数">三、静态成员函数</a></li><li><a class="toc-href" href="#_4" title="四、普通函数">四、普通函数</a></li><li><a class="toc-href" href="#_5" title="五、友元函数">五、友元函数</a></li></ul></li><li><a class="toc-href" href="#_7" title="面向对象编程">面向对象编程</a></li><li><a class="toc-href" href="#rtti" title="RTTI">RTTI</a></li><li><a class="toc-href" href="#new" title="new关键字">new关键字</a></li><li><a class="toc-href" href="#pimpl" title="Pimpl">Pimpl</a></li><li><a class="toc-href" href="#vs" title="静态联编 Vs 动态联编">静态联编 Vs 动态联编</a></li></ul></li></ul></div></body></html>
         </nav>
     </div>
     <div class="span8 article-content">
@@ -129,7 +129,7 @@ CPP支持编译时期的多态和运行时期的多态。其中编译时期的�
 <p><strong>typeid</strong>在CPP中返回一个const std::type_info 对象的引用。</p>
 <p><strong>dynamic_cast</strong>可以实现在类层次之间的向上向下以及交叉转化。dynamic_cast&lt;目标*&gt;(指针)</p>
 <h3 id="new">new关键字</h3>
-<p>\C++里的new包含了两个步骤：
+<p>C++里的new包含了两个步骤：
 1. 内存分配
 2. 调用构造函数</p>
 <p>同时C++标准中规定，如果内存分配失败，或者构造函数没有成功执行， new运算符所返回的将是空。</p>
@@ -168,6 +168,11 @@ CPP支持编译时期的多态和运行时期的多态。其中编译时期的�
 <li>造成代码可读性下降</li>
 <li>由于指针间接调用造成的性能下降</li>
 </ul>
+<h3 id="vs">静态联编 Vs 动态联编</h3>
+<p>静态联编：是指联编工作在编译阶段完成，又称为早期编译，因为这个联编工程
+是在程序运行之前完成的。优点是效率高，但是灵活性差。</p>
+<p>动态联编：是指联编在程序运行时动态地进行，根据当时的情况来调用哪个同名函数，
+实际上是在运行时虚函数的实现。又称为晚期联编，优点是灵活性高，但效率低。动态联编要靠虚函数来实现，虚函数要靠动态联编的支持。两者相辅相成，缺一不可</p>
 <section>
 <div class="accordion" id="accordion2">
     <div class="accordion-group">

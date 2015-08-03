@@ -94,7 +94,7 @@
     <div class="span2 table-of-content">
         <nav>
         <h4>Contents</h4>
-        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="程序员的自我修养">程序员的自我修养</a><ul><li><a class="toc-href" href="#_1" title="程序的编译汇编链接装载">程序的编译汇编链接装载</a><ul><li><a class="toc-href" href="#_2" title="进程栈线程栈">进程栈线程栈</a></li><li><a class="toc-href" href="#_3" title="关于模块">关于模块</a></li><li><a class="toc-href" href="#_4" title="固定装载地址">固定装载地址</a></li><li><a class="toc-href" href="#_5" title="延迟绑定">延迟绑定</a></li><li><a class="toc-href" href="#_6" title="动态符号表">动态符号表</a></li><li><a class="toc-href" href="#_7" title="动态链接重定位表">动态链接重定位表</a></li><li><a class="toc-href" href="#_8" title="动态链接器自举">动态链接器自举</a></li><li><a class="toc-href" href="#_9" title="环境变量">环境变量</a></li><li><a class="toc-href" href="#cpp" title="CPP 全局构造与解释">CPP 全局构造与解释</a></li><li><a class="toc-href" href="#_10" title="段错误 &amp; 非法操作">段错误 &amp; 非法操作</a></li></ul></li></ul></li></ul></div></body></html>
+        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="程序员的自我修养">程序员的自我修养</a><ul><li><a class="toc-href" href="#_1" title="程序的编译汇编链接装载">程序的编译汇编链接装载</a><ul><li><a class="toc-href" href="#_2" title="可重入与线程安全">可重入与线程安全</a></li><li><a class="toc-href" href="#_3" title="进程与线程">进程与线程</a></li><li><a class="toc-href" href="#_4" title="进程栈线程栈">进程栈线程栈</a></li><li><a class="toc-href" href="#_5" title="关于模块">关于模块</a></li><li><a class="toc-href" href="#_6" title="固定装载地址">固定装载地址</a></li><li><a class="toc-href" href="#_7" title="延迟绑定">延迟绑定</a></li><li><a class="toc-href" href="#_8" title="动态符号表">动态符号表</a></li><li><a class="toc-href" href="#_9" title="动态链接重定位表">动态链接重定位表</a></li><li><a class="toc-href" href="#_10" title="动态链接器自举">动态链接器自举</a></li><li><a class="toc-href" href="#_11" title="环境变量">环境变量</a></li><li><a class="toc-href" href="#cpp" title="CPP 全局构造与解释">CPP 全局构造与解释</a></li><li><a class="toc-href" href="#_12" title="段错误 &amp; 非法操作">段错误 &amp; 非法操作</a></li></ul></li></ul></li></ul></div></body></html>
         </nav>
     </div>
     <div class="span8 article-content">
@@ -135,23 +135,30 @@
 <li>标准库的细节问题，RTTI如何实现</li>
 <li>内嵌函数的访问细节</li>
 </ul>
-<h3 id="_2">进程栈线程栈</h3>
+<h3 id="_2">可重入与线程安全</h3>
+<p>一个函数被重入，表示这个函数没有执行完成，由于外部因素或内部调用，又一次进入该
+函数执行。在多线程调用时常遇到</p>
+<h3 id="_3">进程与线程</h3>
+<p><img align="center" alt="thread" class="img-responsive" src="/images/threadmodel.png"/></p>
+<p>进程是资源分配的基本单位，线程是调度的基本单位，线程之间共享进程的数据代码和程序的内存空间和
+文件，每个栈都有自己独立的stack，以及寄存器（包括PC），寄存器是执行流的基本数据。</p>
+<h3 id="_4">进程栈线程栈</h3>
 <ul>
 <li>进程栈大小执行时确定的，与编译链接无关</li>
 <li>进程栈大小是随机确定的，至少可以比线程栈要大，但不会超过2倍。</li>
 <li>线程栈是固定大小的，可以使用ulimit -a查看。</li>
 </ul>
-<h3 id="_3">关于模块</h3>
+<h3 id="_5">关于模块</h3>
 <p>在静态链接中，整个程序最终只有一个可执行文件，它是一个不可以分割的整体，
 但是在动态链接下，一个程序被分成了若干个文件，有程序的主要部分，即可执行文件和程序
 所依赖的共享对象，很多时候我们也把这些部分称为模块，即在动态链接下的可执行文件和
 共享文件对象都可以看作是程序的一个模块。</p>
-<h3 id="_4">固定装载地址</h3>
+<h3 id="_6">固定装载地址</h3>
 <p>共享对象在编译时不能假设自己在进程虚拟地址空间的为孩子，于此不同的是，可执行
 文件基本可以确定自己在进程虚拟空间中的其实位置,因为可执行文件往往是
 第一次个加载的文件,它可以选择一个固定空闲的地址,比如Linux下一般都是OX08040000,
 Windows下一般都是0x00400000.</p>
-<h3 id="_5">延迟绑定</h3>
+<h3 id="_7">延迟绑定</h3>
 <p>动态链接比静态链接慢的原因是动态链接下对于全局的和静态的数据访问都要进行复杂的GOT(Global offset table)
 定位,然后间接寻址;对于模块间的调用也要先定位GOT,然后再进行间接跳转.另一个原因是动态链接的链接工作
 在运行时完成,即在程序开始执行时,动态链接器都要进行一次链接工作,这时动态链接器会寻找并装载
@@ -159,19 +166,19 @@ Windows下一般都是0x00400000.</p>
 <p>解决方案延迟绑定，基本思想是当函数第一次被用到时才进行绑定（符号查找、重定位），如果
 没有用到就不进行绑定。ELF主要使用PLT（Procedure Linkage Table）的方法来实现。调用函数并不直接
 通过GOT跳转，而是通过一个PLT项的结构来进行跳转。</p>
-<h3 id="_6">动态符号表</h3>
+<h3 id="_8">动态符号表</h3>
 <p>为了动态链接这些模块之间的符号导入导出关系，ELF专门有一个叫做动态符号表的段来保存这些信息，这个
 段的名字通常叫做".dynsym"(dynamic symbol).动态符号表也需要一些辅助的表，比如用于保存符号名
 的字符串表，为了加快查找过程的符号哈希表。</p>
-<h3 id="_7">动态链接重定位表</h3>
+<h3 id="_9">动态链接重定位表</h3>
 <p>共享对象的重定位与静态链接目标文件的重定位的唯一区别是目标文件的重定位是在静态链接时完成的，
 而共享对象的重定位是在装载时完成的。".rel.text"表示的是代码段的重定位表,".rel.data"书数据段的
 重定位表,".rel.dyn"是对数据引用的修正，它所修正的位置位于".got"以及数据段；而 ".rel.plt"
 是对函数引用的修正，它所修正的位置位于".got.plt"。</p>
-<h3 id="_8">动态链接器自举</h3>
+<h3 id="_10">动态链接器自举</h3>
 <p>动态链接器本身不可以依赖于其他任何共享对象，其次是动态链接器本身所需要的全局和静态变量的重定位工作需要自己完成提供，
 这种具有一定限制条件的启动代码往往被称为自举。动态链接器本身是静态链接的。</p>
-<h3 id="_9">环境变量</h3>
+<h3 id="_11">环境变量</h3>
 <p>动态链接器会按照下列顺序依次装载或查找共享对象：
 - 由环境变量LD_LIBRARY_PATH指定的路径
 - 由路径缓存文件/etc/ld.so.cache指定的路径
@@ -182,7 +189,7 @@ Windows下一般都是0x00400000.</p>
 __do_global_ctors_aux。对于每个编译单元（.cpp），GCC编译器会遍历其中
 所有的全局对象，生成一个特殊函数，这个特殊函数的作用就是对本编译单元里的所有
 全局对象进行初始化。</p>
-<h3 id="_10">段错误 &amp; 非法操作</h3>
+<h3 id="_12">段错误 &amp; 非法操作</h3>
 <p>这是典型的非法指针解引用造成的错误，当指针指向一个不允许读或者写的
 内存地址，而程序却试图利用指针来读或写该地址的时候，就会出现这个错误。
 造成这样的错误最普遍的原因有两种：

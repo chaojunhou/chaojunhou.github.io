@@ -12,12 +12,12 @@
 
 <meta property="og:title" content="TCP/IP 详解 "/>
 <meta property="og:url" content="../../../../../blog/2015/07/23/tcp-ip-illlstrated/" />
-<meta property="og:description" content="ping命令工作原理 ping命令主要是用于检测网络的连通性。 Ping命令发送一个ICMP请求报文给目的IP，然后目的IP回复一个ICMP报文。 原理：网络上的机器都有唯一确定的IP地址，我们给目标IP地址发送一个数据包，对方就要返回一个同样大小的数据包， 根据返回的数据包我们可以确定目标主机的存在，可以初步判断目标主机的操作系统等。 因为ping命令是使用ICMP协议，所以没有端口号，但是有两个域：类型和代码。 traceroute工作原理 traceroute是利用ICMP及IP头部的TTL。 首先，traceroute送出一个TTL是1的IP数据包（其实，每次送出的为3个40字节的包，包括源地址，目的地址和包发出的时间标签） 到目的地，当路径上的第一个路由器收到IP数据包时，将TTL减1。此时，TTL变为0，所以将该路由器会将此IP数据包丢掉，并返回一个ICMP数据包（包括发IP包的源地址，IP包的所有内容及路由器的IP地址），当traceroute收到这个消息后，接着继续发生TTL为2的IP数据包给第二个路由器。以此类推，直到IP数据包达到最后一台路由器时，会返回一个ICMP echo reply的数据包。 TIME_WAIT 状态存活时间为2MSL的理由： 可靠的实现TCP全双工连接的终止 允许老的重复的packet在网络中消逝 TCP接收套接字不可能溢出，因为不允许对端发出超过本端所通告窗口大小的数据，这就是TCP的流量控制，如果对端无视窗口大小 而发出了超过窗口大小的数据，本端TCP将丢弃它们。 在单播中，在网络位址和网络节点之间存在一一对应的关系 ..." />
+<meta property="og:description" content="三次握手和四次挥手 TCP使用三次握手建立连接，初始化传输的可靠性以及数据顺序性必要的信息，这个连接是全双工的，因此必须保证两条 方向的数据都可以正常传输。在建立连接的第二次，把SYN放到ACK一起发送了，所以三次就可以。 四次挥手的时候由于不能保证client和server之间不在有数据的传输，因此必须每次只终止一个方向的数据传输。 超时计时器 对每个TCP连接都会有一个超时计时器，这个超时计时器的原则有两个： 每个报文在长期收不到确认都必须可以超时 这个长期收不到中长期不能和测量的RTT相隔太远 RFC2988规定，当发送TCPsegment时，如果还没有开启重传计时器，那么就开启它；收到一个非冗余ACK时，如果有数据在传输中， 重新开启重传定时器。 ping ping命令工作原理 ping命令主要是用于检测网络的连通性。 Ping命令发送一个ICMP请求报文给目的IP，然后目的IP回复一个ICMP报文。 原理：网络上的机器都有唯一确定的IP地址，我们给目标IP地址发送一个数据包，对方就要返回一个同样大小的数据包， 根据返回的数据包我们可以确定目标主机的存在，可以初步判断目标主机的操作系统等。 因为ping命令是使用ICMP协议，所以没有端口号，但是有两个域：类型和代码。 traceroute traceroute工作原理 traceroute是利用ICMP及IP头部的TTL。首先，traceroute送出一个TTL是1的IP数据包（其实，每次送出的为3个40字节的包， 包括源地址，目的地址和包发出的时间标签）到目的地，当路径上的第一个路由器收到IP数据包时，将TTL减1 ..." />
 <meta property="og:site_name" content="Write the Code" />
 <meta property="og:article:author" content="ChaoJun Hou" />
 <meta property="og:article:published_time" content="2015-07-23T15:25:00+08:00" />
 <meta name="twitter:title" content="TCP/IP 详解 ">
-<meta name="twitter:description" content="ping命令工作原理 ping命令主要是用于检测网络的连通性。 Ping命令发送一个ICMP请求报文给目的IP，然后目的IP回复一个ICMP报文。 原理：网络上的机器都有唯一确定的IP地址，我们给目标IP地址发送一个数据包，对方就要返回一个同样大小的数据包， 根据返回的数据包我们可以确定目标主机的存在，可以初步判断目标主机的操作系统等。 因为ping命令是使用ICMP协议，所以没有端口号，但是有两个域：类型和代码。 traceroute工作原理 traceroute是利用ICMP及IP头部的TTL。 首先，traceroute送出一个TTL是1的IP数据包（其实，每次送出的为3个40字节的包，包括源地址，目的地址和包发出的时间标签） 到目的地，当路径上的第一个路由器收到IP数据包时，将TTL减1。此时，TTL变为0，所以将该路由器会将此IP数据包丢掉，并返回一个ICMP数据包（包括发IP包的源地址，IP包的所有内容及路由器的IP地址），当traceroute收到这个消息后，接着继续发生TTL为2的IP数据包给第二个路由器。以此类推，直到IP数据包达到最后一台路由器时，会返回一个ICMP echo reply的数据包。 TIME_WAIT 状态存活时间为2MSL的理由： 可靠的实现TCP全双工连接的终止 允许老的重复的packet在网络中消逝 TCP接收套接字不可能溢出，因为不允许对端发出超过本端所通告窗口大小的数据，这就是TCP的流量控制，如果对端无视窗口大小 而发出了超过窗口大小的数据，本端TCP将丢弃它们。 在单播中，在网络位址和网络节点之间存在一一对应的关系 ...">
+<meta name="twitter:description" content="三次握手和四次挥手 TCP使用三次握手建立连接，初始化传输的可靠性以及数据顺序性必要的信息，这个连接是全双工的，因此必须保证两条 方向的数据都可以正常传输。在建立连接的第二次，把SYN放到ACK一起发送了，所以三次就可以。 四次挥手的时候由于不能保证client和server之间不在有数据的传输，因此必须每次只终止一个方向的数据传输。 超时计时器 对每个TCP连接都会有一个超时计时器，这个超时计时器的原则有两个： 每个报文在长期收不到确认都必须可以超时 这个长期收不到中长期不能和测量的RTT相隔太远 RFC2988规定，当发送TCPsegment时，如果还没有开启重传计时器，那么就开启它；收到一个非冗余ACK时，如果有数据在传输中， 重新开启重传定时器。 ping ping命令工作原理 ping命令主要是用于检测网络的连通性。 Ping命令发送一个ICMP请求报文给目的IP，然后目的IP回复一个ICMP报文。 原理：网络上的机器都有唯一确定的IP地址，我们给目标IP地址发送一个数据包，对方就要返回一个同样大小的数据包， 根据返回的数据包我们可以确定目标主机的存在，可以初步判断目标主机的操作系统等。 因为ping命令是使用ICMP协议，所以没有端口号，但是有两个域：类型和代码。 traceroute traceroute工作原理 traceroute是利用ICMP及IP头部的TTL。首先，traceroute送出一个TTL是1的IP数据包（其实，每次送出的为3个40字节的包， 包括源地址，目的地址和包发出的时间标签）到目的地，当路径上的第一个路由器收到IP数据包时，将TTL减1 ...">
 
         <title>TCP/IP 详解  · Change the World | Write the Code
 </title>
@@ -91,44 +91,101 @@
 </div>
 
 <div class="row-fluid">
-        <div class="span8 offset2 article-content">
+    <div class="span2 table-of-content">
+        <nav>
+        <h4>Contents</h4>
+        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="TCP/IP 详解">TCP/IP 详解</a><ul><li><a class="toc-href" href="#_1" title="三次握手和四次挥手">三次握手和四次挥手</a></li><li><a class="toc-href" href="#_2" title="超时计时器">超时计时器</a></li><li><a class="toc-href" href="#ping" title="ping">ping</a></li><li><a class="toc-href" href="#traceroute" title="traceroute">traceroute</a></li><li><a class="toc-href" href="#time_wait" title="TIME_WAIT">TIME_WAIT</a></li><li><a class="toc-href" href="#_3" title="流量控制">流量控制</a></li><li><a class="toc-href" href="#_4" title="单播广播组播任博">单播广播组播任博</a></li><li><a class="toc-href" href="#rtt" title="重传（测量RTT）">重传（测量RTT）</a></li><li><a class="toc-href" href="#tcp" title="TCP序列号的回绕问题">TCP序列号的回绕问题</a></li><li><a class="toc-href" href="#_5" title="糊涂窗口综合症">糊涂窗口综合症</a></li><li><a class="toc-href" href="#negle" title="Negle算法">Negle算法</a></li><li><a class="toc-href" href="#udp-connect" title="UDP connect">UDP connect</a></li><li><a class="toc-href" href="#_6" title="数据边界">数据边界</a></li><li><a class="toc-href" href="#_7" title="平台开发">平台开发</a></li></ul></li></ul></div></body></html>
+        </nav>
+    </div>
+    <div class="span8 article-content">
 
             <hr/>
+<h3 id="_1">三次握手和四次挥手</h3>
+<p>TCP使用三次握手建立连接，初始化传输的可靠性以及数据顺序性必要的信息，这个连接是全双工的，因此必须保证两条
+方向的数据都可以正常传输。在建立连接的第二次，把SYN放到ACK一起发送了，所以三次就可以。</p>
+<p>四次挥手的时候由于不能保证client和server之间不在有数据的传输，因此必须每次只终止一个方向的数据传输。</p>
+<h3 id="_2">超时计时器</h3>
+<p>对每个TCP连接都会有一个超时计时器，这个超时计时器的原则有两个：</p>
+<ol>
+<li>每个报文在长期收不到确认都必须可以超时</li>
+<li>这个长期收不到中长期不能和测量的RTT相隔太远</li>
+</ol>
+<p>RFC2988规定，当发送TCPsegment时，如果还没有开启重传计时器，那么就开启它；收到一个非冗余ACK时，如果有数据在传输中，
+重新开启重传定时器。</p>
+<h3 id="ping">ping</h3>
 <p>ping命令工作原理
 ping命令主要是用于检测网络的连通性。
 Ping命令发送一个ICMP请求报文给目的IP，然后目的IP回复一个ICMP报文。
 原理：网络上的机器都有唯一确定的IP地址，我们给目标IP地址发送一个数据包，对方就要返回一个同样大小的数据包，
 根据返回的数据包我们可以确定目标主机的存在，可以初步判断目标主机的操作系统等。
 因为ping命令是使用ICMP协议，所以没有端口号，但是有两个域：类型和代码。</p>
+<h3 id="traceroute">traceroute</h3>
 <p>traceroute工作原理
-traceroute是利用ICMP及IP头部的TTL。
-首先，traceroute送出一个TTL是1的IP数据包（其实，每次送出的为3个40字节的包，包括源地址，目的地址和包发出的时间标签）
-到目的地，当路径上的第一个路由器收到IP数据包时，将TTL减1。此时，TTL变为0，所以将该路由器会将此IP数据包丢掉，并返回一个ICMP数据包（包括发IP包的源地址，IP包的所有内容及路由器的IP地址），当traceroute收到这个消息后，接着继续发生TTL为2的IP数据包给第二个路由器。以此类推，直到IP数据包达到最后一台路由器时，会返回一个ICMP echo reply的数据包。</p>
+traceroute是利用ICMP及IP头部的TTL。首先，traceroute送出一个TTL是1的IP数据包（其实，每次送出的为3个40字节的包，
+包括源地址，目的地址和包发出的时间标签）到目的地，当路径上的第一个路由器收到IP数据包时，将TTL减1。
+此时，TTL变为0，所以将该路由器会将此IP数据包丢掉，
+并返回一个ICMP数据包（包括发IP包的源地址，IP包的所有内容及路由器的IP地址），
+当traceroute收到这个消息后，接着继续发生TTL为2的IP数据包给第二个路由器。
+以此类推，直到IP数据包达到最后一台路由器时，会返回一个ICMP echo reply的数据包。</p>
+<h3 id="time_wait">TIME_WAIT</h3>
 <p>TIME_WAIT 状态存活时间为2MSL的理由：</p>
 <ul>
 <li>可靠的实现TCP全双工连接的终止</li>
-<li>允许老的重复的packet在网络中消逝</li>
+<li>允许老的重复的packet在网络中消逝（防止FIN终止重用的连接）</li>
 </ul>
+<h3 id="_3">流量控制</h3>
 <p>TCP接收套接字不可能溢出，因为不允许对端发出超过本端所通告窗口大小的数据，这就是TCP的流量控制，如果对端无视窗口大小
 而发出了超过窗口大小的数据，本端TCP将丢弃它们。</p>
+<h3 id="_4">单播广播组播任博</h3>
 <p>在单播中，在网络位址和网络节点之间存在一一对应的关系。
 在广播和组播中，在网络位址和网络节点之间存在一对多的关系：每一个目的位址对应一群接收可以复制资讯的节点。
 组播报文的目的地址使用D类IP地址， D类地址不能出现在IP报文的源IP地址字段。广播都是限制在局域网中的，比如以太网或令牌环网络。因为广播在局域网中造成的影响远比在广域网中小得多。
 在任播中，在网络位址和网络节点之间存在一对多的关系：每一个位址对应一群接收节点，但在任何给定时间，只有其中之一可以接收到传送端来的资讯。</p>
 <p>在互联网中，通常使用边界网关协议来实现任播。</p>
+<h3 id="rtt">重传（测量RTT）</h3>
 <p>解决重传二义性（请求丢失，应答丢失，RTO太小）的一个方案：</p>
 <p>client在发送packet的时候加上一个timestamp，然后server回射客户端的timestamp，客户端根据当前的timestamp减去回射的timestamp即可
 得到一个RTT。</p>
-<p>The ping command is used to detect network connectivity.</p>
-<p>Ping command sends an ICMP request packets to the destination IP, destination IP and then reply to an ICMP packet.</p>
-<p>Principle: machines on the network has a unique IP address identified, we sent to the destination IP address of a packet, the person would return to a similarly sized packets, based on the data returned package, we can determine the presence of the target host, can initially Analyzing the target host operating system.</p>
-<p>The ping command uses the ICMP protocol, so there is no port number, but there are two fields: type and code.</p>
-<p>traceroute Work</p>
-<p>traceroute use ICMP and IP header TTL. First of all, traceroute sends a TTL is an IP packet (in fact, each sent three 40-byte packets, 
-including source address, destination address and packet issued time stamp) to the destination, 
-when the first path When a router receives an IP packet, the TTL minus 1. TTL becomes 0, 
-the router will drop this IP packet and returns an ICMP packet (including the source address of an IP packet, 
-all the contents of the IP packet and the IP address of the router), when traceroute to close to this message, and then continue to the TTL of the IP packet to the second router. And so on, until the IP packet reaches the last router returns an ICMP echo reply packet.</p>
+<h3 id="tcp">TCP序列号的回绕问题</h3>
+<p>32的序列号，很容易就发生回绕现象。TCP的保证数据的按序列号到达就是通过序列号实现的，因此当收到一个超过一圈后的
+序列号的时候，TCP就很难判断这些数据是乱序的，还是新的按序到达的。</p>
+<h3 id="_5">糊涂窗口综合症</h3>
+<p>接收端处理的数据有限，为了防止sender每次都发送小窗口的数据，就发送probe给sender，当sender收到probe中的通告窗口
+为0时就停止发送，直到等到通过窗口的数据不为0.</p>
+<h3 id="negle">Negle算法</h3>
+<p>当发送端持续发送小包时，就大大浪费了网络的流量，因此应该加以限制。可以使用Nagle算法，Nagle算法规定如果还有发出的不足
+MSS大小的TCP segment的确认没有到来就累计数据到发送队列的末尾的TCP segment。否则的话就发送数据。</p>
+<h3 id="udp-connect">UDP connect</h3>
+<p>UDP client端不调用connect和调用connect有什么区别？</p>
+<p>答：UDP协议中使用connect与TCP中的connect完全不相同的概念，UDP中connect并没有三次握手，
+只是在本机系统中绑定该socket与哪一个IP端口进行通信。connect以后 直接使用send和recv，不必使用sendto和recvfrom。
+显然connect后的UDP通信效率比非connect要高。相当于在内核中常驻一个udp的socket连接，不用每次都临时构建一个socket
+发送数据。</p>
+<p>1）选定了对端，内核只会将绑定对象的对端发来的数据报传给套接口，因此在一定环境下可以提升安全性；
+2) 会返回异步错误，如果对端没启动，默认情况下发送的包对应的ICMP回射包不会给调用进程，如果用了connect，就可以。
+3）发送两个包间不要先断开再连接，提升了效率。</p>
+<p>发送数据的参数到达了内核空间之后，内核还要准备数据结构暂时容纳这些参数，当数据发出之后，内核需要释放暂时存储的参数。</p>
+<h3 id="_6">数据边界</h3>
+<p>UDP是基于数据报的，每个UDP包都是有边界的，对于TCP需要完全按照收发双方每次通信的实际内容界定边界。</p>
+<hr/>
+<h3 id="_7">平台开发</h3>
+<ol>
+<li>
+<p>后台开发需要注意的问题：</p>
+<ol>
+<li>网络通信，要跟远程的client打交道，只能用网络</li>
+<li>并发和并行处理。多个客户端可能在同一时间同时需要处理同一个类型的数据， 谁先谁后，谁的有效谁的无效？ 服务端的并发，同步显得非常重要。 同理，每个客户端外表看起来都是立刻接收到服务的，这需要并行化处理。</li>
+<li>数据库设计。 大量的数据，必须通过数据库进行管理。但是频繁的数据库写入会导致性能下降，所以要有合理的数据库设计，以及读写控制设计。  然后数据库的备份设计， 万一down掉了怎么办，只能用备份的。这一点在银行等电子商务的后台设计中是重中之重。 </li>
+<li>良好的可扩展性的架构， 后台一直在变的， 因为客户端的需求一直是增加的， 不能因为为了添加一个新功能，影响到旧的功能。</li>
+<li>网络的性能和安全性（负载均衡，一些安全措施）</li>
+</ol>
+</li>
+<li>
+<p>设计一个分布式缓存系统，缓存的对象是网页，将常用的网页数据缓存在内存中以加速访问，如何设计？</p>
+<p>每次对URL计算hash值，然后使用一致性hash存储到具体的缓存节点（机器），查询也是这样。采用一致性hash算法
+能保证在某个节点失效的时候，保证最小的缓存失效。同时可以采用虚拟节点解决数据分布不均匀的问题。</p>
+</li>
+</ol>
 <section>
 <div class="accordion" id="accordion2">
     <div class="accordion-group">

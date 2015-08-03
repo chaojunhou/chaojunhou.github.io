@@ -12,12 +12,12 @@
 
 <meta property="og:title" content="nginx 源码剖析 "/>
 <meta property="og:url" content="../../../../../blog/2015/07/22/nginx/" />
-<meta property="og:description" content="nginx架构 nginx在启动后，以守护进程的方式在后台运行，后台进程包含一个master进程 和多个worker进程。其中worker进程的数目一般与 memcached 源码学习 初始化过程 建立并初始化 main_base, 即主线程的事件中心, 这是 libevent 里面的概念, 可以把它理解为事件分发中心. 建立并初始化 memcached 内部容器数据结构. 建立并初始化空闲连接结构体数组. 建立并初始化线程结构数组, 指定每个线程的入口函数是worker_libevent(), 并创建工作线程. 从worder_libevent()的实现来看, 工作线程都会调用event_base_loop()进入自己的事件循环. 根据 memcached 配置, 开启以下两种服务模式中的一种: 以 UNIX 域套接字的方式接受客户的请求 以 TCP/UDP 套接字的方式接受客户的请求 memcached 有可配置的两种模式: UNIX 域套接字和 TCP/UDP, 允许客户端以两种方式向 memcached 发起请求. 客户端和服务器在同一个主机上的情况下可以用 UNIX 域套接字 ..." />
+<meta property="og:description" content="nginx架构 nginx在启动后，以守护进程的方式在后台运行，后台进程包含一个master进程 和多个worker进程。其中worker进程的数目一般与 src下的目录 core : 该目录存放core module的代码，也是nginx服务的入口 http : http core module 的代码，nginx作为web/http proxy server运行时的核心模块 mail : mail core module 的代码，nginx作为pop3/imap/smtp proxy server运行时的核心模块 ( 不在我们本次研究范围内 ) event : nginx 自身对事件处理逻辑的封装 os : nginx对各个平台抽象逻辑的封装 misc : nginx 的一些utils,定义了test和profiler的一些外围模块的逻辑 memcached 源码学习 初始化过程 建立并初始化 main_base, 即主线程的事件中心, 这是 libevent 里面的概念, 可以把它理解为事件分发中心 ..." />
 <meta property="og:site_name" content="Write the Code" />
 <meta property="og:article:author" content="ChaoJun Hou" />
 <meta property="og:article:published_time" content="2015-07-22T22:07:00+08:00" />
 <meta name="twitter:title" content="nginx 源码剖析 ">
-<meta name="twitter:description" content="nginx架构 nginx在启动后，以守护进程的方式在后台运行，后台进程包含一个master进程 和多个worker进程。其中worker进程的数目一般与 memcached 源码学习 初始化过程 建立并初始化 main_base, 即主线程的事件中心, 这是 libevent 里面的概念, 可以把它理解为事件分发中心. 建立并初始化 memcached 内部容器数据结构. 建立并初始化空闲连接结构体数组. 建立并初始化线程结构数组, 指定每个线程的入口函数是worker_libevent(), 并创建工作线程. 从worder_libevent()的实现来看, 工作线程都会调用event_base_loop()进入自己的事件循环. 根据 memcached 配置, 开启以下两种服务模式中的一种: 以 UNIX 域套接字的方式接受客户的请求 以 TCP/UDP 套接字的方式接受客户的请求 memcached 有可配置的两种模式: UNIX 域套接字和 TCP/UDP, 允许客户端以两种方式向 memcached 发起请求. 客户端和服务器在同一个主机上的情况下可以用 UNIX 域套接字 ...">
+<meta name="twitter:description" content="nginx架构 nginx在启动后，以守护进程的方式在后台运行，后台进程包含一个master进程 和多个worker进程。其中worker进程的数目一般与 src下的目录 core : 该目录存放core module的代码，也是nginx服务的入口 http : http core module 的代码，nginx作为web/http proxy server运行时的核心模块 mail : mail core module 的代码，nginx作为pop3/imap/smtp proxy server运行时的核心模块 ( 不在我们本次研究范围内 ) event : nginx 自身对事件处理逻辑的封装 os : nginx对各个平台抽象逻辑的封装 misc : nginx 的一些utils,定义了test和profiler的一些外围模块的逻辑 memcached 源码学习 初始化过程 建立并初始化 main_base, 即主线程的事件中心, 这是 libevent 里面的概念, 可以把它理解为事件分发中心 ...">
 
         <title>nginx 源码剖析  · Change the World | Write the Code
 </title>
@@ -103,6 +103,15 @@
 <h3 id="nginx">nginx架构</h3>
 <p>nginx在启动后，以守护进程的方式在后台运行，后台进程包含一个master进程
 和多个worker进程。其中worker进程的数目一般与</p>
+<p><strong>src下的目录</strong></p>
+<ul>
+<li>core : 该目录存放core module的代码，也是nginx服务的入口</li>
+<li>http : http core module 的代码，nginx作为web/http proxy server运行时的核心模块</li>
+<li>mail : mail core module 的代码，nginx作为pop3/imap/smtp proxy server运行时的核心模块 ( 不在我们本次研究范围内 )</li>
+<li>event : nginx 自身对事件处理逻辑的封装</li>
+<li>os : nginx对各个平台抽象逻辑的封装</li>
+<li>misc : nginx 的一些utils,定义了test和profiler的一些外围模块的逻辑</li>
+</ul>
 <hr/>
 <h3 id="memcached">memcached  源码学习</h3>
 <p>初始化过程</p>
