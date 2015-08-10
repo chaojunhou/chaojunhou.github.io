@@ -52,7 +52,6 @@
 
   ga('create', 'UA-61957498-1', 'auto');
   ga('send', 'pageview');
-
 	</script>
     <body>
         <div id="content-sans-footer">
@@ -94,7 +93,7 @@
     <div class="span2 table-of-content">
         <nav>
         <h4>Contents</h4>
-        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="Python中的垃圾回收机制">Python中的垃圾回收机制</a><ul><li><a class="toc-href" href="#_1" title="首先我们介绍一下的垃圾回收中通用的基本概念">首先我们介绍一下的垃圾回收中通用的基本概念</a></li><li><a class="toc-href" href="#_2" title="垃圾回收">垃圾回收</a></li><li><a class="toc-href" href="#_3" title="垃圾回收中常见的算法">垃圾回收中常见的算法</a><ul><li><a class="toc-href" href="#1-mark-and-sweep" title="1. 标记清除(Mark and Sweep)">1. 标记清除(Mark and Sweep)</a><ul><li><a class="toc-href" href="#_4" title="原理">原理</a></li><li><a class="toc-href" href="#_5" title="根">根</a></li><li><a class="toc-href" href="#_6" title="缺点">缺点</a></li><li><a class="toc-href" href="#mark-and-compact" title="标记压缩(Mark and Compact)">标记压缩(Mark and Compact)</a></li><li><a class="toc-href" href="#_7" title="缺点">缺点</a></li><li><a class="toc-href" href="#copy-and-collection" title="复制收集(Copy and Collection)">复制收集(Copy and Collection)</a></li><li><a class="toc-href" href="#_8" title="优点">优点</a></li><li><a class="toc-href" href="#_9" title="缺点">缺点</a></li></ul></li><li><a class="toc-href" href="#2_1" title="2. 引用计数">2. 引用计数</a><ul><li><a class="toc-href" href="#_10" title="原理">原理</a></li><li><a class="toc-href" href="#_11" title="缺点">缺点</a></li></ul></li><li><a class="toc-href" href="#3_1" title="3. 分代回收">3. 分代回收</a><ul><li><a class="toc-href" href="#_12" title="思路">思路</a></li><li><a class="toc-href" href="#_13" title="增量回收">增量回收</a></li></ul></li></ul></li><li><a class="toc-href" href="#gc_2" title="GC大一统理论">GC大一统理论</a><ul><li><a class="toc-href" href="#gc_3" title="任何一种GC算法，都是追踪回收和引用计数回收两种思路的组合。">任何一种GC算法，都是追踪回收和引用计数回收两种思路的组合。</a></li></ul></li><li><a class="toc-href" href="#pythonpythonpython_1" title="下面就结合Python源码具体说下Python中垃圾回收的实现，更多源码见Python 源码剖析">下面就结合Python源码具体说下Python中垃圾回收的实现，更多源码见Python 源码剖析</a><ul><li><a class="toc-href" href="#python" title="Python垃圾回收中的引用计数">Python垃圾回收中的引用计数</a></li><li><a class="toc-href" href="#python_1" title="Python垃圾回收中的标记清除">Python垃圾回收中的标记清除</a></li><li><a class="toc-href" href="#python_2" title="Python垃圾回收中的分代回收">Python垃圾回收中的分代回收</a></li></ul></li><li><a class="toc-href" href="#_15" title="总结：">总结：</a></li></ul></li></ul></div></body></html>
+        <div id="toc"><ul><li><a class="toc-href" href="#" title="Python中的垃圾回收机制">Python中的垃圾回收机制</a><ul><li><a class="toc-href" href="#_1" title="首先我们介绍一下的垃圾回收中通用的基本概念">首先我们介绍一下的垃圾回收中通用的基本概念</a></li><li><a class="toc-href" href="#_2" title="垃圾回收">垃圾回收</a></li><li><a class="toc-href" href="#_3" title="垃圾回收中常见的算法">垃圾回收中常见的算法</a><ul><li><a class="toc-href" href="#1-mark-and-sweep" title="1. 标记清除(Mark and Sweep)">1. 标记清除(Mark and Sweep)</a><ul><li><a class="toc-href" href="#_4" title="原理">原理</a></li><li><a class="toc-href" href="#_5" title="根">根</a></li><li><a class="toc-href" href="#_6" title="缺点">缺点</a></li><li><a class="toc-href" href="#mark-and-compact" title="标记压缩(Mark and Compact)">标记压缩(Mark and Compact)</a></li><li><a class="toc-href" href="#_7" title="缺点">缺点</a></li><li><a class="toc-href" href="#copy-and-collection" title="复制收集(Copy and Collection)">复制收集(Copy and Collection)</a></li><li><a class="toc-href" href="#_8" title="优点">优点</a></li><li><a class="toc-href" href="#_9" title="缺点">缺点</a></li></ul></li><li><a class="toc-href" href="#2_1" title="2. 引用计数">2. 引用计数</a><ul><li><a class="toc-href" href="#_10" title="原理">原理</a></li><li><a class="toc-href" href="#_11" title="缺点">缺点</a></li></ul></li><li><a class="toc-href" href="#3_1" title="3. 分代回收">3. 分代回收</a><ul><li><a class="toc-href" href="#_12" title="思路">思路</a></li><li><a class="toc-href" href="#_13" title="增量回收">增量回收</a></li></ul></li></ul></li><li><a class="toc-href" href="#gc_2" title="GC大一统理论">GC大一统理论</a><ul><li><a class="toc-href" href="#gc_3" title="任何一种GC算法，都是追踪回收和引用计数回收两种思路的组合。">任何一种GC算法，都是追踪回收和引用计数回收两种思路的组合。</a></li></ul></li><li><a class="toc-href" href="#pythonpythonpython_1" title="下面就结合Python源码具体说下Python中垃圾回收的实现，更多源码见Python 源码剖析">下面就结合Python源码具体说下Python中垃圾回收的实现，更多源码见Python 源码剖析</a><ul><li><a class="toc-href" href="#python" title="Python垃圾回收中的引用计数">Python垃圾回收中的引用计数</a></li><li><a class="toc-href" href="#python_1" title="Python垃圾回收中的标记清除">Python垃圾回收中的标记清除</a></li><li><a class="toc-href" href="#python_2" title="Python垃圾回收中的分代回收">Python垃圾回收中的分代回收</a></li></ul></li><li><a class="toc-href" href="#_15" title="总结：">总结：</a></li></ul></li></ul></div>
         </nav>
     </div>
     <div class="span8 article-content">
@@ -321,7 +320,7 @@
         <div class="span2" style="float:right;font-size:0.9em;">
  
             <h4>Published</h4>
-            <time pubdate="pubdate" datetime="2015-05-10T20:59:00+08:00">May 10, 2015</time>
+            <time pubdate="pubdate" datetime="2015-05-10T20:59:00+08:00">5月 10, 2015</time>
             <h4>Category</h4>
             <a class="category-link" href="/categories.html#计算机科学-ref">计算机科学</a> 
             <h4>Tags</h4>

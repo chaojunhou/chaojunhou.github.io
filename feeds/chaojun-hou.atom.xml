@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Write the Code</title><link href="www.houcj.net/" rel="alternate"></link><link href="www.houcj.net/feeds%5Cchaojun-hou.atom.xml" rel="self"></link><id>www.houcj.net/</id><updated>2015-07-23T15:25:00+08:00</updated><entry><title>TCP/IP 详解</title><link href="www.houcj.net/blog/2015/07/23/tcp-ip-illlstrated/" rel="alternate"></link><updated>2015-07-23T15:25:00+08:00</updated><author><name>ChaoJun Hou</name></author><id>tag:,2015-07-23:www.houcj.net/blog/2015/07/23/tcp-ip-illlstrated/</id><summary type="html">&lt;hr/&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Write the Code</title><link href="www.houcj.net/" rel="alternate"></link><link href="www.houcj.net/feeds/chaojun-hou.atom.xml" rel="self"></link><id>www.houcj.net/</id><updated>2015-07-23T15:25:00+08:00</updated><entry><title>TCP/IP 详解</title><link href="www.houcj.net/blog/2015/07/23/tcp-ip-illlstrated/" rel="alternate"></link><updated>2015-07-23T15:25:00+08:00</updated><author><name>ChaoJun Hou</name></author><id>tag:,2015-07-23:www.houcj.net/blog/2015/07/23/tcp-ip-illlstrated/</id><summary type="html">&lt;hr/&gt;
 &lt;h3 id="_1"&gt;三次握手和四次挥手&lt;/h3&gt;
 &lt;p&gt;TCP使用三次握手建立连接，初始化传输的可靠性以及数据顺序性必要的信息，这个连接是全双工的，因此必须保证两条
 方向的数据都可以正常传输。在建立连接的第二次，把SYN放到ACK一起发送了，所以三次就可以。&lt;/p&gt;
@@ -85,40 +85,7 @@ MSS大小的TCP segment的确认没有到来就累计数据到发送队列的末
 &lt;p&gt;每次对URL计算hash值，然后使用一致性hash存储到具体的缓存节点（机器），查询也是这样。采用一致性hash算法
 能保证在某个节点失效的时候，保证最小的缓存失效。同时可以采用虚拟节点解决数据分布不均匀的问题。&lt;/p&gt;
 &lt;/li&gt;
-&lt;/ol&gt;</summary><category term="TCP"></category></entry><entry><title>nginx 源码剖析</title><link href="www.houcj.net/blog/2015/07/22/nginx/" rel="alternate"></link><updated>2015-07-22T22:07:00+08:00</updated><author><name>ChaoJun Hou</name></author><id>tag:,2015-07-22:www.houcj.net/blog/2015/07/22/nginx/</id><summary type="html">&lt;hr/&gt;
-&lt;h3 id="nginx"&gt;nginx架构&lt;/h3&gt;
-&lt;p&gt;nginx在启动后，以守护进程的方式在后台运行，后台进程包含一个master进程
-和多个worker进程。其中worker进程的数目一般与&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;src下的目录&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;core : 该目录存放core module的代码，也是nginx服务的入口&lt;/li&gt;
-&lt;li&gt;http : http core module 的代码，nginx作为web/http proxy server运行时的核心模块&lt;/li&gt;
-&lt;li&gt;mail : mail core module 的代码，nginx作为pop3/imap/smtp proxy server运行时的核心模块 ( 不在我们本次研究范围内 )&lt;/li&gt;
-&lt;li&gt;event : nginx 自身对事件处理逻辑的封装&lt;/li&gt;
-&lt;li&gt;os : nginx对各个平台抽象逻辑的封装&lt;/li&gt;
-&lt;li&gt;misc : nginx 的一些utils,定义了test和profiler的一些外围模块的逻辑&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr/&gt;
-&lt;h3 id="memcached"&gt;memcached  源码学习&lt;/h3&gt;
-&lt;p&gt;初始化过程&lt;/p&gt;
-&lt;p&gt;建立并初始化 main_base, 即主线程的事件中心, 这是 libevent 里面的概念, 可以把它理解为事件分发中心.&lt;/p&gt;
-&lt;p&gt;建立并初始化 memcached 内部容器数据结构.&lt;/p&gt;
-&lt;p&gt;建立并初始化空闲连接结构体数组.&lt;/p&gt;
-&lt;p&gt;建立并初始化线程结构数组, 指定每个线程的入口函数是worker_libevent(), 并创建工作线程. 从worder_libevent()的实现来看, 工作线程都会调用event_base_loop()进入自己的事件循环.&lt;/p&gt;
-&lt;p&gt;根据 memcached 配置, 开启以下两种服务模式中的一种:&lt;/p&gt;
-&lt;p&gt;以 UNIX 域套接字的方式接受客户的请求
-以 TCP/UDP 套接字的方式接受客户的请求
-memcached 有可配置的两种模式: UNIX 域套接字和 TCP/UDP, 允许客户端以两种方式向 memcached 发起请求. 客户端和服务器在同一个主机上的情况下可以用 UNIX 域套接字, 否则可以采用 TCP/UDP 的模式. 两种模式是不兼容的. 特别的, 如果是 UNIX 域套接字或者 TCP 模式, 需要建立监听套接字, 并在事件中心注册了读事件, 回调函数是event_handler(), 我们会看到所有的连接都会被注册回调函数是event_handler().&lt;/p&gt;
-&lt;p&gt;调用event_base_loop()开启 libevent 的事件循环. 到此, memcached 服务器的工作正式进入了工作. 如果遇到致命错误或者客户明令结束 memcached, 那么才会进入接下来的清理工作.&lt;/p&gt;
-&lt;hr/&gt;
-&lt;p&gt;Reactor模式：&lt;/p&gt;
-&lt;p&gt;事件源&lt;/p&gt;
-&lt;p&gt;Reator-反应器
-reactor是事件管理的接口，内部使用event demultiplexer注册、注销事件；并运行事件循环，当有事件进入
-就绪状态时，调用注册事件的回调函数处理事件。&lt;/p&gt;
-&lt;p&gt;Event Handler-事件处理程序&lt;/p&gt;
-&lt;p&gt;事件处理程序提供了一组接口，每个接口对应了一种类型的事件，供Reactor在相应的事件发生时调用，执行相应的
-事件处理。通常它会绑定一个有效的句柄。&lt;/p&gt;</summary><category term="源码"></category></entry><entry><title>2015阿里内推电话面试经验</title><link href="www.houcj.net/blog/2015/07/18/ali-interview/" rel="alternate"></link><updated>2015-07-18T11:09:00+08:00</updated><author><name>ChaoJun Hou</name></author><id>tag:,2015-07-18:www.houcj.net/blog/2015/07/18/ali-interview/</id><summary type="html">&lt;hr/&gt;
+&lt;/ol&gt;</summary><category term="TCP"></category></entry><entry><title>2015阿里内推电话面试经验</title><link href="www.houcj.net/blog/2015/07/18/ali-interview/" rel="alternate"></link><updated>2015-07-18T11:09:00+08:00</updated><author><name>ChaoJun Hou</name></author><id>tag:,2015-07-18:www.houcj.net/blog/2015/07/18/ali-interview/</id><summary type="html">&lt;hr/&gt;
 &lt;p&gt;面试部门是阿里巴巴的国际事业部，主要业务是SEO，广告推荐以及翻译和搜索。&lt;/p&gt;
 &lt;h2 id="78-30mins"&gt;一面（7/8 30mins）&lt;/h2&gt;
 &lt;ol&gt;
@@ -987,4 +954,52 @@ ru, dir/foo.cc的主要作用是测试或实现dir2/foo2.h的功能，foo.cc中�
 &lt;span class="code-line"&gt;tailrecsum(1, 14)&lt;/span&gt;
 &lt;span class="code-line"&gt;tailrecsum(0, 15)&lt;/span&gt;
 &lt;span class="code-line"&gt;15&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary><category term="递归"></category></entry></feed>
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="递归"></category></entry><entry><title>Python 闭包</title><link href="www.houcj.net/blog/2015/06/22/python-closure/" rel="alternate"></link><updated>2015-06-22T20:41:00+08:00</updated><author><name>ChaoJun Hou</name></author><id>tag:,2015-06-22:www.houcj.net/blog/2015/06/22/python-closure/</id><summary type="html">&lt;hr/&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Objects are data with methods attached, &lt;/p&gt;
+&lt;p&gt;closures are functions with data attached.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;闭包就是一个函数可以引用限定范围内的另一个函数中的变量。在函数式语言领域对于数学闭包常用的表述是&amp;ldquo;如果一个运算的结果仍然能被此运算作用，
+则这个运算是封闭的&amp;rdquo;，如果我们将这个运算的所有结果看做一个集合，那么就可以等价表述说这个运算在这个集合上是封闭的。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;make_counter&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="n"&gt;constant&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;counter&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt; &lt;span class="c"&gt;# counter() is a closure&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;constant&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;counter&lt;/span&gt;  &lt;span class="c"&gt;# 返回一个闭包函数名&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;c1&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;make_counter&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;12&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;c2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;make_counter&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;c1&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;c1&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;c2&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;c2&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Python 闭包最重要的限制是你无法对outer-scoper赋值，就是说闭包是只读的&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;outer&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;inner_reads&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;         &lt;span class="c"&gt;# Will return outer's 'x'.&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;inner_writes&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;         &lt;span class="c"&gt;# Will assign to a local 'x', not the outer 'x'&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;        &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;inner_error&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt; &lt;/span&gt;
+&lt;span class="code-line"&gt;         &lt;span class="c"&gt;# Will produce an error: 'x' is local because of the assignment,&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;         &lt;span class="c"&gt;# but we use it before it is assigned to.&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;        &lt;span class="n"&gt;tmp&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;        &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;tmp&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;inner_reads&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;inner_writes&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;inner_error&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;如果想这段代码正常运行，需要使用一个可变的容器类型&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;outer&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;inner_reads&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;         &lt;span class="c"&gt;# Will return outer's x's first (and only) element.&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;inner_writes&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;        &lt;span class="c"&gt;# Will look up outer's x, then mutate it.      &lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;        &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;inner_error&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;         &lt;span class="c"&gt;# Will now work, because 'x' is not assigned to, just referenced.&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;        &lt;span class="n"&gt;tmp&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;        &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;tmp&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;inner_reads&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;inner_writes&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;inner_error&lt;/span&gt; &lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="Python"></category></entry></feed>

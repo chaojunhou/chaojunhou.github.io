@@ -52,7 +52,6 @@
 
   ga('create', 'UA-61957498-1', 'auto');
   ga('send', 'pageview');
-
 	</script>
     <body>
         <div id="content-sans-footer">
@@ -94,7 +93,7 @@
     <div class="span2 table-of-content">
         <nav>
         <h4>Contents</h4>
-        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="MySql数据库">MySql数据库</a><ul><li><a class="toc-href" href="#_1" title="关系模型">关系模型</a><ul><li><a class="toc-href" href="#b-tree-b-tree" title="B Tree &amp; B+ Tree">B Tree &amp; B+ Tree</a><ul><li><a class="toc-href" href="#b-tree" title="B Tree">B Tree</a></li><li><a class="toc-href" href="#b-tree_1" title="B+ Tree">B+ Tree</a></li></ul></li></ul></li><li><a class="toc-href" href="#_4" title="分布式存储">分布式存储</a><ul><li><a class="toc-href" href="#_5" title="数据分布">数据分布</a></li><li><a class="toc-href" href="#_6" title="故障检测">故障检测</a></li><li><a class="toc-href" href="#_7" title="事务">事务</a></li><li><a class="toc-href" href="#_8" title="原子性">原子性</a></li><li><a class="toc-href" href="#_9" title="一致性">一致性</a></li><li><a class="toc-href" href="#_10" title="隔离性">隔离性</a></li><li><a class="toc-href" href="#_11" title="持久性">持久性</a></li><li><a class="toc-href" href="#_12" title="隔离级别">隔离级别</a></li><li><a class="toc-href" href="#_13" title="锁的种类">锁的种类</a></li><li><a class="toc-href" href="#_14" title="锁的粒度">锁的粒度</a></li><li><a class="toc-href" href="#_15" title="存储过程">存储过程</a></li><li><a class="toc-href" href="#check" title="Check约束">Check约束</a></li><li><a class="toc-href" href="#_16" title="视图">视图</a></li></ul></li></ul></li></ul></div></body></html>
+        <div id="toc"><ul><li><a class="toc-href" href="#" title="MySql数据库">MySql数据库</a><ul><li><a class="toc-href" href="#_1" title="关系模型">关系模型</a><ul><li><a class="toc-href" href="#b-tree-b-tree" title="B Tree &amp; B+ Tree">B Tree &amp; B+ Tree</a><ul><li><a class="toc-href" href="#b-tree" title="B Tree">B Tree</a></li><li><a class="toc-href" href="#b-tree_1" title="B+ Tree">B+ Tree</a></li></ul></li></ul></li><li><a class="toc-href" href="#_4" title="分布式存储">分布式存储</a><ul><li><a class="toc-href" href="#_5" title="数据分布">数据分布</a></li><li><a class="toc-href" href="#_6" title="故障检测">故障检测</a></li><li><a class="toc-href" href="#_7" title="事务">事务</a></li><li><a class="toc-href" href="#_8" title="原子性">原子性</a></li><li><a class="toc-href" href="#_9" title="一致性">一致性</a></li><li><a class="toc-href" href="#_10" title="隔离性">隔离性</a></li><li><a class="toc-href" href="#_11" title="持久性">持久性</a></li><li><a class="toc-href" href="#_12" title="隔离级别">隔离级别</a></li><li><a class="toc-href" href="#_13" title="锁的种类">锁的种类</a></li><li><a class="toc-href" href="#_14" title="锁的粒度">锁的粒度</a></li><li><a class="toc-href" href="#_15" title="存储过程">存储过程</a></li><li><a class="toc-href" href="#check" title="Check约束">Check约束</a></li><li><a class="toc-href" href="#_16" title="视图">视图</a></li></ul></li></ul></li></ul></div>
         </nav>
     </div>
     <div class="span8 article-content">
@@ -130,13 +129,18 @@
 <h3 id="_6">故障检测</h3>
 <p>故障检测主要有心跳和租约两种机制。</p>
 <ul>
-<li>心跳：假设总控机 A 需要确认工作机 B 是否发生故障，那么总控机 A 每隔一段时间，比如 1 秒，向工作机 B 发送一个心跳包。不足之处是若 A 到 B 网络发生故障，则不能确定是否是 B 不再提供服务。</li>
-<li>租约：租约机制就是带有超时时间的一种授权。假设机器 A 需要检测机器 B 是否发生故障，机器 A 可以给机器 B 发放租约，机器 B 持有的租约在有效期内才允许提供服务，否则主动停止服务。机器 B 的租约快要到期的时候向机器 A 重新申请租约。租约机制可以解决上述心跳问题的不足。</li>
+<li>
+<p>心跳：假设总控机 A 需要确认工作机 B 是否发生故障，那么总控机 A 每隔一段时间，比如 1 秒，向工作机 B 发送一个心跳包。不足之处是若 A 到 B 网络发生故障，则不能确定是否是 B 不再提供服务。</p>
+</li>
+<li>
+<p>租约：租约机制就是带有超时时间的一种授权。假设机器 A 需要检测机器 B 是否发生故障，机器 A 可以给机器 B 发放租约，机器 B 持有的租约在有效期内才允许提供服务，否则主动停止服务。机器 B 的租约快要到期的时候向机器 A 重新申请租约。租约机制可以解决上述心跳问题的不足。</p>
+</li>
 </ul>
 <h3 id="_7">事务</h3>
 <p>事务是数据库管理系统的执行单位，可以是一个数据库操作或者是一组操作序列。事务具有
 ACID属性，即原子性（Atomicity）、一致性（Consistency）、隔离性（Isolation）、
 持久性（Durability）。</p>
+<p>通常使用预写日志来保证数据库系统中的原子性和持久性，就是要求所有的修改在提交之前都要先写入log文件中，log文件中通常包括redo和undo信息，这样就可以通过对比log文件和实际上执行的操作内容文件，来决定是redo还是undo.</p>
 <h3 id="_8">原子性</h3>
 <p>事务的原子性首先体现在事务对数据的修改，即要么全部执行，要么全部不自信。</p>
 <h3 id="_9">一致性</h3>
@@ -237,7 +241,7 @@ check约束可以应用与一个或者多个列，也可以将多个check约束�
         <div class="span2" style="float:right;font-size:0.9em;">
  
             <h4>Published</h4>
-            <time pubdate="pubdate" datetime="2014-03-08T10:52:00+08:00">Mar 8, 2014</time>
+            <time pubdate="pubdate" datetime="2014-03-08T10:52:00+08:00">3月 8, 2014</time>
             <h4>Category</h4>
             <a class="category-link" href="/categories.html#计算机科学-ref">计算机科学</a> 
             <h4>Tags</h4>

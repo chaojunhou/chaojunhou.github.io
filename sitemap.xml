@@ -5,35 +5,35 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>www.houcj.net/</loc>
-<lastmod>2015-08-03T23:04:11-00:00</lastmod>
+<lastmod>2015-08-10T09:39:15-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>www.houcj.net/archives.html</loc>
-<lastmod>2015-08-03T23:04:11-00:00</lastmod>
+<lastmod>2015-08-10T09:39:15-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>www.houcj.net/tags.html</loc>
-<lastmod>2015-08-03T23:04:11-00:00</lastmod>
+<lastmod>2015-08-10T09:39:15-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>www.houcj.net/categories.html</loc>
-<lastmod>2015-08-03T23:04:11-00:00</lastmod>
+<lastmod>2015-08-10T09:39:15-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>www.houcj.net/pages/About.html</loc>
-<lastmod>2015-08-03T23:04:11-00:00</lastmod>
+<lastmod>2015-08-10T09:39:15-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.3</priority>
 </url>
@@ -41,13 +41,6 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>www.houcj.net/blog/2015/07/23/tcp-ip-illlstrated/</loc>
 <lastmod>2015-07-23T15:25:00+08:00</lastmod>
-<changefreq>monthly</changefreq>
-<priority>0.7</priority>
-</url>
-
-<url>
-<loc>www.houcj.net/blog/2015/07/22/nginx/</loc>
-<lastmod>2015-07-22T22:07:00+08:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.7</priority>
 </url>
@@ -481,7 +474,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>www.houcj.net/category/bian-cheng.html</loc>
-<lastmod>2015-07-22T22:07:00+08:06</lastmod>
+<lastmod>2015-07-17T10:28:00+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -522,8 +515,8 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-<loc>www.houcj.net/tag/bian-yi-yuan-li.html</loc>
-<lastmod>2014-10-05T14:26:00+08:06</lastmod>
+<loc>www.houcj.net/tag/du-shu-bi-ji.html</loc>
+<lastmod>2014-12-22T08:55:00+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -531,13 +524,6 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>www.houcj.net/tag/tcp.html</loc>
 <lastmod>2015-07-23T15:25:00+08:06</lastmod>
-<changefreq>daily</changefreq>
-<priority>0.5</priority>
-</url>
-
-<url>
-<loc>www.houcj.net/tag/yuan-ma.html</loc>
-<lastmod>2015-07-22T22:07:00+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -585,8 +571,8 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-<loc>www.houcj.net/tag/python.html</loc>
-<lastmod>2015-06-22T20:41:00+08:06</lastmod>
+<loc>www.houcj.net/tag/shu-ju-ku.html</loc>
+<lastmod>2014-03-08T10:52:00+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -634,15 +620,15 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-<loc>www.houcj.net/tag/shu-ju-ku.html</loc>
-<lastmod>2014-03-08T10:52:00+08:06</lastmod>
+<loc>www.houcj.net/tag/python.html</loc>
+<lastmod>2015-06-22T20:41:00+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>www.houcj.net/tag/du-shu-bi-ji.html</loc>
-<lastmod>2014-12-22T08:55:00+08:06</lastmod>
+<loc>www.houcj.net/tag/bian-yi-yuan-li.html</loc>
+<lastmod>2014-10-05T14:26:00+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>

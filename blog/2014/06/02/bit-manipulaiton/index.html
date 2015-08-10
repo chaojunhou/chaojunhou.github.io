@@ -52,7 +52,6 @@
 
   ga('create', 'UA-61957498-1', 'auto');
   ga('send', 'pageview');
-
 	</script>
     <body>
         <div id="content-sans-footer">
@@ -94,7 +93,7 @@
     <div class="span2 table-of-content">
         <nav>
         <h4>Contents</h4>
-        <html><body><div id="toc"><ul><li><a class="toc-href" href="#" title="位操作">位操作</a><ul><li><a class="toc-href" href="#numibit" title="获取num第i位的bit值">获取num第i位的bit值</a></li><li><a class="toc-href" href="#numibit1" title="将num第i位的bit值置为1">将num第i位的bit值置为1</a></li><li><a class="toc-href" href="#numibit0" title="将num第i位bit值置为0">将num第i位bit值置为0</a></li><li><a class="toc-href" href="#single-number-ii" title="Single Number II">Single Number II</a><ul><li><a class="toc-href" href="#_1" title="分析">分析</a></li><li><a class="toc-href" href="#python-code" title="Python Code">Python Code</a></li></ul></li><li><a class="toc-href" href="#bitwise-and-of-numbers-range_1" title="Bitwise AND of Numbers Range">Bitwise AND of Numbers Range</a><ul><li><a class="toc-href" href="#_2" title="分析">分析</a></li><li><a class="toc-href" href="#python-code_1" title="Python Code">Python Code</a></li></ul></li><li><a class="toc-href" href="#some-tricks_1" title="Some Tricks">Some Tricks</a><ul><li><a class="toc-href" href="#n1" title="n中包含1的数量">n中包含1的数量</a></li><li><a class="toc-href" href="#x2n" title="判断X是否是2的N次方">判断X是否是2的N次方</a></li><li><a class="toc-href" href="#xy" title="求x和y的平均值">求x和y的平均值</a></li><li><a class="toc-href" href="#_3" title="求和不使用加减法">求和不使用加减法</a></li><li><a class="toc-href" href="#_4" title="交换高低位">交换高低位</a></li></ul></li></ul></li></ul></div></body></html>
+        <div id="toc"><ul><li><a class="toc-href" href="#" title="位操作">位操作</a><ul><li><a class="toc-href" href="#numibit" title="获取num第i位的bit值">获取num第i位的bit值</a></li><li><a class="toc-href" href="#numibit1" title="将num第i位的bit值置为1">将num第i位的bit值置为1</a></li><li><a class="toc-href" href="#numibit0" title="将num第i位bit值置为0">将num第i位bit值置为0</a></li><li><a class="toc-href" href="#single-number-ii" title="Single Number II">Single Number II</a><ul><li><a class="toc-href" href="#_1" title="分析">分析</a></li><li><a class="toc-href" href="#python-code" title="Python Code">Python Code</a></li></ul></li><li><a class="toc-href" href="#bitwise-and-of-numbers-range_1" title="Bitwise AND of Numbers Range">Bitwise AND of Numbers Range</a><ul><li><a class="toc-href" href="#_2" title="分析">分析</a></li><li><a class="toc-href" href="#python-code_1" title="Python Code">Python Code</a></li></ul></li><li><a class="toc-href" href="#some-tricks_1" title="Some Tricks">Some Tricks</a><ul><li><a class="toc-href" href="#n1" title="n中包含1的数量">n中包含1的数量</a></li><li><a class="toc-href" href="#x2n" title="判断X是否是2的N次方">判断X是否是2的N次方</a></li><li><a class="toc-href" href="#xy" title="求x和y的平均值">求x和y的平均值</a></li><li><a class="toc-href" href="#_3" title="求和不使用加减法">求和不使用加减法</a></li><li><a class="toc-href" href="#_4" title="交换高低位">交换高低位</a></li><li><a class="toc-href" href="#1" title="取得最右边为1的位">取得最右边为1的位</a></li></ul></li></ul></li></ul></div>
         </nav>
     </div>
     <div class="span8 article-content">
@@ -239,6 +238,10 @@ Your algorithm should have a linear runtime complexity. Could you implement it w
 <div class="highlight"><pre><span class="code-line"><span class="c1">// 交换高16位与低16位.右移时会高位补0，左移时低位补0，两个取或操作即可。</span></span>
 <span class="code-line"><span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span><span class="o">&gt;&gt;</span><span class="mi">16</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">a</span><span class="o">&lt;&lt;</span><span class="mi">16</span><span class="p">)</span></span>
 </pre></div>
+<h4 id="1">取得最右边为1的位</h4>
+<p>```cpp
+x &amp; (-x)；
+//负数的时候取反加1，然后两个值再进行&amp;运算的时候，就可取得最右边的为1的值值</p>
 <hr/>
 <p><strong>hash 操作里为什么一般使用异或操作？</strong>
 在等概率的0和1出现的情况下，and操作下的0出现的概率为25%，1出现的概率为75%；or操作正好和and
@@ -280,15 +283,15 @@ Your algorithm should have a linear runtime complexity. Could you implement it w
     <h2>Related Posts</h2>
 <ul class="related-posts-list">
 <li><a href="../../../../../blog/2013/12/22/string-related/" title="字符串相关">字符串相关</a></li>
-<li><a href="../../../../../blog/2013/12/29/hui-su-yu-fen-zhi-xian-jie/" title="回溯与分支限界">回溯与分支限界</a></li>
 <li><a href="../../../../../blog/2014/02/18/equal-probability/" title="概率问题">概率问题</a></li>
 <li><a href="../../../../../blog/2014/03/21/kmp/" title="字符串匹配">字符串匹配</a></li>
 <li><a href="../../../../../blog/2014/09/21/awesome-solution/" title="Awesome Solution">Awesome Solution</a></li>
 <li><a href="../../../../../blog/2015/04/25/cal24/" title="24点游戏编程">24点游戏编程</a></li>
+<li><a href="../../../../../blog/2015/05/05/reverse-linked-list/" title="反转链表">反转链表</a></li>
 <li><a href="../../../../../blog/2015/05/05/sifting-prime/" title="素数筛选法">素数筛选法</a></li>
-<li><a href="../../../../../blog/2015/05/18/binary-tree/" title="二叉树">二叉树</a></li>
 <li><a href="../../../../../blog/2015/05/24/select/" title="选择算法">选择算法</a></li>
-<li><a href="../../../../../blog/2015/05/31/sort1/" title="排序算法">排序算法</a></li>
+<li><a href="../../../../../blog/2015/05/28/search/" title="查找算法">查找算法</a></li>
+<li><a href="../../../../../blog/2015/05/28/find-a-solution/" title="How to find a solution">How to find a solution</a></li>
 </ul>
 <hr />
 </section>
@@ -299,7 +302,7 @@ Your algorithm should have a linear runtime complexity. Could you implement it w
         <div class="span2" style="float:right;font-size:0.9em;">
  
             <h4>Published</h4>
-            <time pubdate="pubdate" datetime="2014-06-02T00:00:00+08:00">Jun 2, 2014</time>
+            <time pubdate="pubdate" datetime="2014-06-02T00:00:00+08:00">6月 2, 2014</time>
             <h4>Category</h4>
             <a class="category-link" href="/categories.html#计算机科学-ref">计算机科学</a> 
             <h4>Tags</h4>
