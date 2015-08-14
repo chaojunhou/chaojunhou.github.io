@@ -93,7 +93,7 @@
     <div class="span2 table-of-content">
         <nav>
         <h4>Contents</h4>
-        <div id="toc"><ul><li><a class="toc-href" href="#" title="nginx 源码剖析">nginx 源码剖析</a><ul><li><a class="toc-href" href="#nginx" title="nginx框架开发的优势">nginx框架开发的优势</a></li><li><a class="toc-href" href="#nginx_1" title="nginx架构">nginx架构</a></li><li><a class="toc-href" href="#nginx_2" title="nginx 设计">nginx 设计</a></li><li><a class="toc-href" href="#_1" title="几个重要的结构体">几个重要的结构体</a></li><li><a class="toc-href" href="#_2" title="责任链模式">责任链模式</a></li><li><a class="toc-href" href="#nginx_3" title="nginx线程池">nginx线程池</a></li><li><a class="toc-href" href="#nginx-so_reuseport" title="NGINX SO_REUSEPORT">NGINX SO_REUSEPORT</a></li><li><a class="toc-href" href="#nginx_4" title="NGINX 启动共有流程">NGINX 启动共有流程</a></li><li><a class="toc-href" href="#nginx_5" title="更新NGINX配置">更新NGINX配置</a></li><li><a class="toc-href" href="#memcached" title="memcached  源码学习">memcached  源码学习</a></li></ul></li></ul></div>
+        <div id="toc"><ul><li><a class="toc-href" href="#" title="nginx 源码剖析">nginx 源码剖析</a><ul><li><a class="toc-href" href="#nginx" title="nginx框架开发的优势">nginx框架开发的优势</a></li><li><a class="toc-href" href="#nginx_1" title="nginx架构">nginx架构</a></li><li><a class="toc-href" href="#nginx_2" title="nginx 设计">nginx 设计</a></li><li><a class="toc-href" href="#_1" title="几个重要的结构体">几个重要的结构体</a></li><li><a class="toc-href" href="#_2" title="请求的多阶段异步处理">请求的多阶段异步处理</a></li><li><a class="toc-href" href="#_3" title="责任链模式">责任链模式</a></li><li><a class="toc-href" href="#nginx_3" title="nginx线程池">nginx线程池</a></li><li><a class="toc-href" href="#nginx-so_reuseport" title="NGINX SO_REUSEPORT">NGINX SO_REUSEPORT</a></li><li><a class="toc-href" href="#nginx_4" title="NGINX 启动共有流程">NGINX 启动共有流程</a></li><li><a class="toc-href" href="#nginx_5" title="更新NGINX配置">更新NGINX配置</a></li><li><a class="toc-href" href="#memcached" title="memcached  源码学习">memcached  源码学习</a></li></ul></li></ul></div>
         </nav>
     </div>
     <div class="span8 article-content">
@@ -133,7 +133,16 @@ nginx在启动后，以守护进程的方式在后台运行，后台进程包含
 <p>ngx_listening_t : 监听调节字结构体，包括addr和port等
 ngx_connection_t : 每个socket将对应一个connection，里面存着fd，read（读事件），write（写事件）等。
 ngx_event_t ：事件结构体，包括函数指针handle，fd事件被驱动时，将调用这个函数。</p>
-<h3 id="_2">责任链模式</h3>
+<h3 id="_2">请求的多阶段异步处理</h3>
+<p>请求的多阶段处理是基于事件驱动框架来实现的，通过划分一个请求为不同的阶段，然后才能让每个阶段的事情，都由事件收集、分发器来触发。</p>
+<p>划分请求阶段的原则：</p>
+<ul>
+<li>将阻塞进程的方法按照相关的出发事件分解为两个阶段，如send可划分为发送且不等待结果阶段、send结果返回阶段</li>
+<li>将阻塞方法调用按照时间分解为多个阶段的方法调用，如读取10M文件时，可以把文件分成1000份，每次读取10kb，可以设置简单的定时器，来划分多个阶段</li>
+<li>在必须等待系统的响应从而导致进程空转时，使用定时器划分阶段，如进程必须测试标志位才能继续向下执行，这时可以使用定时器事件来代替检查标志事件</li>
+<li>如果阻塞方法完全无法继续划分，则必须使用独立的进程来执行这个阻塞方法， 一般是使用进程池来处理一些磁盘IO事件</li>
+</ul>
+<h3 id="_3">责任链模式</h3>
 <p>http的每个请求可以分为好几个阶段</p>
 <ul>
 <li>规则重写</li>

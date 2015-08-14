@@ -12,12 +12,12 @@
 
 <meta property="og:title" content="二叉树 "/>
 <meta property="og:url" content="../../../../../blog/2015/05/18/binary-tree/" />
-<meta property="og:description" content="把二叉查找树保存到文件中 Describe an algorithm to save a Binary Search Tree (BST) to a file in terms of run-time and disk space complexity. You must be able to restore to the exact original BST using the saved format. 由于二叉排序树在中序遍历中为一个升序的序列，因此考虑使用前序遍历 或者后序遍历来保存二叉树的信息。使用后序遍历时，每个parent节点都在children节点之后，无法有效的通过 中序遍历文件中的数据来重新构造一棵二叉树。因此使用二叉树前序遍历来保存这些节点的信息，同时使用中序遍历来 构造一棵二叉树。 构造二叉树的代码如下： void readBSTHelper ..." />
+<meta property="og:description" content="二叉树非递归遍历 前序遍历 前序遍历的时候，如果是根就输出，然后把右孩子和左孩子（如果存在）分别压到栈里。注意前序遍历的顺序 是根左右 vector&lt;int&gt; preorderTraversal(TreeNode* root) { vector&lt;int&gt; res; stack&lt;TreeNode*&gt; Stack; if (root) { Stack.push(root); while (!Stack.empty()) { auto p = Stack.top(); res.push_back(p-&gt;val); Stack.pop(); if (p-&gt;right) Stack.push(p-&gt;right); if (p-&gt;left) Stack ..." />
 <meta property="og:site_name" content="Write the Code" />
 <meta property="og:article:author" content="ChaoJun Hou" />
 <meta property="og:article:published_time" content="2015-05-18T14:53:00+08:00" />
 <meta name="twitter:title" content="二叉树 ">
-<meta name="twitter:description" content="把二叉查找树保存到文件中 Describe an algorithm to save a Binary Search Tree (BST) to a file in terms of run-time and disk space complexity. You must be able to restore to the exact original BST using the saved format. 由于二叉排序树在中序遍历中为一个升序的序列，因此考虑使用前序遍历 或者后序遍历来保存二叉树的信息。使用后序遍历时，每个parent节点都在children节点之后，无法有效的通过 中序遍历文件中的数据来重新构造一棵二叉树。因此使用二叉树前序遍历来保存这些节点的信息，同时使用中序遍历来 构造一棵二叉树。 构造二叉树的代码如下： void readBSTHelper ...">
+<meta name="twitter:description" content="二叉树非递归遍历 前序遍历 前序遍历的时候，如果是根就输出，然后把右孩子和左孩子（如果存在）分别压到栈里。注意前序遍历的顺序 是根左右 vector&lt;int&gt; preorderTraversal(TreeNode* root) { vector&lt;int&gt; res; stack&lt;TreeNode*&gt; Stack; if (root) { Stack.push(root); while (!Stack.empty()) { auto p = Stack.top(); res.push_back(p-&gt;val); Stack.pop(); if (p-&gt;right) Stack.push(p-&gt;right); if (p-&gt;left) Stack ...">
 
         <title>二叉树  · Change the World | Write the Code
 </title>
@@ -93,13 +93,81 @@
     <div class="span2 table-of-content">
         <nav>
         <h4>Contents</h4>
-        <div id="toc"><ul><li><a class="toc-href" href="#" title="二叉树">二叉树</a><ul><li><a class="toc-href" href="#_1" title="把二叉查找树保存到文件中">把二叉查找树保存到文件中</a></li><li><a class="toc-href" href="#serializationdeserialization-of-a-binary-tree" title="Serialization|Deserialization of a Binary Tree">Serialization|Deserialization of a Binary Tree</a></li><li><a class="toc-href" href="#printing-a-binary-tree-in-level-order" title="Printing a Binary Tree in Level Order">Printing a Binary Tree in Level Order</a><ul><li><a class="toc-href" href="#bfs" title="BFS">BFS</a></li><li><a class="toc-href" href="#dfs" title="DFS">DFS</a></li></ul></li><li><a class="toc-href" href="#morris_1" title="Morris二叉树遍历算法">Morris二叉树遍历算法</a><ul><li><a class="toc-href" href="#_2" title="原理">原理</a></li><li><a class="toc-href" href="#_3" title="中序遍历">中序遍历</a></li><li><a class="toc-href" href="#python-code" title="Python Code">Python Code</a></li><li><a class="toc-href" href="#_4" title="后序遍历">后序遍历</a></li></ul></li><li><a class="toc-href" href="#count-complete-tree-nodes_1" title="Count Complete Tree Nodes">Count Complete Tree Nodes</a></li><li><a class="toc-href" href="#_5" title="分析">分析</a><ul><li><a class="toc-href" href="#cpp-code" title="CPP Code">CPP Code</a></li></ul></li><li><a class="toc-href" href="#convert-sorted-list-to-balanced-binary-search-tree-bst_1" title="Convert Sorted List to Balanced Binary Search Tree (BST)">Convert Sorted List to Balanced Binary Search Tree (BST)</a></li><li><a class="toc-href" href="#convert-binary-search-tree-bst-to-sorted-doubly-linked-list" title="Convert Binary Search Tree (BST) to Sorted Doubly-Linked List">Convert Binary Search Tree (BST) to Sorted Doubly-Linked List</a></li></ul></li></ul></div>
+        <div id="toc"><ul><li><a class="toc-href" href="#" title="二叉树">二叉树</a><ul><li><a class="toc-href" href="#_1" title="二叉树非递归遍历">二叉树非递归遍历</a><ul><li><a class="toc-href" href="#_2" title="前序遍历">前序遍历</a></li><li><a class="toc-href" href="#_3" title="中序遍历">中序遍历</a></li><li><a class="toc-href" href="#_4" title="后序遍历">后序遍历</a></li></ul></li><li><a class="toc-href" href="#_6" title="把二叉查找树保存到文件中">把二叉查找树保存到文件中</a></li><li><a class="toc-href" href="#serializationdeserialization-of-a-binary-tree" title="Serialization|Deserialization of a Binary Tree">Serialization|Deserialization of a Binary Tree</a></li><li><a class="toc-href" href="#printing-a-binary-tree-in-level-order" title="Printing a Binary Tree in Level Order">Printing a Binary Tree in Level Order</a><ul><li><a class="toc-href" href="#bfs" title="BFS">BFS</a></li><li><a class="toc-href" href="#dfs" title="DFS">DFS</a></li></ul></li><li><a class="toc-href" href="#morris_1" title="Morris二叉树遍历算法">Morris二叉树遍历算法</a><ul><li><a class="toc-href" href="#_7" title="原理">原理</a></li><li><a class="toc-href" href="#_8" title="中序遍历">中序遍历</a></li><li><a class="toc-href" href="#python-code" title="Python Code">Python Code</a></li><li><a class="toc-href" href="#_9" title="后序遍历">后序遍历</a></li></ul></li><li><a class="toc-href" href="#count-complete-tree-nodes_1" title="Count Complete Tree Nodes">Count Complete Tree Nodes</a></li><li><a class="toc-href" href="#_10" title="分析">分析</a><ul><li><a class="toc-href" href="#cpp-code" title="CPP Code">CPP Code</a></li></ul></li><li><a class="toc-href" href="#convert-sorted-list-to-balanced-binary-search-tree-bst_1" title="Convert Sorted List to Balanced Binary Search Tree (BST)">Convert Sorted List to Balanced Binary Search Tree (BST)</a></li><li><a class="toc-href" href="#convert-binary-search-tree-bst-to-sorted-doubly-linked-list" title="Convert Binary Search Tree (BST) to Sorted Doubly-Linked List">Convert Binary Search Tree (BST) to Sorted Doubly-Linked List</a></li></ul></li></ul></div>
         </nav>
     </div>
     <div class="span8 article-content">
 
             <hr/>
-<h3 id="_1">把二叉查找树保存到文件中</h3>
+<h3 id="_1">二叉树非递归遍历</h3>
+<h4 id="_2">前序遍历</h4>
+<p>前序遍历的时候，如果是根就输出，然后把右孩子和左孩子（如果存在）分别压到栈里。注意前序遍历的顺序
+是<strong>根左右</strong></p>
+<div class="highlight"><pre><span class="code-line">    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">preorderTraversal</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">)</span></span>
+<span class="code-line">    <span class="p">{</span></span>
+<span class="code-line">        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">res</span><span class="p">;</span></span>
+<span class="code-line">        <span class="n">stack</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">*&gt;</span> <span class="n">Stack</span><span class="p">;</span></span>
+<span class="code-line">        <span class="k">if</span> <span class="p">(</span><span class="n">root</span><span class="p">)</span></span>
+<span class="code-line">        <span class="p">{</span></span>
+<span class="code-line">            <span class="n">Stack</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">root</span><span class="p">);</span></span>
+<span class="code-line">            <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">Stack</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span></span>
+<span class="code-line">            <span class="p">{</span></span>
+<span class="code-line">                <span class="k">auto</span> <span class="n">p</span> <span class="o">=</span> <span class="n">Stack</span><span class="p">.</span><span class="n">top</span><span class="p">();</span></span>
+<span class="code-line">                <span class="n">res</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">);</span></span>
+<span class="code-line">                <span class="n">Stack</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span></span>
+<span class="code-line">                <span class="k">if</span> <span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">)</span>   <span class="n">Stack</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span></span>
+<span class="code-line">                <span class="k">if</span> <span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">)</span>    <span class="n">Stack</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span></span>
+<span class="code-line">            <span class="p">}</span></span>
+<span class="code-line">        <span class="p">}</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">res</span><span class="p">;</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+</pre></div>
+<h4 id="_3">中序遍历</h4>
+<p>中序遍历的时候，需要判断当前的节点，把从根节点到最左叶子节点的所有节点都依次压入栈中，如果当前节点是最左边的节点，就输出该节点，并把该节点的右孩子（如果存在）压入栈中，</p>
+<div class="highlight"><pre><span class="code-line">    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">inorderTraversal2</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">)</span></span>
+<span class="code-line">    <span class="p">{</span></span>
+<span class="code-line">        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">res</span><span class="p">;</span></span>
+<span class="code-line">        <span class="n">stack</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">*</span> <span class="o">&gt;</span> <span class="n">Stack</span><span class="p">;</span></span>
+<span class="code-line">        <span class="n">TreeNode</span><span class="o">*</span> <span class="n">pNode</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span></span>
+<span class="code-line">        <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">Stack</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span> <span class="o">||</span> <span class="n">pNode</span><span class="p">)</span></span>
+<span class="code-line">        <span class="p">{</span></span>
+<span class="code-line">            <span class="k">if</span> <span class="p">(</span><span class="n">pNode</span><span class="p">)</span></span>
+<span class="code-line">            <span class="p">{</span></span>
+<span class="code-line">                <span class="n">Stack</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">pNode</span><span class="p">);</span></span>
+<span class="code-line">                <span class="n">pNode</span> <span class="o">=</span> <span class="n">pNode</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">;</span></span>
+<span class="code-line">            <span class="p">}</span></span>
+<span class="code-line">            <span class="k">else</span> <span class="p">{</span></span>
+<span class="code-line">                <span class="n">pNode</span> <span class="o">=</span> <span class="n">Stack</span><span class="p">.</span><span class="n">top</span><span class="p">();</span></span>
+<span class="code-line">                <span class="n">res</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">pNode</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">);</span></span>
+<span class="code-line">                <span class="n">Stack</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span></span>
+<span class="code-line">                <span class="n">pNode</span> <span class="o">=</span> <span class="n">pNode</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">;</span></span>
+<span class="code-line">            <span class="p">}</span></span>
+<span class="code-line">        <span class="p">}</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">res</span><span class="p">;</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+</pre></div>
+<h4 id="_4">后序遍历</h4>
+<p>后序遍历有个简单的方法，就是把左右根的顺序，变成根左右的顺序，然后按照和前序遍历类似的方法遍历，最后再把结果反转即可。</p>
+<div class="highlight"><pre><span class="code-line"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">postorderTraversal</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">){</span>  <span class="c1">// based on the root right left ,then just reverse the result</span></span>
+<span class="code-line">        <span class="n">stack</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">*</span> <span class="o">&gt;</span> <span class="n">Stack</span><span class="p">;</span> </span>
+<span class="code-line">        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">res</span><span class="p">;</span></span>
+<span class="code-line">        <span class="k">if</span> <span class="p">(</span><span class="n">root</span><span class="p">)</span></span>
+<span class="code-line">        <span class="p">{</span></span>
+<span class="code-line">            <span class="n">Stack</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">root</span><span class="p">);</span></span>
+<span class="code-line">            <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">Stack</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span></span>
+<span class="code-line">            <span class="p">{</span></span>
+<span class="code-line">                <span class="k">auto</span> <span class="n">p</span> <span class="o">=</span> <span class="n">Stack</span><span class="p">.</span><span class="n">top</span><span class="p">();</span></span>
+<span class="code-line">                <span class="n">Stack</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span></span>
+<span class="code-line">                <span class="n">res</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">);</span></span>
+<span class="code-line">                <span class="k">if</span> <span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">)</span> <span class="n">Stack</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span></span>
+<span class="code-line">                <span class="k">if</span> <span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">)</span> <span class="n">Stack</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span></span>
+<span class="code-line">            <span class="p">}</span></span>
+<span class="code-line">        <span class="p">}</span></span>
+<span class="code-line">        <span class="n">reverse</span><span class="p">(</span><span class="n">res</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">res</span><span class="p">.</span><span class="n">end</span><span class="p">());</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">res</span><span class="p">;</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+</pre></div>
+<h3 id="_6">把二叉查找树保存到文件中</h3>
 <blockquote>
 <p>Describe an algorithm to save a Binary Search Tree (BST) to a file in terms of run-time and disk space complexity. 
 You must be able to restore to the exact original BST using the saved format.</p>
@@ -232,10 +300,12 @@ Writing the tree to a file is called &lsquo;serialization&rsquo; and reading bac
 <h3 id="morris_1">Morris二叉树遍历算法</h3>
 <p>对于二叉树的遍历，可以使用递归或者堆栈，但morris遍历，使用
 无堆栈，O（1）空间进行二叉树遍历。</p>
-<h4 id="_2">原理</h4>
+<h4 id="_7">原理</h4>
 <p>利用所有叶子节点的右指针，指向其后继节点，形成一个环，在第二次遍历到这个节点时，
 由于左子树已经遍历完了，则访问该节点。</p>
-<h4 id="_3">中序遍历</h4>
+<p>具体的工作过程如下：</p>
+<p><img align="center" alt="morrios traverse" class="img-responsive" src="/images/morrios.png"/></p>
+<h4 id="_8">中序遍历</h4>
 <div class="highlight"><pre><span class="code-line">算法伪码：</span>
 <span class="code-line">1. Initialize current as root </span>
 <span class="code-line">2. While current is not NULL</span>
@@ -247,28 +317,37 @@ Writing the tree to a file is called &lsquo;serialization&rsquo; and reading bac
 <span class="code-line">      b) Go to this left child, i.e., current = current-&gt;left</span>
 </pre></div>
 <h4 id="python-code">Python Code</h4>
-<div class="highlight"><pre><span class="code-line">    <span class="k">def</span> <span class="nf">morris_inorder</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">):</span></span>
-<span class="code-line">        <span class="n">res</span> <span class="o">=</span> <span class="p">[]</span></span>
-<span class="code-line">        <span class="n">p</span> <span class="o">=</span> <span class="n">root</span></span>
-<span class="code-line">        <span class="k">while</span> <span class="n">p</span><span class="p">:</span></span>
-<span class="code-line">            <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">left</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span></span>
-<span class="code-line">                <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">val</span><span class="p">)</span></span>
-<span class="code-line">                <span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">right</span></span>
-<span class="code-line">            <span class="k">else</span><span class="p">:</span></span>
-<span class="code-line">                <span class="n">tmp</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">left</span></span>
-<span class="code-line">                <span class="k">while</span> <span class="n">tmp</span><span class="o">.</span><span class="n">right</span> <span class="ow">and</span> <span class="n">tmp</span><span class="o">.</span><span class="n">right</span> <span class="o">!=</span> <span class="n">p</span><span class="p">:</span></span>
-<span class="code-line">                    <span class="n">tmp</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">.</span><span class="n">right</span></span>
-<span class="code-line">                <span class="k">if</span>  <span class="n">tmp</span><span class="o">.</span><span class="n">right</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span></span>
-<span class="code-line">                    <span class="n">tmp</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">p</span></span>
-<span class="code-line">                    <span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">left</span></span>
-<span class="code-line">                <span class="k">else</span><span class="p">:</span></span>
-<span class="code-line">                    <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">val</span><span class="p">)</span></span>
-<span class="code-line">                    <span class="n">tmp</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="bp">None</span></span>
-<span class="code-line">                    <span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">right</span></span>
-<span class="code-line">        <span class="k">return</span> <span class="n">res</span></span>
+<div class="highlight"><pre><span class="code-line">    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">inorderTraversal</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">)</span></span>
+<span class="code-line">    <span class="p">{</span></span>
+<span class="code-line">        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">res</span><span class="p">;</span></span>
+<span class="code-line">        <span class="k">auto</span> <span class="n">pNode</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span></span>
+<span class="code-line">        <span class="k">while</span> <span class="p">(</span><span class="n">pNode</span><span class="p">)</span></span>
+<span class="code-line">        <span class="p">{</span></span>
+<span class="code-line">            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">pNode</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">)</span></span>
+<span class="code-line">            <span class="p">{</span></span>
+<span class="code-line">                <span class="n">res</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">pNode</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">);</span></span>
+<span class="code-line">                <span class="n">pNode</span> <span class="o">=</span> <span class="n">pNode</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">;</span></span>
+<span class="code-line">            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span></span>
+<span class="code-line">                <span class="k">auto</span> <span class="n">pre</span> <span class="o">=</span> <span class="n">pNode</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">;</span></span>
+<span class="code-line">                <span class="k">while</span> <span class="p">(</span><span class="n">pre</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">&amp;&amp;</span> <span class="n">pre</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">!=</span> <span class="n">pNode</span><span class="p">)</span></span>
+<span class="code-line">                    <span class="n">pre</span> <span class="o">=</span> <span class="n">pre</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">;</span></span>
+<span class="code-line">                <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">pre</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">)</span></span>
+<span class="code-line">                <span class="p">{</span></span>
+<span class="code-line">                    <span class="n">pre</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">=</span> <span class="n">pNode</span><span class="p">;</span></span>
+<span class="code-line">                    <span class="n">pNode</span> <span class="o">=</span> <span class="n">pNode</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">;</span></span>
+<span class="code-line">                <span class="p">}</span></span>
+<span class="code-line">                <span class="k">else</span> <span class="p">{</span></span>
+<span class="code-line">                    <span class="n">res</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">pNode</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">);</span></span>
+<span class="code-line">                    <span class="n">pre</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span></span>
+<span class="code-line">                    <span class="n">pNode</span> <span class="o">=</span> <span class="n">pNode</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">;</span></span>
+<span class="code-line">                <span class="p">}</span></span>
+<span class="code-line">            <span class="p">}</span></span>
+<span class="code-line">        <span class="p">}</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">res</span><span class="p">;</span></span>
+<span class="code-line">    <span class="p">}</span></span>
 </pre></div>
 <p><strong>Morris的前序遍历和中序遍历比较类似，只不过在前驱节点为空的时候，直接输出当前的节点</strong></p>
-<h4 id="_4">后序遍历</h4>
+<h4 id="_9">后序遍历</h4>
 <p>后序遍历比较复杂，需要建立一个临时节点dump，令其左孩子为root，并且需要一个倒序输出某两个节点
 之间路径的各个节点的自过程。</p>
 <p><strong>具体实现和测试代码见<a href="https://github.com/chaojunhou/Morris">Github</a></strong></p>
@@ -278,7 +357,7 @@ Writing the tree to a file is called &lsquo;serialization&rsquo; and reading bac
 <p>Given a complete binary tree, count the number of nodes.</p>
 <p>In a complete binary tree every level, except possibly the last, is completely filled, and all nodes in the last level are as far left as possible. It can have between 1 and 2h nodes inclusive at the last level h.</p>
 </blockquote>
-<h3 id="_5">分析</h3>
+<h3 id="_10">分析</h3>
 <p>根据左右子树的高度判断下次从左子树还是右子树进行查找，类似二分查找，时间复杂度为O（lgn）*O(lgn)树高
 因此总的时间复杂度为O（lgn^2），具体实现有很多方式，需要注意的是，当判断这棵树为完全树的时候
 应该马上返回它的节点数目，以此加快递归的返回速度。</p>
@@ -400,12 +479,12 @@ Writing the tree to a file is called &lsquo;serialization&rsquo; and reading bac
     <h2>Related Posts</h2>
 <ul class="related-posts-list">
 <li><a href="../../../../../blog/2013/12/22/string-related/" title="字符串相关">字符串相关</a></li>
-<li><a href="../../../../../blog/2013/12/29/hui-su-yu-fen-zhi-xian-jie/" title="回溯与分支限界">回溯与分支限界</a></li>
 <li><a href="../../../../../blog/2014/02/18/equal-probability/" title="概率问题">概率问题</a></li>
 <li><a href="../../../../../blog/2014/03/21/kmp/" title="字符串匹配">字符串匹配</a></li>
 <li><a href="../../../../../blog/2014/06/02/bit-manipulaiton/" title="位操作">位操作</a></li>
 <li><a href="../../../../../blog/2015/04/25/cal24/" title="24点游戏编程">24点游戏编程</a></li>
 <li><a href="../../../../../blog/2015/05/05/reverse-linked-list/" title="反转链表">反转链表</a></li>
+<li><a href="../../../../../blog/2015/05/24/select/" title="选择算法">选择算法</a></li>
 <li><a href="../../../../../blog/2015/05/28/search/" title="查找算法">查找算法</a></li>
 <li><a href="../../../../../blog/2015/05/28/find-a-solution/" title="How to find a solution">How to find a solution</a></li>
 <li><a href="../../../../../blog/2015/05/31/sort1/" title="排序算法">排序算法</a></li>
