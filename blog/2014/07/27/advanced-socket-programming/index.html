@@ -12,12 +12,12 @@
 
 <meta property="og:title" content="高级套接字编程 "/>
 <meta property="og:url" content="../../../../../blog/2014/07/27/advanced-socket-programming/" />
-<meta property="og:description" content="EPOLL epoll有两种模式，水平触发（level）和边沿触发（edge），其主要区别是，对事件触发的定于不同， 以EPOLLIN事件来说，在LT模式下，只要缓冲区有数据可读，就认为事件EPOLLIN事件发生；而ET模式下，只有在缓冲区由无数据转可读转换成有数据可读时（类比电平的0-1跳转），才认为EPOLLIN事件发生。 如某一个连接的缓冲区最开始是空的，接着收到2K数据，在ET和LT模式下，epoll调用时会告知该连接上EPOLLIN事件发生， 之后缓冲区的数据被读取了1K，则在LT模式下，epoll再次调用时，仍会触发EPOLLIN事件（只要缓冲区有数据可读）， 而在ET模式下，则不会触发（不满足从无数据变到有数据这个条件）。 在LT模式加上多线程的环境下，需要对epoll的事件做些特殊处理。如当某个事件（请求）到达时，服务器创建一个线程为其服务， 而主线程继续调用epoll_wait，如果服务线程不能及时消费掉缓冲区的数据，则该连接上的EPOLLIN事件会再次被触发； 特别地，在最后对端close后，触发EPOLLIN，然后服务线程为其服务，如果在服务线程确认对端关闭连接并close前epoll_wait被再次调用， EPOLLIN将再次被触发，服务线程将再次被触发，如果前一个服务线程已将连接关闭，这是read会返回EBADF（此时文件描述符已失效） 。为了简化处理逻辑并提供性能，服务器应让epoll处理尽可能少的文件描述符， 在确定某个文件描述符需要关闭时就应主动将其从epoll事件中移除 ..." />
+<meta property="og:description" content="EPOLL epoll有两种模式，水平触发（level）和边沿触发（edge），其主要区别是，对事件触发的定位不同， 以EPOLLIN事件来说，在LT模式下，只要缓冲区有数据可读，就认为事件EPOLLIN事件发生；而ET模式下，只有在缓冲区由无数据转可读转换成有数据可读时（类比电平的0-1跳转），才认为EPOLLIN事件发生。 如某一个连接的缓冲区最开始是空的，接着收到2K数据，在ET和LT模式下，epoll调用时会告知该连接上EPOLLIN事件发生， 之后缓冲区的数据被读取了1K，则在LT模式下，epoll再次调用时，仍会触发EPOLLIN事件（只要缓冲区有数据可读）， 而在ET模式下，则不会触发（不满足从无数据变到有数据这个条件）。 在LT模式加上多线程的环境下，需要对epoll的事件做些特殊处理。如当某个事件（请求）到达时，服务器创建一个线程为其服务， 而主线程继续调用epoll_wait，如果服务线程不能及时消费掉缓冲区的数据，则该连接上的EPOLLIN事件会再次被触发； 特别地，在最后对端close后，触发EPOLLIN，然后服务线程为其服务，如果在服务线程确认对端关闭连接并close前epoll_wait被再次调用， EPOLLIN将再次被触发，服务线程将再次被触发，如果前一个服务线程已将连接关闭，这是read会返回EBADF（此时文件描述符已失效） 。为了简化处理逻辑并提供性能，服务器应让epoll处理尽可能少的文件描述符， 在确定某个文件描述符需要关闭时就应主动将其从epoll事件中移除 ..." />
 <meta property="og:site_name" content="Write the Code" />
 <meta property="og:article:author" content="ChaoJun Hou" />
 <meta property="og:article:published_time" content="2014-07-27T15:37:00+08:00" />
 <meta name="twitter:title" content="高级套接字编程 ">
-<meta name="twitter:description" content="EPOLL epoll有两种模式，水平触发（level）和边沿触发（edge），其主要区别是，对事件触发的定于不同， 以EPOLLIN事件来说，在LT模式下，只要缓冲区有数据可读，就认为事件EPOLLIN事件发生；而ET模式下，只有在缓冲区由无数据转可读转换成有数据可读时（类比电平的0-1跳转），才认为EPOLLIN事件发生。 如某一个连接的缓冲区最开始是空的，接着收到2K数据，在ET和LT模式下，epoll调用时会告知该连接上EPOLLIN事件发生， 之后缓冲区的数据被读取了1K，则在LT模式下，epoll再次调用时，仍会触发EPOLLIN事件（只要缓冲区有数据可读）， 而在ET模式下，则不会触发（不满足从无数据变到有数据这个条件）。 在LT模式加上多线程的环境下，需要对epoll的事件做些特殊处理。如当某个事件（请求）到达时，服务器创建一个线程为其服务， 而主线程继续调用epoll_wait，如果服务线程不能及时消费掉缓冲区的数据，则该连接上的EPOLLIN事件会再次被触发； 特别地，在最后对端close后，触发EPOLLIN，然后服务线程为其服务，如果在服务线程确认对端关闭连接并close前epoll_wait被再次调用， EPOLLIN将再次被触发，服务线程将再次被触发，如果前一个服务线程已将连接关闭，这是read会返回EBADF（此时文件描述符已失效） 。为了简化处理逻辑并提供性能，服务器应让epoll处理尽可能少的文件描述符， 在确定某个文件描述符需要关闭时就应主动将其从epoll事件中移除 ...">
+<meta name="twitter:description" content="EPOLL epoll有两种模式，水平触发（level）和边沿触发（edge），其主要区别是，对事件触发的定位不同， 以EPOLLIN事件来说，在LT模式下，只要缓冲区有数据可读，就认为事件EPOLLIN事件发生；而ET模式下，只有在缓冲区由无数据转可读转换成有数据可读时（类比电平的0-1跳转），才认为EPOLLIN事件发生。 如某一个连接的缓冲区最开始是空的，接着收到2K数据，在ET和LT模式下，epoll调用时会告知该连接上EPOLLIN事件发生， 之后缓冲区的数据被读取了1K，则在LT模式下，epoll再次调用时，仍会触发EPOLLIN事件（只要缓冲区有数据可读）， 而在ET模式下，则不会触发（不满足从无数据变到有数据这个条件）。 在LT模式加上多线程的环境下，需要对epoll的事件做些特殊处理。如当某个事件（请求）到达时，服务器创建一个线程为其服务， 而主线程继续调用epoll_wait，如果服务线程不能及时消费掉缓冲区的数据，则该连接上的EPOLLIN事件会再次被触发； 特别地，在最后对端close后，触发EPOLLIN，然后服务线程为其服务，如果在服务线程确认对端关闭连接并close前epoll_wait被再次调用， EPOLLIN将再次被触发，服务线程将再次被触发，如果前一个服务线程已将连接关闭，这是read会返回EBADF（此时文件描述符已失效） 。为了简化处理逻辑并提供性能，服务器应让epoll处理尽可能少的文件描述符， 在确定某个文件描述符需要关闭时就应主动将其从epoll事件中移除 ...">
 
         <title>高级套接字编程  · Change the World | Write the Code
 </title>
@@ -100,7 +100,7 @@
 
             <hr/>
 <h3 id="epoll">EPOLL</h3>
-<p>epoll有两种模式，水平触发（level）和边沿触发（edge），其主要区别是，对事件触发的定于不同，
+<p>epoll有两种模式，水平触发（level）和边沿触发（edge），其主要区别是，对事件触发的定位不同，
 以EPOLLIN事件来说，在LT模式下，只要缓冲区有数据可读，就认为事件EPOLLIN事件发生；而ET模式下，只有在缓冲区由无数据转可读转换成有数据可读时（类比电平的0-1跳转），才认为EPOLLIN事件发生。</p>
 <p>如某一个连接的缓冲区最开始是空的，接着收到2K数据，在ET和LT模式下，epoll调用时会告知该连接上EPOLLIN事件发生，
 之后缓冲区的数据被读取了1K，则在LT模式下，epoll再次调用时，仍会触发EPOLLIN事件（只要缓冲区有数据可读），

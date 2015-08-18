@@ -251,21 +251,19 @@
 <span class="code-line"><span class="p">}</span></span>
 </pre></div>
 <ul>
-<li>
-<p>引用指针而不是它所指向的对象</p>
-<div class="highlight"><pre><span class="code-line">int *binheapDelete(int **binheap, int *szie)</span>
-<span class="code-line">{</span>
-<span class="code-line">    int *packet = binheap[0];</span>
-<span class="code-line">    binheap[0] = binheap[*szie -1];</span>
-<span class="code-line">    *size--;//should be (*size)--</span>
-<span class="code-line">    heapify(binheap, *size, 0);</span>
-<span class="code-line">    return(packet);</span>
-<span class="code-line">}</span>
+<li>引用指针而不是它所指向的对象</li>
+</ul>
+<div class="highlight"><pre><span class="code-line">        <span class="kt">int</span> <span class="o">*</span><span class="nf">binheapDelete</span><span class="p">(</span><span class="kt">int</span> <span class="o">**</span><span class="n">binheap</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">szie</span><span class="p">)</span></span>
+<span class="code-line">        <span class="p">{</span></span>
+<span class="code-line">            <span class="kt">int</span> <span class="o">*</span><span class="n">packet</span> <span class="o">=</span> <span class="n">binheap</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span></span>
+<span class="code-line">            <span class="n">binheap</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">binheap</span><span class="p">[</span><span class="o">*</span><span class="n">szie</span> <span class="o">-</span><span class="mi">1</span><span class="p">];</span></span>
+<span class="code-line">            <span class="o">*</span><span class="n">size</span><span class="o">--</span><span class="p">;</span><span class="c1">//should be (*size)--</span></span>
+<span class="code-line">            <span class="n">heapify</span><span class="p">(</span><span class="n">binheap</span><span class="p">,</span> <span class="o">*</span><span class="n">size</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span></span>
+<span class="code-line">            <span class="k">return</span><span class="p">(</span><span class="n">packet</span><span class="p">);</span></span>
+<span class="code-line">        <span class="p">}</span></span>
 </pre></div>
-</li>
-<li>
-<p>误解指针运算</p>
-</li>
+<ul>
+<li>误解指针运算</li>
 </ul>
 <div class="highlight"><pre><span class="code-line"><span class="kt">int</span> <span class="o">**</span><span class="nf">search</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">p</span><span class="p">,</span> <span class="kt">int</span> <span class="n">val</span><span class="p">)</span></span>
 <span class="code-line"><span class="p">{</span></span>

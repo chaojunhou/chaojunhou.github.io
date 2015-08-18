@@ -93,7 +93,7 @@
     <div class="span2 table-of-content">
         <nav>
         <h4>Contents</h4>
-        <div id="toc"><ul><li><a class="toc-href" href="#" title="nginx 源码剖析">nginx 源码剖析</a><ul><li><a class="toc-href" href="#nginx" title="nginx框架开发的优势">nginx框架开发的优势</a></li><li><a class="toc-href" href="#nginx_1" title="nginx架构">nginx架构</a></li><li><a class="toc-href" href="#nginx_2" title="nginx 设计">nginx 设计</a></li><li><a class="toc-href" href="#_1" title="几个重要的结构体">几个重要的结构体</a></li><li><a class="toc-href" href="#_2" title="请求的多阶段异步处理">请求的多阶段异步处理</a></li><li><a class="toc-href" href="#_3" title="责任链模式">责任链模式</a></li><li><a class="toc-href" href="#nginx_3" title="nginx线程池">nginx线程池</a></li><li><a class="toc-href" href="#nginx-so_reuseport" title="NGINX SO_REUSEPORT">NGINX SO_REUSEPORT</a></li><li><a class="toc-href" href="#nginx_4" title="NGINX 启动共有流程">NGINX 启动共有流程</a></li><li><a class="toc-href" href="#nginx_5" title="更新NGINX配置">更新NGINX配置</a></li><li><a class="toc-href" href="#memcached" title="memcached  源码学习">memcached  源码学习</a></li></ul></li></ul></div>
+        <div id="toc"><ul><li><a class="toc-href" href="#" title="nginx 源码剖析">nginx 源码剖析</a><ul><li><a class="toc-href" href="#nginx" title="nginx框架开发的优势">nginx框架开发的优势</a></li><li><a class="toc-href" href="#nginx_1" title="nginx架构">nginx架构</a></li><li><a class="toc-href" href="#nginx_2" title="nginx 设计">nginx 设计</a></li><li><a class="toc-href" href="#_1" title="几个重要的结构体">几个重要的结构体</a></li><li><a class="toc-href" href="#_2" title="请求的多阶段异步处理">请求的多阶段异步处理</a></li><li><a class="toc-href" href="#_3" title="责任链模式">责任链模式</a></li><li><a class="toc-href" href="#nginx_3" title="nginx线程池">nginx线程池</a></li><li><a class="toc-href" href="#nginx-so_reuseport" title="NGINX SO_REUSEPORT">NGINX SO_REUSEPORT</a></li><li><a class="toc-href" href="#nginx_4" title="NGINX 启动共有流程">NGINX 启动共有流程</a></li><li><a class="toc-href" href="#nginx_5" title="更新NGINX配置">更新NGINX配置</a></li><li><a class="toc-href" href="#nginxtimer" title="nginx的timer的实现">nginx的timer的实现</a></li><li><a class="toc-href" href="#nginx_6" title="nginx中锁的实现">nginx中锁的实现</a></li><li><a class="toc-href" href="#io" title="异步磁盘IO">异步磁盘IO</a></li><li><a class="toc-href" href="#epoll" title="epoll">epoll</a><ul><li><a class="toc-href" href="#epoll_create" title="epoll_create">epoll_create</a></li><li><a class="toc-href" href="#epoll_ctl" title="epoll_ctl">epoll_ctl</a></li><li><a class="toc-href" href="#epoll_wait" title="epoll_wait">epoll_wait</a></li><li><a class="toc-href" href="#_4" title="水平触发和边缘触发">水平触发和边缘触发</a></li><li><a class="toc-href" href="#instance" title="instance">instance</a></li></ul></li><li><a class="toc-href" href="#ngx_cycle_t_1" title="ngx_cycle_t结构体">ngx_cycle_t结构体</a></li><li><a class="toc-href" href="#nginx_7" title="nginx 事件处理框架">nginx 事件处理框架</a></li><li><a class="toc-href" href="#ngx_event_core_module" title="ngx_event_core_module事件模块">ngx_event_core_module事件模块</a></li><li><a class="toc-href" href="#memcached" title="memcached  源码学习">memcached  源码学习</a></li></ul></li></ul></div>
         </nav>
     </div>
     <div class="span8 article-content">
@@ -127,8 +127,7 @@ nginx在启动后，以守护进程的方式在后台运行，后台进程包含
 <p>在C语言中，文件即模块，nginx的依赖关系为 core-&gt;event-&gt;http，即后面的
 模块对前面的模块依赖。</p>
 <p>三、 面向对象</p>
-<p>一个结构体或类应该表达某个主题，比如ngx_connection_t抽象了连接这个业务。面向对象最重要的是表现抽象，把数据
-和对数据的操作抽象出来一个具体的主题或者业务。</p>
+<p>一个结构体或类应该表达某个主题，比如ngx_connection_t抽象了连接这个业务。面向对象最重要的是表现抽象，把数据和对数据的操作抽象出来一个具体的主题或者业务。</p>
 <h3 id="_1">几个重要的结构体</h3>
 <p>ngx_listening_t : 监听调节字结构体，包括addr和port等
 ngx_connection_t : 每个socket将对应一个connection，里面存着fd，read（读事件），write（写事件）等。
@@ -176,6 +175,58 @@ master进程收到这个信号后就会做两件事件： </p>
 <li>重载配置文件、创建一组新的工作进程，新创建的worker进程立即接受连接、处理网络通信.</li>
 <li>通知旧的工作进程优雅的退出,这些旧的workder进程,不接受新的连接,在处理完原来的连接之后退出.</li>
 </ol>
+<h3 id="nginxtimer">nginx的timer的实现</h3>
+<p>linux中通过每次系统定时器时钟的中断处理程序来设置相应的软中断位，该软中断处理程序的目的就是为了扫描系统中所有挂起的定时器，如果他们已经超时的话，就调用它们相应的处理函数。</p>
+<p>nginx中每个进程都会单独地管理当前时间，nginx的定时器是通过红黑树实现的，ngx_event_timer_rbtree就是所有定时器事件组成的红黑树。它是通过红黑树来维护所有的timer节点，在worker进程的每一次循环中都会调用
+ngx_process_events_and_timers函数，在该函数中就会调用处理定时器的函数ngx_event_expire_timers,每次函数都不断的从红黑树中取出时间值最小的，查看他们是否已经超时，然后执行他们的函数，直到取出的节点的时间没有超时为止。</p>
+<p>把timer加入到epoll中，然后利用epoll的事件处理机制来进行调度。同时使用红黑树管理这些timer，每次处理都需要最小的timer（最需要处理）来进行处理，并将epoll_wait的超时事件设置为最小的timer。epoll_wait被唤醒后就会遍历一下定时器红黑树，找出超时的定时事件并执行事件的回调函数。</p>
+<h3 id="nginx_6">nginx中锁的实现</h3>
+<p>nginx锁的实现分为两种情况，分别为支持原子操作和不支持原子操作。尝试锁accept mutex，只有成功获取锁的进程，才会将listen套接字放入epoll中，因此就保证了只有一个进程拥有监听套接字，因此所有进程阻塞在epoll_wait时，不会出现惊群现象。函数ngx_trylock_accept_mutex用于尝试获取ngx_accept_mutex锁，如果获取了的话，那么就将listening加入到epoll当中。</p>
+<p>Nginx规定某个时刻只有唯一一个workder子进程监听web端口，这样新连接事件只能唤醒唯一正在监听端口的子进程。</p>
+<p>通过全局变量ngx_accept_disabled是负载均衡机制实现的关键阈值。它为负数时不会触发负载均衡操作，为正数时当前进程不再处理新的连接事件，取而代之的是该值减1.</p>
+<h3 id="io">异步磁盘IO</h3>
+<p>目前Linux的异步磁盘IO只支持IO的读取，不支持IO的写入，因为异步IO无法利用缓存，读数据的时候，即使主存中存在该数据的缓存，也会从磁盘中读取数据，因此如果缓存的命中率很高的时候，使用异步IO并不能很好的提高性能。而写操作通常是落到缓存中的，linux存在将缓存中的脏数据统一刷新到磁盘的机制。</p>
+<h3 id="epoll">epoll</h3>
+<p>epoll在linux内核中申请了一个简易的文件系统，把原来的一个select或poll调用分成了三个部分，调用epoll_create创建一个对象，调用epoll_ctl想epoll对象中添加这个100万连接的套接字、调用epoll_wait收集发生事件的连接。</p>
+<h4 id="epoll_create">epoll_create</h4>
+<p>epoll_create的函数原型为:</p>
+<div class="highlight"><pre><span class="code-line"><span class="kt">int</span> <span class="n">epoll_create</span><span class="p">(</span><span class="kt">int</span> <span class="n">size</span><span class="p">)</span></span>
+</pre></div>
+<p>该函数生成一个epoll专用的文件描述符，其中参数是指定生成描述符的最大范围。
+当调用epoll_create方法时，linux内核会创建一个eventpoll结构提，每个epoll对象都有一个对立的eventpoll结构体，这个结构体会在内核空间中创造独立的内存，用与存储使用epoll_ctl方法想epoll对象添加进来的事件。</p>
+<h4 id="epoll_ctl">epoll_ctl</h4>
+<p>epoll_ctl的函数原型为：</p>
+<div class="highlight"><pre><span class="code-line"><span class="kt">int</span> <span class="n">epoll_ctl</span><span class="p">(</span><span class="kt">int</span> <span class="n">epfd</span><span class="p">,</span> <span class="kt">int</span> <span class="n">op</span><span class="p">,</span> <span class="kt">int</span> <span class="n">fd</span><span class="p">,</span> <span class="k">struct</span> <span class="n">epoll_event</span><span class="o">*</span> <span class="n">event</span><span class="p">)</span></span>
+</pre></div>
+<p>该函数用与控制某个文件描述符上的事件，可以通过op选项来注册事件（EPOLL_CTL_ADD），修改事件（EPOLL_CTL_MOD），删除事件（EPOLL_CTL_DEL）。成功的时候返回0，不成功返回-1。</p>
+<p>所有添加到epoll中的事件都会与设备（网卡）驱动程序简历回调关系（用户自定义的函数，譬如read事件反生时如何处理），相应的事件发生时就会回调这个调用方法。在epoll中每一个事件都会建立一个epitem结构体，这个结构体包括事件的fd、期待的事件类型、以及一个指向其所有eventpoll对象的指针。</p>
+<h4 id="epoll_wait">epoll_wait</h4>
+<p>epoll_wait的函数原型为：</p>
+<div class="highlight"><pre><span class="code-line"><span class="kt">int</span> <span class="n">epoll_wait</span><span class="p">(</span><span class="kt">int</span> <span class="n">epfd</span><span class="p">,</span> <span class="k">struct</span> <span class="n">epoll_event</span><span class="o">*</span> <span class="n">events</span><span class="p">,</span> <span class="kt">int</span> <span class="n">maxevetns</span></span>
+<span class="code-line"><span class="p">,</span> <span class="kt">int</span> <span class="n">timeout</span><span class="p">)</span></span>
+</pre></div>
+<p>该函数用于轮询IO事件的发生。
+当调用epoll_wait检查是否有发生事件的连接时，只是检查eventpoll对象中的rdllist双向链表是否有epitem元素而已。</p>
+<p>ngx_event_actions是在nginx事件框架处理事件时封装的接口。</p>
+<h4 id="_4">水平触发和边缘触发</h4>
+<p>水平触发中，主要输入缓冲区有数据就会一直通知该事件。而在边缘触发中，输入缓冲区收到数据使仅注册一次事件。即输入缓冲区还留有数据也不会再进行注册。</p>
+<p>边缘触发时需要将accept等函数创建的套接字改为非阻塞模式（边缘触发只支持非阻塞模式），同时需要使用while循环来读取事件知道结束，最后当read为-1且errno值为EAGAIN时，意味着读取了输入缓冲区的全部数据。</p>
+<h4 id="instance">instance</h4>
+<p>instance标志位可以判断事件是否过期，因为当ngx_get_connection从连接池中获取一个新连接时，instance标志位就会置反，这样当这个ngx_connection_t连接重复使用使用时，它的instance标志位一定是不同的，因此在ngx_epoll_proces_events方法中一但判断instance发生了变化就认为是过期事件不予处理。</p>
+<h3 id="ngx_cycle_t_1">ngx_cycle_t结构体</h3>
+<p>Nginx框架是围绕着ngx_cycle_t结构体来控制进程运行的，ngx_cycle_t结构体的prefix、conf_prifix、conf_file等字符串类型成员保存着Nginx配置文件的路径，Ningx的可配置性完全依赖于nginx.conf配置文件，Nginx所有模块的可定制性、可伸缩性
+也是依赖于nginx.conf配置文件的。</p>
+<h3 id="nginx_7">nginx 事件处理框架</h3>
+<p>事件处理框架主要解决的问题是如何收集、管理、分发事件。这里的事件以网络事件（TCP）和定时器事件为主。通常的网络事件驱动机制又叫做IO多路复用。</p>
+<p>每一个事件最核心的部分是handle回调方法，它将由每一个事件消费模块实现，以此决定这个事件如何处理。 handler方法的原型为：</p>
+<div class="highlight"><pre><span class="code-line"><span class="k">typedef</span> <span class="nf">void</span><span class="p">(</span><span class="o">*</span><span class="n">ngx_event_handler_ptr</span><span class="p">)</span> <span class="p">(</span><span class="kt">ngx_event_t</span> <span class="o">*</span><span class="n">ev</span><span class="p">);</span></span>
+</pre></div>
+<p>所有的Nginx模块只要处理事件就必然设置handler回调方法，这个方法是由用户自己定义的。</p>
+<div class="highlight"><pre><span class="code-line"><span class="kt">ngx_int_t</span> <span class="nf">ngx_handler_read_event</span><span class="p">(</span><span class="kt">ngx_event_t</span> <span class="o">*</span><span class="n">rev</span><span class="p">,</span> <span class="kt">ngx_uint_t</span> <span class="n">flags</span><span class="p">);</span></span>
+</pre></div>
+<p>ngx_handler_read_event方法会将事件添加到事件驱动模块中，这样该事件对应的TCP连接上一旦出现可读事件（TCP另一端发送来数据）就会回调事件的handler方法。</p>
+<h3 id="ngx_event_core_module">ngx_event_core_module事件模块</h3>
+<p>ngx_event_core_module模块是一个事件类型的模块，它在所有事件模块中是第一位，configure执行时必须把它放在其他模块之前。这个模块主要的任务是创建（读、写事件）的连接池，同时决定究竟使用哪些事件驱动机制，以及初始化将要使用的事件模块。</p>
 <hr/>
 <h3 id="memcached">memcached  源码学习</h3>
 <p>初始化过程</p>

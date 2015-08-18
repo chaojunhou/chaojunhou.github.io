@@ -12,12 +12,12 @@
 
 <meta property="og:title" content="进程间通信 "/>
 <meta property="og:url" content="../../../../../blog/2015/07/12/ipc/" />
-<meta property="og:description" content="进程间通信 每个进程各自有不同的用户地址空间，任何一个进程的全局变量在另一个进程何中都看不到， 所以进程之间要交换数据必须通过内核，在内核中开辟一块缓冲区，进程1把数据从用户空间拷到内核缓冲区， 通过read(filedes[0]);或者write(filedes[1]);向这个文件读写数据其实是在读写内核缓冲区。 进程2再从内核缓冲区把数据读走，内核提供的这种机制称为进程间通信。 linux下进程间通信的几种主要手段简介： 管道（Pipe）及有名管道（named pipe） # include&lt;unistd.h&gt; int pipe(int filedes[2]); 调用pipe函数时在内核开辟一块缓冲区（称为管道）用于通信，它有一个读端一个写端，然后通过fileds参数传出 给用户程序两个文件描述符，filedes[0]指向管道的读端，filedes[1]指向管道的写端 管道可用于具有亲缘关系进程间的通信，有名管道克服了管道没有名字的限制，因此，除具有管道所具有的功能外， 它还允许无亲缘关系进程间的通信； from multiprocessing import Process ..." />
+<meta property="og:description" content="进程间通信 每个进程各自有不同的用户地址空间，任何一个进程的全局变量在另一个进程何中都看不到， 所以进程之间要交换数据必须通过内核，在内核中开辟一块缓冲区，进程1把数据从用户空间拷到内核缓冲区， 通过read(filedes[0]);或者write(filedes[1]);向这个文件读写数据其实是在读写内核缓冲区。 进程2再从内核缓冲区把数据读走，内核提供的这种机制称为进程间通信。 linux下进程间通信的几种主要手段简介： 管道（Pipe）及有名管道（named pipe） # include&lt;unistd.h&gt; int pipe(int filedes[2]); 调用pipe函数时在内核开辟一块缓冲区（称为管道）用于通信，它有一个读端一个写端，然后通过fileds参数传出 给用户程序两个文件描述符，filedes[0]指向管道的读端，filedes[1]指向管道的写端 管道可用于具有亲缘关系进程间的通信，有名管道克服了管道没有名字的限制，因此，除具有管道所具有的功能外， 它还允许无亲缘关系进程间的通信； 只要是文件在读取的时候，就会设置last access time ..." />
 <meta property="og:site_name" content="Write the Code" />
 <meta property="og:article:author" content="ChaoJun Hou" />
 <meta property="og:article:published_time" content="2015-07-12T23:17:00+08:00" />
 <meta name="twitter:title" content="进程间通信 ">
-<meta name="twitter:description" content="进程间通信 每个进程各自有不同的用户地址空间，任何一个进程的全局变量在另一个进程何中都看不到， 所以进程之间要交换数据必须通过内核，在内核中开辟一块缓冲区，进程1把数据从用户空间拷到内核缓冲区， 通过read(filedes[0]);或者write(filedes[1]);向这个文件读写数据其实是在读写内核缓冲区。 进程2再从内核缓冲区把数据读走，内核提供的这种机制称为进程间通信。 linux下进程间通信的几种主要手段简介： 管道（Pipe）及有名管道（named pipe） # include&lt;unistd.h&gt; int pipe(int filedes[2]); 调用pipe函数时在内核开辟一块缓冲区（称为管道）用于通信，它有一个读端一个写端，然后通过fileds参数传出 给用户程序两个文件描述符，filedes[0]指向管道的读端，filedes[1]指向管道的写端 管道可用于具有亲缘关系进程间的通信，有名管道克服了管道没有名字的限制，因此，除具有管道所具有的功能外， 它还允许无亲缘关系进程间的通信； from multiprocessing import Process ...">
+<meta name="twitter:description" content="进程间通信 每个进程各自有不同的用户地址空间，任何一个进程的全局变量在另一个进程何中都看不到， 所以进程之间要交换数据必须通过内核，在内核中开辟一块缓冲区，进程1把数据从用户空间拷到内核缓冲区， 通过read(filedes[0]);或者write(filedes[1]);向这个文件读写数据其实是在读写内核缓冲区。 进程2再从内核缓冲区把数据读走，内核提供的这种机制称为进程间通信。 linux下进程间通信的几种主要手段简介： 管道（Pipe）及有名管道（named pipe） # include&lt;unistd.h&gt; int pipe(int filedes[2]); 调用pipe函数时在内核开辟一块缓冲区（称为管道）用于通信，它有一个读端一个写端，然后通过fileds参数传出 给用户程序两个文件描述符，filedes[0]指向管道的读端，filedes[1]指向管道的写端 管道可用于具有亲缘关系进程间的通信，有名管道克服了管道没有名字的限制，因此，除具有管道所具有的功能外， 它还允许无亲缘关系进程间的通信； 只要是文件在读取的时候，就会设置last access time ...">
 
         <title>进程间通信  · Change the World | Write the Code
 </title>
@@ -93,7 +93,7 @@
     <div class="span2 table-of-content">
         <nav>
         <h4>Contents</h4>
-        <div id="toc"><ul><li><a class="toc-href" href="#" title="进程间通信">进程间通信</a><ul><li><a class="toc-href" href="#_1" title="进程间通信">进程间通信</a><ul><li><a class="toc-href" href="#pipenamed-pipe" title="管道（Pipe）及有名管道（named pipe）">管道（Pipe）及有名管道（named pipe）</a></li><li><a class="toc-href" href="#signal" title="信号（Signal）">信号（Signal）</a></li><li><a class="toc-href" href="#_2" title="共享内存">共享内存</a></li><li><a class="toc-href" href="#semaphore" title="信号量（semaphore）">信号量（semaphore）</a></li><li><a class="toc-href" href="#socket" title="套接口（Socket）">套接口（Socket）</a></li></ul></li></ul></li></ul></div>
+        <div id="toc"><ul><li><a class="toc-href" href="#" title="进程间通信">进程间通信</a><ul><li><a class="toc-href" href="#_1" title="进程间通信">进程间通信</a><ul><li><a class="toc-href" href="#pipenamed-pipe" title="管道（Pipe）及有名管道（named pipe）">管道（Pipe）及有名管道（named pipe）</a></li><li><a class="toc-href" href="#signal" title="信号（Signal）">信号（Signal）</a></li><li><a class="toc-href" href="#_2" title="信号量">信号量</a></li><li><a class="toc-href" href="#_3" title="消息队列">消息队列</a></li><li><a class="toc-href" href="#_4" title="共享内存">共享内存</a></li><li><a class="toc-href" href="#socket" title="套接口（Socket）">套接口（Socket）</a></li></ul></li></ul></li></ul></div>
         </nav>
     </div>
     <div class="span8 article-content">
@@ -113,22 +113,14 @@ linux下进程间通信的几种主要手段简介：</p>
 给用户程序两个文件描述符，filedes[0]指向管道的读端，filedes[1]指向管道的写端
 管道可用于具有亲缘关系进程间的通信，有名管道克服了管道没有名字的限制，因此，除具有管道所具有的功能外，
 它还允许无亲缘关系进程间的通信；</p>
-<div class="highlight"><pre><span class="code-line"><span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Process</span><span class="p">,</span> <span class="n">Queue</span></span>
-<span class="code-line"></span>
-<span class="code-line"><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">q</span><span class="p">):</span></span>
-<span class="code-line">    <span class="n">q</span><span class="o">.</span><span class="n">put</span><span class="p">([</span><span class="mi">42</span><span class="p">,</span> <span class="s">'hello'</span><span class="p">,</span> <span class="s">'world'</span><span class="p">])</span></span>
-<span class="code-line"></span>
-<span class="code-line"><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span></span>
-<span class="code-line">    <span class="n">q</span> <span class="o">=</span> <span class="n">Queue</span><span class="p">()</span></span>
-<span class="code-line">    <span class="n">p</span> <span class="o">=</span> <span class="n">Process</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">f</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">q</span><span class="p">,))</span></span>
-<span class="code-line">    <span class="n">p</span><span class="o">.</span><span class="n">start</span><span class="p">()</span></span>
-<span class="code-line">    <span class="k">print</span> <span class="n">q</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>    <span class="c"># prints "[42, None, 'hello']"</span></span>
-<span class="code-line">    <span class="n">p</span><span class="o">.</span><span class="n">join</span><span class="p">()</span></span>
-</pre></div>
+<p>只要是文件在读取的时候，就会设置last access time，这个事件与文件读写的开销相比很微不足道，但是当高性能服务器时，可以通过在文件open的时候设置O_NOATIME或者用fcntl来避免这段等待时间。</p>
 <h3 id="signal">信号（Signal）</h3>
 <p>信号是比较复杂的通信方式，用于通知接受进程有某种事件发生，除了用于进程间通信外，进程还可以发送信号给进程本身；
 linux除了支持Unix早期信号语义函数sigal外，还支持语义符合Posix.1标准的信号函数sigaction（实际上，该函数是基于BSD的，BSD为了实现可靠信号机制，
 又能够统一对外接口，用sigaction函数重新实现了signal函数）；</p>
+<h3 id="_2">信号量</h3>
+<p>信号量与信号不同，它不会用来传递消息，而是保证两个或者多个代码段并发访问的一直同步机制。</p>
+<h3 id="_3">消息队列</h3>
 <p>报文（Message）队列（消息队列）：消息队列是消息的链接表，包括Posix消息队列system V消息队列。有足够权限的进程可以向队列中添加消息，被赋予读权限的进程则可以读走队列中的消息。消息队列克服了信号承载信息量少，管道只能承载无格式字节流以及缓冲区大小受限等缺点。
 共享内存：</p>
 <div class="highlight"><pre><span class="code-line"><span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Process</span><span class="p">,</span> <span class="n">Queue</span></span>
@@ -143,7 +135,12 @@ linux除了支持Unix早期信号语义函数sigal外，还支持语义符合Pos
 <span class="code-line">    <span class="k">print</span> <span class="n">q</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>    <span class="c"># prints "[42, None, 'hello']"</span></span>
 <span class="code-line">    <span class="n">p</span><span class="o">.</span><span class="n">join</span><span class="p">()</span></span>
 </pre></div>
-<h3 id="_2">共享内存</h3>
+<h3 id="_4">共享内存</h3>
+<p>共享内存是Linux下提供的最基本的进程间通信方法，它通过mmap或者shmget系统调用在内存中创建了一块连续的线性地址空间。</p>
+<p>其中mmap的函数原型为</p>
+<div class="highlight"><pre><span class="code-line"><span class="kt">void</span> <span class="o">*</span><span class="n">mmap</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">start</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">length</span><span class="p">,</span> <span class="kt">int</span> <span class="n">prot</span><span class="p">,</span> <span class="kt">int</span> <span class="n">flags</span><span class="p">,</span> <span class="kt">int</span> <span class="n">fd</span><span class="p">,</span> <span class="kt">off_t</span> <span class="n">offset</span><span class="p">)</span></span>
+</pre></div>
+<p>mmap可以将磁盘文件映射到内存中，直接操作内存时Linux内核将负责同步内存和磁盘文件中的数据。</p>
 <p>使得多个进程可以访问同一块内存空间，是最快的可用IPC形式。是针对其他通信机制运行效率较低而设计的。
 往往与其它通信机制，如信号量结合使用，来达到进程间的同步及互斥。</p>
 <div class="highlight"><pre><span class="code-line"><span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Process</span><span class="p">,</span> <span class="n">Value</span><span class="p">,</span> <span class="n">Array</span></span>
@@ -187,8 +184,6 @@ linux除了支持Unix早期信号语义函数sigal外，还支持语义符合Pos
 <span class="code-line">    <span class="k">print</span> <span class="n">d</span></span>
 <span class="code-line">    <span class="k">print</span> <span class="n">l</span></span>
 </pre></div>
-<h3 id="semaphore">信号量（semaphore）</h3>
-<p>主要作为进程间以及同一进程不同线程之间的同步手段。</p>
 <h3 id="socket">套接口（Socket）</h3>
 <p>更为一般的进程间通信机制，可用于不同机器之间的进程间通信。起初是由Unix系统的BSD分支开发出来的，但现在一般可以移植到其它类Unix系统上：Linux和System V的变种都支持套接字。</p>
 <section>

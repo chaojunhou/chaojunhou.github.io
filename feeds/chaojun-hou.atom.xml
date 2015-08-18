@@ -2,7 +2,31 @@
 <feed xmlns="http://www.w3.org/2005/Atom"><title>Write the Code</title><link href="www.houcj.net/" rel="alternate"></link><link href="www.houcj.net/feeds/chaojun-hou.atom.xml" rel="self"></link><id>www.houcj.net/</id><updated>2015-08-10T10:11:00+08:00</updated><entry><title>操作系统</title><link href="www.houcj.net/blog/2015/08/10/os/" rel="alternate"></link><updated>2015-08-10T10:11:00+08:00</updated><author><name>ChaoJun Hou</name></author><id>tag:,2015-08-10:www.houcj.net/blog/2015/08/10/os/</id><summary type="html">&lt;hr/&gt;
 &lt;h3 id="_1"&gt;自旋锁&lt;/h3&gt;
 &lt;p&gt;自旋锁是专为处理器并发而引入的一种锁，无论是自旋锁还是互斥锁，在任何时刻最多只能有一个执行单元获得锁，对于互斥锁，如果资源已经被占用，资源申请者只能进入睡眠状态，但是自旋锁不会引起我i调用者睡眠，如果自旋锁已经被别的执行单元保持，调用者就一直循环在那里看是否该自旋锁的保持者已经释放了锁。&lt;/p&gt;
-&lt;p&gt;自旋锁比较适用于锁使用者比较短的情况。正是由于自锁使用者一般保持锁时间非常短，因此选择自旋而不是睡眠，这时自旋锁的效率远高于互斥锁。信号量和读写信号量适用于保持时间较长的情况，它们会导致调用者睡眠，因此只能在进程上下文使用， 而自旋锁适用于保持非常短的情况，因此它可以在任何上下文使用。 &lt;/p&gt;</summary><category term="操作系统"></category></entry><entry><title>TCP/IP 详解</title><link href="www.houcj.net/blog/2015/07/23/tcp-ip-illlstrated/" rel="alternate"></link><updated>2015-07-23T15:25:00+08:00</updated><author><name>ChaoJun Hou</name></author><id>tag:,2015-07-23:www.houcj.net/blog/2015/07/23/tcp-ip-illlstrated/</id><summary type="html">&lt;hr/&gt;
+&lt;p&gt;自旋锁比较适用于锁使用者比较短的情况。正是由于自锁使用者一般保持锁时间非常短，因此选择自旋而不是睡眠，这时自旋锁的效率远高于互斥锁。信号量和读写信号量适用于保持时间较长的情况，它们会导致调用者睡眠，因此只能在进程上下文使用， 而自旋锁适用于保持非常短的情况，因此它可以在任何上下文使用。 &lt;/p&gt;
+&lt;h3 id="_2"&gt;线程安全&lt;/h3&gt;
+&lt;p&gt;如果多线程的程序运行结果是可预期的，而且与单线程的运行结果一样，那么说明就是线程安全的。&lt;/p&gt;
+&lt;h3 id="_3"&gt;多线程同步与互斥的方法&lt;/h3&gt;
+&lt;p&gt;临界区（Critical Section）、事件（Event）、互斥量（Mutex）、信号量（Semaphores）。临界区的效率是最高的，因为不需要其他的开销，是属于用户模式的操作。而内核模式的方法有，事件、信号量，互斥量，由于内核模式下，需要进行内核模式和用户模式的切换，因此开销比较大。&lt;/p&gt;
+&lt;h4 id="_4"&gt;临界区&lt;/h4&gt;
+&lt;p&gt;每个进程中访问临界资源的那段代码称为临界区，每次
+只准许一个进程进入临界区，进入以后不允许其他进程
+进入。临界区和互斥量与信号量的区别在于，互斥量和信号量在系统的任何进程里都是可见的，临界区的作用范围仅限于本进程，其他进程无法获得该锁。&lt;/p&gt;
+&lt;h4 id="_5"&gt;信号量&lt;/h4&gt;
+&lt;p&gt;一个初始值为N的信号量允许N个线程并发访问。线程访问资源的时候首先获取信号量，然后将信号量减1。如果信号量的值小于0就进入等待状态，否则继续执行。访问完资源之后，线程释放信号量，将信号量的值加1.如果信号量的值小于1，环形一个等待的线程。&lt;/p&gt;
+&lt;h4 id="_6"&gt;互斥量&lt;/h4&gt;
+&lt;p&gt;资源仅同时允许一个线程访问， 但和信号量不同的是，信号量在整个系统可以被任意线程获取并释放，同一个信号量可以被系统中的一个线程获取之后由另一个线程释放，而互斥量必须由同一个线程获取并释放。&lt;/p&gt;
+&lt;h3 id="_8"&gt;多线程同步和互斥的异同&lt;/h3&gt;
+&lt;p&gt;线程同步是指线程的一种制约关系，就是时间上的先后顺序。&lt;/p&gt;
+&lt;p&gt;线程互斥有若干个线程都要使用某一共享资源时，
+任何时刻最多只允许一个线程去使用，其他要使用的线程必须等待，直到资源占用者释放资源。线程互斥是一个特殊的同步。&lt;/p&gt;
+&lt;h3 id="swappingpaging"&gt;swapping和paging&lt;/h3&gt;
+&lt;p&gt;swapping是以整个进程为单位的交换，pagging是以页为单位的交换。&lt;/p&gt;
+&lt;p&gt;pagging机制是进程内外交换的主流，只有在系统内存严重短缺，pagging机制的速度不能满足的时候就会发生频繁的swapping操作。交换活动通常意味着内存不足。&lt;/p&gt;
+&lt;h3 id="_9"&gt;死锁产生的四个条件&lt;/h3&gt;
+&lt;p&gt;一、请求和保持，在保持一个资源的时候去申请另外一个资源&lt;/p&gt;
+&lt;p&gt;二、互斥，每次只能有一个进程获得临界资源&lt;/p&gt;
+&lt;p&gt;三、不剥夺，当一个进程获得一个临界资源的时候就不再释放该资源&lt;/p&gt;
+&lt;p&gt;四、循环等待条件， 等待进程一直等待获得临界资源。&lt;/p&gt;</summary><category term="操作系统"></category></entry><entry><title>TCP/IP 详解</title><link href="www.houcj.net/blog/2015/07/23/tcp-ip-illlstrated/" rel="alternate"></link><updated>2015-07-23T15:25:00+08:00</updated><author><name>ChaoJun Hou</name></author><id>tag:,2015-07-23:www.houcj.net/blog/2015/07/23/tcp-ip-illlstrated/</id><summary type="html">&lt;hr/&gt;
 &lt;h3 id="_1"&gt;三次握手和四次挥手&lt;/h3&gt;
 &lt;p&gt;TCP使用三次握手建立连接，初始化传输的可靠性以及数据顺序性必要的信息，这个连接是全双工的，因此必须保证两条
 方向的数据都可以正常传输。在建立连接的第二次，把SYN放到ACK一起发送了，所以三次就可以。&lt;/p&gt;
@@ -120,8 +144,7 @@ nginx在启动后，以守护进程的方式在后台运行，后台进程包含
 &lt;p&gt;在C语言中，文件即模块，nginx的依赖关系为 core-&amp;gt;event-&amp;gt;http，即后面的
 模块对前面的模块依赖。&lt;/p&gt;
 &lt;p&gt;三、 面向对象&lt;/p&gt;
-&lt;p&gt;一个结构体或类应该表达某个主题，比如ngx_connection_t抽象了连接这个业务。面向对象最重要的是表现抽象，把数据
-和对数据的操作抽象出来一个具体的主题或者业务。&lt;/p&gt;
+&lt;p&gt;一个结构体或类应该表达某个主题，比如ngx_connection_t抽象了连接这个业务。面向对象最重要的是表现抽象，把数据和对数据的操作抽象出来一个具体的主题或者业务。&lt;/p&gt;
 &lt;h3 id="_1"&gt;几个重要的结构体&lt;/h3&gt;
 &lt;p&gt;ngx_listening_t : 监听调节字结构体，包括addr和port等
 ngx_connection_t : 每个socket将对应一个connection，里面存着fd，read（读事件），write（写事件）等。
@@ -169,6 +192,58 @@ master进程收到这个信号后就会做两件事件： &lt;/p&gt;
 &lt;li&gt;重载配置文件、创建一组新的工作进程，新创建的worker进程立即接受连接、处理网络通信.&lt;/li&gt;
 &lt;li&gt;通知旧的工作进程优雅的退出,这些旧的workder进程,不接受新的连接,在处理完原来的连接之后退出.&lt;/li&gt;
 &lt;/ol&gt;
+&lt;h3 id="nginxtimer"&gt;nginx的timer的实现&lt;/h3&gt;
+&lt;p&gt;linux中通过每次系统定时器时钟的中断处理程序来设置相应的软中断位，该软中断处理程序的目的就是为了扫描系统中所有挂起的定时器，如果他们已经超时的话，就调用它们相应的处理函数。&lt;/p&gt;
+&lt;p&gt;nginx中每个进程都会单独地管理当前时间，nginx的定时器是通过红黑树实现的，ngx_event_timer_rbtree就是所有定时器事件组成的红黑树。它是通过红黑树来维护所有的timer节点，在worker进程的每一次循环中都会调用
+ngx_process_events_and_timers函数，在该函数中就会调用处理定时器的函数ngx_event_expire_timers,每次函数都不断的从红黑树中取出时间值最小的，查看他们是否已经超时，然后执行他们的函数，直到取出的节点的时间没有超时为止。&lt;/p&gt;
+&lt;p&gt;把timer加入到epoll中，然后利用epoll的事件处理机制来进行调度。同时使用红黑树管理这些timer，每次处理都需要最小的timer（最需要处理）来进行处理，并将epoll_wait的超时事件设置为最小的timer。epoll_wait被唤醒后就会遍历一下定时器红黑树，找出超时的定时事件并执行事件的回调函数。&lt;/p&gt;
+&lt;h3 id="nginx_6"&gt;nginx中锁的实现&lt;/h3&gt;
+&lt;p&gt;nginx锁的实现分为两种情况，分别为支持原子操作和不支持原子操作。尝试锁accept mutex，只有成功获取锁的进程，才会将listen套接字放入epoll中，因此就保证了只有一个进程拥有监听套接字，因此所有进程阻塞在epoll_wait时，不会出现惊群现象。函数ngx_trylock_accept_mutex用于尝试获取ngx_accept_mutex锁，如果获取了的话，那么就将listening加入到epoll当中。&lt;/p&gt;
+&lt;p&gt;Nginx规定某个时刻只有唯一一个workder子进程监听web端口，这样新连接事件只能唤醒唯一正在监听端口的子进程。&lt;/p&gt;
+&lt;p&gt;通过全局变量ngx_accept_disabled是负载均衡机制实现的关键阈值。它为负数时不会触发负载均衡操作，为正数时当前进程不再处理新的连接事件，取而代之的是该值减1.&lt;/p&gt;
+&lt;h3 id="io"&gt;异步磁盘IO&lt;/h3&gt;
+&lt;p&gt;目前Linux的异步磁盘IO只支持IO的读取，不支持IO的写入，因为异步IO无法利用缓存，读数据的时候，即使主存中存在该数据的缓存，也会从磁盘中读取数据，因此如果缓存的命中率很高的时候，使用异步IO并不能很好的提高性能。而写操作通常是落到缓存中的，linux存在将缓存中的脏数据统一刷新到磁盘的机制。&lt;/p&gt;
+&lt;h3 id="epoll"&gt;epoll&lt;/h3&gt;
+&lt;p&gt;epoll在linux内核中申请了一个简易的文件系统，把原来的一个select或poll调用分成了三个部分，调用epoll_create创建一个对象，调用epoll_ctl想epoll对象中添加这个100万连接的套接字、调用epoll_wait收集发生事件的连接。&lt;/p&gt;
+&lt;h4 id="epoll_create"&gt;epoll_create&lt;/h4&gt;
+&lt;p&gt;epoll_create的函数原型为:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;epoll_create&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;该函数生成一个epoll专用的文件描述符，其中参数是指定生成描述符的最大范围。
+当调用epoll_create方法时，linux内核会创建一个eventpoll结构提，每个epoll对象都有一个对立的eventpoll结构体，这个结构体会在内核空间中创造独立的内存，用与存储使用epoll_ctl方法想epoll对象添加进来的事件。&lt;/p&gt;
+&lt;h4 id="epoll_ctl"&gt;epoll_ctl&lt;/h4&gt;
+&lt;p&gt;epoll_ctl的函数原型为：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;epoll_ctl&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;epfd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;op&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;fd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;epoll_event&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;event&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;该函数用与控制某个文件描述符上的事件，可以通过op选项来注册事件（EPOLL_CTL_ADD），修改事件（EPOLL_CTL_MOD），删除事件（EPOLL_CTL_DEL）。成功的时候返回0，不成功返回-1。&lt;/p&gt;
+&lt;p&gt;所有添加到epoll中的事件都会与设备（网卡）驱动程序简历回调关系（用户自定义的函数，譬如read事件反生时如何处理），相应的事件发生时就会回调这个调用方法。在epoll中每一个事件都会建立一个epitem结构体，这个结构体包括事件的fd、期待的事件类型、以及一个指向其所有eventpoll对象的指针。&lt;/p&gt;
+&lt;h4 id="epoll_wait"&gt;epoll_wait&lt;/h4&gt;
+&lt;p&gt;epoll_wait的函数原型为：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;epoll_wait&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;epfd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;epoll_event&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;events&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;maxevetns&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;timeout&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;该函数用于轮询IO事件的发生。
+当调用epoll_wait检查是否有发生事件的连接时，只是检查eventpoll对象中的rdllist双向链表是否有epitem元素而已。&lt;/p&gt;
+&lt;p&gt;ngx_event_actions是在nginx事件框架处理事件时封装的接口。&lt;/p&gt;
+&lt;h4 id="_4"&gt;水平触发和边缘触发&lt;/h4&gt;
+&lt;p&gt;水平触发中，主要输入缓冲区有数据就会一直通知该事件。而在边缘触发中，输入缓冲区收到数据使仅注册一次事件。即输入缓冲区还留有数据也不会再进行注册。&lt;/p&gt;
+&lt;p&gt;边缘触发时需要将accept等函数创建的套接字改为非阻塞模式（边缘触发只支持非阻塞模式），同时需要使用while循环来读取事件知道结束，最后当read为-1且errno值为EAGAIN时，意味着读取了输入缓冲区的全部数据。&lt;/p&gt;
+&lt;h4 id="instance"&gt;instance&lt;/h4&gt;
+&lt;p&gt;instance标志位可以判断事件是否过期，因为当ngx_get_connection从连接池中获取一个新连接时，instance标志位就会置反，这样当这个ngx_connection_t连接重复使用使用时，它的instance标志位一定是不同的，因此在ngx_epoll_proces_events方法中一但判断instance发生了变化就认为是过期事件不予处理。&lt;/p&gt;
+&lt;h3 id="ngx_cycle_t_1"&gt;ngx_cycle_t结构体&lt;/h3&gt;
+&lt;p&gt;Nginx框架是围绕着ngx_cycle_t结构体来控制进程运行的，ngx_cycle_t结构体的prefix、conf_prifix、conf_file等字符串类型成员保存着Nginx配置文件的路径，Ningx的可配置性完全依赖于nginx.conf配置文件，Nginx所有模块的可定制性、可伸缩性
+也是依赖于nginx.conf配置文件的。&lt;/p&gt;
+&lt;h3 id="nginx_7"&gt;nginx 事件处理框架&lt;/h3&gt;
+&lt;p&gt;事件处理框架主要解决的问题是如何收集、管理、分发事件。这里的事件以网络事件（TCP）和定时器事件为主。通常的网络事件驱动机制又叫做IO多路复用。&lt;/p&gt;
+&lt;p&gt;每一个事件最核心的部分是handle回调方法，它将由每一个事件消费模块实现，以此决定这个事件如何处理。 handler方法的原型为：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="k"&gt;typedef&lt;/span&gt; &lt;span class="nf"&gt;void&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;ngx_event_handler_ptr&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;ngx_event_t&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;ev&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;所有的Nginx模块只要处理事件就必然设置handler回调方法，这个方法是由用户自己定义的。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="kt"&gt;ngx_int_t&lt;/span&gt; &lt;span class="nf"&gt;ngx_handler_read_event&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;ngx_event_t&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;rev&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;ngx_uint_t&lt;/span&gt; &lt;span class="n"&gt;flags&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;ngx_handler_read_event方法会将事件添加到事件驱动模块中，这样该事件对应的TCP连接上一旦出现可读事件（TCP另一端发送来数据）就会回调事件的handler方法。&lt;/p&gt;
+&lt;h3 id="ngx_event_core_module"&gt;ngx_event_core_module事件模块&lt;/h3&gt;
+&lt;p&gt;ngx_event_core_module模块是一个事件类型的模块，它在所有事件模块中是第一位，configure执行时必须把它放在其他模块之前。这个模块主要的任务是创建（读、写事件）的连接池，同时决定究竟使用哪些事件驱动机制，以及初始化将要使用的事件模块。&lt;/p&gt;
 &lt;hr/&gt;
 &lt;h3 id="memcached"&gt;memcached  源码学习&lt;/h3&gt;
 &lt;p&gt;初始化过程&lt;/p&gt;
@@ -518,6 +593,7 @@ CPP支持编译时期的多态和运行时期的多态。其中编译时期的�
 1. 内存分配
 2. 调用构造函数&lt;/p&gt;
 &lt;p&gt;同时C++标准中规定，如果内存分配失败，或者构造函数没有成功执行， new运算符所返回的将是空。&lt;/p&gt;
+&lt;p&gt;对于非内部数据类型的对象而言，对象在创建的同时需要自动执行构造函数，对象消亡的时候自动执行析构函数，而malloc和free是库函数只能在运行的时候才能调用，CPP中是通过new（动态内存分配和初始化）和delete（清理与释放内存工作）来实现动态分配内存的作用，new和delete是运算符不是库函数。&lt;/p&gt;
 &lt;h3 id="pimpl"&gt;Pimpl&lt;/h3&gt;
 &lt;p&gt;C++中Pimpl惯用法，又被称为编译防火墙，是一种在头文件中隐藏实现的方式。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="c1"&gt;// Foo.h&lt;/span&gt;&lt;/span&gt;
@@ -557,7 +633,24 @@ CPP支持编译时期的多态和运行时期的多态。其中编译时期的�
 &lt;p&gt;静态联编：是指联编工作在编译阶段完成，又称为早期编译，因为这个联编工程
 是在程序运行之前完成的。优点是效率高，但是灵活性差。&lt;/p&gt;
 &lt;p&gt;动态联编：是指联编在程序运行时动态地进行，根据当时的情况来调用哪个同名函数，
-实际上是在运行时虚函数的实现。又称为晚期联编，优点是灵活性高，但效率低。动态联编要靠虚函数来实现，虚函数要靠动态联编的支持。两者相辅相成，缺一不可&lt;/p&gt;</summary><category term="CPP"></category></entry><entry><title>进程间通信</title><link href="www.houcj.net/blog/2015/07/12/ipc/" rel="alternate"></link><updated>2015-07-12T23:17:00+08:00</updated><author><name>ChaoJun Hou</name></author><id>tag:,2015-07-12:www.houcj.net/blog/2015/07/12/ipc/</id><summary type="html">&lt;hr/&gt;
+实际上是在运行时虚函数的实现。又称为晚期联编，优点是灵活性高，但效率低。动态联编要靠虚函数来实现，虚函数要靠动态联编的支持。两者相辅相成，缺一不可&lt;/p&gt;
+&lt;h3 id="typdef"&gt;typdef&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="n"&gt;typdef&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;stringArray&lt;/span&gt;&lt;span class="p"&gt;[];&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;stringArray&lt;/span&gt; &lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;// stringArray argv == char* argv[];&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id="_8"&gt;栈内存和堆内存&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="kt"&gt;char&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="nf"&gt;GetMemory1&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;num&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="kt"&gt;char&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;char&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;malloc&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;sizeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;char&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;num&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// 这里是堆内存，由程序员自己分配和释放&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="kt"&gt;char&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="nf"&gt;GetMoemory1&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;num&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="p"&gt;[]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;"Hello world"&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// 这里是错误的，栈内存由操作系统分配和释放，在超过其作用范围内会自动释放。&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="CPP"></category></entry><entry><title>进程间通信</title><link href="www.houcj.net/blog/2015/07/12/ipc/" rel="alternate"></link><updated>2015-07-12T23:17:00+08:00</updated><author><name>ChaoJun Hou</name></author><id>tag:,2015-07-12:www.houcj.net/blog/2015/07/12/ipc/</id><summary type="html">&lt;hr/&gt;
 &lt;h2 id="_1"&gt;进程间通信&lt;/h2&gt;
 &lt;p&gt;每个进程各自有不同的用户地址空间，任何一个进程的全局变量在另一个进程何中都看不到，
 所以进程之间要交换数据必须通过内核，在内核中开辟一块缓冲区，进程1把数据从用户空间拷到内核缓冲区，
@@ -572,22 +665,14 @@ linux下进程间通信的几种主要手段简介：&lt;/p&gt;
 给用户程序两个文件描述符，filedes[0]指向管道的读端，filedes[1]指向管道的写端
 管道可用于具有亲缘关系进程间的通信，有名管道克服了管道没有名字的限制，因此，除具有管道所具有的功能外，
 它还允许无亲缘关系进程间的通信；&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;multiprocessing&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Process&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;Queue&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;f&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;q&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="n"&gt;q&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;put&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="mi"&gt;42&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;'hello'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;'world'&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;__name__&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s"&gt;'__main__'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="n"&gt;q&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Queue&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Process&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;target&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;q&lt;/span&gt;&lt;span class="p"&gt;,))&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;start&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="n"&gt;q&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;    &lt;span class="c"&gt;# prints "[42, None, 'hello']"&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;join&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;只要是文件在读取的时候，就会设置last access time，这个事件与文件读写的开销相比很微不足道，但是当高性能服务器时，可以通过在文件open的时候设置O_NOATIME或者用fcntl来避免这段等待时间。&lt;/p&gt;
 &lt;h3 id="signal"&gt;信号（Signal）&lt;/h3&gt;
 &lt;p&gt;信号是比较复杂的通信方式，用于通知接受进程有某种事件发生，除了用于进程间通信外，进程还可以发送信号给进程本身；
 linux除了支持Unix早期信号语义函数sigal外，还支持语义符合Posix.1标准的信号函数sigaction（实际上，该函数是基于BSD的，BSD为了实现可靠信号机制，
 又能够统一对外接口，用sigaction函数重新实现了signal函数）；&lt;/p&gt;
+&lt;h3 id="_2"&gt;信号量&lt;/h3&gt;
+&lt;p&gt;信号量与信号不同，它不会用来传递消息，而是保证两个或者多个代码段并发访问的一直同步机制。&lt;/p&gt;
+&lt;h3 id="_3"&gt;消息队列&lt;/h3&gt;
 &lt;p&gt;报文（Message）队列（消息队列）：消息队列是消息的链接表，包括Posix消息队列system V消息队列。有足够权限的进程可以向队列中添加消息，被赋予读权限的进程则可以读走队列中的消息。消息队列克服了信号承载信息量少，管道只能承载无格式字节流以及缓冲区大小受限等缺点。
 共享内存：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;multiprocessing&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Process&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;Queue&lt;/span&gt;&lt;/span&gt;
@@ -602,7 +687,12 @@ linux除了支持Unix早期信号语义函数sigal外，还支持语义符合Pos
 &lt;span class="code-line"&gt;    &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="n"&gt;q&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;    &lt;span class="c"&gt;# prints "[42, None, 'hello']"&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;    &lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;join&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
-&lt;h3 id="_2"&gt;共享内存&lt;/h3&gt;
+&lt;h3 id="_4"&gt;共享内存&lt;/h3&gt;
+&lt;p&gt;共享内存是Linux下提供的最基本的进程间通信方法，它通过mmap或者shmget系统调用在内存中创建了一块连续的线性地址空间。&lt;/p&gt;
+&lt;p&gt;其中mmap的函数原型为&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;mmap&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;start&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;size_t&lt;/span&gt; &lt;span class="n"&gt;length&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;prot&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;flags&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;fd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;off_t&lt;/span&gt; &lt;span class="n"&gt;offset&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;mmap可以将磁盘文件映射到内存中，直接操作内存时Linux内核将负责同步内存和磁盘文件中的数据。&lt;/p&gt;
 &lt;p&gt;使得多个进程可以访问同一块内存空间，是最快的可用IPC形式。是针对其他通信机制运行效率较低而设计的。
 往往与其它通信机制，如信号量结合使用，来达到进程间的同步及互斥。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;multiprocessing&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Process&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;Value&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;Array&lt;/span&gt;&lt;/span&gt;
@@ -646,8 +736,6 @@ linux除了支持Unix早期信号语义函数sigal外，还支持语义符合Pos
 &lt;span class="code-line"&gt;    &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="n"&gt;d&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;    &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="n"&gt;l&lt;/span&gt;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
-&lt;h3 id="semaphore"&gt;信号量（semaphore）&lt;/h3&gt;
-&lt;p&gt;主要作为进程间以及同一进程不同线程之间的同步手段。&lt;/p&gt;
 &lt;h3 id="socket"&gt;套接口（Socket）&lt;/h3&gt;
 &lt;p&gt;更为一般的进程间通信机制，可用于不同机器之间的进程间通信。起初是由Unix系统的BSD分支开发出来的，但现在一般可以移植到其它类Unix系统上：Linux和System V的变种都支持套接字。&lt;/p&gt;</summary><category term="进程"></category></entry><entry><title>Effecitve CPP</title><link href="www.houcj.net/blog/2015/06/30/Effecitve-cpp/" rel="alternate"></link><updated>2015-06-30T21:13:00+08:00</updated><author><name>ChaoJun Hou</name></author><id>tag:,2015-06-30:www.houcj.net/blog/2015/06/30/Effecitve-cpp/</id><summary type="html">&lt;hr/&gt;
 &lt;h2 id="const"&gt;尽量使用const&lt;/h2&gt;
@@ -701,6 +789,11 @@ linux除了支持Unix早期信号语义函数sigal外，还支持语义符合Pos
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;如果一个新对象被定义，一定会有一个构造函数被调用，不可能调用赋值操作。如果新对象没有被定义，出现operator=就是
 拷贝赋值操作。&lt;/p&gt;
+&lt;h3 id="cpp-string"&gt;CPP String类型转换&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;42&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;string&lt;/span&gt; &lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;to_string&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; &lt;span class="c1"&gt;// 将整数i转换为字符串表示形式&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="kt"&gt;double&lt;/span&gt; &lt;span class="n"&gt;d&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;stod&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// 将字符串s转换为浮点数&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 &lt;h3 id="_5"&gt;智能指针&lt;/h3&gt;
 &lt;p&gt;shared_ptr 实现了引用计数, 所以最后一个 shared_ptr 对象析构时, 如果检测到引用次数为 0，就会销毁所指向的对象.在一个指针
 操作一个资源的时候，为了实现代码的异常安全，应该尽量把这个资源放到智能指针中。&lt;/p&gt;

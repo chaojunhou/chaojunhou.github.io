@@ -93,7 +93,7 @@
     <div class="span2 table-of-content">
         <nav>
         <h4>Contents</h4>
-        <div id="toc"><ul><li><a class="toc-href" href="#" title="TCP Socket">TCP Socket</a><ul><li><a class="toc-href" href="#linuxtcp-socket" title="Linux下TCP Socket编程">Linux下TCP Socket编程</a><ul><li><a class="toc-href" href="#_1" title="客户端编程工作">客户端编程工作</a></li><li><a class="toc-href" href="#_2" title="服务器编程工作">服务器编程工作</a></li><li><a class="toc-href" href="#socket-setsockopt" title="Socket端口重用: setsockopt()改善程序的健壮性">Socket端口重用: setsockopt()改善程序的健壮性</a></li><li><a class="toc-href" href="#_3" title="粘包">粘包</a></li><li><a class="toc-href" href="#_4" title="粘包出现的原因">粘包出现的原因</a></li><li><a class="toc-href" href="#_5" title="粘包解决方法">粘包解决方法</a></li></ul></li></ul></li></ul></div>
+        <div id="toc"><ul><li><a class="toc-href" href="#" title="TCP Socket">TCP Socket</a><ul><li><a class="toc-href" href="#linuxtcp-socket" title="Linux下TCP Socket编程">Linux下TCP Socket编程</a><ul><li><a class="toc-href" href="#_1" title="客户端编程工作">客户端编程工作</a></li><li><a class="toc-href" href="#_2" title="服务器编程工作">服务器编程工作</a></li><li><a class="toc-href" href="#socket-setsockopt" title="Socket端口重用: setsockopt()改善程序的健壮性">Socket端口重用: setsockopt()改善程序的健壮性</a></li><li><a class="toc-href" href="#setsockopt" title="setsockopt">setsockopt</a></li><li><a class="toc-href" href="#_3" title="粘包">粘包</a></li><li><a class="toc-href" href="#_4" title="粘包出现的原因">粘包出现的原因</a></li><li><a class="toc-href" href="#_5" title="粘包解决方法">粘包解决方法</a></li></ul></li></ul></li></ul></div>
         </nav>
     </div>
     <div class="span8 article-content">
@@ -152,7 +152,7 @@
 </ul>
 <p><strong>TIME_WAIT</strong>的过程：</p>
 <div class="highlight"><pre><span class="code-line"><span class="kt">int</span> <span class="n">bDontLinger</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> </span>
-<span class="code-line"><span class="n">setsockopt</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">SOL_SOCKET</span><span class="p">,</span> <span class="n">SO_DONTLINGER</span><span class="p">,</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span> <span class="n">bDontLinger</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">bool</span><span class="p">));</span></span>
+<span class="code-line"><span class="n">setsockopt</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">SOL_SOCKET</span><span class="p">,</span> <span class="n">SO_DONTLINGER</span><span class="p">,</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span> <span class="n">bDontLinger</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">bool</span><span class="p">));</span></span>
 </pre></div>
 <ul>
 <li>在send()，recv()过程中有时由于网络状况等原因，发收不能预期进行，而设置收发时限：</li>
@@ -161,7 +161,7 @@
 <span class="code-line"><span class="c1">//发送时限</span></span>
 <span class="code-line"><span class="n">setsockopt</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="n">SOL_S0CKET</span><span class="p">,</span> <span class="n">SO_SNDTIMEO</span><span class="p">,</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span> <span class="n">nNetTimeout</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span></span>
 <span class="code-line"><span class="c1">//接收时限</span></span>
-<span class="code-line"><span class="n">setsockopt</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="n">SOL_S0CKET</span><span class="p">,</span> <span class="n">SO_RCVTIMEO</span><span class="p">,</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span> <span class="n">nNetTimeout</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span></span>
+<span class="code-line"><span class="n">setsockopt</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="n">SOL_S0CKET</span><span class="p">,</span> <span class="n">SO_RCVTIMEO</span><span class="p">,</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">nNetTimeout</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span></span>
 </pre></div>
 <ul>
 <li>在send()的时候，返回的是实际发送出去的字节(同步)或发送到socket缓冲区的字节
@@ -173,26 +173,26 @@
 <span class="code-line"><span class="n">setsockopt</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">SOL_SOCKET</span><span class="p">,</span> <span class="n">SO_RCVBUF</span><span class="p">,</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span> <span class="n">nRecvBuf</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span></span>
 <span class="code-line"><span class="c1">//发送缓冲区</span></span>
 <span class="code-line"><span class="kt">int</span> <span class="n">nSendBuf</span><span class="o">=</span><span class="mi">32</span><span class="o">*</span><span class="mi">1024</span><span class="p">;</span><span class="c1">//设置为32K</span></span>
-<span class="code-line"><span class="n">setsockopt</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">SOL_SOCKET</span><span class="p">,</span> <span class="n">SO_SNDBUF</span><span class="p">,</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span> <span class="n">nSendBuf</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span></span>
+<span class="code-line"><span class="n">setsockopt</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">SOL_SOCKET</span><span class="p">,</span> <span class="n">SO_SNDBUF</span><span class="p">,</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span>  <span class="n">nSendBuf</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span></span>
 </pre></div>
 <ul>
 <li>如果在发送数据的时，希望不经历由系统缓冲区到socket缓冲区的拷贝而影响
 程序的性能：</li>
 </ul>
 <div class="highlight"><pre><span class="code-line"><span class="kt">int</span> <span class="n">nZero</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span></span>
-<span class="code-line"><span class="n">setsockopt</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="n">SOL_S0CKET</span><span class="p">,</span> <span class="n">SO_SNDBUF</span><span class="p">,</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span> <span class="n">nZero</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">nZero</span><span class="p">));</span></span>
+<span class="code-line"><span class="n">setsockopt</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="n">SOL_S0CKET</span><span class="p">,</span> <span class="n">SO_SNDBUF</span><span class="p">,</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span> <span class="n">nZero</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">nZero</span><span class="p">));</span></span>
 </pre></div>
 <ul>
 <li>同上在recv()完成上述功能(默认情况是将socket缓冲区的内容拷贝到系统缓冲区)：</li>
 </ul>
 <div class="highlight"><pre><span class="code-line"><span class="kt">int</span> <span class="n">nZero</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span></span>
-<span class="code-line"><span class="n">setsockopt</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="n">SOL_S0CKET</span><span class="p">,</span> <span class="n">SO_RCVBUF</span><span class="p">,</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span> <span class="n">nZero</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span></span>
+<span class="code-line"><span class="n">setsockopt</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="n">SOL_S0CKET</span><span class="p">,</span> <span class="n">SO_RCVBUF</span><span class="p">,</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span>  <span class="n">nZero</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span></span>
 </pre></div>
 <ul>
 <li>一般在发送UDP数据报的时候，希望该socket发送的数据具有广播特性：</li>
 </ul>
 <div class="highlight"><pre><span class="code-line"><span class="n">BOOL</span> <span class="n">bBroadcast</span><span class="o">=</span><span class="n">TRUE</span><span class="p">;</span> </span>
-<span class="code-line"><span class="n">setsockopt</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">SOL_SOCKET</span><span class="p">,</span> <span class="n">SO_BROADCAST</span><span class="p">,</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span> <span class="n">bBroadcast</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">bool</span><span class="p">));</span></span>
+<span class="code-line"><span class="n">setsockopt</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">SOL_SOCKET</span><span class="p">,</span> <span class="n">SO_BROADCAST</span><span class="p">,</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span> <span class="n">bBroadcast</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">bool</span><span class="p">));</span></span>
 </pre></div>
 <ul>
 <li>在client连接服务器过程中，如果处于非阻塞模式下的socket在connect()的过程中可
@@ -200,7 +200,7 @@
 作用，在阻塞的函数调用中作用不大)</li>
 </ul>
 <div class="highlight"><pre><span class="code-line"><span class="kt">bool</span> <span class="n">bConditionalAccept</span><span class="o">=</span><span class="n">TRUE</span><span class="p">;</span></span>
-<span class="code-line"><span class="n">setsockopt</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">SOL_SOCKET</span><span class="p">,</span> <span class="n">SO_CONDITIONAL_ACCEPT</span><span class="p">,</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span> <span class="n">bConditionalAccept</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">bool</span><span class="p">));</span></span>
+<span class="code-line"><span class="n">setsockopt</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">SOL_SOCKET</span><span class="p">,</span> <span class="n">SO_CONDITIONAL_ACCEPT</span><span class="p">,</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span>  <span class="n">bConditionalAccept</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">bool</span><span class="p">));</span></span>
 </pre></div>
 <ul>
 <li>如果在发送数据的过程中(send()没有完成，还有数据没发送)而调用了closesocket()，以前我们
@@ -215,7 +215,7 @@
 <span class="code-line"><span class="n">m_sLinger</span><span class="p">.</span><span class="n">l_onoff</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="c1">//(在closesocket()调用，但是还有数据没发送完毕的时候容许逗留)</span></span>
 <span class="code-line"><span class="c1">// 如果m_sLinger.l_onoff=0;则功能和2.)作用相同;</span></span>
 <span class="code-line"><span class="n">m_sLinger</span><span class="p">.</span><span class="n">l_linger</span><span class="o">=</span><span class="mi">5</span><span class="p">;</span><span class="c1">//(容许逗留的时间为5秒)</span></span>
-<span class="code-line"><span class="n">setsockopt</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">SOL_SOCKET</span><span class="p">,</span> <span class="n">SO_LINGER</span><span class="p">,</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span> <span class="n">m_sLinger</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">linger</span><span class="p">));</span></span>
+<span class="code-line"><span class="n">setsockopt</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">SOL_SOCKET</span><span class="p">,</span> <span class="n">SO_LINGER</span><span class="p">,</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span>  <span class="n">m_sLinger</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">linger</span><span class="p">));</span></span>
 </pre></div>
 <p>PS:
 1. 在设置了逗留延时，用于一个非阻塞的socket是作用不大的，最好不用
@@ -226,8 +226,22 @@
 具体协议，以及出错的代码都可以记录下来）</li>
 </ul>
 <div class="highlight"><pre><span class="code-line"><span class="kt">bool</span> <span class="n">bDebug</span><span class="o">=</span><span class="n">TRUE</span><span class="p">;</span></span>
-<span class="code-line"><span class="n">setsockopt</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">SOL_SOCKET</span><span class="p">,</span> <span class="n">SO_DEBUG</span><span class="p">,</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span> <span class="n">bDebug</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">bool</span><span class="p">));</span></span>
+<span class="code-line"><span class="n">setsockopt</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">SOL_SOCKET</span><span class="p">,</span> <span class="n">SO_DEBUG</span><span class="p">,</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span>  <span class="n">bDebug</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">bool</span><span class="p">));</span></span>
 </pre></div>
+<h3 id="setsockopt">setsockopt</h3>
+<p>setsockopt()支持下列选项。其中&ldquo;类型&rdquo;表明optval所指数据的类型。
+选项        类型   意义
+SO_BROADCAST BOOL 允许套接口传送广播信息。</p>
+<p>SO_DEBUG BOOL 记录调试信息。</p>
+<p>SO_DONTLINER BOOL 不要因为数据未发送就阻塞关闭操作。设置本选项相当于将SO_LINGER的l_onoff元素置为零。</p>
+<p>SO_DONTROUTE BOOL 禁止选径；直接传送。</p>
+<p>SO_KEEPALIVE BOOL 发送&ldquo;保持活动&rdquo;包。</p>
+<p>SO_LINGER struct linger FAR*   如关闭时有未发送数据，则逗留。</p>
+<p>SO_OOBINLINE BOOL 在常规数据流中接收带外数据。</p>
+<p>SO_RCVBUF int 为接收确定缓冲区大小。</p>
+<p>SO_REUSEADDR BOOL 允许套接口和一个已在使用中的地址捆绑（参见bind()）。</p>
+<p>SO_SNDBUF int 指定发送缓冲区大小。</p>
+<p>TCP_NODELAY BOOL 禁止发送合并的Nagle算法。</p>
 <hr/>
 <h3 id="_3">粘包</h3>
 <p>指TCP协议中，发送方发送的若干包数据到接收时粘成以包，从接收缓存看，后一数据的

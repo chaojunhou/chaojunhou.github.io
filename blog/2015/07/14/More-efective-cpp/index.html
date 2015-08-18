@@ -93,7 +93,7 @@
     <div class="span2 table-of-content">
         <nav>
         <h4>Contents</h4>
-        <div id="toc"><ul><li><a class="toc-href" href="#" title="More efective cpp">More efective cpp</a><ul><li><a class="toc-href" href="#copy-on-write" title="Copy on write">Copy on write</a></li><li><a class="toc-href" href="#cppvirtual" title="CPP中不能声明为virtual函数的函数">CPP中不能声明为virtual函数的函数</a><ul><li><a class="toc-href" href="#_1" title="一、 内联函数">一、 内联函数</a></li><li><a class="toc-href" href="#_2" title="二、构造函数">二、构造函数</a></li><li><a class="toc-href" href="#_3" title="三、静态成员函数">三、静态成员函数</a></li><li><a class="toc-href" href="#_4" title="四、普通函数">四、普通函数</a></li><li><a class="toc-href" href="#_5" title="五、友元函数">五、友元函数</a></li></ul></li><li><a class="toc-href" href="#_7" title="面向对象编程">面向对象编程</a></li><li><a class="toc-href" href="#rtti" title="RTTI">RTTI</a></li><li><a class="toc-href" href="#new" title="new关键字">new关键字</a></li><li><a class="toc-href" href="#pimpl" title="Pimpl">Pimpl</a></li><li><a class="toc-href" href="#vs" title="静态联编 Vs 动态联编">静态联编 Vs 动态联编</a></li></ul></li></ul></div>
+        <div id="toc"><ul><li><a class="toc-href" href="#" title="More efective cpp">More efective cpp</a><ul><li><a class="toc-href" href="#copy-on-write" title="Copy on write">Copy on write</a></li><li><a class="toc-href" href="#cppvirtual" title="CPP中不能声明为virtual函数的函数">CPP中不能声明为virtual函数的函数</a><ul><li><a class="toc-href" href="#_1" title="一、 内联函数">一、 内联函数</a></li><li><a class="toc-href" href="#_2" title="二、构造函数">二、构造函数</a></li><li><a class="toc-href" href="#_3" title="三、静态成员函数">三、静态成员函数</a></li><li><a class="toc-href" href="#_4" title="四、普通函数">四、普通函数</a></li><li><a class="toc-href" href="#_5" title="五、友元函数">五、友元函数</a></li></ul></li><li><a class="toc-href" href="#_7" title="面向对象编程">面向对象编程</a></li><li><a class="toc-href" href="#rtti" title="RTTI">RTTI</a></li><li><a class="toc-href" href="#new" title="new关键字">new关键字</a></li><li><a class="toc-href" href="#pimpl" title="Pimpl">Pimpl</a></li><li><a class="toc-href" href="#vs" title="静态联编 Vs 动态联编">静态联编 Vs 动态联编</a></li><li><a class="toc-href" href="#typdef" title="typdef">typdef</a></li><li><a class="toc-href" href="#_8" title="栈内存和堆内存">栈内存和堆内存</a></li></ul></li></ul></div>
         </nav>
     </div>
     <div class="span8 article-content">
@@ -132,6 +132,7 @@ CPP支持编译时期的多态和运行时期的多态。其中编译时期的�
 1. 内存分配
 2. 调用构造函数</p>
 <p>同时C++标准中规定，如果内存分配失败，或者构造函数没有成功执行， new运算符所返回的将是空。</p>
+<p>对于非内部数据类型的对象而言，对象在创建的同时需要自动执行构造函数，对象消亡的时候自动执行析构函数，而malloc和free是库函数只能在运行的时候才能调用，CPP中是通过new（动态内存分配和初始化）和delete（清理与释放内存工作）来实现动态分配内存的作用，new和delete是运算符不是库函数。</p>
 <h3 id="pimpl">Pimpl</h3>
 <p>C++中Pimpl惯用法，又被称为编译防火墙，是一种在头文件中隐藏实现的方式。</p>
 <div class="highlight"><pre><span class="code-line"><span class="c1">// Foo.h</span></span>
@@ -172,6 +173,23 @@ CPP支持编译时期的多态和运行时期的多态。其中编译时期的�
 是在程序运行之前完成的。优点是效率高，但是灵活性差。</p>
 <p>动态联编：是指联编在程序运行时动态地进行，根据当时的情况来调用哪个同名函数，
 实际上是在运行时虚函数的实现。又称为晚期联编，优点是灵活性高，但效率低。动态联编要靠虚函数来实现，虚函数要靠动态联编的支持。两者相辅相成，缺一不可</p>
+<h3 id="typdef">typdef</h3>
+<div class="highlight"><pre><span class="code-line"><span class="n">typdef</span> <span class="kt">char</span><span class="o">*</span> <span class="n">stringArray</span><span class="p">[];</span></span>
+<span class="code-line"><span class="kt">int</span> <span class="n">f</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="n">stringArray</span> <span class="n">argv</span><span class="p">)</span> <span class="c1">// stringArray argv == char* argv[];</span></span>
+</pre></div>
+<h3 id="_8">栈内存和堆内存</h3>
+<div class="highlight"><pre><span class="code-line"><span class="kt">char</span><span class="o">*</span> <span class="nf">GetMemory1</span><span class="p">(</span><span class="kt">int</span> <span class="n">num</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="kt">char</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">)</span><span class="o">*</span><span class="n">num</span><span class="p">);</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="n">p</span><span class="p">;</span> <span class="c1">// 这里是堆内存，由程序员自己分配和释放</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kt">char</span><span class="o">*</span> <span class="nf">GetMoemory1</span><span class="p">(</span><span class="kt">int</span> <span class="n">num</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="kt">char</span> <span class="n">p</span><span class="p">[]</span> <span class="o">=</span> <span class="s">"Hello world"</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="n">p</span><span class="p">;</span> <span class="c1">// 这里是错误的，栈内存由操作系统分配和释放，在超过其作用范围内会自动释放。</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
 <section>
 <div class="accordion" id="accordion2">
     <div class="accordion-group">
