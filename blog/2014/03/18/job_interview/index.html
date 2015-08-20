@@ -93,7 +93,7 @@
     <div class="span2 table-of-content">
         <nav>
         <h4>Contents</h4>
-        <div id="toc"><ul><li><a class="toc-href" href="#" title="面试准备">面试准备</a><ul><li><a class="toc-href" href="#string" title="写一个String 类">写一个String 类</a></li></ul></li></ul></div>
+        <div id="toc"><ul><li><a class="toc-href" href="#" title="面试准备">面试准备</a><ul><li><a class="toc-href" href="#string" title="写一个String 类">写一个String 类</a></li><li><a class="toc-href" href="#kurl" title="从一个文件中找到出现频率最高的k个单词（url）">从一个文件中找到出现频率最高的k个单词（url）</a></li><li><a class="toc-href" href="#cppcondition" title="CPP使用condition实现线程安全的阻塞队列">CPP使用condition实现线程安全的阻塞队列</a></li><li><a class="toc-href" href="#_1" title="写一个智能指针类">写一个智能指针类</a></li><li><a class="toc-href" href="#merge-k-sorted-list" title="merge K sorted List">merge K sorted List</a></li><li><a class="toc-href" href="#_2" title="最长包含非重复字符的子串">最长包含非重复字符的子串</a></li><li><a class="toc-href" href="#_3" title="实现一个内存池">实现一个内存池</a></li></ul></li></ul></div>
         </nav>
     </div>
     <div class="span8 article-content">
@@ -182,6 +182,620 @@
 <span class="code-line"> <span class="k">private</span><span class="o">:</span></span>
 <span class="code-line">  <span class="kt">char</span><span class="o">*</span> <span class="n">data_</span><span class="p">;</span></span>
 <span class="code-line"><span class="p">};</span></span>
+</pre></div>
+<h3 id="kurl">从一个文件中找到出现频率最高的k个单词（url）</h3>
+<div class="highlight"><pre><span class="code-line"><span class="c1">// A program to find k most frequent words in a file</span></span>
+<span class="code-line"><span class="cp">#include &lt;stdio.h&gt;</span></span>
+<span class="code-line"><span class="cp">#include &lt;string.h&gt;</span></span>
+<span class="code-line"><span class="cp">#include &lt;ctype.h&gt;</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="cp"># define MAX_CHARS 26</span></span>
+<span class="code-line"><span class="cp"># define MAX_WORD_SIZE 30</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="c1">// A Trie node</span></span>
+<span class="code-line"><span class="k">struct</span> <span class="n">TrieNode</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="kt">bool</span> <span class="n">isEnd</span><span class="p">;</span> <span class="c1">// indicates end of word</span></span>
+<span class="code-line">    <span class="kt">unsigned</span> <span class="n">frequency</span><span class="p">;</span>  <span class="c1">// the number of occurrences of a word</span></span>
+<span class="code-line">    <span class="kt">int</span> <span class="n">indexMinHeap</span><span class="p">;</span> <span class="c1">// the index of the word in minHeap</span></span>
+<span class="code-line">    <span class="n">TrieNode</span><span class="o">*</span> <span class="n">child</span><span class="p">[</span><span class="n">MAX_CHARS</span><span class="p">];</span> <span class="c1">// represents 26 slots each for 'a' to 'z'.</span></span>
+<span class="code-line"><span class="p">};</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="c1">// A Min Heap node</span></span>
+<span class="code-line"><span class="k">struct</span> <span class="n">MinHeapNode</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="n">TrieNode</span><span class="o">*</span> <span class="n">root</span><span class="p">;</span> <span class="c1">// indicates the leaf node of TRIE</span></span>
+<span class="code-line">    <span class="kt">unsigned</span> <span class="n">frequency</span><span class="p">;</span> <span class="c1">//  number of occurrences</span></span>
+<span class="code-line">    <span class="kt">char</span><span class="o">*</span> <span class="n">word</span><span class="p">;</span> <span class="c1">// the actual word stored</span></span>
+<span class="code-line"><span class="p">};</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="c1">// A Min Heap</span></span>
+<span class="code-line"><span class="k">struct</span> <span class="n">MinHeap</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="kt">unsigned</span> <span class="n">capacity</span><span class="p">;</span> <span class="c1">// the total size a min heap</span></span>
+<span class="code-line">    <span class="kt">int</span> <span class="n">count</span><span class="p">;</span> <span class="c1">// indicates the number of slots filled.</span></span>
+<span class="code-line">    <span class="n">MinHeapNode</span><span class="o">*</span> <span class="n">array</span><span class="p">;</span> <span class="c1">//  represents the collection of minHeapNodes</span></span>
+<span class="code-line"><span class="p">};</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="c1">// A utility function to create a new Trie node</span></span>
+<span class="code-line"><span class="n">TrieNode</span><span class="o">*</span> <span class="nf">newTrieNode</span><span class="p">()</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="c1">// Allocate memory for Trie Node</span></span>
+<span class="code-line">    <span class="n">TrieNode</span><span class="o">*</span> <span class="n">trieNode</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TrieNode</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="c1">// Initialize values for new node</span></span>
+<span class="code-line">    <span class="n">trieNode</span><span class="o">-&gt;</span><span class="n">isEnd</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">trieNode</span><span class="o">-&gt;</span><span class="n">frequency</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">trieNode</span><span class="o">-&gt;</span><span class="n">indexMinHeap</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">for</span><span class="p">(</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">MAX_CHARS</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span> <span class="p">)</span></span>
+<span class="code-line">        <span class="n">trieNode</span><span class="o">-&gt;</span><span class="n">child</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">return</span> <span class="n">trieNode</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="c1">// A utility function to create a Min Heap of given capacity</span></span>
+<span class="code-line"><span class="n">MinHeap</span><span class="o">*</span> <span class="nf">createMinHeap</span><span class="p">(</span> <span class="kt">int</span> <span class="n">capacity</span> <span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="n">MinHeap</span><span class="o">*</span> <span class="n">minHeap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MinHeap</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="n">minHeap</span><span class="o">-&gt;</span><span class="n">capacity</span> <span class="o">=</span> <span class="n">capacity</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">minHeap</span><span class="o">-&gt;</span><span class="n">count</span>  <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="c1">// Allocate memory for array of min heap nodes</span></span>
+<span class="code-line">    <span class="n">minHeap</span><span class="o">-&gt;</span><span class="n">array</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MinHeapNode</span> <span class="p">[</span> <span class="n">minHeap</span><span class="o">-&gt;</span><span class="n">capacity</span> <span class="p">];</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">return</span> <span class="n">minHeap</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="c1">// A utility function to swap two min heap nodes. This function</span></span>
+<span class="code-line"><span class="c1">// is needed in minHeapify</span></span>
+<span class="code-line"><span class="kt">void</span> <span class="nf">swapMinHeapNodes</span> <span class="p">(</span> <span class="n">MinHeapNode</span><span class="o">*</span> <span class="n">a</span><span class="p">,</span> <span class="n">MinHeapNode</span><span class="o">*</span> <span class="n">b</span> <span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="n">MinHeapNode</span> <span class="n">temp</span> <span class="o">=</span> <span class="o">*</span><span class="n">a</span><span class="p">;</span></span>
+<span class="code-line">    <span class="o">*</span><span class="n">a</span> <span class="o">=</span> <span class="o">*</span><span class="n">b</span><span class="p">;</span></span>
+<span class="code-line">    <span class="o">*</span><span class="n">b</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="c1">// This is the standard minHeapify function. It does one thing extra.</span></span>
+<span class="code-line"><span class="c1">// It updates the minHapIndex in Trie when two nodes are swapped in</span></span>
+<span class="code-line"><span class="c1">// in min heap</span></span>
+<span class="code-line"><span class="kt">void</span> <span class="nf">minHeapify</span><span class="p">(</span> <span class="n">MinHeap</span><span class="o">*</span> <span class="n">minHeap</span><span class="p">,</span> <span class="kt">int</span> <span class="n">idx</span> <span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="kt">int</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">smallest</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="n">left</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">right</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">idx</span> <span class="o">+</span> <span class="mi">2</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">smallest</span> <span class="o">=</span> <span class="n">idx</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">if</span> <span class="p">(</span> <span class="n">left</span> <span class="o">&lt;</span> <span class="n">minHeap</span><span class="o">-&gt;</span><span class="n">count</span> <span class="o">&amp;&amp;</span></span>
+<span class="code-line">         <span class="n">minHeap</span><span class="o">-&gt;</span><span class="n">array</span><span class="p">[</span> <span class="n">left</span> <span class="p">].</span> <span class="n">frequency</span> <span class="o">&lt;</span></span>
+<span class="code-line">         <span class="n">minHeap</span><span class="o">-&gt;</span><span class="n">array</span><span class="p">[</span> <span class="n">smallest</span> <span class="p">].</span> <span class="n">frequency</span></span>
+<span class="code-line">       <span class="p">)</span></span>
+<span class="code-line">        <span class="n">smallest</span> <span class="o">=</span> <span class="n">left</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">if</span> <span class="p">(</span> <span class="n">right</span> <span class="o">&lt;</span> <span class="n">minHeap</span><span class="o">-&gt;</span><span class="n">count</span> <span class="o">&amp;&amp;</span></span>
+<span class="code-line">         <span class="n">minHeap</span><span class="o">-&gt;</span><span class="n">array</span><span class="p">[</span> <span class="n">right</span> <span class="p">].</span> <span class="n">frequency</span> <span class="o">&lt;</span></span>
+<span class="code-line">         <span class="n">minHeap</span><span class="o">-&gt;</span><span class="n">array</span><span class="p">[</span> <span class="n">smallest</span> <span class="p">].</span> <span class="n">frequency</span></span>
+<span class="code-line">       <span class="p">)</span></span>
+<span class="code-line">        <span class="n">smallest</span> <span class="o">=</span> <span class="n">right</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">if</span><span class="p">(</span> <span class="n">smallest</span> <span class="o">!=</span> <span class="n">idx</span> <span class="p">)</span></span>
+<span class="code-line">    <span class="p">{</span></span>
+<span class="code-line">        <span class="c1">// Update the corresponding index in Trie node.</span></span>
+<span class="code-line">        <span class="n">minHeap</span><span class="o">-&gt;</span><span class="n">array</span><span class="p">[</span> <span class="n">smallest</span> <span class="p">].</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">indexMinHeap</span> <span class="o">=</span> <span class="n">idx</span><span class="p">;</span></span>
+<span class="code-line">        <span class="n">minHeap</span><span class="o">-&gt;</span><span class="n">array</span><span class="p">[</span> <span class="n">idx</span> <span class="p">].</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">indexMinHeap</span> <span class="o">=</span> <span class="n">smallest</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="c1">// Swap nodes in min heap</span></span>
+<span class="code-line">        <span class="n">swapMinHeapNodes</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">minHeap</span><span class="o">-&gt;</span><span class="n">array</span><span class="p">[</span> <span class="n">smallest</span> <span class="p">],</span> <span class="o">&amp;</span><span class="n">minHeap</span><span class="o">-&gt;</span><span class="n">array</span><span class="p">[</span> <span class="n">idx</span> <span class="p">]);</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="n">minHeapify</span><span class="p">(</span> <span class="n">minHeap</span><span class="p">,</span> <span class="n">smallest</span> <span class="p">);</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="c1">// A standard function to build a heap</span></span>
+<span class="code-line"><span class="kt">void</span> <span class="nf">buildMinHeap</span><span class="p">(</span> <span class="n">MinHeap</span><span class="o">*</span> <span class="n">minHeap</span> <span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">i</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">n</span> <span class="o">=</span> <span class="n">minHeap</span><span class="o">-&gt;</span><span class="n">count</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">for</span><span class="p">(</span> <span class="n">i</span> <span class="o">=</span> <span class="p">(</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span> <span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="o">--</span><span class="n">i</span> <span class="p">)</span></span>
+<span class="code-line">        <span class="n">minHeapify</span><span class="p">(</span> <span class="n">minHeap</span><span class="p">,</span> <span class="n">i</span> <span class="p">);</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="c1">// Inserts a word to heap, the function handles the 3 cases explained above</span></span>
+<span class="code-line"><span class="kt">void</span> <span class="nf">insertInMinHeap</span><span class="p">(</span> <span class="n">MinHeap</span><span class="o">*</span> <span class="n">minHeap</span><span class="p">,</span> <span class="n">TrieNode</span><span class="o">**</span> <span class="n">root</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">word</span> <span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="c1">// Case 1: the word is already present in minHeap</span></span>
+<span class="code-line">    <span class="k">if</span><span class="p">(</span> <span class="p">(</span><span class="o">*</span><span class="n">root</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">indexMinHeap</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span> <span class="p">)</span></span>
+<span class="code-line">    <span class="p">{</span></span>
+<span class="code-line">        <span class="o">++</span><span class="p">(</span> <span class="n">minHeap</span><span class="o">-&gt;</span><span class="n">array</span><span class="p">[</span> <span class="p">(</span><span class="o">*</span><span class="n">root</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">indexMinHeap</span> <span class="p">].</span> <span class="n">frequency</span> <span class="p">);</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="c1">// percolate down</span></span>
+<span class="code-line">        <span class="n">minHeapify</span><span class="p">(</span> <span class="n">minHeap</span><span class="p">,</span> <span class="p">(</span><span class="o">*</span><span class="n">root</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">indexMinHeap</span> <span class="p">);</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="c1">// Case 2: Word is not present and heap is not full</span></span>
+<span class="code-line">    <span class="k">else</span> <span class="k">if</span><span class="p">(</span> <span class="n">minHeap</span><span class="o">-&gt;</span><span class="n">count</span> <span class="o">&lt;</span> <span class="n">minHeap</span><span class="o">-&gt;</span><span class="n">capacity</span> <span class="p">)</span></span>
+<span class="code-line">    <span class="p">{</span></span>
+<span class="code-line">        <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">minHeap</span><span class="o">-&gt;</span><span class="n">count</span><span class="p">;</span></span>
+<span class="code-line">        <span class="n">minHeap</span><span class="o">-&gt;</span><span class="n">array</span><span class="p">[</span> <span class="n">count</span> <span class="p">].</span> <span class="n">frequency</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="n">root</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">frequency</span><span class="p">;</span></span>
+<span class="code-line">        <span class="n">minHeap</span><span class="o">-&gt;</span><span class="n">array</span><span class="p">[</span> <span class="n">count</span> <span class="p">].</span> <span class="n">word</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">char</span> <span class="p">[</span><span class="n">strlen</span><span class="p">(</span> <span class="n">word</span> <span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span></span>
+<span class="code-line">        <span class="n">strcpy</span><span class="p">(</span> <span class="n">minHeap</span><span class="o">-&gt;</span><span class="n">array</span><span class="p">[</span> <span class="n">count</span> <span class="p">].</span> <span class="n">word</span><span class="p">,</span> <span class="n">word</span> <span class="p">);</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="n">minHeap</span><span class="o">-&gt;</span><span class="n">array</span><span class="p">[</span> <span class="n">count</span> <span class="p">].</span> <span class="n">root</span> <span class="o">=</span> <span class="o">*</span><span class="n">root</span><span class="p">;</span></span>
+<span class="code-line">        <span class="p">(</span><span class="o">*</span><span class="n">root</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">indexMinHeap</span> <span class="o">=</span> <span class="n">minHeap</span><span class="o">-&gt;</span><span class="n">count</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="o">++</span><span class="p">(</span> <span class="n">minHeap</span><span class="o">-&gt;</span><span class="n">count</span> <span class="p">);</span></span>
+<span class="code-line">        <span class="n">buildMinHeap</span><span class="p">(</span> <span class="n">minHeap</span> <span class="p">);</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="c1">// Case 3: Word is not present and heap is full. And frequency of word</span></span>
+<span class="code-line">    <span class="c1">// is more than root. The root is the least frequent word in heap,</span></span>
+<span class="code-line">    <span class="c1">// replace root with new word</span></span>
+<span class="code-line">    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="p">(</span><span class="o">*</span><span class="n">root</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">frequency</span> <span class="o">&gt;</span> <span class="n">minHeap</span><span class="o">-&gt;</span><span class="n">array</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span> <span class="n">frequency</span> <span class="p">)</span></span>
+<span class="code-line">    <span class="p">{</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="n">minHeap</span><span class="o">-&gt;</span><span class="n">array</span><span class="p">[</span> <span class="mi">0</span> <span class="p">].</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">indexMinHeap</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span></span>
+<span class="code-line">        <span class="n">minHeap</span><span class="o">-&gt;</span><span class="n">array</span><span class="p">[</span> <span class="mi">0</span> <span class="p">].</span> <span class="n">root</span> <span class="o">=</span> <span class="o">*</span><span class="n">root</span><span class="p">;</span></span>
+<span class="code-line">        <span class="n">minHeap</span><span class="o">-&gt;</span><span class="n">array</span><span class="p">[</span> <span class="mi">0</span> <span class="p">].</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">indexMinHeap</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line">        <span class="n">minHeap</span><span class="o">-&gt;</span><span class="n">array</span><span class="p">[</span> <span class="mi">0</span> <span class="p">].</span> <span class="n">frequency</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="n">root</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">frequency</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="c1">// delete previously allocated memoory and</span></span>
+<span class="code-line">        <span class="k">delete</span> <span class="p">[]</span> <span class="n">minHeap</span><span class="o">-&gt;</span><span class="n">array</span><span class="p">[</span> <span class="mi">0</span> <span class="p">].</span> <span class="n">word</span><span class="p">;</span></span>
+<span class="code-line">        <span class="n">minHeap</span><span class="o">-&gt;</span><span class="n">array</span><span class="p">[</span> <span class="mi">0</span> <span class="p">].</span> <span class="n">word</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">char</span> <span class="p">[</span><span class="n">strlen</span><span class="p">(</span> <span class="n">word</span> <span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span></span>
+<span class="code-line">        <span class="n">strcpy</span><span class="p">(</span> <span class="n">minHeap</span><span class="o">-&gt;</span><span class="n">array</span><span class="p">[</span> <span class="mi">0</span> <span class="p">].</span> <span class="n">word</span><span class="p">,</span> <span class="n">word</span> <span class="p">);</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="n">minHeapify</span> <span class="p">(</span> <span class="n">minHeap</span><span class="p">,</span> <span class="mi">0</span> <span class="p">);</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="c1">// Inserts a new word to both Trie and Heap</span></span>
+<span class="code-line"><span class="kt">void</span> <span class="nf">insertUtil</span> <span class="p">(</span> <span class="n">TrieNode</span><span class="o">**</span> <span class="n">root</span><span class="p">,</span> <span class="n">MinHeap</span><span class="o">*</span> <span class="n">minHeap</span><span class="p">,</span></span>
+<span class="code-line">                        <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">word</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">dupWord</span> <span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="c1">// Base Case</span></span>
+<span class="code-line">    <span class="k">if</span> <span class="p">(</span> <span class="o">*</span><span class="n">root</span> <span class="o">==</span> <span class="nb">NULL</span> <span class="p">)</span></span>
+<span class="code-line">        <span class="o">*</span><span class="n">root</span> <span class="o">=</span> <span class="n">newTrieNode</span><span class="p">();</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="c1">//  There are still more characters in word</span></span>
+<span class="code-line">    <span class="k">if</span> <span class="p">(</span> <span class="o">*</span><span class="n">word</span> <span class="o">!=</span> <span class="sc">'\0'</span> <span class="p">)</span></span>
+<span class="code-line">        <span class="n">insertUtil</span> <span class="p">(</span> <span class="o">&amp;</span><span class="p">((</span><span class="o">*</span><span class="n">root</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">child</span><span class="p">[</span> <span class="n">tolower</span><span class="p">(</span> <span class="o">*</span><span class="n">word</span> <span class="p">)</span> <span class="o">-</span> <span class="mi">97</span> <span class="p">]),</span></span>
+<span class="code-line">                         <span class="n">minHeap</span><span class="p">,</span> <span class="n">word</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dupWord</span> <span class="p">);</span></span>
+<span class="code-line">    <span class="k">else</span> <span class="c1">// The complete word is processed</span></span>
+<span class="code-line">    <span class="p">{</span></span>
+<span class="code-line">        <span class="c1">// word is already present, increase the frequency</span></span>
+<span class="code-line">        <span class="k">if</span> <span class="p">(</span> <span class="p">(</span><span class="o">*</span><span class="n">root</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">isEnd</span> <span class="p">)</span></span>
+<span class="code-line">            <span class="o">++</span><span class="p">(</span> <span class="p">(</span><span class="o">*</span><span class="n">root</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">frequency</span> <span class="p">);</span></span>
+<span class="code-line">        <span class="k">else</span></span>
+<span class="code-line">        <span class="p">{</span></span>
+<span class="code-line">            <span class="p">(</span><span class="o">*</span><span class="n">root</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">isEnd</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span></span>
+<span class="code-line">            <span class="p">(</span><span class="o">*</span><span class="n">root</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">frequency</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span></span>
+<span class="code-line">        <span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="c1">// Insert in min heap also</span></span>
+<span class="code-line">        <span class="n">insertInMinHeap</span><span class="p">(</span> <span class="n">minHeap</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">dupWord</span> <span class="p">);</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="c1">// add a word to Trie &amp; min heap.  A wrapper over the insertUtil</span></span>
+<span class="code-line"><span class="kt">void</span> <span class="nf">insertTrieAndHeap</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">word</span><span class="p">,</span> <span class="n">TrieNode</span><span class="o">**</span> <span class="n">root</span><span class="p">,</span> <span class="n">MinHeap</span><span class="o">*</span> <span class="n">minHeap</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="n">insertUtil</span><span class="p">(</span> <span class="n">root</span><span class="p">,</span> <span class="n">minHeap</span><span class="p">,</span> <span class="n">word</span><span class="p">,</span> <span class="n">word</span> <span class="p">);</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="c1">// A utility function to show results, The min heap</span></span>
+<span class="code-line"><span class="c1">// contains k most frequent words so far, at any time</span></span>
+<span class="code-line"><span class="kt">void</span> <span class="nf">displayMinHeap</span><span class="p">(</span> <span class="n">MinHeap</span><span class="o">*</span> <span class="n">minHeap</span> <span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="c1">// print top K word with frequency</span></span>
+<span class="code-line">    <span class="k">for</span><span class="p">(</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">minHeap</span><span class="o">-&gt;</span><span class="n">count</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span> <span class="p">)</span></span>
+<span class="code-line">    <span class="p">{</span></span>
+<span class="code-line">        <span class="n">printf</span><span class="p">(</span> <span class="s">"%s : %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">minHeap</span><span class="o">-&gt;</span><span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">word</span><span class="p">,</span></span>
+<span class="code-line">                            <span class="n">minHeap</span><span class="o">-&gt;</span><span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">frequency</span> <span class="p">);</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="c1">// The main funtion that takes a file as input, add words to heap</span></span>
+<span class="code-line"><span class="c1">// and Trie, finally shows result from heap</span></span>
+<span class="code-line"><span class="kt">void</span> <span class="nf">printKMostFreq</span><span class="p">(</span> <span class="kt">FILE</span><span class="o">*</span> <span class="n">fp</span><span class="p">,</span> <span class="kt">int</span> <span class="n">k</span> <span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="c1">// Create a Min Heap of Size k</span></span>
+<span class="code-line">    <span class="n">MinHeap</span><span class="o">*</span> <span class="n">minHeap</span> <span class="o">=</span> <span class="n">createMinHeap</span><span class="p">(</span> <span class="n">k</span> <span class="p">);</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="c1">// Create an empty Trie</span></span>
+<span class="code-line">    <span class="n">TrieNode</span><span class="o">*</span> <span class="n">root</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="c1">// A buffer to store one word at a time</span></span>
+<span class="code-line">    <span class="kt">char</span> <span class="n">buffer</span><span class="p">[</span><span class="n">MAX_WORD_SIZE</span><span class="p">];</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="c1">// Read words one by one from file.  Insert the word in Trie and Min Heap</span></span>
+<span class="code-line">    <span class="k">while</span><span class="p">(</span> <span class="n">fscanf</span><span class="p">(</span> <span class="n">fp</span><span class="p">,</span> <span class="s">"%s"</span><span class="p">,</span> <span class="n">buffer</span> <span class="p">)</span> <span class="o">!=</span> <span class="n">EOF</span> <span class="p">)</span></span>
+<span class="code-line">        <span class="n">insertTrieAndHeap</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">root</span><span class="p">,</span> <span class="n">minHeap</span><span class="p">);</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="c1">// The Min Heap will have the k most frequent words, so print Min Heap nodes</span></span>
+<span class="code-line">    <span class="n">displayMinHeap</span><span class="p">(</span> <span class="n">minHeap</span> <span class="p">);</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="c1">// Driver program to test above functions</span></span>
+<span class="code-line"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span></span>
+<span class="code-line">    <span class="kt">FILE</span> <span class="o">*</span><span class="n">fp</span> <span class="o">=</span> <span class="n">fopen</span> <span class="p">(</span><span class="s">"file.txt"</span><span class="p">,</span> <span class="s">"r"</span><span class="p">);</span></span>
+<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="n">fp</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span></span>
+<span class="code-line">        <span class="n">printf</span> <span class="p">(</span><span class="s">"File doesn't exist "</span><span class="p">);</span></span>
+<span class="code-line">    <span class="k">else</span></span>
+<span class="code-line">        <span class="n">printKMostFreq</span> <span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="n">k</span><span class="p">);</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+<h3 id="cppcondition">CPP使用condition实现线程安全的阻塞队列</h3>
+<div class="highlight"><pre><span class="code-line"><span class="cm">/*</span></span>
+<span class="code-line"><span class="cm"> * BlockingQueue.h</span></span>
+<span class="code-line"><span class="cm"> */</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="cp">#ifndef BLOCKINGQUEUE_H_</span></span>
+<span class="code-line"><span class="cp">#define BLOCKINGQUEUE_H_</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="cp">#include &lt;iostream&gt;</span></span>
+<span class="code-line"><span class="cp">#include &lt;pthread.h&gt;</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="c1">//template &lt;typename T &gt;</span></span>
+<span class="code-line"><span class="k">class</span> <span class="nc">BlockingQueue</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line"><span class="k">public</span><span class="o">:</span></span>
+<span class="code-line">    <span class="n">BlockingQueue</span><span class="p">();</span></span>
+<span class="code-line">    <span class="n">BlockingQueue</span><span class="p">(</span><span class="kt">int</span> <span class="n">capacity</span><span class="p">);</span></span>
+<span class="code-line">    <span class="o">~</span><span class="n">BlockingQueue</span><span class="p">();</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="kt">bool</span> <span class="nf">push</span><span class="p">(</span><span class="kt">int</span> <span class="n">item</span><span class="p">);</span></span>
+<span class="code-line">    <span class="kt">int</span> <span class="nf">poll</span><span class="p">();</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">private</span><span class="o">:</span></span>
+<span class="code-line">    <span class="kt">int</span> <span class="n">capacity</span><span class="p">;</span></span>
+<span class="code-line">    <span class="kt">int</span><span class="o">*</span> <span class="n">queue</span><span class="p">;</span></span>
+<span class="code-line">    <span class="kt">int</span> <span class="n">head</span><span class="p">,</span><span class="n">tail</span><span class="p">;</span></span>
+<span class="code-line">    <span class="kt">pthread_mutex_t</span> <span class="n">mutex</span><span class="p">;</span></span>
+<span class="code-line">    <span class="kt">pthread_cond_t</span> <span class="n">notFull</span><span class="p">,</span><span class="n">notEmpty</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">};</span></span>
+<span class="code-line"></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="cp">#endif </span><span class="cm">/* BLOCKINGQUEUE_H_ */</span><span class="cp"></span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="cm">/*</span></span>
+<span class="code-line"><span class="cm"> * BlockingQueue.cpp</span></span>
+<span class="code-line"><span class="cm"> */</span></span>
+<span class="code-line"><span class="cp">#include "../include/BlockingQueue.h"</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="n">BlockingQueue</span><span class="o">::</span><span class="n">BlockingQueue</span><span class="p">()</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="k">this</span><span class="o">-&gt;</span><span class="n">capacity</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">queue</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="n">capacity</span><span class="p">];</span></span>
+<span class="code-line">    <span class="n">head</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span><span class="n">tail</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">pthread_mutex_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">,</span><span class="nb">NULL</span><span class="p">);</span></span>
+<span class="code-line">    <span class="n">pthread_cond_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">notFull</span><span class="p">,</span><span class="nb">NULL</span><span class="p">);</span></span>
+<span class="code-line">    <span class="n">pthread_cond_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">notEmpty</span><span class="p">,</span><span class="nb">NULL</span><span class="p">);</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="n">BlockingQueue</span><span class="o">::</span><span class="n">BlockingQueue</span><span class="p">(</span><span class="kt">int</span> <span class="n">capacity</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="k">this</span><span class="o">-&gt;</span><span class="n">capacity</span> <span class="o">=</span> <span class="n">capacity</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">queue</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="n">capacity</span><span class="p">];</span></span>
+<span class="code-line">    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"capacity "</span> <span class="o">&lt;&lt;</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">queue</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">head</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span><span class="n">tail</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">pthread_mutex_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">,</span><span class="nb">NULL</span><span class="p">);</span></span>
+<span class="code-line">    <span class="n">pthread_cond_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">notFull</span><span class="p">,</span><span class="nb">NULL</span><span class="p">);</span></span>
+<span class="code-line">    <span class="n">pthread_cond_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">notEmpty</span><span class="p">,</span><span class="nb">NULL</span><span class="p">);</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="n">BlockingQueue</span><span class="o">::~</span><span class="n">BlockingQueue</span><span class="p">()</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="k">this</span><span class="o">-&gt;</span><span class="n">capacity</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">head</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span><span class="n">tail</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">delete</span> <span class="n">queue</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">pthread_mutex_destroy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span></span>
+<span class="code-line">    <span class="n">pthread_cond_destroy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">notFull</span><span class="p">);</span></span>
+<span class="code-line">    <span class="n">pthread_cond_destroy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">notEmpty</span><span class="p">);</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kt">bool</span> <span class="n">BlockingQueue</span><span class="o">::</span><span class="n">push</span><span class="p">(</span><span class="kt">int</span> <span class="n">item</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span></span>
+<span class="code-line">    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"you want push "</span> <span class="o">&lt;&lt;</span> <span class="n">item</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">while</span><span class="p">((</span><span class="n">head</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">capacity</span> <span class="o">==</span> <span class="n">tail</span><span class="p">)</span><span class="c1">//is full</span></span>
+<span class="code-line">    <span class="p">{</span></span>
+<span class="code-line">        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"is full,wait..."</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span></span>
+<span class="code-line">        <span class="c1">// push wait</span></span>
+<span class="code-line">        <span class="n">pthread_cond_wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">notFull</span><span class="p">,</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span></span>
+<span class="code-line">        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"not full,unlock"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="p">{</span></span>
+<span class="code-line">        <span class="n">queue</span><span class="p">[</span><span class="n">head</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span><span class="p">;</span></span>
+<span class="code-line">        <span class="n">head</span> <span class="o">=</span> <span class="p">(</span><span class="n">head</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">capacity</span><span class="p">;</span></span>
+<span class="code-line">        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"push "</span> <span class="o">&lt;&lt;</span> <span class="n">item</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span></span>
+<span class="code-line">        <span class="c1">//wake up poll thread</span></span>
+<span class="code-line">        <span class="n">pthread_cond_signal</span><span class="p">(</span><span class="o">&amp;</span><span class="n">notEmpty</span><span class="p">);</span></span>
+<span class="code-line">        <span class="n">pthread_mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kt">int</span> <span class="n">BlockingQueue</span><span class="o">::</span><span class="n">poll</span><span class="p">()</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span></span>
+<span class="code-line">    <span class="kt">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">while</span><span class="p">(</span><span class="n">head</span> <span class="o">==</span> <span class="n">tail</span><span class="p">)</span> <span class="c1">// is empty</span></span>
+<span class="code-line">    <span class="p">{</span></span>
+<span class="code-line">        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"is empty,wait..."</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span></span>
+<span class="code-line">        <span class="c1">//poll wait</span></span>
+<span class="code-line">        <span class="n">pthread_cond_wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">notEmpty</span><span class="p">,</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span></span>
+<span class="code-line">        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"not empty,unlock..."</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line">    <span class="p">{</span></span>
+<span class="code-line">        <span class="n">ret</span> <span class="o">=</span> <span class="n">queue</span><span class="p">[</span><span class="n">tail</span><span class="p">];</span></span>
+<span class="code-line">        <span class="n">tail</span> <span class="o">=</span> <span class="p">(</span><span class="n">tail</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">capacity</span><span class="p">;</span></span>
+<span class="code-line">        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"take "</span> <span class="o">&lt;&lt;</span> <span class="n">ret</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span></span>
+<span class="code-line">        <span class="c1">//wake up push thread</span></span>
+<span class="code-line">        <span class="n">pthread_cond_signal</span><span class="p">(</span><span class="o">&amp;</span><span class="n">notFull</span><span class="p">);</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="n">pthread_mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">ret</span><span class="p">;</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="cm">/* mian.c*/</span></span>
+<span class="code-line"><span class="cp">#include &lt;iostream&gt;</span></span>
+<span class="code-line"><span class="cp">#include "include/BlockingQueue.h"</span></span>
+<span class="code-line"><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span></span>
+<span class="code-line"><span class="n">BlockingQueue</span> <span class="nf">queue</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kt">void</span><span class="o">*</span> <span class="nf">put</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="n">queue</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span></span>
+<span class="code-line">        <span class="n">queue</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span></span>
+<span class="code-line">        <span class="n">queue</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span></span>
+<span class="code-line">        <span class="n">queue</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span></span>
+<span class="code-line">        <span class="n">queue</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kt">void</span><span class="o">*</span> <span class="nf">take</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="n">queue</span><span class="p">.</span><span class="n">poll</span><span class="p">();</span></span>
+<span class="code-line">    <span class="n">queue</span><span class="p">.</span><span class="n">poll</span><span class="p">();</span></span>
+<span class="code-line">    <span class="n">queue</span><span class="p">.</span><span class="n">poll</span><span class="p">();</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="kt">pthread_t</span> <span class="n">put1</span><span class="p">,</span><span class="n">take1</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">pthread_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">put1</span><span class="p">,</span><span class="nb">NULL</span><span class="p">,</span><span class="n">put</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span></span>
+<span class="code-line">    <span class="n">pthread_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">take1</span><span class="p">,</span><span class="nb">NULL</span><span class="p">,</span><span class="n">take</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="kt">void</span> <span class="o">*</span> <span class="n">retval</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">pthread_join</span><span class="p">(</span><span class="n">put1</span><span class="p">,</span><span class="o">&amp;</span><span class="n">retval</span><span class="p">);</span></span>
+<span class="code-line">    <span class="n">pthread_join</span><span class="p">(</span><span class="n">take1</span><span class="p">,</span><span class="o">&amp;</span><span class="n">retval</span><span class="p">);</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+<h3 id="_1">写一个智能指针类</h3>
+<div class="highlight"><pre><span class="code-line"><span class="cp">#include &lt;iostream&gt;</span></span>
+<span class="code-line"><span class="cp">#include &lt;cstdlib&gt;</span></span>
+<span class="code-line"><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span></span>
+<span class="code-line"><span class="k">class</span> <span class="nc">SmartPointer</span><span class="p">{</span></span>
+<span class="code-line"><span class="k">public</span><span class="o">:</span></span>
+<span class="code-line">    <span class="n">SmartPointer</span><span class="p">(</span><span class="n">T</span><span class="o">*</span> <span class="n">ptr</span><span class="p">){</span></span>
+<span class="code-line">        <span class="n">ref</span> <span class="o">=</span> <span class="n">ptr</span><span class="p">;</span></span>
+<span class="code-line">        <span class="n">ref_count</span> <span class="o">=</span> <span class="p">(</span><span class="kt">unsigned</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">unsigned</span><span class="p">));</span></span>
+<span class="code-line">        <span class="o">*</span><span class="n">ref_count</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="n">SmartPointer</span><span class="p">(</span><span class="n">SmartPointer</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">sptr</span><span class="p">){</span></span>
+<span class="code-line">        <span class="n">ref</span> <span class="o">=</span> <span class="n">sptr</span><span class="p">.</span><span class="n">ref</span><span class="p">;</span></span>
+<span class="code-line">        <span class="n">ref_count</span> <span class="o">=</span> <span class="n">sptr</span><span class="p">.</span><span class="n">ref_count</span><span class="p">;</span></span>
+<span class="code-line">        <span class="o">++*</span><span class="n">ref_count</span><span class="p">;</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="n">SmartPointer</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">SmartPointer</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">sptr</span><span class="p">){</span></span>
+<span class="code-line">        <span class="k">if</span> <span class="p">(</span><span class="k">this</span> <span class="o">!=</span> <span class="o">&amp;</span><span class="n">sptr</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">            <span class="k">if</span> <span class="p">(</span><span class="o">--*</span><span class="n">ref_count</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span></span>
+<span class="code-line">                <span class="n">clear</span><span class="p">();</span></span>
+<span class="code-line">                <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"operator= clear"</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span></span>
+<span class="code-line">            <span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">            <span class="n">ref</span> <span class="o">=</span> <span class="n">sptr</span><span class="p">.</span><span class="n">ref</span><span class="p">;</span></span>
+<span class="code-line">            <span class="n">ref_count</span> <span class="o">=</span> <span class="n">sptr</span><span class="p">.</span><span class="n">ref_count</span><span class="p">;</span></span>
+<span class="code-line">            <span class="o">++*</span><span class="n">ref_count</span><span class="p">;</span></span>
+<span class="code-line">        <span class="p">}</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="o">~</span><span class="n">SmartPointer</span><span class="p">(){</span></span>
+<span class="code-line">        <span class="k">if</span> <span class="p">(</span><span class="o">--*</span><span class="n">ref_count</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span></span>
+<span class="code-line">            <span class="n">clear</span><span class="p">();</span></span>
+<span class="code-line">            <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"destructor clear"</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span></span>
+<span class="code-line">        <span class="p">}</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="n">T</span> <span class="n">getValue</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="o">*</span><span class="n">ref</span><span class="p">;</span> <span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">private</span><span class="o">:</span></span>
+<span class="code-line">    <span class="kt">void</span> <span class="n">clear</span><span class="p">(){</span></span>
+<span class="code-line">        <span class="k">delete</span> <span class="n">ref</span><span class="p">;</span></span>
+<span class="code-line">        <span class="n">free</span><span class="p">(</span><span class="n">ref_count</span><span class="p">);</span></span>
+<span class="code-line">        <span class="n">ref</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span> <span class="c1">// 避免它成为迷途指针</span></span>
+<span class="code-line">        <span class="n">ref_count</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">protected</span><span class="o">:</span>  </span>
+<span class="code-line">    <span class="n">T</span> <span class="o">*</span><span class="n">ref</span><span class="p">;</span></span>
+<span class="code-line">    <span class="kt">unsigned</span> <span class="o">*</span><span class="n">ref_count</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">};</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span></span>
+<span class="code-line">    <span class="kt">int</span> <span class="o">*</span><span class="n">ip1</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">();</span></span>
+<span class="code-line">    <span class="o">*</span><span class="n">ip1</span> <span class="o">=</span> <span class="mi">11111</span><span class="p">;</span></span>
+<span class="code-line">    <span class="kt">int</span> <span class="o">*</span><span class="n">ip2</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">();</span></span>
+<span class="code-line">    <span class="o">*</span><span class="n">ip2</span> <span class="o">=</span> <span class="mi">22222</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">SmartPointer</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">sp1</span><span class="p">(</span><span class="n">ip1</span><span class="p">),</span> <span class="n">sp2</span><span class="p">(</span><span class="n">ip2</span><span class="p">);</span></span>
+<span class="code-line">    <span class="n">SmartPointer</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">spa</span> <span class="o">=</span> <span class="n">sp1</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">sp2</span> <span class="o">=</span> <span class="n">spa</span><span class="p">;</span> <span class="c1">// 注释掉它将得到不同输出</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+<h3 id="merge-k-sorted-list">merge K sorted List</h3>
+<div class="highlight"><pre><span class="code-line"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span></span>
+<span class="code-line"><span class="k">public</span><span class="o">:</span></span>
+<span class="code-line">    <span class="n">ListNode</span> <span class="o">*</span><span class="n">mergeTwoLists</span><span class="p">(</span><span class="n">ListNode</span><span class="o">*</span> <span class="n">l1</span><span class="p">,</span> <span class="n">ListNode</span><span class="o">*</span> <span class="n">l2</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">        <span class="k">if</span> <span class="p">(</span><span class="nb">NULL</span> <span class="o">==</span> <span class="n">l1</span><span class="p">)</span> <span class="k">return</span> <span class="n">l2</span><span class="p">;</span></span>
+<span class="code-line">        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nb">NULL</span> <span class="o">==</span> <span class="n">l2</span><span class="p">)</span> <span class="k">return</span> <span class="n">l1</span><span class="p">;</span></span>
+<span class="code-line">        <span class="k">if</span> <span class="p">(</span><span class="n">l1</span><span class="o">-&gt;</span><span class="n">val</span> <span class="o">&lt;=</span> <span class="n">l2</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">            <span class="n">l1</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">mergeTwoLists</span><span class="p">(</span><span class="n">l1</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">,</span> <span class="n">l2</span><span class="p">);</span></span>
+<span class="code-line">            <span class="k">return</span> <span class="n">l1</span><span class="p">;</span></span>
+<span class="code-line">        <span class="p">}</span></span>
+<span class="code-line">        <span class="k">else</span> <span class="p">{</span></span>
+<span class="code-line">            <span class="n">l2</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">mergeTwoLists</span><span class="p">(</span><span class="n">l1</span><span class="p">,</span> <span class="n">l2</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">);</span></span>
+<span class="code-line">            <span class="k">return</span> <span class="n">l2</span><span class="p">;</span></span>
+<span class="code-line">        <span class="p">}</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line">    <span class="n">ListNode</span> <span class="o">*</span><span class="n">mergeKLists</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">ListNode</span> <span class="o">*&gt;</span> <span class="o">&amp;</span><span class="n">lists</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">        <span class="k">if</span> <span class="p">(</span><span class="n">lists</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span></span>
+<span class="code-line">        <span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="n">lists</span><span class="p">.</span><span class="n">size</span><span class="p">();</span></span>
+<span class="code-line">        <span class="k">while</span> <span class="p">(</span><span class="n">len</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">                <span class="n">lists</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">mergeTwoLists</span><span class="p">(</span><span class="n">lists</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">lists</span><span class="p">[</span><span class="n">len</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">i</span><span class="p">]);</span></span>
+<span class="code-line">            <span class="p">}</span></span>
+<span class="code-line">            <span class="n">len</span> <span class="o">=</span> <span class="p">(</span><span class="n">len</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span></span>
+<span class="code-line">        <span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">lists</span><span class="p">.</span><span class="n">front</span><span class="p">();</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"><span class="p">};</span></span>
+</pre></div>
+<h3 id="_2">最长包含非重复字符的子串</h3>
+<div class="highlight"><pre><span class="code-line">    <span class="kt">int</span> <span class="nf">lengthOfLongestSubstring</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">        <span class="kt">int</span> <span class="n">dic</span><span class="p">[</span><span class="mi">256</span><span class="p">];</span></span>
+<span class="code-line">        <span class="n">memset</span><span class="p">(</span><span class="n">dic</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">dic</span><span class="p">));</span></span>
+<span class="code-line">        <span class="k">auto</span> <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line">        <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line">        <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="o">++</span><span class="n">i</span><span class="p">)</span></span>
+<span class="code-line">        <span class="p">{</span></span>
+<span class="code-line">            <span class="k">if</span> <span class="p">(</span><span class="n">dic</span><span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">&gt;=</span> <span class="n">start</span><span class="p">)</span></span>
+<span class="code-line">            <span class="p">{</span></span>
+<span class="code-line">                <span class="n">start</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span></span>
+<span class="code-line">            <span class="p">}</span></span>
+<span class="code-line">            <span class="n">dic</span><span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span></span>
+<span class="code-line">            <span class="k">if</span> <span class="p">((</span><span class="n">i</span> <span class="o">-</span> <span class="n">start</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">&gt;</span><span class="n">res</span><span class="p">)</span></span>
+<span class="code-line">                <span class="n">res</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="n">start</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span></span>
+<span class="code-line">        <span class="p">}</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">res</span><span class="p">;</span>        </span>
+<span class="code-line">    <span class="p">}</span></span>
+</pre></div>
+<h3 id="_3">实现一个内存池</h3>
+<div class="highlight"><pre><span class="code-line"><span class="cp">#include &lt;iostream&gt;</span></span>
+<span class="code-line"><span class="cp">#include &lt;string&gt;</span></span>
+<span class="code-line"><span class="cp">#include &lt;time.h&gt;</span></span>
+<span class="code-line"><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line"></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span></span>
+<span class="code-line"><span class="k">class</span> <span class="nc">MemPool</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line"><span class="k">public</span><span class="o">:</span></span>
+<span class="code-line">    <span class="n">MemPool</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">size</span><span class="o">=</span><span class="n">EXPANDSIZE</span><span class="p">){</span> </span>
+<span class="code-line">        <span class="n">expandMem</span><span class="p">(</span><span class="n">size</span><span class="p">);</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line">    <span class="o">~</span><span class="n">MemPool</span><span class="p">()</span></span>
+<span class="code-line">    <span class="p">{</span></span>
+<span class="code-line">        <span class="n">MemPool</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;*</span> <span class="n">NextPtr</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span></span>
+<span class="code-line">        <span class="k">for</span> <span class="p">(</span><span class="n">NextPtr</span> <span class="o">=</span> <span class="n">FreeList</span><span class="p">;</span> <span class="n">NextPtr</span> <span class="o">!=</span> <span class="k">nullptr</span><span class="p">;</span> <span class="n">NextPtr</span> <span class="o">=</span> <span class="n">FreeList</span><span class="p">)</span></span>
+<span class="code-line">        <span class="p">{</span></span>
+<span class="code-line">            <span class="n">FreeList</span> <span class="o">=</span> <span class="n">FreeList</span><span class="o">-&gt;</span><span class="n">FreeList</span><span class="p">;</span></span>
+<span class="code-line">            <span class="k">delete</span><span class="p">[](</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span> <span class="n">NextPtr</span><span class="p">;</span></span>
+<span class="code-line">        <span class="p">}</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line">    <span class="kt">void</span> <span class="o">*</span><span class="n">Alloc</span><span class="p">()</span></span>
+<span class="code-line">    <span class="p">{</span></span>
+<span class="code-line">        <span class="k">if</span> <span class="p">(</span><span class="n">FreeList</span><span class="o">==</span><span class="k">nullptr</span><span class="p">)</span></span>
+<span class="code-line">        <span class="p">{</span></span>
+<span class="code-line">            <span class="n">expandMem</span><span class="p">(</span><span class="n">EXPANDSIZE</span><span class="p">);</span></span>
+<span class="code-line">        <span class="p">}</span></span>
+<span class="code-line">        <span class="n">MemPool</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">*</span> <span class="n">Head</span> <span class="o">=</span> <span class="n">FreeList</span><span class="p">;</span></span>
+<span class="code-line">        <span class="n">FreeList</span> <span class="o">=</span> <span class="n">FreeList</span><span class="o">-&gt;</span><span class="n">FreeList</span><span class="p">;</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">Head</span><span class="p">;</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line">    <span class="kt">void</span> <span class="n">Free</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">PtrMem</span><span class="p">)</span></span>
+<span class="code-line">    <span class="p">{</span></span>
+<span class="code-line">        <span class="n">MemPool</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">*</span> <span class="n">Head</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">MemPool</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">PtrMem</span><span class="p">);</span></span>
+<span class="code-line">        <span class="n">Head</span><span class="o">-&gt;</span><span class="n">FreeList</span><span class="o">=</span> <span class="n">FreeList</span><span class="p">;</span></span>
+<span class="code-line">        <span class="n">FreeList</span> <span class="o">=</span> <span class="n">Head</span><span class="p">;</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">private</span><span class="o">:</span></span>
+<span class="code-line">    <span class="n">MemPool</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">*</span> <span class="n">FreeList</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">enum</span>  <span class="p">{</span> <span class="n">EXPANDSIZE</span> <span class="o">=</span> <span class="mi">32</span> <span class="p">};</span></span>
+<span class="code-line">    <span class="kt">void</span> <span class="nf">expandMem</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">size</span><span class="p">)</span></span>
+<span class="code-line">    <span class="p">{</span></span>
+<span class="code-line">        <span class="kt">size_t</span> <span class="n">nSize</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">T</span><span class="p">)</span> <span class="o">&gt;</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">MemPool</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span> <span class="o">?</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">T</span><span class="p">)</span> <span class="o">:</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">MemPool</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">*</span><span class="p">);</span></span>
+<span class="code-line">        <span class="n">MemPool</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">*</span> <span class="n">NewMem</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">MemPool</span> <span class="o">*&gt;</span> <span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span> <span class="kt">void</span><span class="o">*&gt;</span><span class="p">(</span><span class="k">new</span> <span class="kt">char</span><span class="p">[</span><span class="n">nSize</span><span class="p">]));</span></span>
+<span class="code-line">        <span class="n">FreeList</span> <span class="o">=</span> <span class="n">NewMem</span><span class="p">;</span></span>
+<span class="code-line">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span></span>
+<span class="code-line">        <span class="p">{</span></span>
+<span class="code-line">            <span class="n">NewMem</span><span class="o">-&gt;</span><span class="n">FreeList</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">MemPool</span> <span class="o">*&gt;</span> <span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">void</span> <span class="o">*&gt;</span><span class="p">(</span><span class="k">new</span> <span class="kt">char</span><span class="p">[</span><span class="n">nSize</span><span class="p">]));</span></span>
+<span class="code-line">            <span class="n">NewMem</span> <span class="o">=</span> <span class="n">NewMem</span><span class="o">-&gt;</span><span class="n">FreeList</span><span class="p">;</span></span>
+<span class="code-line">        <span class="p">}</span></span>
+<span class="code-line">        <span class="n">NewMem</span><span class="o">-&gt;</span><span class="n">FreeList</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"><span class="p">};</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="kt">clock_t</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="n">start</span> <span class="o">=</span> <span class="n">clock</span><span class="p">();</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">60000</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span></span>
+<span class="code-line">    <span class="p">{</span></span>
+<span class="code-line">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span></span>
+<span class="code-line">        <span class="p">{</span></span>
+<span class="code-line">            <span class="kt">int</span> <span class="o">*</span><span class="n">p</span><span class="o">=</span><span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span></span>
+<span class="code-line">            <span class="k">delete</span><span class="p">[]</span> <span class="n">p</span><span class="p">;</span></span>
+<span class="code-line">        <span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line">    <span class="n">end</span> <span class="o">=</span> <span class="n">clock</span><span class="p">();</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="c1">//  cout &lt;&lt; duration;</span></span>
+<span class="code-line">    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">((</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">))</span><span class="o">/</span><span class="mi">1000</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="n">MemPool</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">Memtest</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">start</span> <span class="o">=</span> <span class="n">clock</span><span class="p">();</span></span>
+<span class="code-line">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10000</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span></span>
+<span class="code-line">    <span class="p">{</span></span>
+<span class="code-line">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">){</span></span>
+<span class="code-line">            <span class="kt">int</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span> <span class="o">*&gt;</span> <span class="p">(</span><span class="n">Memtest</span><span class="p">.</span><span class="n">Alloc</span><span class="p">());</span></span>
+<span class="code-line">            <span class="n">Memtest</span><span class="p">.</span><span class="n">Free</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">void</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">p</span><span class="p">));</span></span>
+<span class="code-line">        <span class="p">}</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line">    <span class="n">end</span> <span class="o">=</span> <span class="n">clock</span><span class="p">();</span></span>
+<span class="code-line">    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span><span class="o">/</span><span class="mf">1000.0</span>  <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
 </pre></div>
 <section>
 <div class="accordion" id="accordion2">
