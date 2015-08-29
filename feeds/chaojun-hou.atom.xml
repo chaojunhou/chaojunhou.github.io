@@ -655,7 +655,12 @@ CPP支持编译时期的多态和运行时期的多态。其中编译时期的�
 &lt;span class="code-line"&gt;    &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="p"&gt;[]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;"Hello world"&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// 这里是错误的，栈内存由操作系统分配和释放，在超过其作用范围内会自动释放。&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary><category term="CPP"></category></entry><entry><title>进程间通信</title><link href="www.houcj.net/blog/2015/07/12/ipc/" rel="alternate"></link><updated>2015-07-12T23:17:00+08:00</updated><author><name>ChaoJun Hou</name></author><id>tag:,2015-07-12:www.houcj.net/blog/2015/07/12/ipc/</id><summary type="html">&lt;hr/&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id="sortcompare"&gt;sort的compare函数&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;compare函数中，如果是升序必须是重载&amp;lt;运算符而不是&amp;lt;=运算符。&lt;/li&gt;
+&lt;li&gt;compare函数必须声明为静态成员函数或者全局函数，不能作为普通成员函数。因为非静态函数是依赖于对象的，而std::sort这类函数是全局的，因此无法在sort中调用非静态成员函数。&lt;/li&gt;
+&lt;/ul&gt;</summary><category term="CPP"></category></entry><entry><title>进程间通信</title><link href="www.houcj.net/blog/2015/07/12/ipc/" rel="alternate"></link><updated>2015-07-12T23:17:00+08:00</updated><author><name>ChaoJun Hou</name></author><id>tag:,2015-07-12:www.houcj.net/blog/2015/07/12/ipc/</id><summary type="html">&lt;hr/&gt;
 &lt;h2 id="_1"&gt;进程间通信&lt;/h2&gt;
 &lt;p&gt;每个进程各自有不同的用户地址空间，任何一个进程的全局变量在另一个进程何中都看不到，
 所以进程之间要交换数据必须通过内核，在内核中开辟一块缓冲区，进程1把数据从用户空间拷到内核缓冲区，

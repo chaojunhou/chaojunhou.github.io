@@ -93,7 +93,7 @@
     <div class="span2 table-of-content">
         <nav>
         <h4>Contents</h4>
-        <div id="toc"><ul><li><a class="toc-href" href="#" title="More efective cpp">More efective cpp</a><ul><li><a class="toc-href" href="#copy-on-write" title="Copy on write">Copy on write</a></li><li><a class="toc-href" href="#cppvirtual" title="CPP中不能声明为virtual函数的函数">CPP中不能声明为virtual函数的函数</a><ul><li><a class="toc-href" href="#_1" title="一、 内联函数">一、 内联函数</a></li><li><a class="toc-href" href="#_2" title="二、构造函数">二、构造函数</a></li><li><a class="toc-href" href="#_3" title="三、静态成员函数">三、静态成员函数</a></li><li><a class="toc-href" href="#_4" title="四、普通函数">四、普通函数</a></li><li><a class="toc-href" href="#_5" title="五、友元函数">五、友元函数</a></li></ul></li><li><a class="toc-href" href="#_7" title="面向对象编程">面向对象编程</a></li><li><a class="toc-href" href="#rtti" title="RTTI">RTTI</a></li><li><a class="toc-href" href="#new" title="new关键字">new关键字</a></li><li><a class="toc-href" href="#pimpl" title="Pimpl">Pimpl</a></li><li><a class="toc-href" href="#vs" title="静态联编 Vs 动态联编">静态联编 Vs 动态联编</a></li><li><a class="toc-href" href="#typdef" title="typdef">typdef</a></li><li><a class="toc-href" href="#_8" title="栈内存和堆内存">栈内存和堆内存</a></li></ul></li></ul></div>
+        <div id="toc"><ul><li><a class="toc-href" href="#" title="More efective cpp">More efective cpp</a><ul><li><a class="toc-href" href="#copy-on-write" title="Copy on write">Copy on write</a></li><li><a class="toc-href" href="#cppvirtual" title="CPP中不能声明为virtual函数的函数">CPP中不能声明为virtual函数的函数</a><ul><li><a class="toc-href" href="#_1" title="一、 内联函数">一、 内联函数</a></li><li><a class="toc-href" href="#_2" title="二、构造函数">二、构造函数</a></li><li><a class="toc-href" href="#_3" title="三、静态成员函数">三、静态成员函数</a></li><li><a class="toc-href" href="#_4" title="四、普通函数">四、普通函数</a></li><li><a class="toc-href" href="#_5" title="五、友元函数">五、友元函数</a></li></ul></li><li><a class="toc-href" href="#_7" title="面向对象编程">面向对象编程</a></li><li><a class="toc-href" href="#rtti" title="RTTI">RTTI</a></li><li><a class="toc-href" href="#new" title="new关键字">new关键字</a></li><li><a class="toc-href" href="#pimpl" title="Pimpl">Pimpl</a></li><li><a class="toc-href" href="#vs" title="静态联编 Vs 动态联编">静态联编 Vs 动态联编</a></li><li><a class="toc-href" href="#typdef" title="typdef">typdef</a></li><li><a class="toc-href" href="#_8" title="栈内存和堆内存">栈内存和堆内存</a></li><li><a class="toc-href" href="#sortcompare" title="sort的compare函数">sort的compare函数</a></li></ul></li></ul></div>
         </nav>
     </div>
     <div class="span8 article-content">
@@ -190,6 +190,11 @@ CPP支持编译时期的多态和运行时期的多态。其中编译时期的�
 <span class="code-line">    <span class="k">return</span> <span class="n">p</span><span class="p">;</span> <span class="c1">// 这里是错误的，栈内存由操作系统分配和释放，在超过其作用范围内会自动释放。</span></span>
 <span class="code-line"><span class="p">}</span></span>
 </pre></div>
+<h3 id="sortcompare">sort的compare函数</h3>
+<ul>
+<li>compare函数中，如果是升序必须是重载&lt;运算符而不是&lt;=运算符。</li>
+<li>compare函数必须声明为静态成员函数或者全局函数，不能作为普通成员函数。因为非静态函数是依赖于对象的，而std::sort这类函数是全局的，因此无法在sort中调用非静态成员函数。</li>
+</ul>
 <section>
 <div class="accordion" id="accordion2">
     <div class="accordion-group">
