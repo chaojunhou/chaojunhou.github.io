@@ -93,7 +93,7 @@
     <div class="span2 table-of-content">
         <nav>
         <h4>Contents</h4>
-        <div id="toc"><ul><li><a class="toc-href" href="#" title="MySql数据库">MySql数据库</a><ul><li><a class="toc-href" href="#_1" title="关系模型">关系模型</a><ul><li><a class="toc-href" href="#b-tree-b-tree" title="B Tree &amp; B+ Tree">B Tree &amp; B+ Tree</a><ul><li><a class="toc-href" href="#b-tree" title="B Tree">B Tree</a></li><li><a class="toc-href" href="#b-tree_1" title="B+ Tree">B+ Tree</a></li></ul></li></ul></li><li><a class="toc-href" href="#_4" title="分布式存储">分布式存储</a><ul><li><a class="toc-href" href="#_5" title="数据分布">数据分布</a></li><li><a class="toc-href" href="#_6" title="故障检测">故障检测</a></li><li><a class="toc-href" href="#_7" title="事务">事务</a></li><li><a class="toc-href" href="#_8" title="原子性">原子性</a></li><li><a class="toc-href" href="#_9" title="一致性">一致性</a></li><li><a class="toc-href" href="#_10" title="隔离性">隔离性</a></li><li><a class="toc-href" href="#_11" title="持久性">持久性</a></li><li><a class="toc-href" href="#_12" title="隔离级别">隔离级别</a></li><li><a class="toc-href" href="#_13" title="锁的种类">锁的种类</a></li><li><a class="toc-href" href="#_14" title="锁的粒度">锁的粒度</a></li><li><a class="toc-href" href="#_15" title="存储过程">存储过程</a></li><li><a class="toc-href" href="#check" title="Check约束">Check约束</a></li><li><a class="toc-href" href="#_16" title="视图">视图</a></li></ul></li></ul></li></ul></div>
+        <div id="toc"><ul><li><a class="toc-href" href="#" title="MySql数据库">MySql数据库</a><ul><li><a class="toc-href" href="#_1" title="关系模型">关系模型</a><ul><li><a class="toc-href" href="#b-tree-b-tree" title="B Tree &amp; B+ Tree">B Tree &amp; B+ Tree</a><ul><li><a class="toc-href" href="#b-tree" title="B Tree">B Tree</a></li><li><a class="toc-href" href="#b-tree_1" title="B+ Tree">B+ Tree</a></li></ul></li></ul></li><li><a class="toc-href" href="#_4" title="分布式存储">分布式存储</a><ul><li><a class="toc-href" href="#_5" title="数据分布">数据分布</a></li><li><a class="toc-href" href="#_6" title="故障检测">故障检测</a></li><li><a class="toc-href" href="#_7" title="事务">事务</a></li><li><a class="toc-href" href="#_8" title="原子性">原子性</a></li><li><a class="toc-href" href="#_9" title="一致性">一致性</a></li><li><a class="toc-href" href="#_10" title="隔离性">隔离性</a></li><li><a class="toc-href" href="#_11" title="持久性">持久性</a></li><li><a class="toc-href" href="#_12" title="隔离级别">隔离级别</a></li><li><a class="toc-href" href="#_13" title="锁的种类">锁的种类</a></li><li><a class="toc-href" href="#_14" title="锁的粒度">锁的粒度</a></li><li><a class="toc-href" href="#_15" title="存储过程">存储过程</a></li><li><a class="toc-href" href="#check" title="Check约束">Check约束</a></li><li><a class="toc-href" href="#_16" title="视图">视图</a></li><li><a class="toc-href" href="#_17" title="数据库范式">数据库范式</a><ul><li><a class="toc-href" href="#_18" title="函数依赖">函数依赖</a></li><li><a class="toc-href" href="#_19" title="完全函数依赖">完全函数依赖</a></li><li><a class="toc-href" href="#_20" title="部分函数依赖">部分函数依赖</a></li><li><a class="toc-href" href="#_21" title="传递函数依赖">传递函数依赖</a></li><li><a class="toc-href" href="#_22" title="第一范式">第一范式</a></li><li><a class="toc-href" href="#_23" title="第二范式">第二范式</a></li><li><a class="toc-href" href="#_24" title="第三范式">第三范式</a></li></ul></li></ul></li></ul></li></ul></div>
         </nav>
     </div>
     <div class="span8 article-content">
@@ -201,6 +201,22 @@ check约束可以应用与一个或者多个列，也可以将多个check约束�
 <p>A：对不同用户授予不同的使用权.</p>
 <p>B：通过使用select子句限制用户对某些底层基表的列的访问</p>
 <p>C：通过使用where子句限制用户对某些底层基表的行的访问， 对不同用户授予不同的权限</p>
+<h3 id="_17">数据库范式</h3>
+<p>首先介绍几个基本的概念</p>
+<h4 id="_18">函数依赖</h4>
+<p>在一张表中，在属性X的值确定的情况下，必定能确定属性Y的值，那么就可以说Y函数依赖于X，写作 X-&gt;Y。</p>
+<h4 id="_19">完全函数依赖</h4>
+<p>在一张表中，若X-&gt;Y，且对于X的任何一个真子集，X`-&gt;Y不成立，那么我们称Y对于X完全函数依赖。记作XF-&gt;Y。</p>
+<h4 id="_20">部分函数依赖</h4>
+<p>如果Y函数非依赖与X，但同时Y并不完全依赖于X，也可能依赖于Z，那么我们就称Y部分函数依赖于X，记作XP-&gt;Y。</p>
+<h4 id="_21">传递函数依赖</h4>
+<p>假如Z函数依赖于Y，且Y函数依赖于X，那么我们就称Z传递函数依赖于X，记作XT-&gt;Z。</p>
+<h4 id="_22">第一范式</h4>
+<p>满足第一范式关系中的每个属性都不能再分。</p>
+<h4 id="_23">第二范式</h4>
+<p>在第一范式的基础上，消除非主属性对于码的部分函数依赖。</p>
+<h4 id="_24">第三范式</h4>
+<p>在第二范式的基础上，消除了非主属性对于码的传递函数依赖。</p>
 <section>
 <div class="accordion" id="accordion2">
     <div class="accordion-group">
