@@ -31,15 +31,30 @@
 &lt;hr/&gt;
 &lt;h2 id="_9"&gt;并发编程&lt;/h2&gt;
 &lt;hr/&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Tue, 22 Dec 2015 08:55:00 +0800</pubDate><guid>tag:,2015-12-22:www.houcj.net/blog/2015/12/22/thinking_in_cpp/</guid><category>读书笔记</category></item><item><title>搜索相关</title><link>www.houcj.net/blog/2015/12/03/search_engine/</link><description>&lt;hr/&gt;
-&lt;h2 id="_1"&gt;正排索引&lt;/h2&gt;
+&lt;p&gt;在给定测试集中，信息检索中通常采用正确率和召回率来度量系统的效果。
+正确率是返回的结果中相关文档所占的比例；而召回率是返回的相关文档占所有相关文档的比例。&lt;/p&gt;
+&lt;p&gt;文本分类：
+多项式模型 P(d|c) = P(&lt;t1,...,tk,...,tnd&gt;|C), 其中&lt;t1,tnd&gt;是在d中出现的词项序列。
+贝努利模型 p(d|c) = P(&lt;e1,...,ek,...,em&gt;|C), 其中&lt;e1,em&gt;是一个M纬的布尔向量，表示每个词在文档d中存在与否。&lt;/e1,em&gt;&lt;/e1,...,ek,...,em&gt;&lt;/t1,tnd&gt;&lt;/t1,...,tk,...,tnd&gt;&lt;/p&gt;
+&lt;p&gt;在朴素贝叶斯模型中，有两个独立性假设，分别是条件独立性假设，即给定类别时，假设属性值之间是相互独立的。另一个是位置独立性假设，即词在文档中每个位置的出现概率是一样的。&lt;/p&gt;
+&lt;h2 id="web-crawler"&gt;web crawler&lt;/h2&gt;
+&lt;p&gt;任何超文本采集器的基本处理如下:首先，设定一个或者多个URL为采集的种子集合，接着从种子集合中选择一个URL进行采集，然后对采集到的页面进行分析，并抽取出页面中的文本和连接，抽取出的文本输给文本索引器而抽取出的URL则加入到待采集URL池，任何时候URL池中放的都是所有代采集网页的URL。一开始，种子集合会放入到URL中，一旦某个URL被采集，就从URL池中删除这个URL。整个采集过程可以看成是Web图的遍历过程。&lt;/p&gt;
+&lt;h3 id="web-crawler_1"&gt;web crawler 架构&lt;/h3&gt;
+&lt;p&gt;一个简单的采集器有多个模块构成，其中主要包括5个模块：
+- 待采集URL池，它包含了当前待采集的URL
+- DNS解析模块，它在URL抓取网页时用于确定其对应的Web服务器的IP地址
+- 抓取模块，利用http协议返回某个URL对应的网页
+- 分析模块，从采集到的网页中抽取文本及链接
+- URL去重模块，确定某个抽取出的链接是否已在URL池中， 或者最近是否被抓取&lt;/p&gt;
+&lt;h2 id="_2"&gt;正排索引&lt;/h2&gt;
 &lt;hr/&gt;
-&lt;h2 id="_2"&gt;倒排索引&lt;/h2&gt;
-&lt;h3 id="_3"&gt;拼写校正&lt;/h3&gt;
+&lt;h2 id="_3"&gt;倒排索引&lt;/h2&gt;
+&lt;h3 id="_4"&gt;拼写校正&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;拼写校正的原则：&lt;/strong&gt;
 1. 对于一个拼写错误的查询，在其可能的正确拼写中，选择距离最近的一个。
 2. 当连个拼写查询邻近度相等（或相近）是，选择更常见的那个&lt;/p&gt;
 &lt;hr/&gt;
-&lt;h2 id="_5"&gt;检索&lt;/h2&gt;
+&lt;h2 id="_6"&gt;检索&lt;/h2&gt;
 &lt;hr/&gt;
 &lt;h2 id="luence"&gt;luence&lt;/h2&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Thu, 03 Dec 2015 11:05:00 +0800</pubDate><guid>tag:,2015-12-03:www.houcj.net/blog/2015/12/03/search_engine/</guid><category>搜索</category></item><item><title>在线广告</title><link>www.houcj.net/blog/2015/12/01/ad/</link><description>&lt;hr/&gt;
 &lt;h1 id="rtb"&gt;RTB&lt;/h1&gt;
@@ -531,7 +546,30 @@ reactor是事件管理的接口，内部使用event demultiplexer注册、注销
 &lt;li&gt;求int32数组中，所有元素二进制表示后不同的位数个数的和，譬如3（011），4（100）就有3位不同，因此不同位数是3，让优化到O(n)的解法&lt;/li&gt;
 &lt;li&gt;求一个排序数组中绝对值不同的个数（O（n）解法），譬如 -1，1，2，由于-1，1的绝对值都是1，因此总个数就是2。&lt;/li&gt;
 &lt;li&gt;关于nginx中进程和线程的问题。&lt;/li&gt;
-&lt;/ol&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Sat, 18 Jul 2015 11:09:00 +0800</pubDate><guid>tag:,2015-07-18:www.houcj.net/blog/2015/07/18/ali-interview/</guid><category>面试</category></item><item><title>Build a web server</title><link>www.houcj.net/blog/2015/07/17/build-a-web-server/</link><description>&lt;hr/&gt;
+&lt;/ol&gt;
+&lt;hr/&gt;
+&lt;p&gt;比较有用的网站：
+ - www.leetcode.com
+ - www.lintcode.com
+ - www.geeksforgeeks.com
+ - www.newcoder.com&lt;/p&gt;
+&lt;p&gt;比较有用的书：
+- effective cpp
+- more effective cpp
+- inside cpp model
+- SICP
+- 深入理解计算机系统
+- STL源码剖析
+- 编程之美
+- 程序员的自我修养
+- TCP/IP详解 卷1,2
+- 算法导论
+- Ｃ专家编程
+- Python 源码剖析
+- 编程珠玑
+- 剑指offer
+- UNIX网络编程
+- Nginx 源码剖析 &lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">ChaoJun Hou</dc:creator><pubDate>Sat, 18 Jul 2015 11:09:00 +0800</pubDate><guid>tag:,2015-07-18:www.houcj.net/blog/2015/07/18/ali-interview/</guid><category>面试</category></item><item><title>Build a web server</title><link>www.houcj.net/blog/2015/07/17/build-a-web-server/</link><description>&lt;hr/&gt;
 &lt;p&gt;这里实现一个简单的WSGI服务器，可以并发的处理多个请求并可以在多个框架下执行下面的代码。本文以django为例。&lt;/p&gt;
 &lt;h3 id="cgi-wsgi"&gt;CGI &amp;amp; WSGI&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;CGI&lt;/strong&gt;（common gateway interface）描述了客户端和服务器程序之间传输数据的一种标准。可以使用任何
