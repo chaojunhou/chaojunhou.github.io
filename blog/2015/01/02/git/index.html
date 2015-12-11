@@ -12,12 +12,12 @@
 
 <meta property="og:title" content="Git学习 "/>
 <meta property="og:url" content="../../../../../blog/2015/01/02/git/" />
-<meta property="og:description" content="Git基本用法 新建代码库 #在当前目录下创建 $ git init # 新建一个目录，将其初始化为Git代码库 $ git init [project_name] Git实现原理 Git中主要包含三个区域，分别是本地的workspace和本地repository，以及远程的remote仓库。" />
+<meta property="og:description" content="Git基本用法 初始化代码库 #在当前目录下创建 $ git init # 新建一个目录，将其初始化为Git代码库 $ git init [project_name] 配置Git # 显示当前的Git配置 $ git config --list # 编辑当前的Git配置 $ git config -e 添加删除文件 #添加文件到暂存区 $ git add [filename1] #添加当前目录下的所有文件到暂存区中 $ git add all[.] #删除工作文件 $ git rm [file1] #更改文件名 $ git mv [original] [rename] 代码提交 #提交暂存区到仓库区 $ git commit -m &#34;your message&#34; #提交工作区自上次提交之后的变化到repository中 $ git commit -a #提交时显示所有diff信息 $ git ..." />
 <meta property="og:site_name" content="Write the Code" />
 <meta property="og:article:author" content="ChaoJun Hou" />
 <meta property="og:article:published_time" content="2015-01-02T00:00:00+08:00" />
 <meta name="twitter:title" content="Git学习 ">
-<meta name="twitter:description" content="Git基本用法 新建代码库 #在当前目录下创建 $ git init # 新建一个目录，将其初始化为Git代码库 $ git init [project_name] Git实现原理 Git中主要包含三个区域，分别是本地的workspace和本地repository，以及远程的remote仓库。">
+<meta name="twitter:description" content="Git基本用法 初始化代码库 #在当前目录下创建 $ git init # 新建一个目录，将其初始化为Git代码库 $ git init [project_name] 配置Git # 显示当前的Git配置 $ git config --list # 编辑当前的Git配置 $ git config -e 添加删除文件 #添加文件到暂存区 $ git add [filename1] #添加当前目录下的所有文件到暂存区中 $ git add all[.] #删除工作文件 $ git rm [file1] #更改文件名 $ git mv [original] [rename] 代码提交 #提交暂存区到仓库区 $ git commit -m &#34;your message&#34; #提交工作区自上次提交之后的变化到repository中 $ git commit -a #提交时显示所有diff信息 $ git ...">
 
         <title>Git学习  · Change the World | Write the Code
 </title>
@@ -93,19 +93,46 @@
     <div class="span2 table-of-content">
         <nav>
         <h4>Contents</h4>
-        <div id="toc"><ul><li><a class="toc-href" href="#" title="Git学习">Git学习</a><ul><li><a class="toc-href" href="#git" title="Git基本用法">Git基本用法</a><ul><li><a class="toc-href" href="#_1" title="新建代码库">新建代码库</a></li></ul></li><li><a class="toc-href" href="#git_2" title="Git实现原理">Git实现原理</a></li></ul></li></ul></div>
+        <div id="toc"><ul><li><a class="toc-href" href="#" title="Git学习">Git学习</a><ul><li><a class="toc-href" href="#git" title="Git基本用法">Git基本用法</a><ul><li><a class="toc-href" href="#_1" title="初始化代码库">初始化代码库</a></li><li><a class="toc-href" href="#git_1" title="配置Git">配置Git</a></li><li><a class="toc-href" href="#_2" title="添加删除文件">添加删除文件</a></li><li><a class="toc-href" href="#_3" title="代码提交">代码提交</a></li></ul></li><li><a class="toc-href" href="#git_3" title="Git实现原理">Git实现原理</a></li></ul></li></ul></div>
         </nav>
     </div>
     <div class="span8 article-content">
 
             <h2 id="git">Git基本用法</h2>
-<h3 id="_1">新建代码库</h3>
+<h3 id="_1">初始化代码库</h3>
 <div class="highlight"><pre><span class="code-line"><span class="c">#在当前目录下创建</span></span>
 <span class="code-line"><span class="nv">$ </span>git init</span>
 <span class="code-line"><span class="c"># 新建一个目录，将其初始化为Git代码库</span></span>
 <span class="code-line"><span class="nv">$ </span>git init <span class="o">[</span>project_name<span class="o">]</span></span>
 </pre></div>
-<h2 id="git_2">Git实现原理</h2>
+<h3 id="git_1">配置Git</h3>
+<div class="highlight"><pre><span class="code-line"><span class="c"># 显示当前的Git配置</span></span>
+<span class="code-line"><span class="nv">$ </span>git config --list</span>
+<span class="code-line"><span class="c"># 编辑当前的Git配置</span></span>
+<span class="code-line"><span class="nv">$ </span>git config -e </span>
+</pre></div>
+<h3 id="_2">添加删除文件</h3>
+<div class="highlight"><pre><span class="code-line"><span class="c">#添加文件到暂存区</span></span>
+<span class="code-line"><span class="nv">$ </span>git add <span class="o">[</span>filename1<span class="o">]</span></span>
+<span class="code-line"><span class="c">#添加当前目录下的所有文件到暂存区中</span></span>
+<span class="code-line"><span class="nv">$ </span>git add all<span class="o">[</span>.<span class="o">]</span></span>
+<span class="code-line"><span class="c">#删除工作文件</span></span>
+<span class="code-line"><span class="nv">$ </span>git rm <span class="o">[</span>file1<span class="o">]</span></span>
+<span class="code-line"><span class="c">#更改文件名</span></span>
+<span class="code-line"><span class="nv">$ </span>git mv <span class="o">[</span>original<span class="o">]</span> <span class="o">[</span>rename<span class="o">]</span></span>
+</pre></div>
+<h3 id="_3">代码提交</h3>
+<div class="highlight"><pre><span class="code-line"><span class="c">#提交暂存区到仓库区</span></span>
+<span class="code-line"><span class="nv">$ </span>git commit -m <span class="s2">"your message"</span></span>
+<span class="code-line"><span class="c">#提交工作区自上次提交之后的变化到repository中</span></span>
+<span class="code-line"><span class="nv">$ </span>git commit -a</span>
+<span class="code-line"><span class="c">#提交时显示所有diff信息</span></span>
+<span class="code-line"><span class="nv">$ </span>git commit -v </span>
+<span class="code-line"><span class="c">#使用一次新的commit，替代上次的提交，如果代码没</span></span>
+<span class="code-line"><span class="c">#有新的变化，就改写上次commit的信息</span></span>
+<span class="code-line"><span class="nv">$ </span>git commit --amend -m <span class="s2">"your message"</span></span>
+</pre></div>
+<h2 id="git_3">Git实现原理</h2>
 <p>Git中主要包含三个区域，分别是本地的workspace和本地repository，以及远程的remote仓库。</p>
 <section>
 <div class="accordion" id="accordion2">
