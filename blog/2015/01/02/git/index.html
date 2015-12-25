@@ -93,7 +93,7 @@
     <div class="span2 table-of-content">
         <nav>
         <h4>Contents</h4>
-        <div id="toc"><ul><li><a class="toc-href" href="#" title="Git学习">Git学习</a><ul><li><a class="toc-href" href="#git" title="Git基本用法">Git基本用法</a><ul><li><a class="toc-href" href="#_1" title="初始化代码库">初始化代码库</a></li><li><a class="toc-href" href="#git_1" title="配置Git">配置Git</a></li><li><a class="toc-href" href="#_2" title="添加删除文件">添加删除文件</a></li><li><a class="toc-href" href="#_3" title="代码提交">代码提交</a></li></ul></li><li><a class="toc-href" href="#git_3" title="Git实现原理">Git实现原理</a></li></ul></li></ul></div>
+        <div id="toc"><ul><li><a class="toc-href" href="#" title="Git学习">Git学习</a><ul><li><a class="toc-href" href="#git" title="Git基本用法">Git基本用法</a><ul><li><a class="toc-href" href="#_1" title="初始化代码库">初始化代码库</a></li><li><a class="toc-href" href="#git_1" title="配置Git">配置Git</a></li><li><a class="toc-href" href="#_2" title="添加删除文件">添加删除文件</a></li><li><a class="toc-href" href="#_3" title="代码提交">代码提交</a></li><li><a class="toc-href" href="#_4" title="分支">分支</a></li><li><a class="toc-href" href="#_5" title="标签">标签</a></li><li><a class="toc-href" href="#_6" title="查看信息">查看信息</a></li><li><a class="toc-href" href="#_7" title="远程同步">远程同步</a></li><li><a class="toc-href" href="#_8" title="撤销">撤销</a></li></ul></li><li><a class="toc-href" href="#git_3" title="Git实现原理">Git实现原理</a></li></ul></li></ul></div>
         </nav>
     </div>
     <div class="span8 article-content">
@@ -131,6 +131,61 @@
 <span class="code-line"><span class="c">#使用一次新的commit，替代上次的提交，如果代码没</span></span>
 <span class="code-line"><span class="c">#有新的变化，就改写上次commit的信息</span></span>
 <span class="code-line"><span class="nv">$ </span>git commit --amend -m <span class="s2">"your message"</span></span>
+</pre></div>
+<h3 id="_4">分支</h3>
+<div class="highlight"><pre><span class="code-line"><span class="c">#列出所有远程分支</span></span>
+<span class="code-line"><span class="nv">$ </span>git branch -r</span>
+<span class="code-line"><span class="c">#列出所有本地分支</span></span>
+<span class="code-line"><span class="nv">$ </span>git branch</span>
+<span class="code-line"><span class="c">#新建一个分支，并切换到该分支</span></span>
+<span class="code-line"><span class="nv">$ </span>git branch -b <span class="o">[</span>branch<span class="o">]</span></span>
+<span class="code-line"><span class="c"># 切换到指定分支，并更新workspace</span></span>
+<span class="code-line"><span class="nv">$ </span>git checkout <span class="o">[</span>branch_name<span class="o">]</span></span>
+<span class="code-line"><span class="c"># 合并指定分支到当前分支</span></span>
+<span class="code-line"><span class="nv">$ </span>git merge <span class="o">[</span>branch<span class="o">]</span></span>
+<span class="code-line"><span class="c"># 删除分支</span></span>
+<span class="code-line"><span class="nv">$ </span>git branch -d <span class="o">[</span>branch_name<span class="o">]</span></span>
+<span class="code-line"><span class="c"># 删除远程分支</span></span>
+<span class="code-line"><span class="nv">$ </span>git push origin  --delete <span class="o">[</span>branch-name<span class="o">]</span></span>
+<span class="code-line"><span class="nv">$ </span>git branch -dr <span class="o">[</span>remote/branch<span class="o">]</span></span>
+</pre></div>
+<h3 id="_5">标签</h3>
+<div class="highlight"><pre><span class="code-line"><span class="c"># 列出所有tag</span></span>
+<span class="code-line"><span class="nv">$ </span>git tag</span>
+<span class="code-line"><span class="c"># 提交所有tag</span></span>
+<span class="code-line"><span class="nv">$ </span>git push <span class="o">[</span>remote<span class="o">]</span>  --tags</span>
+<span class="code-line"><span class="c"># 查看tag信息</span></span>
+<span class="code-line"><span class="nv">$ </span>git show <span class="o">[</span>tag<span class="o">]</span></span>
+</pre></div>
+<h3 id="_6">查看信息</h3>
+<div class="highlight"><pre><span class="code-line"><span class="c"># 显示有变更的文件</span></span>
+<span class="code-line"><span class="nv">$ </span>git status</span>
+<span class="code-line"><span class="c"># 显示指定文件相关的每一次diff</span></span>
+<span class="code-line"><span class="nv">$ </span>git log -p <span class="o">[</span>file<span class="o">]</span></span>
+<span class="code-line"><span class="c"># 显示指定文件是什么人在什么时间修改过</span></span>
+<span class="code-line"><span class="nv">$ </span>git blame <span class="o">[</span>file<span class="o">]</span></span>
+<span class="code-line"><span class="c"># 显示工作区与当前分支最新commit之间的差异</span></span>
+<span class="code-line"><span class="nv">$ </span>git diff HEAD</span>
+<span class="code-line"><span class="c"># 显示某次提交的元数据和内容变化</span></span>
+<span class="code-line"><span class="nv">$ </span>git show <span class="o">[</span>commit<span class="o">]</span></span>
+</pre></div>
+<h3 id="_7">远程同步</h3>
+<div class="highlight"><pre><span class="code-line"><span class="c"># 下载远程仓库的所有变动</span></span>
+<span class="code-line"><span class="nv">$ </span>git fetch <span class="o">[</span>remote<span class="o">]</span></span>
+<span class="code-line"><span class="c"># 增加一个新的远程仓库，并命名</span></span>
+<span class="code-line"><span class="nv">$ </span>git remote add <span class="o">[</span>shortname<span class="o">]</span> <span class="o">[</span>url<span class="o">]</span></span>
+<span class="code-line"><span class="c"># 取回远程仓库的变化， 并与本地分支合并</span></span>
+<span class="code-line"><span class="nv">$ </span>git pull <span class="o">[</span>remote<span class="o">]</span> <span class="o">[</span>branch<span class="o">]</span></span>
+<span class="code-line"><span class="c"># 强行推送当前分支到远程仓库</span></span>
+<span class="code-line"><span class="nv">$ </span>git push -f <span class="o">[</span>branch<span class="o">]</span> <span class="o">[</span>remote<span class="o">]</span></span>
+</pre></div>
+<h3 id="_8">撤销</h3>
+<div class="highlight"><pre><span class="code-line"><span class="c"># 恢复暂存区的指定文件到工作区</span></span>
+<span class="code-line"><span class="nv">$ </span>git checkout <span class="o">[</span>file<span class="o">]</span></span>
+<span class="code-line"><span class="c"># 恢复某个commit的指定文件到工作区</span></span>
+<span class="code-line"><span class="nv">$ </span>git checkout <span class="o">[</span>commit<span class="o">]</span> <span class="o">[</span>file<span class="o">]</span></span>
+<span class="code-line"><span class="c"># 重置暂存区与工作区,与上一次commit保持一致</span></span>
+<span class="code-line"><span class="nv">$ </span>git reset --hard</span>
 </pre></div>
 <h2 id="git_3">Git实现原理</h2>
 <p>Git中主要包含三个区域，分别是本地的workspace和本地repository，以及远程的remote仓库。</p>

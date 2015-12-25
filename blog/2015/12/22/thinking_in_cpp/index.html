@@ -93,7 +93,7 @@
     <div class="span2 table-of-content">
         <nav>
         <h4>Contents</h4>
-        <div id="toc"><ul><li><a class="toc-href" href="#" title="深入CPP编程">深入CPP编程</a><ul><li><a class="toc-href" href="#_1" title="异常处理">异常处理</a><ul><li><a class="toc-href" href="#_2" title="捕获所有异常">捕获所有异常</a></li><li><a class="toc-href" href="#_3" title="清理">清理</a></li><li><a class="toc-href" href="#_4" title="异常规格说明">异常规格说明</a></li></ul></li><li><a class="toc-href" href="#_6" title="防御性编程">防御性编程</a></li><li><a class="toc-href" href="#_7" title="模版编程">模版编程</a></li><li><a class="toc-href" href="#_8" title="设计模式">设计模式</a></li><li><a class="toc-href" href="#_9" title="并发编程">并发编程</a></li></ul></li></ul></div>
+        <div id="toc"><ul><li><a class="toc-href" href="#" title="深入CPP编程">深入CPP编程</a><ul><li><a class="toc-href" href="#_1" title="异常处理">异常处理</a><ul><li><a class="toc-href" href="#_2" title="捕获所有异常">捕获所有异常</a></li><li><a class="toc-href" href="#_3" title="清理">清理</a></li><li><a class="toc-href" href="#_4" title="异常规格说明">异常规格说明</a></li></ul></li><li><a class="toc-href" href="#_6" title="模版编程">模版编程</a><ul><li><a class="toc-href" href="#typename" title="typename关键字">typename关键字</a></li><li><a class="toc-href" href="#_7" title="模版特化">模版特化</a><ul><li><a class="toc-href" href="#_8" title="显式特化">显式特化</a></li><li><a class="toc-href" href="#_9" title="半特化">半特化</a></li></ul></li><li><a class="toc-href" href="#_11" title="模版名字查找问题">模版名字查找问题</a><ul><li><a class="toc-href" href="#name" title="模版中的name">模版中的name</a></li><li><a class="toc-href" href="#the-curiously-recurring-template-pattern" title="The Curiously recurring template pattern">The Curiously recurring template pattern</a></li><li><a class="toc-href" href="#_12" title="模版元编程">模版元编程</a><ul><li><a class="toc-href" href="#enum" title="enum关键字">enum关键字</a></li></ul></li><li><a class="toc-href" href="#_14" title="模版编译类型">模版编译类型</a></li><li><a class="toc-href" href="#explict-instantiation" title="explict instantiation">explict instantiation</a></li><li><a class="toc-href" href="#export" title="export">export</a></li></ul></li></ul></li><li><a class="toc-href" href="#export_3" title="在需要在声明中加入export关键字即可，但是目前支持这样实现的编译器不多。">在需要在声明中加入export关键字即可，但是目前支持这样实现的编译器不多。</a></li><li><a class="toc-href" href="#_15" title="设计模式">设计模式</a><ul><li><a class="toc-href" href="#cretional" title="Cretional">Cretional</a></li><li><a class="toc-href" href="#structural" title="Structural">Structural</a></li><li><a class="toc-href" href="#behavioral" title="Behavioral">Behavioral</a><ul><li><a class="toc-href" href="#singleton" title="Singleton">Singleton</a></li><li><a class="toc-href" href="#command" title="Command">Command</a></li></ul></li></ul></li><li><a class="toc-href" href="#_18" title="并发编程">并发编程</a></li></ul></li></ul></div>
         </nav>
     </div>
     <div class="span8 article-content">
@@ -122,13 +122,194 @@
 <span class="code-line"><span class="kt">void</span> <span class="n">f</span><span class="p">()</span> <span class="k">throw</span><span class="p">()</span><span class="c1">//throw中没有参数，则表明不抛出任何异常</span></span>
 </pre></div>
 <hr/>
-<h2 id="_6">防御性编程</h2>
+<h2 id="_6">模版编程</h2>
+<blockquote>
+<p>A template implies an interface take any type</p>
+</blockquote>
+<h3 id="typename">typename关键字</h3>
+<p>当模版中出现一个标识符时，编译器如果可以在把这个标识符当作一个类型，或者把它当作一个除类型之外的其他元素之间进行选择， 那么编译一般不会认为这个标识符是一个类型，一般情况，它会把标识符当作一个对象，或者是枚举。除非是有typenmae关键字出现，才会把它当作一个嵌套类型。</p>
+<h3 id="_7">模版特化</h3>
+<p>为了解决函数模版重载的问题,系统为这些模版定义了次序,在生成模版函数的时候,编译器将从这些函数中选择特化程度最高的模版。但是函数模版并不支持特化。模版的特化一般是对类模版而言的。</p>
+<h4 id="_8">显式特化</h4>
+<p>前缀"template &lt;&gt;"告诉编译器接下来是一个模版特化,模版特化的类型必须出现在函数名货紧跟的尖括号中,就像通常一个明确指定参数类型的函数调用中一样。</p>
+<div class="highlight"><pre><span class="code-line"><span class="c1">// vector&lt;bool&gt;基本模版的声明</span></span>
+<span class="code-line"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Allocator</span> <span class="o">=</span> <span class="n">allocator</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">&gt;</span></span>
+<span class="code-line"><span class="k">class</span> <span class="nc">vector</span> <span class="p">{...};</span></span>
+<span class="code-line"><span class="c1">// bool类型的特化</span></span>
+<span class="code-line"><span class="k">template</span><span class="o">&lt;&gt;</span> <span class="k">class</span> <span class="nc">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="p">,</span> <span class="n">allocatro</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="p">{};</span></span>
+</pre></div>
+<h4 id="_9">半特化</h4>
+<div class="highlight"><pre><span class="code-line"><span class="c1">//vector&lt;bool&gt;声明</span></span>
+<span class="code-line"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">Allocator</span><span class="o">&gt;</span> <span class="k">class</span> <span class="nc">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="p">,</span> <span class="n">Allocator</span><span class="o">&gt;</span><span class="p">;</span></span>
+</pre></div>
+<p>template后面和class关键字后面的尖括号里都是非空的参数列表。这样用户就可以自定义allocator的类型，构成了一种重载的类模版。</p>
+<h3 id="_11">模版名字查找问题</h3>
+<p>当编译器看到一个标识符，它必须能够确定这个标识符所代表的type和作用域（如果是变量就是lifetime）。然而当编译器看到模版的时候，在模版没有实例化之前，是无法知道更多的信息的。这种情况导致了模版编译需要分两个阶段进行。</p>
+<h4 id="name">模版中的name</h4>
+<p>在第一阶段，编译器解析模版定义，寻找明显的语法错误，resolve所有的name。对于不依赖与模版参数的名称， 编译器使用普通name的查找方法解析它们，如果有必要，编译器也会依赖模版参数进行查找。因此模版编译的第二个阶段就是模版实例化，在这里由编译器决定是否使用模版的一个显式特化来取代基本的模版。</p>
+<h4 id="the-curiously-recurring-template-pattern">The Curiously recurring template pattern</h4>
+<div class="highlight"><pre><span class="code-line"><span class="cp"># include &lt;iostream&gt;</span></span>
+<span class="code-line"><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>  <span class="k">class</span> <span class="nc">Counted</span><span class="p">{</span></span>
+<span class="code-line">    <span class="k">static</span> <span class="kt">int</span> <span class="n">count</span><span class="p">;</span></span>
+<span class="code-line"><span class="k">public</span><span class="o">:</span></span>
+<span class="code-line">    <span class="n">Counted</span><span class="p">(){</span><span class="o">++</span><span class="n">count</span><span class="p">;}</span></span>
+<span class="code-line">    <span class="n">Counted</span><span class="p">(</span><span class="k">const</span> <span class="n">Counted</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;</span><span class="p">){</span><span class="o">++</span><span class="n">count</span><span class="p">;}</span></span>
+<span class="code-line">    <span class="o">~</span><span class="n">Counted</span><span class="p">(){</span><span class="o">--</span><span class="n">count</span><span class="p">;}</span></span>
+<span class="code-line">    <span class="k">static</span> <span class="kt">int</span> <span class="n">getCount</span><span class="p">()</span> <span class="p">{</span><span class="k">return</span> <span class="n">count</span><span class="p">;}</span>   </span>
+<span class="code-line"><span class="p">};</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="kt">int</span> <span class="n">Counted</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line"><span class="k">class</span> <span class="nc">CountedClass</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Counted</span><span class="o">&lt;</span><span class="n">CountedClass</span><span class="o">&gt;</span><span class="p">{};</span></span>
+<span class="code-line"><span class="k">class</span> <span class="nc">CountedClass2</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Counted</span><span class="o">&lt;</span><span class="n">CountedClass2</span><span class="o">&gt;</span><span class="p">{};</span></span>
+<span class="code-line"></span>
+<span class="code-line"></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="n">CountedClass</span> <span class="n">a</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">CountedClass</span><span class="o">::</span><span class="n">getCount</span><span class="p">()</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span> <span class="c1">// 1</span></span>
+<span class="code-line">    <span class="n">CountedClass</span> <span class="n">b</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">cout</span><span class="o">&lt;&lt;</span> <span class="n">CountedClass</span><span class="o">::</span><span class="n">getCount</span><span class="p">()</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span> <span class="c1">// 2</span></span>
+<span class="code-line">    <span class="n">CountedClass2</span> <span class="n">c</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">CountedClass2</span><span class="o">::</span><span class="n">getCount</span><span class="p">()</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span> <span class="c1">// 1</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+<p>每个派生类都派生于一个唯一的基类，这个基类被用于作为一个模版的参数。由于Counted的数据成员不依赖于T，当模版被解析的时候，Counted的大小（为零）就可以知道，因此使用使用什么参数来实例化Counted无关紧要。当它被解析的时候，用任意一个Counted实例的派生类当然也可以完成，而且不会产生递归。由于每个基类都是唯一的，都有属于自己的静态数据，因此这样就可以实现向任何类中增加计数的便捷方法。</p>
+<h4 id="_12">模版元编程</h4>
+<p>模版元编程就是一种支持编译时编程的机制，它可以很方便的在编译时期实现类型参数的substitiution工作。</p>
+<h5 id="enum">enum关键字</h5>
+<ul>
+<li>用enum关键字说明的常量由编译程序自动生成，程序要不需要用手工对常量一一赋值。</li>
+<li>用enum关键字说明常量使程序更清晰易读，因为在定义enum常量的同时也定义了一个枚举类型标识符。</li>
+<li>在调试程序时通常可以检查枚举常量</li>
+</ul>
+<h4 id="_14">模版编译类型</h4>
+<p>为了减少包含类型所需要的大的头文件，C++提供了两中可供选择的代码组织机制，即explict instantiation和exported templates（支持最大限度的独立的编译）。</p>
+<h4 id="explict-instantiation">explict instantiation</h4>
+<p>当显式的实例化一个类时，除了以前已经实例化的成员外，这个特化类的所有成员函数都被实例化。而隐式实例化只有被调用的成员函数才进行实例化。</p>
+<p>显式实例化常用于大型软件工程项目中，因为这样可以避免大量的编程时间。</p>
+<h4 id="export">export</h4>
+<h2 id="export_3">在需要在声明中加入export关键字即可，但是目前支持这样实现的编译器不多。</h2>
+<h2 id="_15">设计模式</h2>
+<p>设计模式的目的就是为了封装用户的change，最大限度的减少可能用户代码改变带来的副作用。</p>
+<p>设计模式可以分为三类，Creational，Structural，Behavioral。</p>
+<h3 id="cretional">Cretional</h3>
+<p>一个对象是如何被创建的，这设计到将对象创建的细节和隔离出来，这样你的代码就不依赖于具体对象的type，而且增加一个新的类型的对象的时候也不用去改变原有的代码。比较常用的是单例模式，工厂模式和Builder模式。</p>
+<h3 id="structural">Structural</h3>
+<p>这影响着对象之间连接的方式，使得系统的改变不会影响对象之间的connections。比较常用的是代理模式和适配器模式。</p>
+<h3 id="behavioral">Behavioral</h3>
+<p>行为模式就是对象如何handle程序中特定type的方式，主要是你想要实现的一些封装的处理， 比较常用的是观察者模式，Template 方法， 命令模式，依赖链模式，Vistor模式。</p>
+<h4 id="singleton">Singleton</h4>
+<p>使用奇异递归模版实现的单例模式，MyClass在初始化的时候会先初始化Singleton，然后创建一个只属于自己的类，并进行初始化，由于Singleton模版中的拷贝和赋值构造函数都是私有的， 因此MyClass从被实例化时就有且只有一个实例。</p>
+<div class="highlight"><pre><span class="code-line"><span class="cp"># include&lt;iostream&gt;</span></span>
+<span class="code-line"><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>  <span class="k">class</span> <span class="nc">Singleton</span><span class="p">{</span></span>
+<span class="code-line">    <span class="n">Singleton</span><span class="p">(</span><span class="k">const</span> <span class="n">Singleton</span><span class="o">&amp;</span><span class="p">);</span></span>
+<span class="code-line">    <span class="n">Singleton</span><span class="o">&amp;</span> <span class="k">operator</span> <span class="o">=</span> <span class="p">(</span><span class="k">const</span> <span class="n">Singleton</span><span class="o">&amp;</span><span class="p">);</span></span>
+<span class="code-line"><span class="k">protected</span><span class="o">:</span></span>
+<span class="code-line">    <span class="n">Singleton</span><span class="p">()</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line">    <span class="k">virtual</span> <span class="o">~</span><span class="n">Singleton</span><span class="p">(){</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"><span class="k">public</span><span class="o">:</span></span>
+<span class="code-line">    <span class="k">static</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">instance</span><span class="p">()</span> <span class="p">{</span></span>
+<span class="code-line">        <span class="k">static</span> <span class="n">T</span> <span class="n">s</span><span class="p">;</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">s</span><span class="p">;</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="p">};</span></span>
+<span class="code-line"></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">class</span> <span class="nc">MyClass</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Singleton</span> <span class="o">&lt;</span><span class="n">MyClass</span><span class="o">&gt;</span><span class="p">{</span></span>
+<span class="code-line">    <span class="kt">int</span> <span class="n">x</span><span class="p">;</span></span>
+<span class="code-line"><span class="k">protected</span><span class="o">:</span></span>
+<span class="code-line">    <span class="k">friend</span> <span class="k">class</span> <span class="nc">Singleton</span><span class="o">&lt;</span><span class="n">MyClass</span><span class="o">&gt;</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">MyClass</span> <span class="p">()</span> <span class="p">{</span><span class="n">x</span><span class="o">=</span><span class="mi">47</span><span class="p">;</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"><span class="k">public</span><span class="o">:</span></span>
+<span class="code-line">    <span class="kt">void</span> <span class="n">setValue</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">)</span> <span class="p">{</span> <span class="n">x</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line">    <span class="k">const</span> <span class="kt">int</span> <span class="n">getValue</span><span class="p">()</span> <span class="p">{</span></span>
+<span class="code-line">        <span class="k">return</span>  <span class="n">x</span><span class="p">;</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"><span class="p">};</span></span>
+<span class="code-line"></span>
+<span class="code-line"></span>
+<span class="code-line"></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="n">MyClass</span><span class="o">&amp;</span> <span class="n">m</span> <span class="o">=</span> <span class="n">MyClass</span><span class="o">::</span><span class="n">instance</span><span class="p">();</span></span>
+<span class="code-line">    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">m</span><span class="p">.</span><span class="n">getValue</span><span class="p">()</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">m</span><span class="p">.</span><span class="n">setValue</span><span class="p">(</span><span class="mi">54</span><span class="p">);</span></span>
+<span class="code-line">    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">m</span><span class="p">.</span><span class="n">getValue</span><span class="p">()</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+<h4 id="command">Command</h4>
+<p>Command就是把一个函数封装为一个object，然后这个object作为一个参数，传递给另一个函数和object。Command is a Messenger that carries behavioral。</p>
+<div class="highlight"><pre><span class="code-line"><span class="cp"># include&lt;iostream&gt;</span></span>
+<span class="code-line"><span class="cp"># include&lt;vector&gt;</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">class</span> <span class="nc">Command</span><span class="p">{</span></span>
+<span class="code-line">    <span class="k">public</span><span class="o">:</span></span>
+<span class="code-line">        <span class="k">virtual</span> <span class="kt">void</span> <span class="n">execute</span> <span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// abstract base class</span></span>
+<span class="code-line"><span class="p">};</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">class</span> <span class="nc">Hello</span><span class="o">:</span><span class="k">public</span> <span class="n">Command</span><span class="p">{</span></span>
+<span class="code-line">    <span class="k">public</span><span class="o">:</span></span>
+<span class="code-line">        <span class="kt">void</span> <span class="n">execute</span><span class="p">()</span> <span class="p">{</span></span>
+<span class="code-line">            <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">" Hello "</span><span class="p">;</span></span>
+<span class="code-line">        <span class="p">}</span></span>
+<span class="code-line"><span class="p">};</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">class</span> <span class="nc">World</span><span class="o">:</span><span class="k">public</span> <span class="n">Command</span><span class="p">{</span></span>
+<span class="code-line">    <span class="k">public</span><span class="o">:</span></span>
+<span class="code-line">        <span class="kt">void</span> <span class="n">execute</span><span class="p">()</span> <span class="p">{</span></span>
+<span class="code-line">            <span class="n">cout</span><span class="o">&lt;&lt;</span> <span class="s">" Word "</span><span class="p">;</span></span>
+<span class="code-line">        <span class="p">}</span></span>
+<span class="code-line"><span class="p">};</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">class</span> <span class="nc">IAm</span><span class="o">:</span><span class="k">public</span> <span class="n">Command</span><span class="p">{</span></span>
+<span class="code-line">    <span class="k">public</span><span class="o">:</span></span>
+<span class="code-line">        <span class="kt">void</span> <span class="n">execute</span><span class="p">()</span> <span class="p">{</span></span>
+<span class="code-line">            <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">" I Am the command pattern!"</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span></span>
+<span class="code-line">        <span class="p">}</span></span>
+<span class="code-line"><span class="p">};</span></span>
+<span class="code-line"></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">class</span> <span class="nc">Macro</span><span class="p">{</span></span>
+<span class="code-line">    <span class="n">vector</span><span class="o">&lt;</span><span class="n">Command</span><span class="o">*&gt;</span> <span class="n">commands</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">public</span><span class="o">:</span></span>
+<span class="code-line">    <span class="kt">void</span> <span class="n">add</span><span class="p">(</span><span class="n">Command</span><span class="o">*</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="n">commands</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">c</span><span class="p">);</span> </span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line">    <span class="kt">void</span> <span class="n">run</span><span class="p">()</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="k">for</span><span class="p">(</span> <span class="k">auto</span> <span class="n">it</span> <span class="o">=</span> <span class="n">commands</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span> <span class="p">;</span> <span class="n">it</span><span class="o">!=</span><span class="n">commands</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="o">++</span><span class="n">it</span><span class="p">){</span></span>
+<span class="code-line">        <span class="p">(</span><span class="o">*</span><span class="n">it</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">execute</span><span class="p">();</span>   </span>
+<span class="code-line">    <span class="p">}</span>   </span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"><span class="p">};</span></span>
+<span class="code-line"></span>
+<span class="code-line"></span>
+<span class="code-line"></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="n">Macro</span> <span class="n">macro</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">macro</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="k">new</span> <span class="n">Hello</span><span class="p">);</span></span>
+<span class="code-line">    <span class="n">macro</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="k">new</span> <span class="n">World</span><span class="p">);</span></span>
+<span class="code-line">    <span class="n">macro</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="k">new</span> <span class="n">IAm</span><span class="p">);</span></span>
+<span class="code-line">    <span class="n">macro</span><span class="p">.</span><span class="n">run</span><span class="p">();</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+<p>Command模式通常被使用于Undo中，它可以把undo的操作放到一个队列中，然后逐步的去完成这些操作。</p>
 <hr/>
-<h2 id="_7">模版编程</h2>
-<hr/>
-<h2 id="_8">设计模式</h2>
-<hr/>
-<h2 id="_9">并发编程</h2>
+<h2 id="_18">并发编程</h2>
 <hr/>
 <section>
 <div class="accordion" id="accordion2">
