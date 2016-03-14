@@ -1,7 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom"><title>Write the Code</title><link href="www.houcj.net/" rel="alternate"></link><link href="www.houcj.net/feeds/chaojun-hou.atom.xml" rel="self"></link><id>www.houcj.net/</id><updated>2015-12-30T16:48:00+08:00</updated><entry><title>Redis设计与实现</title><link href="www.houcj.net/blog/2015/12/30/redis/" rel="alternate"></link><updated>2015-12-30T16:48:00+08:00</updated><author><name>ChaoJun Hou</name></author><id>tag:,2015-12-30:www.houcj.net/blog/2015/12/30/redis/</id><summary type="html">&lt;hr/&gt;
 &lt;h2 id="redis"&gt;redis中的数据结构与对象&lt;/h2&gt;
-&lt;h3 id="simple-dynamic-string"&gt;simple dynamic string&lt;/h3&gt;</summary><category term="读书笔记"></category></entry><entry><title>lucence源码剖析</title><link href="www.houcj.net/blog/2015/12/23/lucence/" rel="alternate"></link><updated>2015-12-23T11:05:00+08:00</updated><author><name>ChaoJun Hou</name></author><id>tag:,2015-12-23:www.houcj.net/blog/2015/12/23/lucence/</id><summary type="html">&lt;hr/&gt;
+&lt;h3 id="simple-dynamic-string"&gt;simple dynamic string&lt;/h3&gt;
+&lt;p&gt;与原生的C语言字符串相比增加了字符串长度和空闲空间两个字段，|sdshdf|free|len|buf|，基本数据结构如下所示。&lt;/p&gt;
+&lt;h3 id="_1"&gt;对象&lt;/h3&gt;
+&lt;p&gt;redis使用对象来表示数据库中的键和值，每次向redis数据库中新创建一个键值对时，就会有两个对象被创建，即键对象和值对象。&lt;/p&gt;
+&lt;h4 id="_2"&gt;多态命令&lt;/h4&gt;
+&lt;p&gt;我们将DEL、EXPIRE、TYPE、LLEN等命令称为多态命令，即无论输入什么类型都能正确的执行。其中DEL、EXPIRE、TYPE命令是基于类型的多态&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;一个命令可以同时用于处理多种不同类型的键，而LLEN是基于编码的多态&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;一个命令可以同时用于处理多种不同步的编码。&lt;/p&gt;
+&lt;h3 id="rdb_1"&gt;RDB持久化&lt;/h3&gt;
+&lt;p&gt;因为RDB是内存服务器，它将自己的数据库状态储存在内存里面， 因此必须提供磁盘持久化的功能。可以将Redis内存中的数据库状态保存到磁盘里面，避免数据意外丢失。
+RDB持久化功能所生成的RDB文件是一个经过压缩的二进制文件，通过该文件可以还原生成RDB文件时的数据库状态。&lt;/p&gt;
+&lt;p&gt;有两个命令可以用于生成RDB文件，一个是SAVE，另一个是BGSAVE。&lt;/p&gt;
+&lt;p&gt;SAVE命令会阻塞Redis服务器进程，直到RDB文件创建完毕为止，在服务器进程阻塞期间，服务器不能处理任何命令请求。&lt;/p&gt;
+&lt;p&gt;BGSAVE命令会派生出一个子进程，然后由子进程负责创建RDB文件，服务器进程继续处理命令请求。&lt;/p&gt;
+&lt;h3 id="aof"&gt;AOF持久化&lt;/h3&gt;
+&lt;p&gt;与RDB持久化通过保存数据库中的键值对来记录数据库状态不同，AOF持久化是通过保存Redis服务器所执行的写命令那个来记录数据库状态的。&lt;/p&gt;
+&lt;p&gt;AOF持久化功能的实现可以分为追加、文件写入、文件同步三个步骤。&lt;/p&gt;
+&lt;p&gt;Redis将AOF重写程序放到子进程里执行，这样可以同时达到两个目的：
+- 子进程进行AOF重写期间，服务器进程可以继续处理命令请求。
+- 子进程带有服务器进程的数据副本，使用子进程而不是线程，可以避免在使用锁的情况下保证数据的安全性。&lt;/p&gt;
+&lt;h2 id="_4"&gt;事件&lt;/h2&gt;
+&lt;p&gt;Redis服务器是一个事件驱动程序，服务器需要处理以下两类事件：文件事件和时间事件。&lt;/p&gt;
+&lt;h3 id="_5"&gt;文件事件&lt;/h3&gt;
+&lt;p&gt;Redis基于Reactor模式开发了自己的网络事件处理器，file event handler：
+- 文件事件处理器使用IO多路复用程序来同时监听多个套接字，并根据套接字目前执行的任务来为套接字关联不同的事件处理器。
+- 当被监听的套接字准备好执行连接accept，read，write，close等操作时，与操作相对应的文件事件就会产生，这时文件事件器就会调用套接字之前关联好的事件处理器来处理这些事件。&lt;/p&gt;
+&lt;h2 id="transaction_1"&gt;事务（Transaction）&lt;/h2&gt;
+&lt;p&gt;Redis通过multi、exec、watch等命令来实现事务功能。事务提供了一种将多个命令请求打包，然后一次性、按照顺序第执行多个命令的机制，并且事务在执行期间不会被中断。&lt;/p&gt;
+&lt;h3 id="_6"&gt;事务的实现&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;事务开始&lt;/li&gt;
+&lt;li&gt;命令入队&lt;/li&gt;
+&lt;li&gt;事务执行&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="watch"&gt;watch命令&lt;/h3&gt;
+&lt;p&gt;watch命令是一个乐观锁，它可以在exec命令执行之前，监视任意数量的数据库键（保存在watched_keys中），并且在exec命令执行时检查被监视的key是否被修改，如果已经被修改，服务器就会拒绝执行事务。&lt;/p&gt;
+&lt;h3 id="acid"&gt;事务的ACID性质&lt;/h3&gt;
+&lt;p&gt;Redis的事务和传统的关系型数据库事务的最大区别在于，Redis不支持事务的回滚机制（rollback），就是说，即使事务队列中某个命令在执行期间出现了错误，整个事务也会继续执行下去。&lt;/p&gt;</summary><category term="读书笔记"></category></entry><entry><title>lucence源码剖析</title><link href="www.houcj.net/blog/2015/12/23/lucence/" rel="alternate"></link><updated>2015-12-23T11:05:00+08:00</updated><author><name>ChaoJun Hou</name></author><id>tag:,2015-12-23:www.houcj.net/blog/2015/12/23/lucence/</id><summary type="html">&lt;hr/&gt;
 &lt;p&gt;lucence是一款高性能的,可扩展的信息检索工具库。&lt;/p&gt;</summary><category term="搜索"></category></entry><entry><title>深入CPP编程</title><link href="www.houcj.net/blog/2015/12/22/thinking_in_cpp/" rel="alternate"></link><updated>2015-12-22T08:55:00+08:00</updated><author><name>ChaoJun Hou</name></author><id>tag:,2015-12-22:www.houcj.net/blog/2015/12/22/thinking_in_cpp/</id><summary type="html">&lt;hr/&gt;
 &lt;p&gt;这篇文章主要关注CPP下实用的编程技术，包括异常处理，防御性编程，模版编程，并发编程，以及设计CPP的设计模式等。&lt;/p&gt;
 &lt;h2 id="_1"&gt;异常处理&lt;/h2&gt;
@@ -606,10 +641,11 @@ Proxy controls access to its implementation, while State changes the implementat
 &lt;h2 id="_2"&gt;正排索引&lt;/h2&gt;
 &lt;hr/&gt;
 &lt;h2 id="_3"&gt;倒排索引&lt;/h2&gt;
+&lt;p&gt;lucence使用倒排数据结构的原因是：把文档中提取的语汇单元作为查询关键字，而不是将文档作为中心实体。倒排索引不是回答一个文档中包含了哪些单词，而是这个单词在哪些个文档中出现。&lt;/p&gt;
 &lt;h3 id="_4"&gt;拼写校正&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;拼写校正的原则：&lt;/strong&gt;
 1. 对于一个拼写错误的查询，在其可能的正确拼写中，选择距离最近的一个。
-2. 当连个拼写查询邻近度相等（或相近）是，选择更常见的那个&lt;/p&gt;
+2. 当两个拼写查询邻近度相等（或相近）是，选择更常见的那个。&lt;/p&gt;
 &lt;hr/&gt;
 &lt;h2 id="_6"&gt;检索&lt;/h2&gt;</summary><category term="搜索"></category></entry><entry><title>在线广告</title><link href="www.houcj.net/blog/2015/12/01/ad/" rel="alternate"></link><updated>2015-12-01T11:05:00+08:00</updated><author><name>ChaoJun Hou</name></author><id>tag:,2015-12-01:www.houcj.net/blog/2015/12/01/ad/</id><summary type="html">&lt;hr/&gt;
 &lt;h1 id="rtb"&gt;RTB&lt;/h1&gt;

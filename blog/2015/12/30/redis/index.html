@@ -12,12 +12,12 @@
 
 <meta property="og:title" content="Redis设计与实现 "/>
 <meta property="og:url" content="../../../../../blog/2015/12/30/redis/" />
-<meta property="og:description" content="redis中的数据结构与对象 simple dynamic string" />
+<meta property="og:description" content="redis中的数据结构与对象 simple dynamic string 与原生的C语言字符串相比增加了字符串长度和空闲空间两个字段，|sdshdf|free|len|buf|，基本数据结构如下所示。 对象 redis使用对象来表示数据库中的键和值，每次向redis数据库中新创建一个键值对时，就会有两个对象被创建，即键对象和值对象。 多态命令 我们将DEL、EXPIRE、TYPE、LLEN等命令称为多态命令，即无论输入什么类型都能正确的执行。其中DEL、EXPIRE、TYPE命令是基于类型的多态——————一个命令可以同时用于处理多种不同类型的键，而LLEN是基于编码的多态——————一个命令可以同时用于处理多种不同步的编码。 RDB持久化 因为RDB是内存服务器，它将自己的数据库状态储存在内存里面， 因此必须提供磁盘持久化的功能。可以将Redis内存中的数据库状态保存到磁盘里面，避免数据意外丢失。 RDB持久化功能所生成的RDB文件是一个经过压缩的二进制文件，通过该文件可以还原生成RDB文件时的数据库状态。 有两个命令可以用于生成RDB文件，一个是SAVE，另一个是BGSAVE。 SAVE命令会阻塞Redis服务器进程，直到RDB文件创建完毕为止，在服务器进程阻塞期间，服务器不能处理任何命令请求。 BGSAVE命令会派生出一个子进程，然后由子进程负责创建RDB文件，服务器进程继续处理命令请求。 AOF持久化 与RDB持久化通过保存数据库中的键值对来记录数据库状态不同，AOF持久化是通过保存Redis服务器所执行的写命令那个来记录数据库状态的。 AOF持久化功能的实现可以分为追加、文件写入 ..." />
 <meta property="og:site_name" content="Write the Code" />
 <meta property="og:article:author" content="ChaoJun Hou" />
 <meta property="og:article:published_time" content="2015-12-30T16:48:00+08:00" />
 <meta name="twitter:title" content="Redis设计与实现 ">
-<meta name="twitter:description" content="redis中的数据结构与对象 simple dynamic string">
+<meta name="twitter:description" content="redis中的数据结构与对象 simple dynamic string 与原生的C语言字符串相比增加了字符串长度和空闲空间两个字段，|sdshdf|free|len|buf|，基本数据结构如下所示。 对象 redis使用对象来表示数据库中的键和值，每次向redis数据库中新创建一个键值对时，就会有两个对象被创建，即键对象和值对象。 多态命令 我们将DEL、EXPIRE、TYPE、LLEN等命令称为多态命令，即无论输入什么类型都能正确的执行。其中DEL、EXPIRE、TYPE命令是基于类型的多态——————一个命令可以同时用于处理多种不同类型的键，而LLEN是基于编码的多态——————一个命令可以同时用于处理多种不同步的编码。 RDB持久化 因为RDB是内存服务器，它将自己的数据库状态储存在内存里面， 因此必须提供磁盘持久化的功能。可以将Redis内存中的数据库状态保存到磁盘里面，避免数据意外丢失。 RDB持久化功能所生成的RDB文件是一个经过压缩的二进制文件，通过该文件可以还原生成RDB文件时的数据库状态。 有两个命令可以用于生成RDB文件，一个是SAVE，另一个是BGSAVE。 SAVE命令会阻塞Redis服务器进程，直到RDB文件创建完毕为止，在服务器进程阻塞期间，服务器不能处理任何命令请求。 BGSAVE命令会派生出一个子进程，然后由子进程负责创建RDB文件，服务器进程继续处理命令请求。 AOF持久化 与RDB持久化通过保存数据库中的键值对来记录数据库状态不同，AOF持久化是通过保存Redis服务器所执行的写命令那个来记录数据库状态的。 AOF持久化功能的实现可以分为追加、文件写入 ...">
 
         <title>Redis设计与实现  · Change the World | Write the Code
 </title>
@@ -93,7 +93,7 @@
     <div class="span2 table-of-content">
         <nav>
         <h4>Contents</h4>
-        <div id="toc"><ul><li><a class="toc-href" href="#" title="Redis设计与实现">Redis设计与实现</a><ul><li><a class="toc-href" href="#redis" title="redis中的数据结构与对象">redis中的数据结构与对象</a><ul><li><a class="toc-href" href="#simple-dynamic-string" title="simple dynamic string">simple dynamic string</a></li></ul></li></ul></li></ul></div>
+        <div id="toc"><ul><li><a class="toc-href" href="#" title="Redis设计与实现">Redis设计与实现</a><ul><li><a class="toc-href" href="#redis" title="redis中的数据结构与对象">redis中的数据结构与对象</a><ul><li><a class="toc-href" href="#simple-dynamic-string" title="simple dynamic string">simple dynamic string</a></li><li><a class="toc-href" href="#_1" title="对象">对象</a><ul><li><a class="toc-href" href="#_2" title="多态命令">多态命令</a></li></ul></li><li><a class="toc-href" href="#rdb_1" title="RDB持久化">RDB持久化</a></li><li><a class="toc-href" href="#aof" title="AOF持久化">AOF持久化</a></li></ul></li><li><a class="toc-href" href="#_4" title="事件">事件</a><ul><li><a class="toc-href" href="#_5" title="文件事件">文件事件</a></li></ul></li><li><a class="toc-href" href="#transaction_1" title="事务（Transaction）">事务（Transaction）</a><ul><li><a class="toc-href" href="#_6" title="事务的实现">事务的实现</a></li><li><a class="toc-href" href="#watch" title="watch命令">watch命令</a></li><li><a class="toc-href" href="#acid" title="事务的ACID性质">事务的ACID性质</a></li></ul></li></ul></li></ul></div>
         </nav>
     </div>
     <div class="span8 article-content">
@@ -101,6 +101,41 @@
             <hr/>
 <h2 id="redis">redis中的数据结构与对象</h2>
 <h3 id="simple-dynamic-string">simple dynamic string</h3>
+<p>与原生的C语言字符串相比增加了字符串长度和空闲空间两个字段，|sdshdf|free|len|buf|，基本数据结构如下所示。</p>
+<h3 id="_1">对象</h3>
+<p>redis使用对象来表示数据库中的键和值，每次向redis数据库中新创建一个键值对时，就会有两个对象被创建，即键对象和值对象。</p>
+<h4 id="_2">多态命令</h4>
+<p>我们将DEL、EXPIRE、TYPE、LLEN等命令称为多态命令，即无论输入什么类型都能正确的执行。其中DEL、EXPIRE、TYPE命令是基于类型的多态&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;一个命令可以同时用于处理多种不同类型的键，而LLEN是基于编码的多态&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;一个命令可以同时用于处理多种不同步的编码。</p>
+<h3 id="rdb_1">RDB持久化</h3>
+<p>因为RDB是内存服务器，它将自己的数据库状态储存在内存里面， 因此必须提供磁盘持久化的功能。可以将Redis内存中的数据库状态保存到磁盘里面，避免数据意外丢失。
+RDB持久化功能所生成的RDB文件是一个经过压缩的二进制文件，通过该文件可以还原生成RDB文件时的数据库状态。</p>
+<p>有两个命令可以用于生成RDB文件，一个是SAVE，另一个是BGSAVE。</p>
+<p>SAVE命令会阻塞Redis服务器进程，直到RDB文件创建完毕为止，在服务器进程阻塞期间，服务器不能处理任何命令请求。</p>
+<p>BGSAVE命令会派生出一个子进程，然后由子进程负责创建RDB文件，服务器进程继续处理命令请求。</p>
+<h3 id="aof">AOF持久化</h3>
+<p>与RDB持久化通过保存数据库中的键值对来记录数据库状态不同，AOF持久化是通过保存Redis服务器所执行的写命令那个来记录数据库状态的。</p>
+<p>AOF持久化功能的实现可以分为追加、文件写入、文件同步三个步骤。</p>
+<p>Redis将AOF重写程序放到子进程里执行，这样可以同时达到两个目的：
+- 子进程进行AOF重写期间，服务器进程可以继续处理命令请求。
+- 子进程带有服务器进程的数据副本，使用子进程而不是线程，可以避免在使用锁的情况下保证数据的安全性。</p>
+<h2 id="_4">事件</h2>
+<p>Redis服务器是一个事件驱动程序，服务器需要处理以下两类事件：文件事件和时间事件。</p>
+<h3 id="_5">文件事件</h3>
+<p>Redis基于Reactor模式开发了自己的网络事件处理器，file event handler：
+- 文件事件处理器使用IO多路复用程序来同时监听多个套接字，并根据套接字目前执行的任务来为套接字关联不同的事件处理器。
+- 当被监听的套接字准备好执行连接accept，read，write，close等操作时，与操作相对应的文件事件就会产生，这时文件事件器就会调用套接字之前关联好的事件处理器来处理这些事件。</p>
+<h2 id="transaction_1">事务（Transaction）</h2>
+<p>Redis通过multi、exec、watch等命令来实现事务功能。事务提供了一种将多个命令请求打包，然后一次性、按照顺序第执行多个命令的机制，并且事务在执行期间不会被中断。</p>
+<h3 id="_6">事务的实现</h3>
+<ul>
+<li>事务开始</li>
+<li>命令入队</li>
+<li>事务执行</li>
+</ul>
+<h3 id="watch">watch命令</h3>
+<p>watch命令是一个乐观锁，它可以在exec命令执行之前，监视任意数量的数据库键（保存在watched_keys中），并且在exec命令执行时检查被监视的key是否被修改，如果已经被修改，服务器就会拒绝执行事务。</p>
+<h3 id="acid">事务的ACID性质</h3>
+<p>Redis的事务和传统的关系型数据库事务的最大区别在于，Redis不支持事务的回滚机制（rollback），就是说，即使事务队列中某个命令在执行期间出现了错误，整个事务也会继续执行下去。</p>
 <section>
 <div class="accordion" id="accordion2">
     <div class="accordion-group">
